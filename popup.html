@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body style="width: 540px;">
+  <h1>Prompt Generator(a版)</h1>
+  <div class="tab-panel">
+    <!--タブ-->
+    <ul class="tab-group">
+      <li class="tab tab-A is-active">検索</li>
+      <li class="tab tab-C" id="addTab">辞書</li>
+      <li class="tab tab-B" id="editTab">編集</li>
+      <li class="tab tab-D" id="noticeTab">その他</li>
+    </ul>
+    <input type="text" id="generatePrompt">
+    <input type="button" id="copyButton" value="Copy">
+    <input type="button" id="clearButton" value="Clear">
+    <input type="button" id="saveButton" value="Save">
+    <label><input type="radio" name="UIType" value="SD"> StableDiffusion</label>
+    <label><input type="radio" name="UIType" value="NAI"> NovelAI</label>
+    <label><input type="radio" name="UIType" value="None"> 自動整形無し</label>
+    <br />
+    <br />
+    <!--タブを切り替えて表示するコンテンツ-->
+    <div class="panel-group">
+      <div class="panel is-show" id="searchTabBody">
+        <h2>キーワード検索</h2>
+        <input type="text" size=25 id="search" value="">
+        <input type="button" id="searchButton" value="検索">
+        <h2>ドロップダウン検索</h2>
+        <ul style="font-size:100%">
+          <li><input value="大項目" type="text" readonly="" class="promptData"
+              style="background-color: black; color: white;"><input value="中項目" type="text" readonly=""
+              class="promptData" style="background-color: black; color: white;"></li>
+          <li>
+            <div class="dropdown-container">
+              <select id="search-cat0" disabled>
+              </select>
+              <select id="search-cat1" disabled>
+              </select>
+            </div>
+            <input type="button" id="search-cat-reset" value="リセット">
+          </li>
+        </ul>
+        <hr>
+        <p id="isSearch" style="font-size: 100%;"></p>
+        <ul style="font-size:100%" id="promptList"></ul>
+      </div>
+      <div class="panel" id="addTabBody">
+        <br>
+        <div id="promptDicText">▶プロンプト辞書　※ここをクリックで開閉</div>
+        <ul style="font-size:100%" id="archiveList"></ul>
+        <hr>
+        <h2>要素の追加</h2>
+        <ul style="font-size:100%">
+          <li><input value="大項目" type="text" readonly="" class="promptData"
+              style="background-color: black; color: white;"><input value="中項目" type="text" readonly=""
+              class="promptData" style="background-color: black; color: white;"><input value="小項目" type="text"
+              readonly="" class="promptData" style="background-color: black; color: white;"><input value="Prompt"
+              type="text" readonly="" class="promptData" style="background-color: black; color: white;"></li>
+          <li><input type="text" size=2 id="big" class="promptData"><input type="text" size=2 id="middle"
+              class="promptData"><input type="text" size=2 id="small" class="promptData"><input type="text" size=2
+              id="prompt" class="promptData"><input type="button" id="resist" value="追加">
+          </li>
+        </ul>
+        <div id="elementDicText">▶要素辞書(ローカル)　※ここをクリックで開閉</div>
+        <ul style="font-size:100%" id="addPromptList"></ul>
+        <div id="masterDicText">▶要素辞書(マスタ)　※ここをクリックで開閉</div>
+        <ul style="font-size:100%" id="masterDicList"></ul>
+      </div>
+      <div class="panel" id="editTabBody">
+        <label><input type="radio" name="EditType" value="SELECT"> 選択編集モード</label>
+        <label><input type="radio" name="EditType" value="TEXT"> テキスト編集モード</label>
+        <ul style="font-size:100%" id="editList"></ul>
+      </div>
+      <div class="panel" id="noticeBody">
+        <p>お知らせ</p>
+        <p id="notice"></p>
+        <div id="inclued" class="drop-area">
+          <p id="incluedText">辞書か画像を読みこむ (クリックして選択かドラッグドロップ)</p>
+        </div>
+        <img id="preview">
+        <div id="pngInfo"></div>
+      </div>
+    </div>
+  </div>
+  <div id="popup" style="align-items: center;">
+    <img id="popup-image" src="https://ul.h3z.jp/bfuGQIw4.png" style="flex-grow: 1; padding: 10px;">
+    <div style="flex-grow: 1; padding: 10px;">
+      <p>イメージとなります。数が膨大なため精査しておらず、正確なものでは有りません。</p>
+      <p>画像をクリックして閉じることができます。</p>
+      <p>Model Anytihng V3 Method DPM++ 2M scale 7</p>
+      <p id="preview-element"></p>
+      <p>Prompt</p>
+      <input type="text" id="preview-prompt" value="" readonly>
+      <button id="preview-positive-copy">Copy</button>
+      <p>Negative Prompt</p>
+      <input type="text" id="negative-prompt"
+        value="disfigured.bad anatomy disfigured,jpeg artifacts,error,gross,shit,bad,bad proportions,bad shadow,bad anatomy disfigured,bad shoes,bad gloves,bad animal ears,anatomical nonsense,watermark,five fingers,worst quality,bad anatomy,ugly,cropped,simple background,normal quality,lowers,low quality,polar lowres,standard quality,poorly drawn hands,boken limb,missing limbs,malformed limbs,incorrect limb,fusion hand,bad finglegs,abnormal fingers,missing fingers,fewer digits,too many fingers,extra digit,lose finger,extra fingers,one hand with more than 5 digit,one hand with less than 5 digit,one hand with more than 5 fingers,one hand with less than 5 fingers,3d character,qr code,ui,artist name,signature,text error,text font ui,bar code,username,bad digit,liquid digit,missing digit,fewer digits,multiple digit,text,fused digit,extra digt,extra digits,extra digit,nsfw"
+        readonly>
+      <button id="preview-negative-copy">Copy</button>
+    </div>
+  </div>
+  <div id="optionPanel">
+    <br>
+    <br>
+    <br>
+    <br>
+    <label><input type="checkbox" id="isDeleteCheck" value="isDeleteCheck">項目の削除時に確認をする</label><br>
+    <label>DeepLAPIキー<br><input type="password" size=25 id="DeeplAuth" value=""></label><br>
+    <label><input type="button" id="PromptDownload" value="プロンプト辞書ダウンロード"></label>
+    <label><input type="button" id="localDicDownload" value="要素辞書(ローカル)ダウンロード"></label>
+    <label><input type="button" id="MasterDownload" value="要素辞書(マスタ)ダウンロード"></label><br>
+    <label><input type="button" id="resetButton" value="すべてリセットし初期化する"></label><br>
+  </div>
+  <button id="show-panel">Option</button>
+  <datalist id="category">
+  </datalist>
+  <script src="jquery-3.5.1.js"></script>
+  <script src="jquery-ui.js"></script>
+  <script src="categoryData.js"></script>
+  <script src="editPrompt-script.js"></script>
+  <script src="globalData-script.js"></script>
+  <script src="webApi-script.js"></script>
+  <script src="popup_script.js"></script>
+</body>
+
+</html>

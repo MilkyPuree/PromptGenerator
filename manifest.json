@@ -1,0 +1,31 @@
+﻿{
+  "name": "PromptGenerator",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "PromptGenerator",
+  "host_permissions": [
+    "http://127.0.0.1:7860/",
+    "https://script.google.com/macros/s/*",
+    "https://novelai.net/image"
+  ],
+  "permissions": [
+		"background",
+    "contextMenus",
+    "activeTab",
+    "storage",
+    "fileSystem",
+    "scripting"
+  ],
+  "background": { 
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "PromptGenerator",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "icon.png",
+      "64": "icon64.png",
+      "128": "icon128.png"
+    }
+  }
+}
