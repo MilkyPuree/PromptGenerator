@@ -103,18 +103,32 @@ function loadOptionData() {
 
     const uiTypeButtons = $('[name="UIType"]');
 
-    switch (optionData.shaping) {
-      case "SD":
-        uiTypeButtons.eq(0).prop('checked', true);
-        break;
-      case "NAI":
-        uiTypeButtons.eq(1).prop('checked', true);
-        break;
-      case "None":
-        uiTypeButtons.eq(2).prop('checked', true);
-        break;
-    }
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      var currentUrl = tabs[0].url;
+      if(currentUrl == "http://127.0.0.1:7860/"){
+        optionData.shaping = "SD"
+        editPrompt.generate()
+        UpdateGenaretePrompt()
+      }else if(currentUrl == "https://novelai.net/image"){
+        optionData.shaping = "NAI"
+        editPrompt.generate()
+        UpdateGenaretePrompt()
+      }
+      console.log(currentUrl);
 
+      switch (optionData.shaping) {
+        case "SD":
+          uiTypeButtons.eq(0).prop('checked', true);
+          break;
+        case "NAI":
+          uiTypeButtons.eq(1).prop('checked', true);
+          break;
+        case "None":
+          uiTypeButtons.eq(2).prop('checked', true);
+          break;
+      }
+    });
+    
     const editTypeButtons = $('[name="EditType"]');
     switch (optionData.editType) {
       case "SELECT":
