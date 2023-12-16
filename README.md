@@ -7,8 +7,8 @@ https://twitter.com/milky_puree
 また検索機能で検索されたワードは、今後の辞書更新に活かす可能性があるため
 ワードのみ収集しています。
 
-処理の個所としては、下記部分となります。
-webApi-script.js 中の SearchLogAPI　
+処理の個所としては、webApi-script.js 中の SearchLogAPI　となります。
+　
 
 こちらにてワード以外の情報は取得してないことがわかるかと思います。
 
