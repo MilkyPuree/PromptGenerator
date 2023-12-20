@@ -112,6 +112,7 @@ function loadOptionData() {
       }else if(currentUrl == "https://novelai.net/image"){
         optionData.shaping = "NAI"
         editPrompt.generate()
+        $("#GeneratoButton").show();
         UpdateGenaretePrompt()
       }
       console.log(currentUrl);

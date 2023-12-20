@@ -162,7 +162,7 @@ button {
     top: 0;
     right: -50%;
     /* パネルを非表示にする */
-    width: 50%;
+    width: 40%;
     height: 100vh;
     /* 画面の高さいっぱいにする */
     background-color: #fff;
@@ -176,9 +176,23 @@ button {
 }
 
 #show-panel {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #GeneratoButton {
+    position: fixed;
+    top: 0;
+    right: 90px;
     margin: 20px;
     padding: 10px 20px;
     background-color: #4CAF50;

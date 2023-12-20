@@ -34,6 +34,12 @@ let editPrompt = {
     this.elements[index] = this.createElement(this.elements[index][optionData.shaping].value, weight)
     this.generate()
   },
+  addWeight: function (weight, index) {
+    weight += parseFloat(this.elements[index][optionData.shaping].weight)
+    weight = Math.floor(weight * 100) / 100
+    this.elements[index] = this.createElement(this.elements[index][optionData.shaping].value,weight)
+    this.generate()
+  },
   removeElement: function (index) {
     this.elements.splice(index, 1)
     this.generate()
@@ -51,8 +57,11 @@ let editPrompt = {
     this.generate()
   },
   createElement: function (prompt, weight) {
+    console.log(weight)
     let element = {}
-    if (weight) {
+    if (weight === undefined) {
+      element.Weight = this.getWeight(prompt);
+    } else {
       switch (optionData.shaping) {
         case "SD":
         case "None":
@@ -62,8 +71,6 @@ let editPrompt = {
           element.Weight = this.convertSDWeight(weight);
           break;
       }
-    } else {
-      element.Weight = this.getWeight(prompt);
     }
     element.Value = this.getbaseValue(prompt)
 
@@ -132,6 +139,7 @@ let editPrompt = {
     return (Math.log(weight) / Math.log(1.05)).toFixed(0);
   },
   convertSDWeight: function (weight) {
+    console.log(weight)
     return parseFloat((1.05 ** weight).toFixed(2));
   },
   getSDTypeWight: function (str) {

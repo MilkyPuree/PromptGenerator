@@ -5,6 +5,7 @@ let mouseCursorValue = ""
 init()
 
 function init() {
+  loadPrompt()
   categoryData.init()
   loadMasterPrompt()
   loadToolInfo()
@@ -74,7 +75,10 @@ function init() {
   $("#PromptDownload").on('click', () => jsonDownload(archivesList, "Prompts"));
   $("#MasterDownload").on('click', () => jsonDownload(masterPrompts, "Elements"));
   $("#copyButton").on('click', function () {
-    navigator.clipboard.writeText(generateInput.val());
+    let temp = editPrompt.prompt
+    editPrompt.init(value)
+    navigator.clipboard.writeText(editPrompt.prompt)
+    editPrompt.init(temp)
   });
 
   $("#clearButton").on('click', function () {
@@ -83,6 +87,10 @@ function init() {
     savePrompt();
   });
 
+  $("#GeneratoButton").on('click', () => {
+    Generate();
+  });
+  
   $("#resist").on('click', () => {
     const big = $("#big").val();
     const middle = $("#middle").val();
@@ -152,6 +160,7 @@ function init() {
 
   generateInput.on("paste", function () {
     editPrompt.init(generateInput.val())
+    UpdateGenaretePrompt()
     if (currentTab == 3) {
       editInit()
     }
@@ -170,11 +179,25 @@ function init() {
   });
 
   // 読み込み
-  loadPrompt()
   loadLocalList()
   loadArchivesList()
   loadCategory()
 }
+
+function sendBackground(survice,execType,value){
+  chrome.runtime.sendMessage(
+    { args: [survice,execType,value] },
+    function (response) {
+      console.log(response.text); 
+    }
+  );
+}
+
+
+function Generate(){
+  sendBackground("DOM","Generate",generatePrompt.value);
+}
+
 
 function setSeachCategory(){
   let isSearch = false
@@ -448,7 +471,7 @@ function createRegistButton(inputData, prompt) {
 function createAddButton(name, value) {
   let button = document.createElement('button');
   button.type = "submit";
-  button.innerHTML = "+";
+  button.innerHTML = "Set";
   button.onclick = () => {
   editPrompt.init(generateInput.val() + value)
   generateInput.val(editPrompt.prompt);
@@ -604,6 +627,18 @@ function createRemovePromptButton(index) {
   return button;
 }
 
+function createWeightPromptButton(index,text,value) {
+  let button = document.createElement('button');
+  button.type = "submit";
+  button.innerHTML = text;
+  button.onclick = () => {
+    editPrompt.addWeight(value, index)
+    UpdateGenaretePrompt()
+    editInit()
+  };
+  return button;
+}
+
 function resetHtmlList(listId) {
   let targetList = $(listId).get(0);
   targetList.innerHTML = "";
@@ -627,7 +662,7 @@ function createSearchList(json, listId, isSave) {
     }
     li.append(...inputData);
     li.append(createInputData(item.prompt));
-    li.append(createAddButton("+", item.prompt + ","));
+    li.append(createAddButton("Set", item.prompt + ","));
     li.append(createCopyButton(item.prompt));
 
     if (isSave) {
@@ -667,7 +702,7 @@ function createAddList(json, listId) {
     },function(){
       saveLocalList()
     }));
-    li.append(createAddButton("+", item.prompt + ","));
+    li.append(createAddButton("Set", item.prompt + ","));
     li.append(createCopyButton(item.prompt));
     if (item.url) {
       li.append(createOpenImageButton(item));
@@ -677,7 +712,7 @@ function createAddList(json, listId) {
       localPromptList[index].sort = index;
       li.attr('id', parseInt(index));
       li.addClass('ui-sortable-handle');
-      li.append(createDragableIcon(index, ":::::::::"));
+      li.append(createDragableIcon(index, "◆"));
     }
     $(listId).eq(0).append(li);
   });
@@ -731,7 +766,7 @@ function createEditList(json, listId) {
     li.append(createRemovePromptButton(index));
     li.attr('id', parseInt(index));
     li.addClass('ui-sortable-handle');
-    li.append(createDragableIcon(index, ":::::::::"));
+    li.append(createDragableIcon(index, "◆"));
 
     $(listId).eq(0).append(li);
   });
@@ -782,6 +817,24 @@ function createEditDropdownList(json, listId) {
     li.append(valueInput);
     if (weight) {
       li.append(weightInput);
+    }
+
+    let addValue = 0;
+    let canWeighting = true;
+    switch(optionData.shaping){
+      case "SD":
+        addValue = 0.1;
+        break;
+      case "NAI":
+        addValue = 1;
+        break;
+      case "None":
+        canWeighting = false;
+        break;
+    }
+    if(canWeighting){
+      li.append(createWeightPromptButton(index,"+",addValue));
+      li.append(createWeightPromptButton(index,"-",-addValue));
     }
     li.append(createRemovePromptButton(index));
     
@@ -842,7 +895,7 @@ function createEditDropdownList(json, listId) {
 
     li.attr('id', parseInt(index));
     li.addClass('ui-sortable-handle');
-    li.append(createDragableIcon(index, ":::::::::"));
+    li.append(createDragableIcon(index, "◆"));
 
     $(listId).eq(0).append(li);
   });
