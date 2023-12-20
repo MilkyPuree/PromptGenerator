@@ -9,7 +9,7 @@ function loadMessage() {
           case "latestToolVer":
             if (toolVersion < item.value) {
               $('#noticeTab').addClass('is-alert');
-              $("#notice").text("最新のバージョンがあります");
+              $("#notice").html("最新のバージョンがあります</br><a href ='https://github.com/MilkyPuree/PromptGenerator' target='_blank'>Githubにて最新のものが取得できます。</a>");
             }
             break;
           case "isAlert":
