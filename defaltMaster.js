@@ -1,4 +1,5 @@
-let defalutMaster = [
+let defalutMaster = {version : 1,
+data : [  
   {
     "0": "エフェクト",
     "1": "エフェクト",
@@ -27642,4 +27643,4 @@ let defalutMaster = [
     "3": "fishnets",
     "4": ""
   }
-]
+]}

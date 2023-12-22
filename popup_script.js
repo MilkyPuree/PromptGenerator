@@ -5,9 +5,9 @@ let mouseCursorValue = ""
 init()
 
 function init() {
+  loadMasterPrompt()
   loadPrompt()
   categoryData.init()
-  loadMasterPrompt()
   loadToolInfo()
   loadOptionData()
   // イベントの登録
@@ -158,8 +158,14 @@ function init() {
     }
   });
 
-  generateInput.on("paste", function () {
-    editPrompt.init(generateInput.val())
+  generateInput.on("paste", function (e) {
+    var pasted = undefined;
+    if (window.clipboardData && window.clipboardData.getData) {
+      pasted = window.clipboardData.getData('Text');
+    } else if (e.originalEvent.clipboardData && e.originalEvent.clipboardData.getData) {
+      pasted = e.originalEvent.clipboardData.getData('text/plain');
+    }
+    editPrompt.init(pasted)
     UpdateGenaretePrompt()
     if (currentTab == 3) {
       editInit()
@@ -957,7 +963,6 @@ function tabSwitch() {
 function inputClear(input) {
   input.mouseenter(function () {
     mouseCursorValue = $(this).val()
-    console.log(mouseCursorValue)
     $(this).val('');
     $(this).mouseleave(function () {
       if ($(this).val() === '') {

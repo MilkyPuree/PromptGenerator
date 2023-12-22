@@ -67,33 +67,16 @@ function translateDeepl(keyword, translateEvent) {
 }
 
 function masterDicDownload(jsonURL) {
-  masterPrompts = []
-  jsonLoop(defalutMaster, (data) => {
-    masterPrompts.push({ "prompt": data[3], "data": { 0: data[0], 1: data[1], 2: data[2] }, "url": data[4] })
-  })
-  saveMasterPrompt()
-  categoryData.update()
-  optionData.masterUrl = jsonURL
-  saveOptionData()
-
-  // if(optionData.masterUrl == jsonURL){
-  //   return
-  // }
-  // const xhr = new XMLHttpRequest();
-  // xhr.open("GET", jsonURL, true);
-  // xhr.onreadystatechange = function () {
-  //   if (xhr.readyState === 4 && xhr.status === 200) {
-  //     const jsonData = JSON.parse(xhr.responseText);
-  //     masterPrompts = []
-  //     jsonLoop(jsonData, (data) => {
-  //       masterPrompts.push({ "prompt": data[3], "data": { 0: data[0], 1: data[1], 2: data[2] }, "url": data[4] })
-  //     })
-  //     saveMasterPrompt()
-  //     categoryData.update()
-  //     optionData.masterUrl = jsonURL
-  //     saveOptionData()
-  //   }
-  // };
-  // xhr.send();
+  if(masterVersion != defalutMaster.version){
+    masterVersion = defalutMaster.version
+    masterPrompts = []
+    jsonLoop(defalutMaster.data, (data) => {
+      masterPrompts.push({ "prompt": data[3], "data": { 0: data[0], 1: data[1], 2: data[2] }, "url": data[4] })
+    })
+    saveMasterPrompt()
+    categoryData.update()
+    optionData.masterUrl = jsonURL
+    saveOptionData()
+  }
 };
 

@@ -4,6 +4,7 @@ let editPrompt = {
   elements: [],
   isOldSD: false,
   init: function (str) {
+    console.log(str)
     this.isOldSD = /\(\(/.test(str)
     this.elements = []
     let tempList = str.split(',').map(item => item.trim().replace(/\s{2,}/g, ' ')).filter(item => item !== '');
@@ -57,7 +58,6 @@ let editPrompt = {
     this.generate()
   },
   createElement: function (prompt, weight) {
-    console.log(weight)
     let element = {}
     if (weight === undefined) {
       element.Weight = this.getWeight(prompt);

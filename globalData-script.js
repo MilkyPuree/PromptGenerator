@@ -1,10 +1,11 @@
-const toolVersion = 3
+const toolVersion = 4
 let localPromptList = []
 let archivesList = []
 let masterPrompts = []
 let optionData = {}
 let toolInfo = {}
 let searchCategory = {}
+let masterVersion = 0
 
 // データ保存
 function savePrompt() {
@@ -15,7 +16,6 @@ function savePrompt() {
 function loadPrompt() {
   chrome.storage.local.get(["generatePrompt"], function (items) {
     if (items.generatePrompt != null)
-      console.log(items.generatePrompt)
       InitGenaretePrompt(items.generatePrompt)
   });
 }
@@ -35,6 +35,7 @@ chrome.storage.local.get(["searchCategory"], function (items) {
 
 function saveMasterPrompt() {
   chrome.storage.local.set({ 'masterPrompts': masterPrompts });
+  chrome.storage.local.set({ 'masterVersion': masterVersion });  
 }
 
 function loadMasterPrompt() {
@@ -42,6 +43,12 @@ function loadMasterPrompt() {
     if (items.masterPrompts != null)
       masterPrompts = items.masterPrompts
   });
+
+  chrome.storage.local.get(["masterVersion"], function (items) {
+    if (items.masterVersion != null)
+      masterVersion = items.masterVersion
+    });
+
 }
 
 function saveToolInfo() {
