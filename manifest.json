@@ -14,7 +14,8 @@
     "activeTab",
     "storage",
     "fileSystem",
-    "scripting"
+    "scripting",
+    "https://drive.google.com/"
   ],
   "background": { 
     "service_worker": "background.js"

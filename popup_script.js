@@ -1026,6 +1026,15 @@ function readDicFile(file) {
           window.alert(addCount.toString() + "件のプロンプト辞書の読み込みが完了しました");
         }
         break;
+      case "Master":
+        console.log("Master"); // 読み込んだJSONデータをコンソールに表示する
+        masterPrompts = []
+        jsonLoop(content.data, (data) => {
+          masterPrompts.push({ "prompt": data[3], "data": { 0: data[0], 1: data[1], 2: data[2] }, "url": data[4] })
+        })
+        saveMasterPrompt()
+        categoryData.update()
+        break;
       default:
         break;
     }
