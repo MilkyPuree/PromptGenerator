@@ -114,15 +114,13 @@ function loadOptionData() {
       var currentUrl = tabs[0].url;
       if(currentUrl == "http://127.0.0.1:7860/"){
         optionData.shaping = "SD"
-        editPrompt.generate()
-        UpdateGenaretePrompt()
       }else if(currentUrl == "https://novelai.net/image"){
-        optionData.shaping = "NAI"
-        editPrompt.generate()
         $("#GeneratoButton").show();
-        UpdateGenaretePrompt()
+        optionData.shaping = "NAI"
       }
-      console.log(currentUrl);
+      editPrompt.generate()
+      UpdateGenaretePrompt()
+    console.log(currentUrl);
 
       switch (optionData.shaping) {
         case "SD":

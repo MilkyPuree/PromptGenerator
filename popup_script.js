@@ -145,27 +145,17 @@ function init() {
   });
 
   generateInput.on("input", function () {
+    console.log(generateInput.val())
     editPrompt.init(generateInput.val())
+    UpdateGenaretePrompt()
     if (currentTab == 3) {
       editInit()
     }
   });
 
-  generateInput.on("change", function () {
+  generateInput.on("change", function (e) {
+    console.log(generateInput.val())
     editPrompt.init(generateInput.val())
-    if (currentTab == 3) {
-      editInit()
-    }
-  });
-
-  generateInput.on("paste", function (e) {
-    var pasted = undefined;
-    if (window.clipboardData && window.clipboardData.getData) {
-      pasted = window.clipboardData.getData('Text');
-    } else if (e.originalEvent.clipboardData && e.originalEvent.clipboardData.getData) {
-      pasted = e.originalEvent.clipboardData.getData('text/plain');
-    }
-    editPrompt.init(pasted)
     UpdateGenaretePrompt()
     if (currentTab == 3) {
       editInit()
