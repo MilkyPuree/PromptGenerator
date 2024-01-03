@@ -1,3 +1,6 @@
+let PositivePromptTextSelector;
+let GenerateButtonSelector;
+
 const toolInfoAPI = "https://script.google.com/macros/s/AKfycbz620nLVd7jBJBdpZNy-ge13tBZQR_tCq2VIqIJfH3dZFJ6fZlwvXnRmJh5jSXZkXTR/exec"
 function loadMessage() {
   fetch(toolInfoAPI)
@@ -22,6 +25,12 @@ function loadMessage() {
             break;
           case "latestDicUrl":
             masterDicDownload(item.value);
+            break;
+          case "noverAIpositivePromptText":
+            PositivePromptTextSelector = (item.value);
+            break;
+          case "novelAIgenerateButton":
+            GenerateButtonSelector = (item.value);
             break;
         }
         toolInfo[item.title]=item.value

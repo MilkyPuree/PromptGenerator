@@ -114,18 +114,15 @@ function NovelAI(arg) {
 
     let method = arg[1]
     let value = arg[2];
-    let positivePromptText1 = document.querySelector("#__next > div.sc-5db1afd3-0.fgpNYC > div:nth-child(4) > div.sc-9aa632a0-0.hvqrJj > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(2) > textarea");
-    let positivePromptText2 = document.querySelector("#__next > div.sc-5db1afd3-0.fgpNYC > div:nth-child(4) > div:nth-child(2) > div:nth-child(3) > div.sc-9aa632a0-28.kAXIWp > div > div > div > div:nth-child(2) > textarea");
-    let generateButton = document.querySelector("#__next > div.sc-5db1afd3-0.fgpNYC > div:nth-child(4) > div.sc-9aa632a0-0.hvqrJj > div:nth-child(5) > button");
-
+    let positivePromptText = document.querySelector(arg[3]);
+    let generateButton = document.querySelector(arg[4]);
+    
     switch(method){
         case "Generate":{
-            positivePromptText1.value = value;
-            positivePromptText1.innerHTML = value;
-            positivePromptText2.value = value;
-            positivePromptText2.innerHTML = value;
+            positivePromptText.value = value;
+            positivePromptText.innerHTML = value;
             const event = new Event('change', { bubbles: true });
-            positivePromptText1.dispatchEvent(event);
+            positivePromptText.dispatchEvent(event);
             generateButton.click();
             break;
         }

@@ -180,9 +180,9 @@ function init() {
   loadCategory()
 }
 
-function sendBackground(survice,execType,value){
+function sendBackground(survice,execType,value1,value2,value3){
   chrome.runtime.sendMessage(
-    { args: [survice,execType,value] },
+    { args: [survice,execType,value1,value2,value3] },
     function (response) {
       console.log(response.text); 
     }
@@ -191,7 +191,7 @@ function sendBackground(survice,execType,value){
 
 
 function Generate(){
-  sendBackground("DOM","Generate",generatePrompt.value);
+  sendBackground("DOM","Generate",generatePrompt.value,PositivePromptTextSelector,GenerateButtonSelector);
 }
 
 
