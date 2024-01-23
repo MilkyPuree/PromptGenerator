@@ -8,8 +8,8 @@ function init() {
   loadMasterPrompt()
   loadPrompt()
   categoryData.init()
-  loadToolInfo()
   loadOptionData()
+  loadToolInfo()
   // イベントの登録
   const tabs = $('.tab');
   tabs.on('click', tabSwitch);
@@ -184,7 +184,6 @@ function sendBackground(survice,execType,value1,value2,value3){
   chrome.runtime.sendMessage(
     { args: [survice,execType,value1,value2,value3] },
     function (response) {
-      console.log(response.text); 
     }
   );
 }

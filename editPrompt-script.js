@@ -25,7 +25,11 @@ let editPrompt = {
       if (a.sort > b.sort) {return 1;}
       return 0;
     });
-    this.prompt = sortedElements.map(item => item[optionData.shaping].value).join(",")+",";
+    let shap = "None"
+    if(optionData){
+      shap = optionData.shaping;
+    }
+    this.prompt = sortedElements.map(item => item[shap].value).join(",")+",";
   },
   editingValue: function (value, index) {
     this.elements[index] = this.createElement(value)

@@ -1,5 +1,5 @@
-let PositivePromptTextSelector;
-let GenerateButtonSelector;
+let PositivePromptTextSelector = null;
+let GenerateButtonSelector = null;
 
 const toolInfoAPI = "https://script.google.com/macros/s/AKfycbz620nLVd7jBJBdpZNy-ge13tBZQR_tCq2VIqIJfH3dZFJ6fZlwvXnRmJh5jSXZkXTR/exec"
 function loadMessage() {
@@ -28,9 +28,15 @@ function loadMessage() {
             break;
           case "noverAIpositivePromptText":
             PositivePromptTextSelector = (item.value);
+            if(optionData.shaping == "NAI" && GenerateButtonSelector != null){
+              $("#GeneratoButton").show();
+            }
             break;
           case "novelAIgenerateButton":
             GenerateButtonSelector = (item.value);
+            if(optionData.shaping == "NAI" && PositivePromptTextSelector != null){
+              $("#GeneratoButton").show();
+            }
             break;
         }
         toolInfo[item.title]=item.value

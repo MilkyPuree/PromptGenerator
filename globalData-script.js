@@ -2,7 +2,7 @@ const toolVersion = 5
 let localPromptList = []
 let archivesList = []
 let masterPrompts = []
-let optionData = {}
+let optionData = null
 let toolInfo = {}
 let searchCategory = {}
 let masterVersion = 0
@@ -115,7 +115,6 @@ function loadOptionData() {
       if(currentUrl == "http://127.0.0.1:7860/"){
         optionData.shaping = "SD"
       }else if(currentUrl == "https://novelai.net/image"){
-        $("#GeneratoButton").show();
         optionData.shaping = "NAI"
       }
       editPrompt.generate()
