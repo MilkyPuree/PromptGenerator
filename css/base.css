@@ -1,0 +1,335 @@
+/* 基本スタイル */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal),
+    color var(--transition-normal);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  /* min-height設定を削除 - Chrome拡張機能では不要 */
+  overflow-y: auto; /* スクロールを元に戻す */
+}
+
+/* ブラウザの自動補完ドロップダウンを非表示にする */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* 自動補完のドロップダウンリストを非表示 */
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[autocomplete="off"]::-webkit-credentials-auto-fill-button,
+input[autocomplete="off"]::-webkit-strong-password-auto-fill-button {
+  display: none !important;
+}
+
+/* 共通アクセントライン（虹色グラデーション） */
+.accent-line::before,
+.accent-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-success), var(--accent-warning));
+}
+
+.accent-line-top::before {
+  top: 0;
+}
+
+.accent-line-bottom::after {
+  bottom: 0;
+}
+
+/* メインコンテンツエリア - ヘッダー分の上マージンを追加 */
+.panel-group {
+  margin-top: calc(var(--header-height) + var(--spacing-sm)); /* ヘッダーの高さ + 安全な余白 */
+  padding-top: var(--spacing-sm); /* 追加の余白 */
+  padding-bottom: var(--spacing-sm); /* 下部の余白を最小限に */
+  /* min-height設定を削除 - コンテンツに応じて自動調整 */
+}
+
+/* 狭い画面でのヘッダー高さ調整 */
+@media (max-width: 520px) {
+  .panel-group {
+    margin-top: calc(var(--header-height-small) + var(--spacing-sm)); /* 小さめ画面でのヘッダー高さ + 安全な余白 */
+  }
+}
+
+@media (max-width: 400px) {
+  .panel-group {
+    margin-top: calc(var(--header-height-mobile) + var(--spacing-sm)); /* モバイル時のヘッダー高さ + 安全な余白 */
+  }
+}
+
+/* 入力フィールドの統一 */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  transition: all var(--transition-fast);
+  font-size: 100%;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+}
+
+/* 無効状態 */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: var(--bg-primary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ボタンの統一 */
+button,
+input[type="button"] {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 100%;
+}
+
+button:hover,
+input[type="button"]:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+button:active,
+input[type="button"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 非活性ボタン */
+button:disabled,
+button.button-disabled,
+input[type="button"]:disabled {
+  background-color: var(--bg-accent);
+  color: var(--text-muted);
+  border-color: var(--border-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+button:disabled:hover,
+button.button-disabled:hover,
+input[type="button"]:disabled:hover {
+  background-color: var(--bg-accent);
+  color: var(--text-muted);
+  border-color: var(--border-muted);
+  transform: none;
+  box-shadow: none;
+}
+
+/* タブシステム */
+.tab-group {
+  display: flex;
+  justify-content: center;
+  font-size: 100%;
+  margin-bottom: 0;
+}
+
+.tab {
+  flex-grow: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  list-style: none;
+  background-color: var(--bg-tab-inactive);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+@media (max-width: 480px) {
+  .tab {
+    font-size: 12px;
+  }
+
+  /* アイコン表示モード（オプション） */
+  .tab-A::before {
+    content: "🔍 ";
+  } /* 検索 */
+  .tab-C::before {
+    content: "📚 ";
+  } /* 辞書 */
+  .tab-B::before {
+    content: "✏️ ";
+  } /* 編集 */
+  .tab-E::before {
+    content: "🎰 ";
+  } /* スロット */
+  .tab-D::before {
+    content: "⚙️ ";
+  } /* その他 */
+
+  /* 狭い画面ではテキストを短縮 */
+  .tab-A, .tab-B, .tab-C, .tab-D, .tab-E {
+    font-size: 0;
+  }
+  
+  .tab-A::before, .tab-B::before, .tab-C::before, .tab-D::before, .tab-E::before {
+    font-size: 20px;
+  }
+}
+
+.tab:hover:not(.is-active) {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
+
+.tab.is-active {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border-color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.tab.is-alert {
+  background-color: var(--accent-warning-20);
+  color: var(--accent-warning);
+  border-color: var(--accent-warning);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* パネル */
+.panel-group {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-top: none;
+  padding: var(--spacing-md);
+  padding-top: 0px;
+  padding-bottom: var(--spacing-sm); /* 下部の余白を最小限に */
+  /* min-height設定を削除 - 上部の設定で管理 */
+}
+
+.panel {
+  display: none;
+}
+
+.panel.is-show {
+  display: block;
+}
+
+/* 見出し */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 1.5em;
+  margin-top: var(--spacing-md);
+}
+h2 {
+  font-size: 1.3em;
+}
+h3 {
+  font-size: 1.1em;
+}
+
+/* リスト */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* li自体のパディングも削除 */
+li {
+  font-size: 100%;
+  text-align: left;
+  padding: 0; /* padding: var(--spacing-xs) 0; から変更 */
+}
+
+/* ラベル */
+label {
+  color: var(--text-secondary);
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* テーブル */
+table {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table td,
+table th {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-default);
+}
+
+table tr:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* ヘッダー入力（大項目・中項目・小項目） */
+.header-input {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-muted) !important;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding: var(--spacing-xs) !important;
+  margin: 0 !important;
+}

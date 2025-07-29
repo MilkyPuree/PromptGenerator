@@ -1,31 +1,65 @@
 ﻿{
   "name": "PromptGenerator",
-  "version": "1.0",
+  "version": "1.0.0",
   "manifest_version": 3,
   "description": "PromptGenerator",
   "host_permissions": [
     "http://127.0.0.1:7860/",
     "https://script.google.com/macros/s/*",
-    "https://novelai.net/image"
+    "https://novelai.net/image",
+    "https://chatgpt.com/",
+    "https://*/*",
+    "http://*/*"
   ],
   "permissions": [
-		"background",
     "contextMenus",
     "activeTab",
+    "tabs",
     "storage",
-    "fileSystem",
-    "scripting"
+    "scripting",
+    "sidePanel"
   ],
-  "background": { 
-    "service_worker": "background.js"
+  "side_panel": {
+    "default_path": "popup.html"
   },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+G",
+        "mac": "Alt+G"
+      },
+      "description": "サイドパネルを開く"
+    },
+    "save-prompt": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "選択テキストを辞書に保存"
+    }
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+    "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content.js"]
+    }
+  ],
   "action": {
     "default_title": "PromptGenerator",
-    "default_popup": "popup.html",
     "default_icon": {
-      "32": "icon.png",
-      "64": "icon64.png",
-      "128": "icon128.png"
+      "32": "assets/icon/Icon.png",
+      "64": "assets/icon/Icon64.png",
+      "128": "assets/icon/Icon128.png"
     }
+  },
+  "icons": {
+    "16": "assets/icon/Icon.png",
+    "32": "assets/icon/Icon.png",
+    "48": "assets/icon/Icon64.png",
+    "64": "assets/icon/Icon64.png",
+    "128": "assets/icon/Icon128.png"
   }
 }

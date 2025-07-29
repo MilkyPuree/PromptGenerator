@@ -1,0 +1,261 @@
+/* ============================================
+ * custom-dropdown.css - カスタムドロップダウンスタイル
+ * フレキシブルリスト用カスタムドロップダウンコンポーネント
+ * ============================================ */
+
+/* カスタムドロップダウンコンテナ */
+.custom-dropdown {
+  position: absolute;
+  z-index: 9999 !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-dropdown) !important;
+  max-height: 400px !important;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  min-width: 200px;
+}
+
+/* 開いた状態 */
+.custom-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 上向き表示時の境界線効果 */
+.custom-dropdown.above {
+  border-top-left-radius: var(--radius-sm) !important;
+  border-top-right-radius: var(--radius-sm) !important;
+  border-bottom-left-radius: var(--radius-sm) !important;
+  border-bottom-right-radius: var(--radius-sm) !important;
+}
+
+/* ドロップダウンリスト */
+.custom-dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-xs) 0;
+  max-height: 400px !important;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-accent) var(--bg-secondary);
+  background: var(--bg-secondary) !important;
+}
+
+/* Webkit スクロールバーカスタマイズ */
+.custom-dropdown-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-dropdown-list::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+.custom-dropdown-list::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: var(--border-radius-small);
+}
+
+.custom-dropdown-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+/* ドロップダウンアイテム */
+.custom-dropdown-item {
+  display: block;
+  padding: 4px var(--spacing-sm);
+  color: var(--text-primary) !important;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all var(--transition-fast);
+  border-left: 3px solid transparent;
+  background: transparent !important;
+}
+
+/* ホバー状態 */
+.custom-dropdown-item:hover {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-left-color: var(--accent-primary) !important;
+}
+
+/* 選択状態 */
+.custom-dropdown-item.selected {
+  background: var(--bg-accent) !important;
+  color: var(--text-primary) !important;
+  border-left-color: var(--accent-primary) !important;
+  font-weight: 500;
+}
+
+/* 選択状態のホバー */
+.custom-dropdown-item.selected:hover {
+  background: var(--bg-tab-inactive) !important;
+}
+
+/* 空状態 */
+.custom-dropdown-item.empty {
+  color: var(--text-secondary) !important;
+  cursor: default;
+  font-style: italic;
+  text-align: center;
+}
+
+.custom-dropdown-item.empty:hover {
+  background: transparent !important;
+  border-left-color: transparent !important;
+}
+
+/* 入力フィールドとの統合 */
+.flexible-list-item {
+  position: relative;
+}
+
+/* カスタムドロップダウンが有効な入力フィールド */
+input[data-dropdown-enabled="true"] {
+  position: relative;
+}
+
+/* フォーカス状態での統合 */
+input[data-dropdown-enabled="true"]:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 2px var(--color-accent-primary-alpha);
+}
+
+/* ダークテーマ対応 */
+@media (prefers-color-scheme: dark) {
+  .custom-dropdown {
+    background: var(--color-bg-primary-dark);
+    border-color: var(--color-border-primary-dark);
+    box-shadow: var(--shadow-dropdown-dark);
+  }
+  
+  .custom-dropdown-item {
+    color: var(--color-text-primary-dark);
+  }
+  
+  .custom-dropdown-item:hover {
+    background: var(--color-bg-hover-dark);
+    color: var(--color-text-primary-dark);
+  }
+  
+  .custom-dropdown-item.selected {
+    background: var(--color-bg-selected-dark);
+    color: var(--color-text-primary-dark);
+  }
+  
+  .custom-dropdown-item.selected:hover {
+    background: var(--color-bg-selected-hover-dark);
+  }
+  
+  .custom-dropdown-item.empty {
+    color: var(--color-text-secondary-dark);
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .custom-dropdown {
+    border-width: 2px;
+  }
+  
+  .custom-dropdown-item {
+    border-left-width: 4px;
+  }
+  
+  .custom-dropdown-item:hover,
+  .custom-dropdown-item.selected {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: -2px;
+  }
+}
+
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .custom-dropdown {
+    min-width: 150px;
+    max-height: 150px;
+  }
+  
+  .custom-dropdown-list {
+    max-height: 150px;
+  }
+  
+  .custom-dropdown-item {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* 完全一致項目のハイライト */
+.custom-dropdown-item.current-match {
+  background: var(--accent-primary-10) !important;
+  color: var(--accent-primary) !important;
+  border-left-color: var(--accent-primary) !important;
+  font-weight: 600;
+  border-left-width: 4px;
+}
+
+.custom-dropdown-item.current-match:hover {
+  background: var(--accent-primary-20) !important;
+  color: var(--accent-primary) !important;
+}
+
+
+/* フォーカス管理 */
+.custom-dropdown:focus-within {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* 項目の状態管理 */
+.custom-dropdown-item[aria-selected="true"] {
+  background: var(--color-bg-selected);
+  color: var(--color-text-primary);
+  border-left-color: var(--color-accent-primary);
+}
+
+/* 読み込み状態 */
+.custom-dropdown.loading .custom-dropdown-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.custom-dropdown.loading .custom-dropdown-item:not(.loading-indicator) {
+  display: none;
+}
+
+/* 読み込みインジケーター */
+.custom-dropdown-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.custom-dropdown-loading::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-accent-primary);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: var(--spacing-sm);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

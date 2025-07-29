@@ -1,0 +1,410 @@
+/**
+ * modal-base.css - 統一モーダルスタイル
+ * 
+ * 全モーダルの基本スタイルを統一し、冗長なCSSを削減
+ * variables.cssのCSS変数を最大限活用
+ */
+
+/* ============================================
+ * 基本モーダル構造
+ * ============================================ */
+
+.modal-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-dark);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.modal-base.show {
+  opacity: 1;
+}
+
+/* ============================================
+ * モーダルコンテナ（統一構造）
+ * ============================================ */
+
+.modal-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 90vw;
+  max-height: 90vh;
+  min-width: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+ * モーダルヘッダー
+ * ============================================ */
+
+.modal-header {
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.modal-header h3,
+.modal-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1em;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* ヘッダーアクションボタン */
+.modal-header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  margin-left: var(--spacing-md);
+}
+
+.modal-header-action {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9em;
+}
+
+.modal-header-action:hover {
+  background: var(--bg-accent);
+  border-color: var(--accent-primary);
+}
+
+.modal-header-action:active {
+  background: var(--accent-primary-20);
+}
+
+/* ============================================
+ * 閉じるボタン
+ * ============================================ */
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--bg-accent);
+  color: var(--text-primary);
+}
+
+.modal-close-btn:active {
+  background-color: var(--accent-danger-20);
+  color: var(--accent-danger);
+}
+
+/* ============================================
+ * モーダルコンテンツ
+ * ============================================ */
+
+.modal-content {
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--bg-accent);
+  border-radius: var(--radius-sm);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--border-default);
+}
+
+/* ============================================
+ * モーダルフッター（オプション）
+ * ============================================ */
+
+.modal-footer {
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-default);
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+/* フッターアクションボタン */
+.modal-footer-action {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9em;
+  min-width: 80px;
+}
+
+.modal-footer-action:hover {
+  background: var(--bg-accent);
+  border-color: var(--accent-primary);
+}
+
+.modal-footer-action.primary {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-on-primary);
+}
+
+.modal-footer-action.primary:hover {
+  background: var(--accent-primary-30);
+}
+
+.modal-footer-action.danger {
+  background: var(--accent-danger);
+  border-color: var(--accent-danger);
+  color: var(--text-on-primary);
+}
+
+.modal-footer-action.danger:hover {
+  background: var(--accent-danger-20);
+}
+
+/* ============================================
+ * 既存モーダルとの互換性スタイル
+ * ============================================ */
+
+/* 辞書管理モーダル互換 */
+.dictionary-management-modal .modal-container,
+.dictionary-management-content {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+
+.dictionary-management-header {
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--spacing-md);
+}
+
+.dictionary-management-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* ショートカット情報セクション */
+.shortcut-info-section {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-md);
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.shortcut-info-section h3,
+.shortcut-info-section h4 {
+  color: var(--text-primary);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.shortcut-info-section h3:first-child {
+  margin-top: 0;
+}
+
+.shortcut-info-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-md);
+}
+
+.shortcut-info-section td {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-bottom: 1px solid var(--border-muted);
+  color: var(--text-primary);
+}
+
+.shortcut-info-section kbd {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 0.9em;
+  color: var(--text-primary);
+}
+
+/* Generate履歴モーダル互換 */
+.generate-history-modal .modal-container,
+.generate-history-content {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  min-width: 600px;
+  max-width: 800px;
+  max-height: 80vh;
+}
+
+.generate-history-header {
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generate-history-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.history-stats {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.history-controls {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-muted);
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.history-list-container {
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ============================================
+ * レスポンシブ対応
+ * ============================================ */
+
+@media (max-width: 768px) {
+  .modal-container {
+    min-width: 320px;
+    max-width: 95vw;
+    max-height: 95vh;
+    margin: var(--spacing-sm);
+  }
+
+  .modal-header,
+  .modal-content,
+  .modal-footer {
+    padding: var(--spacing-sm);
+  }
+
+  .shortcut-info-section,
+  .generate-history-content {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* ============================================
+ * アニメーション
+ * ============================================ */
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.modal-container {
+  animation: modalFadeIn var(--transition-fast) ease-out;
+}
+
+.modal-base.hiding .modal-container {
+  animation: modalFadeOut var(--transition-fast) ease-in;
+}
+
+/* ============================================
+ * アクセシビリティ
+ * ============================================ */
+
+.modal-base[aria-hidden="true"] {
+  display: none;
+}
+
+.modal-base[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal-container:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* フォーカストラップ用 */
+.modal-base .focus-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

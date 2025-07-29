@@ -1,0 +1,566 @@
+/* 編集タブ専用スタイル */
+
+/* 編集モード選択エリア全体 */
+.edit-mode-selection {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-muted);
+  margin-bottom: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* スロット統合パネル */
+.edit-slot-integration-panel {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+/* スロットコントロールグループ */
+.slot-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.slot-control-group label {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.slot-control-group select,
+.slot-control-group input[type="number"] {
+  height: var(--input-height);
+  padding: var(--spacing-xs);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+/* ドロップダウンの幅を統一 */
+.slot-control-group select {
+  width: 100px !important;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+/* スロット重みinputの幅と高さを固定 */
+#edit-slot-weight {
+  width: 80px !important;
+  min-width: 80px;
+  max-width: 80px;
+  height: var(--input-height) !important;
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+/* 抽出モード時に編集モードを非表示 */
+.edit-mode-selection.extraction-mode .edit-mode-dropdown {
+  display: none !important;
+}
+
+/* 抽出モード時は編集系ボタンのみ非表示 */
+.edit-mode-selection.extraction-mode .edit-element-controls .add-element-btn,
+.edit-mode-selection.extraction-mode .edit-element-controls .split-single-btn {
+  display: none !important;
+}
+
+/* 通常モード時にデータソース関連を非表示 */
+.edit-mode-selection:not(.extraction-mode) .slot-data-source-control,
+.edit-mode-selection:not(.extraction-mode) .dictionary-selection-control,
+.edit-mode-selection:not(.extraction-mode) .favorites-selection-control {
+  display: none !important;
+}
+
+/* 編集タブのヘルパー修正 */
+#editTabBody .ui-sortable-helper {
+  position: fixed !important;
+  z-index: 99999 !important;
+  transform: scale(1.02) !important;
+  pointer-events: none !important;
+}
+
+/* 編集モード選択 */
+#editTabBody label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-right: var(--spacing-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#editTabBody label:hover {
+  color: var(--accent-primary);
+}
+
+#editTabBody input[type="radio"] {
+  margin-right: var(--spacing-xs);
+}
+
+/* 編集リスト */
+#editList {
+  margin-top: 0; /* 編集モード選択エリアとの間隔は上で設定済み */
+  /* min-height設定を削除 - コンテンツに応じて自動調整 */
+}
+
+/* カテゴリードロップダウンの幅を固定 */
+.category-big-select,
+.category-middle-select {
+  width: 120px !important;
+  max-width: 120px;
+  min-width: 100px;
+  height: var(--input-height);
+  padding: var(--spacing-xs);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.category-big-select:hover:not(:disabled),
+.category-middle-select:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-secondary);
+}
+
+.category-big-select:focus,
+.category-middle-select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+}
+
+.category-big-select:disabled,
+.category-middle-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--bg-tertiary);
+}
+
+/* カテゴリーフィルターのラベルも調整 */
+.category-filter-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* カテゴリーフィルター全体のレイアウト調整 */
+.category-filters {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin: var(--spacing-sm) 0 var(--spacing-sm) 25px;
+  flex-wrap: wrap;
+}
+
+/* カテゴリーフィルターアイテム */
+.category-filter-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.category-filter-item .category-filter-label {
+  margin-bottom: 0;
+  min-width: 50px;
+}
+
+/* 要素追加ボタン（1行レイアウト用） */
+.edit-element-controls {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.add-element-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.add-element-btn:hover {
+  background-color: var(--accent-success);
+  border-color: var(--accent-success);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.add-element-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.add-element-btn span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 単一要素分割ボタン */
+.split-single-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--accent-warning);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent-warning);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.split-single-btn:hover {
+  background-color: var(--accent-warning-hover);
+  border-color: var(--accent-warning-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.split-single-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.split-single-btn span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 抽出モード時の無効化スタイル */
+.add-element-btn:disabled,
+.add-element-btn.disabled-extraction {
+  background-color: var(--bg-tertiary);
+  color: var(--text-muted);
+  border-color: var(--border-muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.add-element-btn:disabled:hover,
+.add-element-btn.disabled-extraction:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-muted);
+  transform: none;
+  box-shadow: none;
+}
+
+/* スロットミュートボタン */
+.slot-mute-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  min-height: 28px;
+}
+
+.slot-mute-btn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.slot-mute-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.slot-mute-btn.muted {
+  background-color: var(--accent-danger);
+  color: var(--bg-primary);
+  border-color: var(--accent-danger);
+}
+
+.slot-mute-btn.muted:hover {
+  background-color: var(--accent-danger-hover);
+  border-color: var(--accent-danger-hover);
+}
+
+.slot-mute-btn span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .edit-mode-selection {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+  }
+
+  .edit-mode-radios {
+    justify-content: center;
+  }
+
+  .edit-element-controls {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .category-big-select,
+  .category-middle-select {
+    width: 100px !important;
+  }
+
+  .category-filters {
+    gap: var(--spacing-sm);
+  }
+
+  .add-element-btn {
+    font-size: 11px;
+    padding: var(--spacing-xs);
+  }
+
+  .add-element-btn span {
+    font-size: 12px;
+  }
+}
+
+/* 抽出モード表示用のスタイル */
+.extraction-mode-info {
+  padding: 20px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.extraction-mode-info h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.2em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.extraction-mode-info p {
+  margin: 8px 0;
+  opacity: 0.9;
+}
+
+.extraction-slots-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.extraction-slot-item {
+  background: var(--bg-secondary);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.extraction-slot-item:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.slot-number {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  font-size: 0.9em;
+  min-width: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.slot-mode {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+.slot-category {
+  flex: 1;
+  font-size: 0.9em;
+  color: var(--text-primary);
+  font-weight: 500;
+  background: var(--bg-tertiary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-muted);
+}
+
+.current-extraction {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.current-extraction:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-primary);
+  max-width: none;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* list-manager.jsのslot-currentクラスにも同じスタイルを適用 */
+.slot-current {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.slot-current:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-primary);
+  max-width: none;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.extraction-note {
+  margin-top: 15px;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-muted);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.extraction-note small {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+}
+
+/* 抽出モードの詳細情報セクション */
+.extraction-mode-details {
+  padding: 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.extraction-mode-details h4 {
+  margin: 0 0 16px 0;
+  color: var(--text-primary);
+  font-size: 1.1em;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.extraction-slots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* GeneratePrompt readonly状態のスタイル */
+#generatePrompt[readonly] {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-muted) !important;
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+#generatePrompt[readonly]:focus {
+  box-shadow: 0 0 0 0.2rem var(--accent-primary-20);
+  border-color: var(--accent-primary-30);
+}
+
+/* 抽出モード時のヘッダー表示 */
+.extraction-mode-header {
+  background: var(--gradient-secondary);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.extraction-mode-header::before {
+  content: "🎲 ";
+  margin-right: 5px;
+}

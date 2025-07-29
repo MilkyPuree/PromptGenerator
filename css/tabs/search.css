@@ -1,0 +1,390 @@
+/* ========================================
+   共通フォームボックススタイル
+   ======================================== */
+
+/* 基本フォームボックス共通 */
+.element-form-simple,
+.search-form-box,
+.dropdown-form-box {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* フォームボックス内の見出し共通 */
+.element-form-simple h3,
+.element-form-simple h4,
+.search-form-box h3,
+.dropdown-form-box h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* full-sizeクラス共通 */
+.element-form-simple .full-size,
+.dropdown-form-box .full-size {
+  margin: 0;
+  padding: 0;
+}
+
+.element-form-simple .full-size li,
+.dropdown-form-box .full-size li {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* 3行レイアウト共通スタイル */
+.element-form-simple .full-size li:first-child,
+.dropdown-form-box .full-size li:first-child {
+  display: flex;
+  margin-bottom: var(--spacing-xs);
+}
+
+.element-form-simple .full-size li:nth-child(2),
+.dropdown-form-box .full-size li:nth-child(2) {
+  display: flex;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* フォーム内フィールドの共通ベーススタイル */
+.element-form-simple .form-input,
+.element-form-simple .header-input,
+.dropdown-form-box .header-input,
+.dropdown-form-box select {
+  box-sizing: border-box;
+  min-width: 0;
+  height: var(--flexible-list-height);
+  font-size: 0.8em;
+  padding: var(--spacing-xs) !important;
+  border-radius: var(--radius-sm);
+}
+
+/* フォーカス時の共通スタイル */
+.element-form-simple .form-input:focus,
+.search-input-container #search:focus,
+.dropdown-form-box select:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+}
+
+/* ボタンの共通ベーススタイル */
+.element-form-simple button,
+.dropdown-form-box #search-cat-reset,
+.search-input-container #searchButton {
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.8em;
+  height: var(--flexible-list-height);
+  color: var(--bg-primary);
+}
+
+/* ボタンホバー時の共通スタイル */
+.element-form-simple button:hover,
+.dropdown-form-box #search-cat-reset:hover,
+.search-input-container #searchButton:hover {
+  transform: translateY(-1px);
+}
+
+/* Flexユーティリティクラス */
+.flex-1 {
+  flex: 1 !important;
+}
+
+.flex-2 {
+  flex: 2 !important;
+}
+
+/* ========================================
+   要素追加フォーム（3行レイアウト）
+   ======================================== */
+
+/* ヘッダーと入力フィールドの幅設定 */
+.element-form-simple .form-input,
+.element-form-simple .header-input {
+  width: auto !important;
+}
+
+/* ヘッダーの個別スタイル */
+.element-form-simple .header-input {
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-muted);
+}
+
+/* 入力フィールドの個別スタイル */
+.element-form-simple .form-input {
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* カテゴリ項目とプロンプト項目は共通クラスで管理
+   大項目・中項目・小項目にはflex-1クラス
+   プロンプトにはflex-2クラスを適用 */
+
+/* 追加ボタンの個別スタイル */
+.element-form-simple button {
+  width: 100%;
+  margin-top: var(--spacing-xs);
+  background: var(--accent-success);
+}
+
+.element-form-simple button:hover {
+  background: var(--accent-primary);
+}
+
+/* ヘッダー行のスペーサーを非表示 */
+.element-form-simple .header-spacer {
+  display: none;
+}
+
+/* ========================================
+   キーワード検索フォーム
+   ======================================== */
+
+.search-input-container {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.search-input-container #search {
+  flex: 1;
+  font-size: 0.8em;
+  padding: var(--spacing-xs);
+  height: var(--flexible-list-height);
+  box-sizing: border-box;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+}
+
+/* 検索ボタンの個別スタイル */
+.search-input-container #searchButton {
+  background: var(--accent-primary);
+  flex: 0 0 auto;
+}
+
+.search-input-container #searchButton:hover {
+  background: var(--accent-success);
+}
+
+/* ========================================
+   ドロップダウン検索フォーム
+   ======================================== */
+
+/* 3行レイアウトの列間隙統一 */
+.element-form-simple .full-size li:first-child,
+.element-form-simple .full-size li:nth-child(2),
+.dropdown-form-box .full-size li:first-child,
+.dropdown-form-box .full-size li:nth-child(2) {
+  gap: var(--spacing-xs);
+}
+
+/* ヘッダー入力フィールドのflex設定 */
+.dropdown-form-box .full-size li:first-child .header-input {
+  max-width: none;
+}
+
+/* ドロップダウンセレクトの個別スタイル */
+.dropdown-form-box .full-size li:nth-child(2) select {
+  max-width: none;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+/* ドロップダウンのヘッダーとセレクトは共通クラスflex-1を使用 */
+
+/* リセットボタンの個別スタイル */
+.dropdown-form-box #search-cat-reset {
+  background: var(--accent-warning);
+  width: 100%;
+  margin-top: var(--spacing-xs);
+}
+
+.dropdown-form-box #search-cat-reset:hover {
+  background: var(--accent-danger);
+}
+
+/* ========================================
+   検索結果セクション
+   ======================================== */
+
+.search-results-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+/* 検索プロンプトスタイル */
+.search-prompt-tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.tip-item:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.tip-icon {
+  font-size: 1.1em;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* empty-state-contentでの検索プロンプト用調整 */
+.empty-state-content h3 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.empty-state-content p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.empty-state-actions {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* 検索結果ヘッダー */
+.search-results-header {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  padding: 4px 8px;
+  user-select: none;
+  border-bottom: 1px solid var(--border-default);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 24px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.search-results-title {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.search-results-title .icon {
+  font-size: 0.7em;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  height: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* 検索結果コンテナ（virtual-scroll-containerクラスで共通化） */
+.search-results-container {
+  /* virtual-scroll-containerクラスで共通化 */
+}
+
+.search-results-content {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-muted);
+}
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+
+@media (min-width: 400px) {
+  /* フォームボックス共通 */
+  .element-form-simple,
+  .search-form-box,
+  .dropdown-form-box {
+    padding: var(--spacing-md);
+  }
+
+
+  /* ヘッダーと入力フィールドを統一 */
+  .element-form-simple .header-input,
+  .element-form-simple .form-input {
+    font-size: 0.8em;
+    height: var(--flexible-list-height);
+  }
+
+  .element-form-simple button {
+    font-size: 0.85em;
+    height: var(--flexible-list-height);
+    width: 100%;
+  }
+}
+
+@media (min-width: 600px) {
+  /* 見出し共通 */
+  .element-form-simple h3,
+  .element-form-simple h4,
+  .search-form-box h3,
+  .dropdown-form-box h3 {
+    font-size: 1em;
+    margin-bottom: var(--spacing-md);
+  }
+
+
+  /* ヘッダーと入力フィールドを統一 */
+  .element-form-simple .header-input,
+  .element-form-simple .form-input {
+    font-size: 0.85em;
+    height: var(--flexible-list-height);
+  }
+
+  .element-form-simple button {
+    font-size: 0.9em;
+    height: var(--flexible-list-height);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    width: 100%;
+  }
+}

@@ -1,0 +1,841 @@
+:root {
+  /* ダークテーマ - VSCode/GitHub風 */
+  --bg-primary: #0d1117; /* メイン背景 */
+  --bg-secondary: #161b22; /* セカンダリ背景 */
+  --bg-tertiary: #21262d; /* ホバー時など */
+  --bg-accent: #30363d; /* ボーダーなど */
+  --bg-tab-inactive: #1c2128; /* 非活性タブ専用（bg-primaryとbg-secondaryの中間） */
+
+  --text-primary: #c9d1d9; /* メインテキスト */
+  --text-secondary: #8b949e; /* サブテキスト */
+  --text-muted: #6e7681; /* 無効状態 */
+
+  --accent-primary: #58a6ff; /* プライマリアクセント（青） */
+  --accent-success: #3fb950; /* 成功（緑） */
+  --accent-warning: #d29922; /* 警告（黄） */
+  --accent-danger: #f85149; /* 危険（赤） */
+  --accent-info: #007bff; /* 情報系の青 */
+  --accent-secondary: #6c757d; /* セカンダリボタン用 */
+  --accent-success-dark: #218838; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #dc2626; /* 危険色の暗めバージョン */
+  --accent-info-dark: #0056b3; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #5a6268; /* セカンダリの暗めバージョン */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-warning) 100%); /* プライマリグラデーション */
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning)); /* セカンダリグラデーション */
+
+  --border-default: #30363d; /* デフォルトボーダー */
+  --border-muted: #21262d; /* 薄いボーダー */
+
+  /* スペーシング */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* フォーム専用スペーシング */
+  --form-gap: 4px;
+
+  /* ボーダー半径 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* トランジション */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* 要素の高さ */
+  --input-height: 32px;
+  --input-height-sm: 28px;
+  --input-height-lg: 40px;
+  --flexible-list-height: 34px;
+  --flexible-list-header-scrollbar-spacer-size: 7px;
+  --header-height: 190px; /* ヘッダー領域の実際の高さに合わせて調整 */
+  --header-height-small: 210px; /* 中程度の画面でのヘッダー高さ */
+  --header-height-mobile: 230px; /* モバイル時のヘッダー高さ（要素が折り返しで高くなる） */
+
+  --container-max-height: auto;
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(88, 166, 255, 0.1);
+  --accent-primary-20: rgba(88, 166, 255, 0.2);
+  --accent-primary-30: rgba(88, 166, 255, 0.3);
+  --accent-success-20: rgba(63, 185, 80, 0.2);
+  --accent-warning-10: rgba(210, 153, 34, 0.1);
+  --accent-warning-20: rgba(210, 153, 34, 0.2);
+  --accent-warning-30: rgba(210, 153, 34, 0.3);
+  --accent-danger-10: rgba(248, 81, 73, 0.1);
+  --accent-danger-20: rgba(248, 81, 73, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(0, 0, 0, 0.7);
+  --overlay-darker: rgba(0, 0, 0, 0.8);
+  --shadow-overlay: rgba(0, 0, 0, 0.3);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(255, 255, 255, 0.3);
+  --highlight-list-hover: #1c2128;
+
+  /* テキスト色 */
+  --text-on-primary: white;
+
+  /* ドロップダウン専用変数 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+  --z-index-dropdown: 1000;
+  --border-radius-small: var(--radius-sm);
+  --font-size-sm: 14px;
+  --font-size-xs: 12px;
+  --font-weight-medium: 500;
+  --line-height-compact: 1.2;
+}
+
+/* ライトテーマ - GitHub/VSCode ライト風 */
+[data-theme="light"] {
+  /* 背景色 */
+  --bg-primary: #ffffff; /* メイン背景 */
+  --bg-secondary: #f6f8fa; /* セカンダリ背景 */
+  --bg-tertiary: #f1f3f4; /* ホバー時など */
+  --bg-accent: #e1e4e8; /* ボーダーなど */
+  --bg-tab-inactive: #f8f9fa; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #24292f; /* メインテキスト */
+  --text-secondary: #656d76; /* サブテキスト */
+  --text-muted: #8c959f; /* 無効状態 */
+
+  /* アクセント色 */
+  --accent-primary: #0969da; /* プライマリアクセント（青） */
+  --accent-success: #1a7f37; /* 成功（緑） */
+  --accent-warning: #bf8700; /* 警告（黄） */
+  --accent-danger: #cf222e; /* 危険（赤） */
+  --accent-info: #0969da; /* 情報系の青 */
+  --accent-secondary: #656d76; /* セカンダリボタン用 */
+  --accent-success-dark: #116329; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #a40e26; /* 危険色の暗めバージョン */
+  --accent-info-dark: #0550ae; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #4d5566; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-warning) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning));
+
+  /* ボーダー */
+  --border-default: #d0d7de; /* デフォルトボーダー */
+  --border-muted: #e1e4e8; /* 薄いボーダー */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(9, 105, 218, 0.1);
+  --accent-primary-20: rgba(9, 105, 218, 0.2);
+  --accent-primary-30: rgba(9, 105, 218, 0.3);
+  --accent-success-20: rgba(26, 127, 55, 0.2);
+  --accent-warning-10: rgba(191, 135, 0, 0.1);
+  --accent-warning-20: rgba(191, 135, 0, 0.2);
+  --accent-warning-30: rgba(191, 135, 0, 0.3);
+  --accent-danger-10: rgba(207, 34, 46, 0.1);
+  --accent-danger-20: rgba(207, 34, 46, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(0, 0, 0, 0.4);
+  --overlay-darker: rgba(0, 0, 0, 0.6);
+  --shadow-overlay: rgba(0, 0, 0, 0.15);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(0, 0, 0, 0.1);
+  --highlight-list-hover: #f6f8fa;
+
+  /* テキスト色 */
+  --text-on-primary: white;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* NovelAIテーマ - サイバーパンク風 */
+[data-theme="novelai"] {
+  /* 背景色 */
+  --bg-primary: #0E0F21; /* メイン背景（深い紺） */
+  --bg-secondary: #13152C; /* セカンダリ背景（少し明るい紺） */
+  --bg-tertiary: #1A1C35; /* ホバー時など */
+  --bg-accent: #22253F; /* UI要素・ボーダー */
+  --bg-tab-inactive: #16182E; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #FFFFFF; /* メインテキスト（白） */
+  --text-secondary: #B8B8B8; /* サブテキスト（薄いグレー） */
+  --text-muted: #8A8A8A; /* 無効状態 */
+
+  /* アクセント色 */
+  --accent-primary: #F5F3C2; /* プライマリアクセント（クリーム色） */
+  --accent-success: #7ED321; /* 成功（明るい緑） */
+  --accent-warning: #F5A623; /* 警告（オレンジ） */
+  --accent-danger: #FF7878; /* 危険（サンゴ色） */
+  --accent-info: #5AC8FA; /* 情報系（シアン） */
+  --accent-secondary: #6C7B7F; /* セカンダリボタン用 */
+  --accent-success-dark: #5CB85C; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #E74C3C; /* 危険色の暗めバージョン */
+  --accent-info-dark: #3498DB; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #5A6C70; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-info) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning));
+
+  /* ボーダー */
+  --border-default: #2A2E4A; /* デフォルトボーダー */
+  --border-muted: #1F2137; /* 薄いボーダー */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(245, 243, 194, 0.1);
+  --accent-primary-20: rgba(245, 243, 194, 0.2);
+  --accent-primary-30: rgba(245, 243, 194, 0.3);
+  --accent-success-20: rgba(126, 211, 33, 0.2);
+  --accent-warning-10: rgba(245, 166, 35, 0.1);
+  --accent-warning-20: rgba(245, 166, 35, 0.2);
+  --accent-warning-30: rgba(245, 166, 35, 0.3);
+  --accent-danger-10: rgba(255, 120, 120, 0.1);
+  --accent-danger-20: rgba(255, 120, 120, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(14, 15, 33, 0.8);
+  --overlay-darker: rgba(14, 15, 33, 0.9);
+  --shadow-overlay: rgba(0, 0, 0, 0.4);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(245, 243, 194, 0.2);
+  --highlight-list-hover: #1A1C35;
+
+  /* テキスト色 */
+  --text-on-primary: #0E0F21;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* AUTOMATIC1111テーマ - Stable Diffusion WebUI風 */
+[data-theme="stablediffusion"] {
+  /* 背景色 */
+  --bg-primary: #ffffff; /* メイン背景（白） */
+  --bg-secondary: #f8f9fa; /* セカンダリ背景（薄いグレー） */
+  --bg-tertiary: #E8EFF0; /* ホバー時など（Stable Diffusion特有のライトブルー） */
+  --bg-accent: #D3E7E9; /* UI要素・ボーダー（Stable Diffusion ボーダー色） */
+  --bg-tab-inactive: #f1f3f4; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #000000; /* メインテキスト（黒） */
+  --text-secondary: #555555; /* サブテキスト（ダークグレー） */
+  --text-muted: #86989B; /* 無効状態（Stable Diffusion フッター色） */
+
+  /* アクセント色 */
+  --accent-primary: #11557C; /* プライマリアクセント（Stable Diffusion メイン青） */
+  --accent-success: #3A7734; /* 成功（Stable Diffusion ヘルプ緑） */
+  --accent-warning: #F5A623; /* 警告（オレンジ） */
+  --accent-danger: #9C1A1C; /* 危険（Stable Diffusion 数値赤） */
+  --accent-info: #30799B; /* 情報系（Stable Diffusion 文字列青） */
+  --accent-secondary: #485F6E; /* セカンダリボタン用（Stable Diffusion オブジェクト色） */
+  --accent-success-dark: #2F5F29; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #7D1518; /* 危険色の暗めバージョン */
+  --accent-info-dark: #177199; /* 情報色の暗めバージョン（Stable Diffusion ホバー青） */
+  --accent-secondary-dark: #3A4B56; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-info) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-info));
+
+  /* ボーダー */
+  --border-default: #dddddd; /* デフォルトボーダー */
+  --border-muted: #D3E7E9; /* 薄いボーダー（Stable Diffusion特有色） */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(17, 85, 124, 0.1);
+  --accent-primary-20: rgba(17, 85, 124, 0.2);
+  --accent-primary-30: rgba(17, 85, 124, 0.3);
+  --accent-success-20: rgba(58, 119, 52, 0.2);
+  --accent-warning-10: rgba(245, 166, 35, 0.1);
+  --accent-warning-20: rgba(245, 166, 35, 0.2);
+  --accent-warning-30: rgba(245, 166, 35, 0.3);
+  --accent-danger-10: rgba(156, 26, 28, 0.1);
+  --accent-danger-20: rgba(156, 26, 28, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(0, 0, 0, 0.5);
+  --overlay-darker: rgba(0, 0, 0, 0.7);
+  --shadow-overlay: rgba(0, 0, 0, 0.2);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(17, 85, 124, 0.1);
+  --highlight-list-hover: #E8EFF0;
+
+  /* テキスト色 */
+  --text-on-primary: white;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.25);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* AUTOMATIC1111ダークテーマ - Gradio実装版 */
+[data-theme="automatic1111-dark"] {
+  /* 背景色 - Gradioの実際の値を使用 */
+  --bg-primary: #0b0f19; /* Gradio neutral-950 */
+  --bg-secondary: #111827; /* Gradio neutral-900 */
+  --bg-tertiary: #1f2937; /* Gradio neutral-800 */
+  --bg-accent: #374151; /* Gradio neutral-700 */
+  --bg-tab-inactive: #111827; /* セカンダリ背景と同じ */
+
+  /* テキスト色 - Gradioの実際の値を使用 */
+  --text-primary: #f3f4f6; /* Gradio neutral-100 */
+  --text-secondary: #9ca3af; /* Gradio neutral-400 */
+  --text-muted: #6b7280; /* Gradio neutral-500 */
+
+  /* アクセント色 - Gradioの実際の値を使用 */
+  --accent-primary: #3b82f6; /* Gradio secondary-500 (青) */
+  --accent-success: #10b981; /* 成功（緑） */
+  --accent-warning: #f97316; /* Gradio primary-500 (オレンジ) */
+  --accent-danger: #ef4444; /* 危険（赤） */
+  --accent-info: #3b82f6; /* 情報系（青） */
+  --accent-secondary: #4b5563; /* Gradio neutral-600 */
+  --accent-success-dark: #059669; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #dc2626; /* 危険色の暗めバージョン */
+  --accent-info-dark: #2563eb; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #374151; /* セカンダリの暗めバージョン */
+
+  /* グラデーション - Gradioスタイル */
+  --gradient-primary: linear-gradient(to bottom right, var(--accent-primary), #2563eb);
+  --gradient-secondary: linear-gradient(to bottom right, var(--accent-warning), #ea580c);
+
+  /* ボーダー - Gradioの実際の値を使用 */
+  --border-default: #374151; /* Gradio neutral-700 */
+  --border-muted: #4b5563; /* Gradio neutral-600 */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(59, 130, 246, 0.1);
+  --accent-primary-20: rgba(59, 130, 246, 0.2);
+  --accent-primary-30: rgba(59, 130, 246, 0.3);
+  --accent-success-20: rgba(16, 185, 129, 0.2);
+  --accent-warning-10: rgba(249, 115, 22, 0.1);
+  --accent-warning-20: rgba(249, 115, 22, 0.2);
+  --accent-warning-30: rgba(249, 115, 22, 0.3);
+  --accent-danger-10: rgba(239, 68, 68, 0.1);
+  --accent-danger-20: rgba(239, 68, 68, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(11, 15, 25, 0.9);
+  --overlay-darker: rgba(11, 15, 25, 0.95);
+  --shadow-overlay: rgba(0, 0, 0, 0.6);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(59, 130, 246, 0.2);
+  --highlight-list-hover: #1f2937;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ - Gradioスタイル */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* ComfyUI風テーマ - ダークノードベース */
+[data-theme="comfyui"] {
+  /* 背景色 */
+  --bg-primary: #202020; /* メイン背景（ComfyUIダーク） */
+  --bg-secondary: #353535; /* セカンダリ背景（メニュー背景） */
+  --bg-tertiary: #2a2a2a; /* ホバー時など */
+  --bg-accent: #4e4e4e; /* UI要素・ボーダー */
+  --bg-tab-inactive: #2f2f2f; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #ffffff; /* メインテキスト（白） */
+  --text-secondary: #dddddd; /* サブテキスト（明るいグレー） */
+  --text-muted: #cccccc; /* 無効状態 */
+
+  /* アクセント色 */
+  --accent-primary: #42A5F5; /* プライマリアクセント（ComfyUI ライトブルー） */
+  --accent-success: #9CCC65; /* 成功（ComfyUI グリーン） */
+  --accent-warning: #FFA726; /* 警告（ComfyUI オレンジ） */
+  --accent-danger: #ff4444; /* 危険（ComfyUI エラー赤） */
+  --accent-info: #5C6BC0; /* 情報系（ComfyUI ブルー） */
+  --accent-secondary: #AB47BC; /* セカンダリボタン用（ComfyUI パープル） */
+  --accent-success-dark: #7CB342; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #d32f2f; /* 危険色の暗めバージョン */
+  --accent-info-dark: #3f51b5; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #9c27b0; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning));
+
+  /* ボーダー */
+  --border-default: #4e4e4e; /* デフォルトボーダー */
+  --border-muted: #3a3a3a; /* 薄いボーダー */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(66, 165, 245, 0.1);
+  --accent-primary-20: rgba(66, 165, 245, 0.2);
+  --accent-primary-30: rgba(66, 165, 245, 0.3);
+  --accent-success-20: rgba(156, 204, 101, 0.2);
+  --accent-warning-10: rgba(255, 167, 38, 0.1);
+  --accent-warning-20: rgba(255, 167, 38, 0.2);
+  --accent-warning-30: rgba(255, 167, 38, 0.3);
+  --accent-danger-10: rgba(255, 68, 68, 0.1);
+  --accent-danger-20: rgba(255, 68, 68, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(32, 32, 32, 0.9);
+  --overlay-darker: rgba(32, 32, 32, 0.95);
+  --shadow-overlay: rgba(0, 0, 0, 0.6);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(66, 165, 245, 0.2);
+  --highlight-list-hover: #2a2a2a;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* 春の桜テーマ - 淡いピンク系の美しいテーマ */
+[data-theme="spring-sakura"] {
+  /* 背景色 */
+  --bg-primary: #fff5f8; /* メイン背景（桜の白） */
+  --bg-secondary: #ffe8ed; /* セカンダリ背景（薄いピンク） */
+  --bg-tertiary: #ffd8e1; /* ホバー時など（桜色） */
+  --bg-accent: #ffb3c1; /* UI要素・ボーダー（濃いピンク） */
+  --bg-tab-inactive: #fff0f3; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #4a1b28; /* メインテキスト（深いピンク） */
+  --text-secondary: #8b4f63; /* サブテキスト（中間ピンク） */
+  --text-muted: #c29aaa; /* 無効状態（薄いピンク） */
+
+  /* アクセント色 */
+  --accent-primary: #e91e63; /* プライマリアクセント（桜ピンク） */
+  --accent-success: #66bb6a; /* 成功（新緑色） */
+  --accent-warning: #ffa726; /* 警告（桜の蕾色） */
+  --accent-danger: #f44336; /* 危険（濃いピンク） */
+  --accent-info: #2196f3; /* 情報系（青空色） */
+  --accent-secondary: #ad1457; /* セカンダリボタン用（濃い桜色） */
+  --accent-success-dark: #4caf50; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #d32f2f; /* 危険色の暗めバージョン */
+  --accent-info-dark: #1976d2; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #880e4f; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning));
+
+  /* ボーダー */
+  --border-default: #f8bbd9; /* デフォルトボーダー（桜色） */
+  --border-muted: #ffcce2; /* 薄いボーダー（薄い桜色） */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(233, 30, 99, 0.1);
+  --accent-primary-20: rgba(233, 30, 99, 0.2);
+  --accent-primary-30: rgba(233, 30, 99, 0.3);
+  --accent-success-20: rgba(102, 187, 106, 0.2);
+  --accent-warning-10: rgba(255, 167, 38, 0.1);
+  --accent-warning-20: rgba(255, 167, 38, 0.2);
+  --accent-warning-30: rgba(255, 167, 38, 0.3);
+  --accent-danger-10: rgba(244, 67, 54, 0.1);
+  --accent-danger-20: rgba(244, 67, 54, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(255, 245, 248, 0.9);
+  --overlay-darker: rgba(255, 245, 248, 0.95);
+  --shadow-overlay: rgba(233, 30, 99, 0.2);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(233, 30, 99, 0.1);
+  --highlight-list-hover: #ffd8e1;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(233, 30, 99, 0.12);
+  --shadow-md: 0 4px 6px rgba(233, 30, 99, 0.15);
+  --shadow-lg: 0 10px 20px rgba(233, 30, 99, 0.2);
+  --shadow-xl: 0 20px 40px rgba(233, 30, 99, 0.3);
+  --shadow-dropdown: 0 4px 12px rgba(233, 30, 99, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* 夏の海テーマ - 爽やかなブルー系テーマ */
+[data-theme="summer-ocean"] {
+  /* 背景色 */
+  --bg-primary: #f0f8ff; /* メイン背景（海の白波） */
+  --bg-secondary: #e3f2fd; /* セカンダリ背景（薄い空色） */
+  --bg-tertiary: #bbdefb; /* ホバー時など（海色） */
+  --bg-accent: #81d4fa; /* UI要素・ボーダー（波色） */
+  --bg-tab-inactive: #e8f4f8; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #0d47a1; /* メインテキスト（深海色） */
+  --text-secondary: #1565c0; /* サブテキスト（海色） */
+  --text-muted: #42a5f5; /* 無効状態（薄い海色） */
+
+  /* アクセント色 */
+  --accent-primary: #2196f3; /* プライマリアクセント（海色） */
+  --accent-success: #4caf50; /* 成功（海藻色） */
+  --accent-warning: #ff9800; /* 警告（夕日色） */
+  --accent-danger: #f44336; /* 危険（サンゴ色） */
+  --accent-info: #00bcd4; /* 情報系（熱帯魚色） */
+  --accent-secondary: #1976d2; /* セカンダリボタン用（深海色） */
+  --accent-success-dark: #388e3c; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #d32f2f; /* 危険色の暗めバージョン */
+  --accent-info-dark: #0097a7; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #1565c0; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-info) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-info));
+
+  /* ボーダー */
+  --border-default: #90caf9; /* デフォルトボーダー（海色） */
+  --border-muted: #bbdefb; /* 薄いボーダー（薄い海色） */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(33, 150, 243, 0.1);
+  --accent-primary-20: rgba(33, 150, 243, 0.2);
+  --accent-primary-30: rgba(33, 150, 243, 0.3);
+  --accent-success-20: rgba(76, 175, 80, 0.2);
+  --accent-warning-10: rgba(255, 152, 0, 0.1);
+  --accent-warning-20: rgba(255, 152, 0, 0.2);
+  --accent-warning-30: rgba(255, 152, 0, 0.3);
+  --accent-danger-10: rgba(244, 67, 54, 0.1);
+  --accent-danger-20: rgba(244, 67, 54, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(240, 248, 255, 0.9);
+  --overlay-darker: rgba(240, 248, 255, 0.95);
+  --shadow-overlay: rgba(33, 150, 243, 0.2);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(33, 150, 243, 0.1);
+  --highlight-list-hover: #bbdefb;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(33, 150, 243, 0.12);
+  --shadow-md: 0 4px 6px rgba(33, 150, 243, 0.15);
+  --shadow-lg: 0 10px 20px rgba(33, 150, 243, 0.2);
+  --shadow-xl: 0 20px 40px rgba(33, 150, 243, 0.3);
+  --shadow-dropdown: 0 4px 12px rgba(33, 150, 243, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* 秋の紅葉テーマ - 温かみのあるオレンジ・レッド系テーマ */
+[data-theme="autumn-leaves"] {
+  /* 背景色 */
+  --bg-primary: #fff8f0; /* メイン背景（秋の空色） */
+  --bg-secondary: #ffecdd; /* セカンダリ背景（薄い紅葉色） */
+  --bg-tertiary: #ffe0cc; /* ホバー時など（紅葉色） */
+  --bg-accent: #ffb74d; /* UI要素・ボーダー（濃い紅葉色） */
+  --bg-tab-inactive: #fff4e6; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #5d4037; /* メインテキスト（木の幹色） */
+  --text-secondary: #8d6e63; /* サブテキスト（落ち葉色） */
+  --text-muted: #bcaaa4; /* 無効状態（薄い木色） */
+
+  /* アクセント色 */
+  --accent-primary: #ff6f00; /* プライマリアクセント（紅葉色） */
+  --accent-success: #689f38; /* 成功（常緑樹色） */
+  --accent-warning: #f57c00; /* 警告（銀杏色） */
+  --accent-danger: #d32f2f; /* 危険（赤い葉色） */
+  --accent-info: #1976d2; /* 情報系（秋空色） */
+  --accent-secondary: #e65100; /* セカンダリボタン用（濃い紅葉色） */
+  --accent-success-dark: #558b2f; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #c62828; /* 危険色の暗めバージョン */
+  --accent-info-dark: #1565c0; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #bf360c; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-warning));
+
+  /* ボーダー */
+  --border-default: #ffcc80; /* デフォルトボーダー（紅葉色） */
+  --border-muted: #ffe0b2; /* 薄いボーダー（薄い紅葉色） */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(255, 111, 0, 0.1);
+  --accent-primary-20: rgba(255, 111, 0, 0.2);
+  --accent-primary-30: rgba(255, 111, 0, 0.3);
+  --accent-success-20: rgba(104, 159, 56, 0.2);
+  --accent-warning-10: rgba(245, 124, 0, 0.1);
+  --accent-warning-20: rgba(245, 124, 0, 0.2);
+  --accent-warning-30: rgba(245, 124, 0, 0.3);
+  --accent-danger-10: rgba(211, 47, 47, 0.1);
+  --accent-danger-20: rgba(211, 47, 47, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(255, 248, 240, 0.9);
+  --overlay-darker: rgba(255, 248, 240, 0.95);
+  --shadow-overlay: rgba(255, 111, 0, 0.2);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(255, 111, 0, 0.1);
+  --highlight-list-hover: #ffe0cc;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(255, 111, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(255, 111, 0, 0.15);
+  --shadow-lg: 0 10px 20px rgba(255, 111, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(255, 111, 0, 0.3);
+  --shadow-dropdown: 0 4px 12px rgba(255, 111, 0, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}
+
+/* 冬の雪原テーマ - 清潔でクールなホワイト・ブルー系テーマ */
+[data-theme="winter-snow"] {
+  /* 背景色 */
+  --bg-primary: #fafafa; /* メイン背景（雪色） */
+  --bg-secondary: #f0f4f8; /* セカンダリ背景（薄い雪色） */
+  --bg-tertiary: #e2e8f0; /* ホバー時など（雪雲色） */
+  --bg-accent: #cbd5e0; /* UI要素・ボーダー（氷色） */
+  --bg-tab-inactive: #f7fafc; /* 非活性タブ専用 */
+
+  /* テキスト色 */
+  --text-primary: #1a202c; /* メインテキスト（冬の夜色） */
+  --text-secondary: #4a5568; /* サブテキスト（雪雲色） */
+  --text-muted: #a0aec0; /* 無効状態（薄い雪色） */
+
+  /* アクセント色 */
+  --accent-primary: #3182ce; /* プライマリアクセント（氷色） */
+  --accent-success: #38a169; /* 成功（常緑色） */
+  --accent-warning: #d69e2e; /* 警告（雪解け色） */
+  --accent-danger: #e53e3e; /* 危険（夕焼け色） */
+  --accent-info: #3182ce; /* 情報系（氷色） */
+  --accent-secondary: #2c5282; /* セカンダリボタン用（濃い氷色） */
+  --accent-success-dark: #2f855a; /* 成功色の暗めバージョン */
+  --accent-danger-dark: #c53030; /* 危険色の暗めバージョン */
+  --accent-info-dark: #2c5282; /* 情報色の暗めバージョン */
+  --accent-secondary-dark: #2a4365; /* セカンダリの暗めバージョン */
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--accent-primary), var(--accent-info));
+
+  /* ボーダー */
+  --border-default: #e2e8f0; /* デフォルトボーダー（雪色） */
+  --border-muted: #edf2f7; /* 薄いボーダー（薄い雪色） */
+
+  /* 透明度付きアクセントカラー */
+  --accent-primary-10: rgba(49, 130, 206, 0.1);
+  --accent-primary-20: rgba(49, 130, 206, 0.2);
+  --accent-primary-30: rgba(49, 130, 206, 0.3);
+  --accent-success-20: rgba(56, 161, 105, 0.2);
+  --accent-warning-10: rgba(214, 158, 46, 0.1);
+  --accent-warning-20: rgba(214, 158, 46, 0.2);
+  --accent-warning-30: rgba(214, 158, 46, 0.3);
+  --accent-danger-10: rgba(229, 62, 62, 0.1);
+  --accent-danger-20: rgba(229, 62, 62, 0.2);
+
+  /* オーバーレイ系 */
+  --overlay-dark: rgba(250, 250, 250, 0.9);
+  --overlay-darker: rgba(250, 250, 250, 0.95);
+  --shadow-overlay: rgba(49, 130, 206, 0.2);
+
+  /* ハイライト系 */
+  --highlight-white: rgba(49, 130, 206, 0.1);
+  --highlight-list-hover: #e2e8f0;
+
+  /* テキスト色 */
+  --text-on-primary: #ffffff;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 3px rgba(49, 130, 206, 0.12);
+  --shadow-md: 0 4px 6px rgba(49, 130, 206, 0.15);
+  --shadow-lg: 0 10px 20px rgba(49, 130, 206, 0.2);
+  --shadow-xl: 0 20px 40px rgba(49, 130, 206, 0.3);
+  --shadow-dropdown: 0 4px 12px rgba(49, 130, 206, 0.15);
+
+  /* ドロップダウン専用変数の更新 */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-tertiary);
+  --color-bg-selected: var(--bg-accent);
+  --color-bg-selected-hover: var(--highlight-list-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-default);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-alpha: var(--accent-primary-20);
+  --color-scrollbar-track: var(--bg-secondary);
+  --color-scrollbar-thumb: var(--bg-accent);
+  --color-scrollbar-thumb-hover: var(--text-secondary);
+  --color-focus-ring: var(--accent-primary);
+}

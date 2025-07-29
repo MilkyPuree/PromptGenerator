@@ -1,0 +1,349 @@
+/**
+ * Dictionary Management Modal Styles
+ * 
+ * 注意: 基本的なモーダルスタイルはmodal-base.cssに統合されました
+ * このファイルは辞書管理モーダル特有のスタイルのみを含みます
+ */
+
+/* 辞書管理モーダル専用のコンテンツ調整 */
+.dictionary-management-content {
+  width: 90%;
+  max-width: 500px;
+  max-height: 400px;
+  min-height: 300px;
+}
+
+.dictionary-management-header h3 {
+  border-bottom: 2px solid var(--accent-primary);
+  padding-bottom: 8px;
+}
+
+.dictionary-list-section h4,
+.dictionary-add-section h4 {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.dictionary-items-list {
+  margin-bottom: 16px;
+}
+
+.dictionary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-default);
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast);
+}
+
+.dictionary-item:hover {
+  background-color: var(--bg-tertiary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 現在選択中の辞書スタイル（スロットカードと統一） */
+.dictionary-item.current-dictionary {
+  background-color: var(--accent-primary-10);
+  border-color: var(--accent-primary);
+  border-left: 4px solid var(--accent-primary);
+  box-shadow: 0 2px 12px var(--accent-primary-30);
+}
+
+.dictionary-item strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.dictionary-item .current-indicator {
+  color: var(--accent-primary);
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.dictionary-item .item-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.dictionary-item .current-indicator {
+  color: var(--accent-primary);
+  margin-left: var(--spacing-sm);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.dictionary-info {
+  flex: 1;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.dictionary-info:hover {
+  background: var(--bg-accent);
+}
+
+/* Make entire dictionary item clickable for non-current items */
+.dictionary-item:not(.current-dictionary) {
+  cursor: pointer;
+}
+
+.dictionary-item:not(.current-dictionary):hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.dictionary-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+/* Select button styles removed - using click selection instead */
+.delete-dict-btn {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.delete-dict-btn {
+  background: var(--accent-danger);
+  color: var(--text-on-primary);
+}
+
+.delete-dict-btn:hover {
+  background: var(--accent-danger-dark);
+  transform: translateY(-1px);
+}
+
+/* 辞書名編集 */
+.dictionary-name-container {
+  display: inline-block;
+  position: relative;
+}
+
+.dictionary-name {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dictionary-name:hover {
+  color: var(--accent-primary);
+}
+
+.dictionary-name-edit {
+  background: var(--bg-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  color: var(--text-primary);
+  min-width: 150px;
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+}
+
+.dictionary-name-edit:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-primary-30);
+}
+
+.field-group {
+  margin-bottom: 12px;
+}
+
+.field-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.field-group input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.field-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.form-actions .action-btn {
+  background: var(--accent-primary);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.form-actions .action-btn:hover {
+  background: var(--accent-info-dark);
+}
+
+.dictionary-management-actions {
+  margin-top: 20px;
+  text-align: right;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-default);
+}
+
+.dictionary-management-actions button {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.dictionary-management-actions button:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-primary);
+}
+
+/* Delete button styles */
+.dictionary-item button[onclick*="deleteDictionary"] {
+  background: var(--accent-danger);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.dictionary-item button[onclick*="deleteDictionary"]:hover {
+  background: var(--accent-danger-dark);
+}
+
+/* Multiple dictionary panel styles */
+.multiple-dictionary-panel {
+  margin: var(--spacing-sm) 0;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+}
+
+.dictionary-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dictionary-selector-row label {
+  font-weight: bold;
+  min-width: 80px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.dictionary-selector-row select {
+  flex: 1;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.dictionary-description-row {
+  margin-bottom: 8px;
+}
+
+.group-description-text {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.3;
+  display: block;
+  margin-top: 2px;
+}
+
+.dictionary-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.dictionary-actions .action-btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.dictionary-actions .action-btn:first-child {
+  background: var(--accent-success);
+  color: white;
+}
+
+.dictionary-actions .action-btn:first-child:hover {
+  background: var(--accent-success-dark);
+}
+
+.dictionary-actions .action-btn:last-child {
+  background: var(--accent-secondary);
+  color: white;
+}
+
+.dictionary-actions .action-btn:last-child:hover {
+  background: var(--accent-secondary-dark);
+}
+
+/* 個別ボタンスタイル */
+.dictionary-add-btn {
+  background: var(--accent-success) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.dictionary-add-btn:hover {
+  background: var(--accent-success-dark) !important;
+}
+
+.dictionary-manage-btn {
+  background: var(--bg-accent) !important;
+  color: var(--text-primary) !important;
+}
+
+.dictionary-manage-btn:hover {
+  background: var(--bg-tertiary) !important;
+}

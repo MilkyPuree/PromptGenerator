@@ -1,0 +1,208 @@
+/* ===== 設定モーダル専用スタイリング ===== */
+
+/* 設定モーダルのメインコンテナ */
+.settings-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* 設定セクション */
+.settings-section-modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-fast);
+}
+
+.settings-section-modal:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-tertiary);
+}
+
+.settings-section-modal h4 {
+  color: var(--accent-primary);
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.settings-section-modal h4::before {
+  content: '';
+  width: 3px;
+  height: 1.2em;
+  background: var(--accent-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* 基本設定 */
+.basic-settings-modal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.settings-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-primary);
+  font-size: 0.95em;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.settings-checkbox-label:hover {
+  background: var(--bg-accent);
+}
+
+.settings-checkbox-label input[type="checkbox"] {
+  margin: 0;
+  accent-color: var(--accent-primary);
+}
+
+.settings-input-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  color: var(--text-primary);
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.settings-input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9em;
+  transition: all var(--transition-fast);
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-primary-20);
+  background: var(--bg-secondary);
+}
+
+/* 設定管理 */
+.settings-management-modal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.settings-button-grid-modal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.settings-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 0.9em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.settings-action-btn:hover {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.settings-action-btn.danger-button {
+  border-color: var(--accent-danger);
+  color: var(--accent-danger);
+}
+
+.settings-action-btn.danger-button:hover {
+  background: var(--accent-danger);
+  color: var(--bg-primary);
+  border-color: var(--accent-danger);
+}
+
+.settings-action-btn span {
+  font-size: 1.1em;
+}
+
+.settings-help-text-modal {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-muted);
+}
+
+/* ショートカットテーブル */
+.shortcuts-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-sm) 0;
+}
+
+.shortcuts-table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-muted);
+  vertical-align: middle;
+}
+
+.shortcuts-table td:first-child {
+  width: 140px;
+  font-weight: 500;
+}
+
+.shortcuts-table kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--bg-accent);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8em;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .settings-button-grid-modal {
+    grid-template-columns: 1fr;
+  }
+  
+  .settings-action-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.85em;
+  }
+  
+  .settings-modal-content {
+    max-height: 80vh;
+  }
+}

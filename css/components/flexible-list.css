@@ -1,0 +1,712 @@
+/* =================================
+   フレキシブルリスト専用スタイル
+   ================================= */
+
+/* フレキシブルリストコンテナ（統一スタイリング用） */
+.flexible-list-container {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+.flexible-list-container .search-results-header {
+  margin: 0;
+}
+
+/* シンプルなリストコンテンツ（余分なネストを削除） */
+.flexible-list-content {
+  border: 1px solid var(--border-muted);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--bg-primary);
+  min-height: 200px;
+  max-height: 60vh; /* ビューポート高さの60%に変更（編集タブの高さを縮小） */
+  overflow-y: auto;
+}
+
+.flexible-list-content .full-size {
+  height: auto;
+  min-height: 100%;
+}
+
+/* フレキシブルリスト用共通コンテナクラス */
+.virtual-scroll-container {
+  max-height: var(--container-max-height);
+  overflow-y: hidden; /* 仮想スクロール内でスクロール管理するため外側は非表示 */
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 1;
+}
+
+/* 仮想スクロールビューポート */
+.virtual-list-viewport {
+  padding-bottom: var(
+    --spacing-lg
+  ); /* 一番下の項目が見やすくなるよう余白を追加 */
+  box-sizing: border-box;
+}
+
+/* 仮想リストビューポート専用スクロールバー */
+.virtual-list-viewport::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.virtual-list-viewport::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-muted); /* ヘッダー・アイテムと同じ枠線 */
+  border-top: none; /* 上の枠を削除 */
+  border-left: none; /* 左の枠を削除 */
+  border-radius: var(--radius-sm);
+}
+
+.virtual-list-viewport::-webkit-scrollbar-thumb {
+  background: var(--bg-accent);
+  border: 1px solid var(--border-muted); /* ヘッダー・アイテムと同じ枠線 */
+  border-radius: var(--radius-sm);
+}
+
+.virtual-list-viewport::-webkit-scrollbar-thumb:hover {
+  background: var(--border-default);
+  border-color: var(--accent-primary);
+}
+
+/* リストコンテナ */
+.prompt-list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: auto; /* 親の高さに従うように変更 */
+  max-height: 100%; /* 親を超えないように制限 */
+  overflow-y: auto; /* スクロール可能にして、stickyヘッダーが機能するように */
+  overflow-x: hidden;
+}
+
+/* 標準リスト用のスクロール対応（maxHeightが動的設定される場合） */
+.prompt-list-container[style*="max-height"] {
+  height: auto !important; /* maxHeightが設定された場合は高さをautoに */
+  max-height: 60vh !important; /* JavaScriptのmaxHeightを適度なサイズに上書き */
+}
+
+/* 編集タブ専用：スティッキーヘッダーを動作させるための最小高さ設定 */
+.prompt-list-container:not([style*="max-height"]) {
+  max-height: 60vh; /* 編集タブでもスクロール可能にしてスティッキーヘッダーを有効化 */
+}
+
+/* 共通レイアウト（ヘッダー・アイテム共通） */
+.prompt-list-header,
+.prompt-list-item {
+  display: flex;
+  align-items: center;
+  min-height: var(--input-height);
+  padding: 0 var(--spacing-xs);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  overflow: hidden;
+  gap: var(--spacing-xs);
+  /* 共通のスタイル */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-muted);
+}
+
+/* ヘッダー行固有スタイル（ヘッダー特有の設定のみ） */
+.prompt-list-header {
+  border-bottom: none; /* 下の枠を削除してスクロールバーと統一 */
+  font-weight: 600;
+  position: sticky; /* ヘッダーを固定（標準リスト用） */
+  top: 0;
+  z-index: 10;
+  background-color: var(
+    --bg-primary
+  ); /* 背景色を設定してテキストが透けないように */
+}
+
+/* ドラッグ可能リストのヘッダーも左側に余白を追加して整列 */
+.sortable-list .prompt-list-header {
+  padding-left: 20px;
+}
+
+/* ヘッダー内の項目スタイル */
+.prompt-list-header .prompt-list-input {
+  background-color: var(--bg-accent) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+}
+
+/* ソート可能なヘッダーカラム */
+.prompt-list-header .sortable-header {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+.prompt-list-header .sortable-header:hover {
+  background-color: var(--highlight-list-hover) !important;
+}
+
+/* ソート方向インジケーター */
+.prompt-list-header .sortable-header::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+/* 昇順ソート */
+.prompt-list-header .sortable-header.sort-asc::after {
+  border-bottom: 6px solid var(--text-primary);
+  opacity: 1;
+}
+
+/* 降順ソート */
+.prompt-list-header .sortable-header.sort-desc::after {
+  border-top: 6px solid var(--text-primary);
+  opacity: 1;
+}
+
+/* スクロールバースペーサー */
+.header-scrollbar-spacer {
+  flex: 0 0 var(--flexible-list-header-scrollbar-spacer-size);
+  min-width: var(--flexible-list-header-scrollbar-spacer-size);
+  max-width: var(--flexible-list-header-scrollbar-spacer-size);
+  background-color: transparent;
+  pointer-events: none;
+}
+
+/* アイテム行固有スタイル（アイテム特有の設定のみ） */
+.prompt-list-item {
+  transition: all var(--transition-fast);
+  margin-bottom: 1px; /* アイテム間の余白で視認性向上 */
+}
+
+/* ドラッグ可能リスト用クラス */
+.sortable-list .prompt-list-item {
+  padding-left: 20px; /* 左側の余白を広げる */
+  position: relative;
+  height: 40px; /* 高さを固定してサイズ異常を防ぐ */
+  min-height: 40px;
+  max-height: 40px;
+}
+
+/* 左側余白にドラッグ可能エリアを視覚的に示す */
+.sortable-list .prompt-list-item::before {
+  content: "☰";
+  position: absolute;
+  left: 3px; /* もっと左端に寄せる */
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: grab;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.sortable-list .prompt-list-item:hover::before {
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+.prompt-list-item:last-child {
+  margin-bottom: var(--spacing-md); /* 最後のアイテムには大きな余白 */
+}
+
+.prompt-list-item:hover {
+  background-color: var(--highlight-list-hover);
+  border-color: var(--accent-primary);
+}
+
+/* 入力フィールド */
+.prompt-list-input {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  height: var(--flexible-list-height);
+  width: 100%;
+  max-width: 100%;
+  padding: var(--spacing-xs) !important; /* ヘッダーとアイテムの統一padding */
+  font-size: inherit;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt-list-input:focus {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* ReadOnly項目のスタイル（アイテム全体） */
+.prompt-list-item.readonly {
+  background-color: var(--bg-tab-inactive);
+  opacity: 0.8;
+}
+
+.prompt-list-item.readonly .prompt-list-input,
+.prompt-list-item.readonly select {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: not-allowed;
+}
+
+.prompt-list-item.readonly .prompt-list-input:focus,
+.prompt-list-item.readonly select:focus {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-muted);
+  box-shadow: none;
+}
+
+.prompt-list-item.readonly:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-muted);
+}
+
+/* ReadOnly フィールドのスタイル（フィールド個別） */
+.prompt-list-input.readonly-field,
+select.readonly-field {
+  background-color: var(--bg-tab-inactive);
+  color: var(--text-primary);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.prompt-list-input.readonly-field:focus,
+select.readonly-field:focus {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-muted);
+  box-shadow: none;
+}
+
+/* フレックス列幅設定（ヘッダー・アイテム共通） */
+.flex-col-category {
+  flex: 2 1 0% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.flex-col-prompt {
+  flex: 4 1 0% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.flex-col-weight {
+  flex: 1.5 1 0% !important;
+  text-align: center;
+  min-width: 0 !important;
+  max-width: calc(var(--flexible-list-height) * 2) !important;
+}
+
+.flex-col-button {
+  flex: 1 1 0% !important;
+  text-align: center;
+  min-width: 0 !important;
+  max-width: var(--flexible-list-height) !important;
+}
+
+/* 仮想スクロール専用アイテム（prompt-list-itemを継承） */
+.prompt-list-item button:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-on-primary);
+}
+
+/* レスポンシブなボタンとフィールドサイズ調整 */
+.flex-col-weight input,
+.flex-col-weight select {
+  font-size: min(14px, 2.5vw);
+  padding: var(--spacing-xs);
+}
+
+/* フレキシブルリストのボタン（ヘッダー・アイテム共通） - 統一スタイル */
+.prompt-list-container .prompt-list-header .flex-col-button button,
+.prompt-list-container .prompt-list-item .flex-col-button button,
+.flexible-list-container .prompt-list-header .flex-col-button button,
+.flexible-list-container .prompt-list-item .flex-col-button button,
+.prompt-list-container button.flex-col-button,
+.prompt-list-item button.flex-col-button,
+button.flex-col-button {
+  font-size: min(12px, 2vw) !important;
+  padding: 4px !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  max-width: var(--flexible-list-height) !important;
+  height: 100% !important;
+  line-height: 1 !important;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji",
+    sans-serif !important;
+}
+
+/* 狭い画面での更なる調整 */
+@media (max-width: 600px) {
+  .flex-col-weight input,
+  .flex-col-weight select {
+    font-size: 11px;
+    padding: 2px;
+  }
+
+  .prompt-list-container .prompt-list-header .flex-col-button button,
+  .prompt-list-container .prompt-list-item .flex-col-button button,
+  .flexible-list-container .prompt-list-header .flex-col-button button,
+  .flexible-list-container .prompt-list-item .flex-col-button button,
+  button.flex-col-button {
+    font-size: 10px !important;
+    padding: 2px !important;
+    min-width: 0 !important;
+  }
+}
+
+/* 非常に狭い画面での追加調整 */
+@media (max-width: 400px) {
+  .prompt-list-container .prompt-list-header .flex-col-button button,
+  .prompt-list-container .prompt-list-item .flex-col-button button,
+  .flexible-list-container .prompt-list-header .flex-col-button button,
+  .flexible-list-container .prompt-list-item .flex-col-button button,
+  button.flex-col-button {
+    font-size: 8px !important;
+    padding: 1px !important;
+    min-width: 0 !important;
+  }
+
+  .flex-col-weight input,
+  .flex-col-weight select {
+    font-size: 9px;
+    padding: 1px;
+  }
+}
+
+/* =================================
+   ドラッグハンドル専用スタイル
+   ================================= */
+
+/* ドラッグハンドル */
+.drag-handle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-xs);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.drag-handle:hover {
+  background: var(--bg-accent);
+  border-color: var(--border-default);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.drag-handle p {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 14px;
+  pointer-events: none;
+  color: var(--text-muted);
+}
+
+/* ヘッダースペーサー */
+.drag-handle-spacer {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.drag-handle-spacer p {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* =================================
+   ボタン表示トグルコントロール
+   ================================= */
+
+/* ヘッダーコントロール部分 */
+.header-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* ボタンコントロールグループ */
+.button-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+/* ボタン表示トグルボタン */
+.button-toggle-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  transition: all 0.2s ease;
+  min-width: 50px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+/* 設定ボタン */
+.button-controls-settings {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.button-toggle-btn:hover,
+.button-controls-settings:hover {
+  background: var(--bg-hover);
+}
+
+/* ボタン非表示状態のスタイル */
+.button-toggle-btn.buttons-hidden {
+  opacity: 0.6;
+  background: var(--bg-tertiary);
+}
+
+.button-toggle-btn.buttons-hidden .toggle-icon {
+  opacity: 0.5;
+}
+
+/* トグルアイコンとテキスト */
+.toggle-icon {
+  font-size: 14px;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ボタン非表示時のリストスタイル */
+.flexible-list-container.buttons-hidden .flex-col-button {
+  display: none !important;
+}
+
+/* 個別ボタン種類非表示 */
+.flexible-list-container.hide-add-buttons button[data-action="add"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-copy-buttons button[data-action="copy"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-favorite-buttons button[data-action="favorite"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-load-buttons button[data-action="load"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-delete-buttons button[data-action="delete"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-register-buttons button[data-action="register"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-generate-buttons button[data-action="generate"] {
+  display: none !important;
+}
+
+/* ヘッダー行の動的制御用クラス（既存のCSSより優先度を高くする） */
+.prompt-list-header .header-column-hidden,
+.flexible-list-container .prompt-list-header .header-column-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+}
+
+/* 全ボタン種類が非表示の場合はボタン列全体を非表示 */
+.flexible-list-container.hide-all-button-types .flex-col-button {
+  display: none !important;
+}
+
+/* ボタン非表示時はスクロールバースペーサーも調整 */
+.flexible-list-container.buttons-hidden .header-scrollbar-spacer {
+  flex: 0 0 var(--flexible-list-header-scrollbar-spacer-size);
+}
+
+/* =================================
+   個別ボタン設定モーダル
+   ================================= */
+
+/* ボタン設定モーダル */
+.button-settings-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.button-settings-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.button-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: var(--spacing-sm);
+}
+
+.button-settings-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.button-settings-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px;
+}
+
+.button-settings-close:hover {
+  color: var(--text-primary);
+}
+
+.button-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.button-setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-sm);
+}
+
+.button-setting-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.button-setting-toggle {
+  width: 40px;
+  height: 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.button-setting-toggle.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.button-setting-toggle::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.button-setting-toggle.active::after {
+  transform: translateX(18px);
+}

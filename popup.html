@@ -1,133 +1,805 @@
 ﻿<!DOCTYPE html>
 <html>
+  <head>
+    <!-- CSS ファイル（分割版） -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/components/flexible-list.css" />
+    <link rel="stylesheet" href="css/components/custom-dropdown.css" />
+    <link rel="stylesheet" href="css/components/modal-base.css" />
+    <link rel="stylesheet" href="css/components/dictionary-modal.css" />
+    <link rel="stylesheet" href="css/components/settings-modal.css" />
+    <link rel="stylesheet" href="css/components/history-modal.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/tabs/search.css" />
+    <link rel="stylesheet" href="css/tabs/dictionary.css" />
+    <link rel="stylesheet" href="css/tabs/edit.css" />
+    <link rel="stylesheet" href="css/tabs/slot.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="popup.css">
-</head>
+  <body>
+    <!-- 固定ヘッダー部分 -->
+    <div class="header-section">
+      <!-- Generateボタンと自動Generate設定 -->
+      <div class="generate-container">
+        <div class="generate-button-wrapper">
+          <button id="GeneratoButton" title="プロンプトを生成してWebページに送信">
+            <span class="button-text">Generate</span>
+            <div id="generate-progress-bar" class="generate-progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </button>
+        </div>
 
-<body style="width: 540px;">
-  <h1>Prompt Generator(a版)</h1>
-  <div class="tab-panel">
-    <!--タブ-->
-    <ul class="tab-group">
-      <li class="tab tab-A is-active">検索</li>
-      <li class="tab tab-C" id="addTab">辞書</li>
-      <li class="tab tab-B" id="editTab">編集</li>
-      <li class="tab tab-D" id="noticeTab">その他</li>
-    </ul>
-    <input type="text" id="generatePrompt">
-    <input type="button" id="copyButton" value="Copy">
-    <input type="button" id="clearButton" value="Clear">
-    <input type="button" id="saveButton" value="Save">
-    <label><input type="radio" name="UIType" value="SD"> StableDiffusion</label>
-    <label><input type="radio" name="UIType" value="NAI"> NovelAI</label>
-    <label><input type="radio" name="UIType" value="None"> 自動整形無し</label>
-    <br />
-    <br />
-    <!--タブを切り替えて表示するコンテンツ-->
-    <div class="panel-group">
-      <div class="panel is-show" id="searchTabBody">
-        <h2>キーワード検索</h2>
-        <input type="text" size=25 id="search" value="">
-        <input type="button" id="searchButton" value="検索">
-        <h2>ドロップダウン検索</h2>
-        <ul style="font-size:100%">
-          <li><input value="大項目" type="text" readonly="" class="promptData"
-              style="background-color: black; color: white;"><input value="中項目" type="text" readonly=""
-              class="promptData" style="background-color: black; color: white;"></li>
-          <li>
-            <div class="dropdown-container">
-              <select id="search-cat0" disabled>
-              </select>
-              <select id="search-cat1" disabled>
+        <!-- 自動Generate実行トグルボタン -->
+        <button id="autoGenerate" class="auto-generate-toggle-btn" title="自動生成モードを切り替え（回数・間隔はGenerate設定で調整）">
+          <span class="toggle-text">自動</span>
+          <span class="toggle-status">OFF</span>
+        </button>
+
+        <!-- Generate設定ボタン -->
+        <button id="show-generate-history" class="help-button-inline" title="Generate設定を表示">📝</button>
+
+        <!-- 設定ボタンコンテナ（右寄せ） -->
+        <div class="settings-buttons-container">
+          <!-- 設定ボタン -->
+          <button id="show-settings" class="help-button-inline" title="設定を表示">⚙</button>
+        </div>
+      </div>
+
+      <!-- control-panel -->
+      <div class="control-panel">
+        <div class="control-panel-top">
+          <select id="prompt-slot-selector" title="プロンプトスロットを選択（最大100スロット）">
+            <option value="0">1</option>
+          </select>
+          <button id="copyButton" class="action-btn copy-btn" title="現在のプロンプトをクリップボードにコピー">
+            <span>📋</span> Copy
+          </button>
+          <button id="clearButton" class="action-btn clear-btn" title="プロンプト入力欄をクリア（編集タブもリセット）">
+            <span>🗑️</span> Clear
+          </button>
+          <button id="saveButton" class="action-btn save-btn" title="現在のプロンプトを選択中のお気に入りに保存">
+            <span>⭐️</span> Favo
+          </button>
+          <div class="ui-type-group">
+            <label><input type="radio" name="UIType" value="SD" title="Stable Diffusion形式でプロンプトを整形" /> SD記法</label>
+            <label
+              ><input type="radio" name="UIType" value="NAI" title="NovelAI形式でプロンプトを整形" /> NAI記法</label
+            >
+            <label
+              ><input type="radio" name="UIType" value="None" title="プロンプトを自動整形せずそのまま出力" />
+              自動整形無し</label
+            >
+          </div>
+        </div>
+        <div class="control-panel-bottom">
+          <input type="text" id="generatePrompt" title="生成されたプロンプトが表示されます（手動編集も可能）" />
+        </div>
+      </div>
+
+      <div class="tab-panel">
+        <ul class="tab-group">
+          <li class="tab tab-A is-active" title="プロンプトをキーワードやカテゴリで検索">検索</li>
+          <li class="tab tab-C" id="addTab" title="お気に入りリストと要素辞書を管理">辞書</li>
+          <li class="tab tab-B" id="editTab" title="生成されたプロンプトを編集・調整">編集</li>
+          <li class="tab tab-E" id="slotTab" title="プロンプトスロットを管理（最大100スロット）">スロット</li>
+          <li class="tab tab-D" id="noticeTab" title="設定・インポート・エクスポートなど">その他</li>
+        </ul>
+      </div>
+    </div>
+      <!--タブを切り替えて表示するコンテンツ-->
+      <div class="panel-group">
+        <!-- 検索タブ -->
+        <div class="panel is-show" id="searchTabBody">
+          <!-- ドロップダウン検索フォーム -->
+          <div class="dropdown-form-box">
+            <h3>ドロップダウン検索</h3>
+            <ul class="full-size">
+              <li>
+                <input
+                  value="大項目"
+                  type="text"
+                  readonly=""
+                  class="promptData header-input flex-1"
+                /><input
+                  value="中項目"
+                  type="text"
+                  readonly=""
+                  class="promptData header-input flex-1"
+                />
+              </li>
+              <li>
+                <select id="search-cat0" class="flex-1" disabled title="大項目を選択してプロンプトを絞り込み"></select>
+                <select id="search-cat1" class="flex-1" disabled title="中項目を選択してさらに詳細に絞り込み"></select>
+              </li>
+              <button type="button" id="search-cat-reset" title="ドロップダウン検索の選択をクリア">リセット</button>
+            </ul>
+          </div>
+
+          <!-- キーワード検索フォーム -->
+          <div class="search-form-box">
+            <h3>キーワード検索</h3>
+            <div class="search-input-container">
+              <input type="text" size="25" id="search" value="" title="プロンプト内容やカテゴリ名で検索（部分一致・複数キーワード対応）" />
+              <input type="button" id="searchButton" value="検索" title="入力したキーワードでプロンプトを検索" />
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- 検索結果セクション -->
+          <div class="search-results-section" id="searchResultsSection">
+            <p id="isSearch" class="full-size"></p>
+          </div>
+        </div>
+
+        <!-- 辞書タブ -->
+        <div class="panel" id="addTabBody">
+          <!-- 辞書タブヘッダー -->
+          <div class="dictionary-header">
+            <div class="dictionary-title">
+              <span class="icon">📚</span>
+              <span>辞書管理</span>
+            </div>
+            <div class="dictionary-stats">
+              <div class="stat-item" data-dictionary="favorite" title="保存したお気に入りプロンプトの総数">
+                <span class="stat-number" id="archive-count">0</span>
+                <span class="stat-label">お気に入り</span>
+              </div>
+              <div class="stat-item" data-dictionary="local" title="自分で追加したカスタム要素の総数">
+                <span class="stat-number" id="local-count">0</span>
+                <span class="stat-label">ユーザー</span>
+              </div>
+              <div class="stat-item" data-dictionary="master" title="システムに組み込まれたデフォルト要素の総数（読み取り専用）">
+                <span class="stat-number" id="master-count">0</span>
+                <span class="stat-label">マスター</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 統一辞書コンテナ -->
+          <div class="dictionary-unified-container">
+            <!-- お気に入りリストセクション -->
+            <div class="dictionary-content-section active" id="favorite-section">
+              <div class="dictionary-content-wrapper" id="promptDicContainer">
+                <!-- お気に入り項目追加フォーム -->
+                <div class="element-form-simple">
+                  <h4>新しいお気に入りを追加</h4>
+                  <ul class="full-size">
+                    <li>
+                      <input
+                        value="タイトル"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-1"
+                      />
+                      <input
+                        value="プロンプト"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-2"
+                      />
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        id="favoriteTitle"
+                        class="form-input flex-1"
+                        placeholder="例: 美少女"
+                        title="お気に入りの名前（検索時の識別に使用）"
+                      />
+                      <input
+                        type="text"
+                        id="favoritePrompt"
+                        class="form-input flex-2"
+                        placeholder="プロンプトを入力..."
+                        title="保存したいプロンプト内容（Generate結果をそのまま貼り付け可能）"
+                      />
+                    </li>
+                  </ul>
+                  <button type="button" id="addFavorite" title="入力した内容をお気に入りリストに追加">追加</button>
+                </div>
+
+                <!-- 複数辞書管理パネル -->
+                <div class="multiple-dictionary-panel">
+                  <div class="dictionary-selector-row">
+                    <label>現在のリスト:</label>
+                    <select id="promptDictionarySelector" title="現在編集中のお気に入りリストを選択（複数リストで管理可能）">
+                      <option value="main">メインリスト</option>
+                    </select>
+                  </div>
+                  <div class="dictionary-actions">
+                    <button id="addDictionary" class="action-btn dictionary-add-btn" title="新しいお気に入りリストを作成（ジャンル別・用途別に分類可能）">+ 新規リスト</button>
+                    <button id="manageDictionaries" class="action-btn dictionary-manage-btn" title="お気に入りリストの名前変更・削除・詳細設定">リスト管理</button>
+                  </div>
+                </div>
+
+                <!-- お気に入りリスト操作ボタン -->
+                <div style="margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #eee;">
+                  <input type="file" id="promptDictImport" accept=".json,.csv,.tsv" style="display: none;">
+                  <button id="promptDictDownload" class="action-btn" style="margin-right: 8px;" title="お気に入りリストをJSON形式でエクスポート（Backup・他環境連携用）">JSON</button>
+                  <button id="promptDictCsvDownload" class="action-btn" style="margin-right: 8px;" title="お気に入りリストをCSV形式でエクスポート（スプレッドシートで編集可能）">CSV</button>
+                  <button id="promptDictTsvDownload" class="action-btn" style="margin-right: 8px;" title="お気に入りリストをTSV形式でエクスポート（タブ区切りテキスト）">TSV</button>
+                  <button id="promptDictImportBtn" class="action-btn" title="JSON/CSV/TSVファイルからお気に入りリストをインポート（既存データと結合）">インポート</button>
+                </div>
+                <ul class="full-size sortable-list" id="archiveList"></ul>
+              </div>
+            </div>
+
+            <!-- ローカル要素辞書セクション -->
+            <div class="dictionary-content-section" id="local-section">
+              <div class="dictionary-content-wrapper" id="elementDicContainer">
+                <!-- 要素追加フォーム -->
+                <div class="element-form-simple" style="margin-bottom: 20px;">
+                  <h4>新しい要素を追加</h4>
+                  <ul class="full-size">
+                    <li>
+                      <input
+                        value="大項目"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-1"
+                      />
+                      <input
+                        value="中項目"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-1"
+                      />
+                      <input
+                        value="小項目"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-1"
+                      />
+                      <input
+                        value="プロンプト"
+                        type="text"
+                        readonly=""
+                        class="promptData header-input flex-2"
+                      />
+                      <div class="header-spacer"></div>
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        id="big"
+                        class="form-input flex-1"
+                        placeholder="例: character"
+                        title="大カテゴリ（人物・背景・モードなどの大分類）"
+                      />
+                      <input
+                        type="text"
+                        id="middle"
+                        class="form-input flex-1"
+                        placeholder="例: girl"
+                        title="中カテゴリ（大カテゴリをさらに細かく分類）"
+                      />
+                      <input
+                        type="text"
+                        id="small"
+                        class="form-input flex-1"
+                        placeholder="例: cute"
+                        title="小カテゴリ（最も具体的な特徴や属性）"
+                      />
+                      <input
+                        type="text"
+                        id="prompt"
+                        class="form-input flex-2"
+                        placeholder="プロンプトを入力..."
+                        title="実際のAIイメージ生成で使用するプロンプト文字列"
+                      />
+                    </li>
+                    <button type="button" id="resist" title="入力した内容をユーザー要素辞書に追加（検索・編集時に利用可能）">追加</button>
+                  </ul>
+                </div>
+
+                <!-- 要素辞書（ローカル）操作ボタン -->
+                <div style="margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #eee;">
+                  <input type="file" id="localDictImport" accept=".json,.csv,.tsv" style="display: none;">
+                  <button id="localDictJsonDownload" class="action-btn" style="margin-right: 8px;" title="ユーザー要素辞書をJSON形式でエクスポート">JSON</button>
+                  <button id="localDictCsvDownload" class="action-btn" style="margin-right: 8px;" title="ユーザー要素辞書をCSV形式でエクスポート（スプレッドシート編集可能）">CSV</button>
+                  <button id="localDictTsvDownload" class="action-btn" style="margin-right: 8px;" title="ユーザー要素辞書をTSV形式でエクスポート">TSV</button>
+                  <button id="localDictImportBtn" class="action-btn" title="JSON/CSV/TSVファイルからユーザー要素辞書をインポート">インポート</button>
+                </div>
+
+                <ul class="full-size sortable-list" id="addPromptList"></ul>
+              </div>
+            </div>
+
+            <!-- マスター要素辞書セクション -->
+            <div class="dictionary-content-section" id="master-section">
+              <div class="dictionary-content-wrapper" id="masterDicContainer">
+                <!-- 要素辞書（マスター）操作ボタン -->
+                <div style="margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #eee;">
+                  <button id="masterDictDownload" class="action-btn" style="margin-right: 8px;" title="マスター要素辞書をJSON形式でエクスポート（システムデータのバックアップ用）">JSON</button>
+                  <button id="masterDictCsvDownload" class="action-btn" style="margin-right: 8px;" title="マスター要素辞書をCSV形式でエクスポート（スプレッドシートで閲覧可能）">CSV</button>
+                  <button id="masterDictTsvDownload" class="action-btn" title="マスター要素辞書をTSV形式でエクスポート">TSV</button>
+                </div>
+                <ul class="full-size sortable-list" id="masterDicList"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 隠し要素（従来互換性のため） -->
+          <div style="display: none">
+            <div id="promptDicText">▶お気に入りリスト　※ここをクリックで開閉</div>
+            <div id="elementDicText">
+              ▶要素辞書(ユーザー)　※ここをクリックで開閉
+            </div>
+            <div id="masterDicText">
+              ▶辞書(マスタ)　※ここをクリックで開閉
+            </div>
+          </div>
+        </div>
+
+        <!-- 編集タブ -->
+        <div class="panel" id="editTabBody">
+          <!-- 編集モード選択と要素追加ボタン -->
+          <div class="edit-mode-selection">
+            <!-- スロット統合パネル -->
+            <div class="edit-slot-integration-panel">
+              <!-- スロットモード -->
+              <div class="slot-control-group">
+                <label for="edit-slot-mode">スロットモード</label>
+                <select id="edit-slot-mode" name="edit-slot-mode">
+                  <option value="normal">複数要素</option>
+                  <option value="single">単一要素</option>
+                  <option value="random">ランダム抽出</option>
+                  <option value="sequential">連続抽出</option>
+                </select>
+              </div>
+
+              <!-- スロット重み -->
+              <div class="slot-control-group">
+                <label for="edit-slot-weight">スロットの重み</label>
+                <input type="number" id="edit-slot-weight"
+                       value="1.0">
+              </div>
+
+              <!-- 編集モード -->
+              <div class="slot-control-group edit-mode-dropdown">
+                <label for="EditType">編集モード</label>
+                <select id="EditType" name="EditType">
+                  <option value="SELECT" title="カテゴリとプロンプトを選択ボックスで編集（既存要素から選択）">選択</option>
+                  <option value="TEXT" title="プロンプトをテキスト入力で直接編集（自由なカスタマイズ可能）">テキスト</option>
+                </select>
+              </div>
+
+              <!-- データソース選択 -->
+              <div class="slot-control-group slot-data-source-control">
+                <label for="edit-data-source">データソース</label>
+                <select id="edit-data-source" name="edit-data-source">
+                  <option value="dictionary">辞書</option>
+                  <option value="favorites">お気に入り</option>
+                </select>
+              </div>
+
+              <!-- 辞書選択用 -->
+              <div class="slot-control-group dictionary-selection-control" style="display: none;">
+                <label for="edit-category-big">大項目</label>
+                <select id="edit-category-big" name="edit-category-big">
+                  <option value="">すべて</option>
+                </select>
+              </div>
+
+              <div class="slot-control-group dictionary-selection-control" style="display: none;">
+                <label for="edit-category-middle">中項目</label>
+                <select id="edit-category-middle" name="edit-category-middle">
+                  <option value="">すべて</option>
+                </select>
+              </div>
+
+              <!-- お気に入り選択用 -->
+              <div class="slot-control-group favorites-selection-control" style="display: none;">
+                <label for="edit-favorites-select">お気に入り辞書</label>
+                <select id="edit-favorites-select" name="edit-favorites-select">
+                  <option value="">選択してください</option>
+                </select>
+              </div>
+            </div>
+            <div class="edit-element-controls">
+              <button id="splitSinglePrompt" class="split-single-btn" title="単一プロンプトをスペースで区切って複数要素に分割（細かい編集が可能に）" style="display: none;">
+                <span>📄→📝</span> 分割
+              </button>
+              <button id="addElementTop" class="add-element-btn" title="リストの一番上に新しい空の要素を追加（優先度高い要素用）">
+                <span>➕</span> 上に追加
+              </button>
+              <button id="addElementBottom" class="add-element-btn" title="リストの一番下に新しい空の要素を追加（追加要素用）">
+                <span>➕</span> 下に追加
+              </button>
+              <button id="edit-slot-mute-btn" class="slot-mute-btn" title="現在のスロットをミュート/ミュート解除">
+                <span id="edit-slot-mute-icon">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 編集リストセクション -->
+          <div id="editList" class="flexible-list-container"></div>
+        </div>
+
+        <!-- スロットタブ -->
+        <div class="panel" id="slotTabBody">
+          <h2>プロンプトスロット管理</h2>
+
+          <!-- スロットグループ管理パネル -->
+          <div class="multiple-dictionary-panel">
+            <div class="dictionary-selector-row">
+              <label>現在のグループ:</label>
+              <select id="slot-group-selector" title="現在作業中のスロットグループを選択（プロジェクトや用途別に分類可能）">
+                <option value="default">デフォルトグループ</option>
               </select>
             </div>
-            <input type="button" id="search-cat-reset" value="リセット">
-          </li>
-        </ul>
-        <hr>
-        <p id="isSearch" style="font-size: 100%;"></p>
-        <ul style="font-size:100%" id="promptList"></ul>
-      </div>
-      <div class="panel" id="addTabBody">
-        <br>
-        <div id="promptDicText">▶プロンプト辞書　※ここをクリックで開閉</div>
-        <ul style="font-size:100%" id="archiveList"></ul>
-        <hr>
-        <h2>要素の追加</h2>
-        <ul style="font-size:100%">
-          <li><input value="大項目" type="text" readonly="" class="promptData"
-              style="background-color: black; color: white;"><input value="中項目" type="text" readonly=""
-              class="promptData" style="background-color: black; color: white;"><input value="小項目" type="text"
-              readonly="" class="promptData" style="background-color: black; color: white;"><input value="Prompt"
-              type="text" readonly="" class="promptData" style="background-color: black; color: white;"></li>
-          <li><input type="text" size=2 id="big" class="promptData"><input type="text" size=2 id="middle"
-              class="promptData"><input type="text" size=2 id="small" class="promptData"><input type="text" size=2
-              id="prompt" class="promptData"><input type="button" id="resist" value="追加">
-          </li>
-        </ul>
-        <div id="elementDicText">▶要素辞書(ローカル)　※ここをクリックで開閉</div>
-        <ul style="font-size:100%" id="addPromptList"></ul>
-        <div id="masterDicText">▶要素辞書(マスタ)　※ここをクリックで開閉</div>
-        <ul style="font-size:100%" id="masterDicList"></ul>
-      </div>
-      <div class="panel" id="editTabBody">
-        <label><input type="radio" name="EditType" value="SELECT"> 選択編集モード</label>
-        <label><input type="radio" name="EditType" value="TEXT"> テキスト編集モード</label>
-        <ul style="font-size:100%" id="editList"></ul>
-      </div>
-      <div class="panel" id="noticeBody">
-        <p>お知らせ</p>
-        <p id="notice"></p>
-        <div id="inclued" class="drop-area">
-          <p id="incluedText">辞書か画像を読みこむ (クリックして選択かドラッグドロップ)</p>
-        </div>
-        <img id="preview">
-        <div id="pngInfo"></div>
-      </div>
-    </div>
-  </div>
-  <div id="popup" style="align-items: center;">
-    <img id="popup-image" src="https://ul.h3z.jp/bfuGQIw4.png" style="flex-grow: 1; padding: 10px;">
-    <div style="flex-grow: 1; padding: 10px;">
-      <p>イメージとなります。数が膨大なため精査しておらず、正確なものでは有りません。</p>
-      <p>画像をクリックして閉じることができます。</p>
-      <p>Model Anytihng V3 Method DPM++ 2M scale 7</p>
-      <p id="preview-element"></p>
-      <p>Prompt</p>
-      <input type="text" id="preview-prompt" value="" readonly>
-      <button id="preview-positive-copy">Copy</button>
-      <p>Negative Prompt</p>
-      <input type="text" id="negative-prompt"
-        value="disfigured.bad anatomy disfigured,jpeg artifacts,error,gross,shit,bad,bad proportions,bad shadow,bad anatomy disfigured,bad shoes,bad gloves,bad animal ears,anatomical nonsense,watermark,five fingers,worst quality,bad anatomy,ugly,cropped,simple background,normal quality,lowers,low quality,polar lowres,standard quality,poorly drawn hands,boken limb,missing limbs,malformed limbs,incorrect limb,fusion hand,bad finglegs,abnormal fingers,missing fingers,fewer digits,too many fingers,extra digit,lose finger,extra fingers,one hand with more than 5 digit,one hand with less than 5 digit,one hand with more than 5 fingers,one hand with less than 5 fingers,3d character,qr code,ui,artist name,signature,text error,text font ui,bar code,username,bad digit,liquid digit,missing digit,fewer digits,multiple digit,text,fused digit,extra digt,extra digits,extra digit,nsfw"
-        readonly>
-      <button id="preview-negative-copy">Copy</button>
-    </div>
-  </div>
-  <div id="optionPanel">
-    <br>
-    <br>
-    <br>
-    <br>
-    <label><input type="checkbox" id="isDeleteCheck" value="isDeleteCheck">項目の削除時に確認をする</label><br>
-    <label>DeepLAPIキー<br><input type="password" size=25 id="DeeplAuth" value=""></label><br>
-    <label><input type="button" id="PromptDownload" value="プロンプト辞書ダウンロード"></label>
-    <label><input type="button" id="localDicDownload" value="要素辞書(ローカル)ダウンロード"></label>
-    <label><input type="button" id="MasterDownload" value="要素辞書(マスタ)ダウンロード"></label><br>
-    <label><input type="button" id="resetButton" value="すべてリセットし初期化する"></label><br>
-  </div>
-  <button id="GeneratoButton" hidden>Generate</button>
-  <button id="show-panel">Option</button>
-  <datalist id="category">
-  </datalist>
-  <script src="jquery-3.5.1.js"></script>
-  <script src="jquery-ui.js"></script>
-  <script src="defaltMaster.js"></script>
-  <script src="categoryData.js"></script>
-  <script src="editPrompt-script.js"></script>
-  <script src="globalData-script.js"></script>
-  <script src="webApi-script.js"></script>
-  <script src="popup_script.js"></script>
-</body>
+            <div class="dictionary-description-row">
+              <small id="slot-group-description-compact" class="group-description-text"></small>
+            </div>
+            <div class="dictionary-actions">
+              <button id="slot-group-create-btn" class="action-btn dictionary-add-btn" title="新しいスロットグループを作成（最大20グループまで作成可能）">+ 新規グループ</button>
+              <button id="slot-group-manage-btn" class="action-btn dictionary-manage-btn" title="スロットグループの名前変更・削除・詳細設定">グループ管理</button>
+            </div>
+          </div>
 
+          <div id="slot-info" class="slot-info-bar">
+            <div class="slot-info-left">
+              使用中: <span id="used-slots-count" title="現在グループで使用中のスロット数 / 総スロット数">0/0</span>
+            </div>
+            <div class="slot-info-actions">
+              <div class="slot-action-buttons">
+                <button id="add-slot-btn" class="add-slot-btn" title="現在のグループに新しいプロンプトスロットを追加（最大100スロット）">
+                  + スロット追加
+                </button>
+                <button id="combine-preview-btn" class="combine-preview-btn" title="使用中の全スロットを結合した最終プロンプトをプレビュー（コピー可能）">
+                  結合プレビュー
+                </button>
+                <button id="clear-all-slots-tab" class="clear-all-btn danger-btn" title="現在のグループの全スロットを空にする（復元不可能なので注意）">
+                  🗑️ すべてクリア
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="slot-container" class="virtual-scroll-container">
+            <!-- スロットカードは動的生成 -->
+          </div>
+        </div>
+
+        <!-- その他タブ -->
+        <div class="panel" id="noticeBody">
+          <!-- お知らせセクション -->
+          <div class="notice-section">
+            <h3>お知らせ</h3>
+            <p id="notice"></p>
+          </div>
+
+          <!-- セレクター設定 -->
+          <div class="settings-section">
+            <h3>⚙️ セレクター設定</h3>
+            <div class="selector-management">
+              <div class="selector-service">
+                <label for="selector-service">対象サービス:</label>
+                <select id="selector-service" class="service-selector" title="プロンプトを送信するサービスを選択（プリセットあり）">
+                  <option value="">-- 選択してください --</option>
+                  <option value="novelai">NovelAI</option>
+                  <option value="stable_diffusion">Stable Diffusion WebUI</option>
+                  <option value="comfyui">ComfyUI</option>
+                  <option value="chatgpt">ChatGPT</option>
+                  <option value="claude">Claude (Anthropic)</option>
+                  <option value="custom">カスタム設定</option>
+                </select>
+              </div>
+
+              <div class="selector-inputs">
+                <div class="selector-item">
+                  <label for="selector-positive">プロンプト入力欄:</label>
+                  <div class="selector-control">
+                    <input
+                      type="text"
+                      id="selector-positive"
+                      placeholder="例: #positive-prompt"
+                      class="selector-input"
+                      title="プロンプトを入力するテキストボックスのCSSセレクター"
+                    />
+                    <button
+                      class="visual-select-btn"
+                      data-target="selector-positive"
+                      title="要素をクリックしてセレクターを自動取得（ブラウザの該当タブで実行）"
+                    >
+                      👁
+                    </button>
+                  </div>
+                  <div
+                    id="selector-positive-status"
+                    class="selector-status"
+                  ></div>
+                </div>
+
+                <div class="selector-item">
+                  <label for="selector-generate">Generateボタン:</label>
+                  <div class="selector-control">
+                    <input
+                      type="text"
+                      id="selector-generate"
+                      placeholder="例: #generate-button"
+                      class="selector-input"
+                      title="Generateを実行するボタンのCSSセレクター"
+                    />
+                    <button
+                      class="visual-select-btn"
+                      data-target="selector-generate"
+                      title="Generateボタンをクリックしてセレクターを自動取得"
+                    >
+                      👁
+                    </button>
+                  </div>
+                  <div
+                    id="selector-generate-status"
+                    class="selector-status"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="selector-actions">
+                <button id="saveSelectors" class="action-btn save-btn" title="セレクター設定を保存（次回起動時から有効）">
+                  <span>💾</span> 保存
+                </button>
+                <button id="clearSelectors" class="action-btn clear-btn" title="セレクター設定を空にする（保存された設定もリセット）">
+                  <span>🗑️</span> クリア
+                </button>
+                <button id="showSiteManagement" class="action-btn manage-btn" title="カスタムサイトの登録・編集・削除（独自サイト対応）">
+                  <span>🌐</span> サイト管理
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 画像メタデータ確認セクション -->
+          <div class="settings-section">
+            <h3>🖼️ 画像メタデータ確認</h3>
+            <div class="file-management-content">
+              <div id="inclued" class="drop-area" title="PNG画像のメタデータ（プロンプト情報・Stable Diffusion設定など）を確認">
+                <p id="incluedText">
+                  画像（PNG）をドラッグ＆ドロップまたはクリックして選択し、メタデータを確認
+                </p>
+              </div>
+              <img id="preview" style="max-width: 200px; max-height: 200px; display: none; margin-top: 10px;" />
+              <div id="pngInfo"></div>
+            </div>
+          </div>
+
+          <!-- ショートカットキー一覧セクション -->
+          <div class="settings-section">
+            <h3>⌨️ ショートカットキー一覧</h3>
+            <div class="shortcut-info-section">
+              <h4>ポップアップ内</h4>
+              <table class="shortcuts-table">
+                <tr><td><kbd>Shift+A</kbd></td><td>検索タブに切り替えてフォーカス</td></tr>
+                <tr><td><kbd>Shift+S</kbd></td><td>辞書タブへ移動</td></tr>
+                <tr><td><kbd>Shift+D</kbd></td><td>編集タブへ移動</td></tr>
+                <tr><td><kbd>Shift+F</kbd></td><td>スロットタブへ移動</td></tr>
+                <tr><td><kbd>Shift+G</kbd></td><td>その他タブへ移動</td></tr>
+                <tr><td><kbd>Enter</kbd> or <kbd>Ctrl+G</kbd></td><td>Generate実行</td></tr>
+              </table>
+              <h4>ウェブページ内</h4>
+              <table class="shortcuts-table">
+                <tr><td><kbd>Alt+G</kbd></td><td>サイドパネルを開く</td></tr>
+                <tr><td><kbd>Ctrl+Shift+S</kbd></td><td>選択テキストを辞書に保存</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- 設定ボタン -->
+          <div class="settings-section">
+            <h3>⚙️ 設定</h3>
+            <div class="settings-button-container">
+              <button id="openSettingsModal" class="settings-open-btn" title="拡張機能の詳細設定モーダルを開く（通知・テーマ・インポート・エクスポートなど）">
+                <span>⚙️</span> 設定を開く
+              </button>
+              <small>通知設定、基本設定、設定管理などを一括で行えます</small>
+            </div>
+          </div>
+
+          <!-- サイト管理セクション (非表示にしてモーダルに移行) -->
+          <div class="settings-section" style="display: none;">
+            <div class="dictionary-clickable-header search-results-section-header" data-section="site-management" data-expanded="false">
+              <div class="search-results-title">
+                <span class="icon">🌐</span>
+                サイト管理
+              </div>
+              <span class="dictionary-toggle-icon">▶</span>
+            </div>
+            <div class="dictionary-collapsible-container" data-section-content="site-management">
+              <div class="site-management-container">
+              <!-- カスタムサイト追加フォーム -->
+              <div class="add-site-form">
+                <h4>新しいサイトを追加</h4>
+                <div class="add-site-fields">
+                  <div class="field-group">
+                    <label for="add-site-name">サイト名:</label>
+                    <input type="text" id="add-site-name" placeholder="例: My Custom Site" class="site-input" title="追加するサイトの識別名（管理用）" />
+                  </div>
+                  <div class="field-group">
+                    <label for="add-site-url">URL:</label>
+                    <input type="text" id="add-site-url" placeholder="例: https://example.com" class="site-input" title="サイトのURL（https://から始まる完全なURL）" />
+                  </div>
+                  <div class="field-group">
+                    <label for="add-site-positive">プロンプト入力欄セレクター:</label>
+                    <div class="selector-control">
+                      <input type="text" id="add-site-positive" placeholder="例: #positive-prompt" class="site-input" title="プロンプト入力欄のCSSセレクター" />
+                      <button class="visual-select-btn" data-target="add-site-positive" title="要素をクリックしてセレクターを自動取得">👁</button>
+                    </div>
+                  </div>
+                  <div class="field-group">
+                    <label for="add-site-generate">Generateボタンセレクター:</label>
+                    <div class="selector-control">
+                      <input type="text" id="add-site-generate" placeholder="例: #generate-button" class="site-input" title="GenerateボタンのCSSセレクター" />
+                      <button class="visual-select-btn" data-target="add-site-generate" title="Generateボタンをクリックしてセレクターを自動取得">👁</button>
+                    </div>
+                  </div>
+                  <div class="field-group">
+                    <label for="add-site-delay">プロンプト入力後の遅延時間 (ミリ秒):</label>
+                    <input type="number" id="add-site-delay" placeholder="例: 1000" min="0" max="10000" value="0" class="site-input" title="プロンプト入力後、Generateボタンを押すまでの待機時間（ミリ秒）。ChatAI系サイトは500-2000ms推奨" />
+                    <small class="field-help">0 = 遅延なし、1000 = 1秒、ChatAIサイトには500-2000ms推奨</small>
+                  </div>
+                  <div class="add-site-actions">
+                    <button id="cancelEdit" class="action-btn cancel-btn" style="display: none;" title="サイト編集をキャンセルして元の状態に戻す">
+                      <span>❌</span> キャンセル
+                    </button>
+                    <button id="addSite" class="action-btn add-btn" title="入力した情報で新しいカスタムサイトを登録">
+                      <span>➕</span> サイトを追加
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 既存サイト一覧 -->
+              <div class="site-list">
+                <h4>登録済みサイト</h4>
+                <div id="siteList" class="site-list-container">
+                  <!-- 動的に生成されるサイト一覧 -->
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ポップアップ -->
+    <div id="popup">
+      <img id="popup-image" src="assets/icon/Icon128.png" />
+      <div>
+        <p>
+          イメージとなります。数が膨大なため精査しておらず、正確なものでは有りません。
+        </p>
+        <p>画像をクリックして閉じることができます。</p>
+        <p>Model Anytihng V3 Method DPM++ 2M scale 7</p>
+        <p id="preview-element"></p>
+        <p>Prompt</p>
+        <input type="text" id="preview-prompt" value="" readonly />
+        <button id="preview-positive-copy">Copy</button>
+        <p>Negative Prompt</p>
+        <input
+          type="text"
+          id="negative-prompt"
+          value="disfigured.bad anatomy..."
+          readonly
+        />
+        <button id="preview-negative-copy">Copy</button>
+      </div>
+    </div>
+
+
+    <!-- 固定モーダル要素 -->
+
+    <!-- エラートーストコンテナ -->
+    <div id="error-toast-container" class="error-toast-container"></div>
+
+    <!-- ショートカットヘルプモーダル - 動的生成に変更 -->
+
+    <!-- 結合プレビューモーダル -->
+    <div
+      id="combine-preview-modal"
+      class="combine-preview-modal"
+      style="display: none"
+    >
+      <div class="combine-preview-content">
+        <h3>結合プレビュー</h3>
+        <div class="preview-section">
+          <h4>
+            使用中のスロット (<span id="used-slots-count-preview">0</span>個)
+          </h4>
+          <table class="slot-info-table" id="slot-info-table">
+            <!-- 動的に生成 -->
+          </table>
+        </div>
+        <div class="preview-section">
+          <h4>結合結果</h4>
+          <div class="combine-preview-result" id="combine-preview-result">
+            <!-- 動的に生成 -->
+          </div>
+        </div>
+        <div class="combine-preview-actions">
+          <div class="char-count">
+            文字数: <strong id="combined-char-count">0</strong>
+          </div>
+          <div>
+            <button id="copy-combined">コピー</button>
+            <button id="close-preview">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate履歴モーダル - 動的生成に変更 -->
+
+    <!-- 辞書管理モーダル - 動的生成に変更 -->
+
+    <!-- スロットグループ管理モーダル - 動的生成に変更 -->
+
+    <!-- スクリプト部分 -->
+    <!-- 定数定義ファイル（最優先読み込み） -->
+    <script src="js/core/constants/app-constants.js"></script>
+    <script src="js/core/constants/messages.js"></script>
+    <script src="js/core/constants/dom-constants.js"></script>
+    <script src="js/core/constants/storage-keys.js"></script>
+
+    <!-- ライブラリ -->
+    <script src="lib/jquery-3.5.1.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="lib/papaparse.js"></script>
+    <script src="lib/papaparse.min.js"></script>
+
+    <!-- マスターデータ -->
+    <script src="assets/master/default-master.js"></script>
+
+    <!-- コアモジュール -->
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/app-state.js"></script>
+    <script src="js/core/error-handler.js"></script>
+    <script src="js/core/validators.js"></script>
+    <script src="js/core/category-data-sync-manager.js"></script>
+    <script src="js/core/edit-element-manager.js"></script>
+    <script src="js/core/flexible-element-manager.js"></script>
+    <script src="js/utils/weight-converter.js"></script>
+    <script src="js/utils/list-refresh-manager.js"></script>
+    <script src="js/utils/element-registration.js"></script>
+    <script src="js/utilities/file-utilities.js"></script>
+    <script src="js/external/api-client.js"></script>
+    <script src="js/data/category-manager.js"></script>
+    <script src="js/data/prompt-editor.js"></script>
+    <script src="js/data/data-manager.js"></script>
+    <script src="js/data/prompt-slots.js"></script>
+    <script src="js/data/slot-groups.js"></script>
+    <script src="js/ui/components/ui-factory.js"></script>
+    <script src="js/ui/components/ui-utilities.js"></script>
+    <script src="js/ui/components/virtual-list.js"></script>
+    <script src="js/ui/components/list-manager.js"></script>
+    <script src="js/ui/components/category-ui-manager.js"></script>
+    <script src="js/ui/components/custom-dropdown.js"></script>
+    <script src="js/ui/components/base-modal.js"></script>
+    <script src="js/external/global-utilities.js"></script>
+    <script src="js/features/settings-manager.js"></script>
+    <script src="js/features/theme-manager.js"></script>
+    <script src="js/features/file-handler.js"></script>
+    <script src="js/features/csv-handler.js"></script>
+    <script src="js/features/shortcut-manager.js"></script>
+    <script src="js/features/auto-generate-handler.js"></script>
+    <script src="js/features/generate-history-manager.js"></script>
+    <script src="js/ui/tabs/tab-manager.js"></script>
+    <script src="js/ui/tabs/search-tab.js"></script>
+    <script src="js/ui/tabs/dictionary-tab.js"></script>
+    <script src="js/ui/tabs/edit-tab.js"></script>
+    <script src="js/ui/tabs/slot-tab.js"></script>
+    <script src="js/ui/tabs/other-tab.js"></script>
+    <script src="js/features/search-handler.js"></script>
+    <script src="js/features/edit-handler.js"></script>
+    <script src="js/features/dictionary-handler.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

@@ -1,0 +1,453 @@
+/* 固定ヘッダー部分 */
+.header-section {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  flex-shrink: 0;
+  background-color: var(--bg-primary) !important;
+  border-bottom: 2px solid var(--border-default);
+  z-index: 100 !important; /* モーダルより下、通常コンテンツより上 */
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 影を追加して浮遊感を演出 */
+}
+
+/* Generateコンテナ */
+.generate-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+/* 設定ボタンコンテナ（右寄せ） */
+.settings-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-left: auto; /* 右寄せ */
+}
+
+/* インラインヘルプボタン */
+.help-button-inline {
+  background: transparent;
+  border: none;
+  color: var(--accent-primary);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0; /* サイズを固定 */
+  transition: all var(--transition-fast);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.help-button-inline:hover {
+  color: var(--accent-success);
+  transform: scale(1.1) rotate(15deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Generateボタン（インライン表示用） */
+#GeneratoButton {
+  display: inline-block !important;
+  width: auto;
+  min-width: 100px;
+  margin: 0 !important;
+}
+
+/* 自動Generateトグルボタン */
+.auto-generate-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.auto-generate-toggle-btn:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-tertiary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auto-generate-toggle-btn.active {
+  border-color: var(--accent-success);
+  background: var(--accent-success);
+  color: var(--bg-primary);
+}
+
+.auto-generate-toggle-btn.active:hover {
+  border-color: var(--accent-warning);
+  background: var(--accent-warning);
+}
+
+.auto-generate-toggle-btn .toggle-text {
+  font-weight: 600;
+}
+
+.auto-generate-toggle-btn .toggle-status {
+  font-size: 10px;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.auto-generate-toggle-btn.active .toggle-status {
+  opacity: 1;
+}
+
+/* 自動Generate設定（インライン版） */
+.auto-generate-inline {
+  display: none; /* デフォルトは非表示、JSで制御 */
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.auto-generate-inline[style*="display: flex"] {
+  display: flex !important;
+}
+
+.auto-generate-inline .auto-generate-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
+.auto-generate-inline .auto-generate-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.auto-generate-inline .auto-generate-controls label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* 小さな入力フィールド（回数・間隔フィールド用） */
+.small-input {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--spacing-xs) !important;
+  width: 40px !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.small-input:focus {
+  border-color: var(--accent-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--accent-primary-20) !important;
+}
+
+.small-input:hover:not(:focus) {
+  border-color: var(--border-default) !important;
+  background-color: var(--bg-accent) !important;
+}
+
+.auto-generate-inline .small-input {
+  width: 30px;
+  height: var(--input-height-sm);
+  padding: var(--spacing-xs);
+}
+
+/* 進行状況のスタイル */
+#autoGenerateProgress {
+  margin-left: var(--spacing-sm);
+  white-space: nowrap;
+  color: var(--accent-primary);
+  font-size: 14px;
+  vertical-align: middle;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+#autoGenerateProgress:empty {
+  display: none;
+}
+
+/* Generateボタンラッパー */
+.generate-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Generateボタンの基本スタイル */
+#GeneratoButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+#GeneratoButton:hover {
+  background-color: var(--accent-success);
+}
+
+.button-text {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  z-index: 2;
+  position: relative;
+}
+
+/* 自動生成中のGenerateボタン */
+#GeneratoButton.auto-generating {
+  background-color: var(--accent-warning) !important;
+  color: var(--bg-primary) !important;
+}
+
+#GeneratoButton.auto-generating .button-text::before {
+  content: "Stop";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--bg-primary);
+  z-index: 3;
+}
+
+#GeneratoButton.auto-generating .button-text {
+  color: transparent;
+}
+
+/* スイープアニメーション（生成中用） */
+#GeneratoButton.auto-generating::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: sweep 2s linear infinite;
+  z-index: 1;
+}
+
+/* プログレスバー（Generateボタン内の文字の下に表示） */
+.generate-progress-bar {
+  width: 80%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 1px;
+  overflow: hidden;
+  display: none;
+  position: relative;
+}
+
+.generate-progress-bar.active {
+  display: block;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--accent-success),
+    var(--accent-primary)
+  );
+  width: 0%;
+  transition: width 0.1s ease;
+  border-radius: 1px;
+}
+
+@keyframes sweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* コントロールパネルのグループ化 */
+.control-panel {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+.control-panel-top {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.control-panel-bottom {
+  width: 100%;
+}
+
+/* UITypeのラジオボタングループ */
+.ui-type-group {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin-right: auto; /* 左寄せ */
+}
+
+.ui-type-group label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* ボタンのスタイル統一 */
+#copyButton,
+#clearButton,
+#saveButton {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  min-width: 60px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* 狭い画面でのボタン調整 */
+@media (max-width: 400px) {
+  #copyButton,
+  #clearButton,
+  #saveButton {
+    padding: var(--spacing-xs);
+    min-width: 50px;
+    font-size: 11px;
+  }
+  
+  #copyButton span,
+  #clearButton span,
+  #saveButton span {
+    display: none; /* アイコンを非表示にしてテキストのみ */
+  }
+  
+  #prompt-slot-selector {
+    width: 80px;
+  }
+  
+  .ui-type-group {
+    gap: var(--spacing-xs);
+  }
+  
+  .ui-type-group label {
+    font-size: 11px;
+  }
+}
+
+#generatePrompt {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--spacing-xs) !important;
+  font-size: 14px !important;
+  transition: all var(--transition-fast) !important;
+}
+
+#generatePrompt:focus {
+  border-color: var(--accent-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--accent-primary-20) !important;
+}
+
+#generatePrompt:hover:not(:focus) {
+  border-color: var(--border-default) !important;
+  background-color: var(--bg-accent) !important;
+}
+
+#generatePrompt::placeholder {
+  color: var(--text-muted) !important;
+}
+
+#prompt-slot-selector {
+  width: 120px;
+  margin-right: var(--spacing-xs);
+  font-size: 100%;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--spacing-xs) !important;
+  transition: all var(--transition-fast) !important;
+  flex-shrink: 0;
+}
+
+#prompt-slot-selector:focus {
+  border-color: var(--accent-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--accent-primary-20) !important;
+}
+
+#prompt-slot-selector:hover:not(:focus) {
+  border-color: var(--border-default) !important;
+  background-color: var(--bg-accent) !important;
+}
+
+/* タブパネルとコンテンツエリア */
+.tab-panel {
+  flex-shrink: 0;
+}
+
+.tab-group {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+/* 非活性タブの見た目を確実に適用 */
+.tab-group .tab:not(.is-active) {
+  background-color: var(--bg-tab-inactive);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.tab-group .tab:hover:not(.is-active) {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
