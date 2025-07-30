@@ -613,6 +613,13 @@ class EditElementManager {
     // EditTabの軽量なupdateRegisterButtonStatesで十分に処理されている
     console.log(`[EditElementManager] Translation complete - no additional refresh needed (handled by lightweight button updates)`);
     
+    // 日本語翻訳完了時のみプロンプトを再生成（編集タブの場合のみ）
+    // 英語入力の場合はプロンプト自体は変更されないので再生成不要
+    if (!isAlphanumeric && this.app?.tabs?.edit?.isActive && window.editPrompt && typeof window.editPrompt.generate === 'function') {
+      console.log('[EditElementManager] Regenerating prompt after Japanese translation completion');
+      window.editPrompt.generate();
+    }
+    
     return result;
   }
 

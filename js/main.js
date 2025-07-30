@@ -1192,6 +1192,12 @@ class PromptGeneratorApp {
             selector: AppState.selector.generateSelector,
           });
 
+          // その他タブの既存検証システムを呼び出して状態を更新
+          if (this.tabs.other) {
+            this.tabs.other.validateSelector("selector-positive", AppState.selector.positiveSelector);
+            this.tabs.other.validateSelector("selector-generate", AppState.selector.generateSelector);
+          }
+
           // どちらかが無効な場合はトーストを表示
           if (!positiveResponse?.valid || !generateResponse?.valid) {
             ErrorHandler.notify("セレクターが正しく設定されていない可能性があります。その他タブの「セレクター設定」でプロンプト入力欄とGenerateボタンのセレクターが有効かどうか確認してみてください。", {
@@ -1204,6 +1210,11 @@ class PromptGeneratorApp {
         }
       } catch (error) {
         console.log("セレクター検証でエラー:", error);
+        // エラー時もセレクター状態を更新
+        if (this.tabs.other) {
+          this.tabs.other.validateSelector("selector-positive", AppState.selector.positiveSelector);
+          this.tabs.other.validateSelector("selector-generate", AppState.selector.generateSelector);
+        }
         ErrorHandler.notify("セレクターが正しく設定されていない可能性があります。その他タブの「セレクター設定」でプロンプト入力欄とGenerateボタンのセレクターが有効かどうか確認してみてください。", {
           type: ErrorHandler.NotificationType.TOAST,
           messageType: "warning",
@@ -1510,6 +1521,7 @@ class PromptGeneratorApp {
       return "";
     }
   }
+
 
   // 通知設定は設定モーダルに移動済み（other-tab.js内でハンドリング）
 

@@ -14,11 +14,18 @@ let localPromptIdCounter = 1;
  * ローカルプロンプトリストのIDを管理し、重複を防ぐ
  */
 function ensureLocalPromptIds() {
-  const debugId = `ENSURE_IDS_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+  const debugId = `ENSURE_IDS_${Date.now()}_${Math.random()
+    .toString(36)
+    .substr(2, 5)}`;
   console.log(`[${debugId}] ===== ENSURE LOCAL PROMPT IDS START =====`);
 
-  if (!AppState.data.localPromptList || !Array.isArray(AppState.data.localPromptList)) {
-    console.log(`[${debugId}] No localPromptList found, skipping ID assignment`);
+  if (
+    !AppState.data.localPromptList ||
+    !Array.isArray(AppState.data.localPromptList)
+  ) {
+    console.log(
+      `[${debugId}] No localPromptList found, skipping ID assignment`
+    );
     return;
   }
 
@@ -26,8 +33,8 @@ function ensureLocalPromptIds() {
   let maxId = 0;
 
   // 既存のIDを確認し、最大値を取得
-  AppState.data.localPromptList.forEach(item => {
-    if (item && typeof item.id === 'number') {
+  AppState.data.localPromptList.forEach((item) => {
+    if (item && typeof item.id === "number") {
       maxId = Math.max(maxId, item.id);
     }
   });
@@ -42,15 +49,19 @@ function ensureLocalPromptIds() {
       return;
     }
 
-    if (typeof item.id !== 'number' || item.id <= 0) {
+    if (typeof item.id !== "number" || item.id <= 0) {
       const oldId = item.id;
       item.id = localPromptIdCounter++;
       reassignmentCount++;
-      console.log(`[${debugId}] Assigned new ID ${item.id} to item at index ${index} (old ID: ${oldId})`);
+      console.log(
+        `[${debugId}] Assigned new ID ${item.id} to item at index ${index} (old ID: ${oldId})`
+      );
     }
   });
 
-  console.log(`[${debugId}] ID reassignment completed. Items processed: ${AppState.data.localPromptList.length}, Reassigned: ${reassignmentCount}, Next ID: ${localPromptIdCounter}`);
+  console.log(
+    `[${debugId}] ID reassignment completed. Items processed: ${AppState.data.localPromptList.length}, Reassigned: ${reassignmentCount}, Next ID: ${localPromptIdCounter}`
+  );
   console.log(`[${debugId}] ===== ENSURE LOCAL PROMPT IDS END =====`);
 }
 
@@ -197,7 +208,11 @@ async function saveSelectors() {
  */
 async function loadSelectors() {
   try {
-    const result = await Storage.get(["positiveSelector", "generateSelector", "serviceSets"]);
+    const result = await Storage.get([
+      "positiveSelector",
+      "generateSelector",
+      "serviceSets",
+    ]);
 
     if (result.positiveSelector) {
       AppState.selector.positiveSelector = result.positiveSelector;
@@ -205,15 +220,15 @@ async function loadSelectors() {
     if (result.generateSelector) {
       AppState.selector.generateSelector = result.generateSelector;
     }
-    
+
     // 組み込みサービスの保存された設定を復元
     if (result.serviceSets) {
       // 保存された値で既存の設定を更新（初期値を上書き）
-      Object.keys(result.serviceSets).forEach(key => {
+      Object.keys(result.serviceSets).forEach((key) => {
         if (AppState.selector.serviceSets[key]) {
           AppState.selector.serviceSets[key] = {
             ...AppState.selector.serviceSets[key],
-            ...result.serviceSets[key]
+            ...result.serviceSets[key],
           };
         }
       });
@@ -334,7 +349,7 @@ function validateAndActivateGenerateButton() {
       generateButton.title = "";
     } else {
       generateButton.style.display = "block";
-      generateButton.style.opacity = "0.7";
+      generateButton.style.opacity = "1";
       generateButton.title =
         "セレクター設定を確認してください。その他タブでプロンプト入力欄とGenerateボタンのセレクターを設定する必要があります。";
     }
@@ -380,37 +395,55 @@ async function loadToolInfo() {
  * ローカルプロンプトリストを保存し、カテゴリーを更新
  */
 async function saveLocalList(updateCategories = true) {
-  const saveOperationId = `SAVE_LOCAL_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+  const saveOperationId = `SAVE_LOCAL_${Date.now()}_${Math.random()
+    .toString(36)
+    .substr(2, 5)}`;
   console.log(`[💾 ${saveOperationId}] ===== SAVE LOCAL LIST START =====`);
   console.log(`[💾 ${saveOperationId}] updateCategories: ${updateCategories}`);
-  console.log(`[💾 ${saveOperationId}] localPromptList length: ${AppState.data.localPromptList.length}`);
-  console.log(`[💾 ${saveOperationId}] localPromptList contents:`, 
+  console.log(
+    `[💾 ${saveOperationId}] localPromptList length: ${AppState.data.localPromptList.length}`
+  );
+  console.log(
+    `[💾 ${saveOperationId}] localPromptList contents:`,
     AppState.data.localPromptList.map((item, idx) => ({
       index: idx,
       id: item?.id,
       sort: item?.sort,
       data: item?.data,
-      prompt: item?.prompt?.substring(0, 20) + '...'
+      prompt: item?.prompt?.substring(0, 20) + "...",
     }))
   );
-  
+
   try {
     const saveStart = Date.now();
     await Storage.set({ localPromptList: AppState.data.localPromptList });
-    console.log(`[💾 ${saveOperationId}] ✅ Storage.set completed (${Date.now() - saveStart}ms)`);
+    console.log(
+      `[💾 ${saveOperationId}] ✅ Storage.set completed (${
+        Date.now() - saveStart
+      }ms)`
+    );
 
     if (updateCategories) {
-      console.log(`[💾 ${saveOperationId}] Executing immediateCategoryUpdate...`);
+      console.log(
+        `[💾 ${saveOperationId}] Executing immediateCategoryUpdate...`
+      );
       const categoryStart = Date.now();
       immediateCategoryUpdate();
-      console.log(`[💾 ${saveOperationId}] ✅ immediateCategoryUpdate completed (${Date.now() - categoryStart}ms)`);
+      console.log(
+        `[💾 ${saveOperationId}] ✅ immediateCategoryUpdate completed (${
+          Date.now() - categoryStart
+        }ms)`
+      );
     } else {
       console.log(`[💾 ${saveOperationId}] Skipping category update`);
     }
-    
+
     console.log(`[💾 ${saveOperationId}] ===== SAVE LOCAL LIST END =====`);
   } catch (error) {
-    console.error(`[💾 ${saveOperationId}] ❌ Failed to save local list:`, error);
+    console.error(
+      `[💾 ${saveOperationId}] ❌ Failed to save local list:`,
+      error
+    );
     throw error;
   }
 }
@@ -419,17 +452,29 @@ async function saveLocalList(updateCategories = true) {
  * ローカルプロンプトリストを読み込み
  */
 async function loadLocalList() {
-  const loadOperationId = `LOAD_LOCAL_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+  const loadOperationId = `LOAD_LOCAL_${Date.now()}_${Math.random()
+    .toString(36)
+    .substr(2, 5)}`;
   console.log(`[📥 ${loadOperationId}] ===== LOAD LOCAL LIST START =====`);
-  
+
   try {
     const loadStart = Date.now();
     const result = await Storage.get("localPromptList");
-    console.log(`[📥 ${loadOperationId}] Storage.get completed (${Date.now() - loadStart}ms)`);
-    console.log(`[📥 ${loadOperationId}] Raw data from storage:`, result.localPromptList?.length || 0, 'items');
-    
+    console.log(
+      `[📥 ${loadOperationId}] Storage.get completed (${
+        Date.now() - loadStart
+      }ms)`
+    );
+    console.log(
+      `[📥 ${loadOperationId}] Raw data from storage:`,
+      result.localPromptList?.length || 0,
+      "items"
+    );
+
     if (result.localPromptList) {
-      console.log(`[📥 ${loadOperationId}] Processing ${result.localPromptList.length} items...`);
+      console.log(
+        `[📥 ${loadOperationId}] Processing ${result.localPromptList.length} items...`
+      );
       let cleanedCount = 0;
 
       // アイテムにIDを付与し、同時にデータクリーニングを実行
@@ -558,13 +603,15 @@ async function loadLocalList() {
           }
 
           // 永続的な数値IDを付与（編集タブと同様）
-          if (typeof item.id === 'number' && item.id > 0) {
+          if (typeof item.id === "number" && item.id > 0) {
             cleanedItem.id = item.id;
             localPromptIdCounter = Math.max(localPromptIdCounter, item.id + 1);
           } else {
             // ID未設定の要素には新しいIDを付与
             cleanedItem.id = localPromptIdCounter++;
-            console.log(`[📥 ${loadOperationId}] Assigned new ID ${cleanedItem.id} to item at index ${index}`);
+            console.log(
+              `[📥 ${loadOperationId}] Assigned new ID ${cleanedItem.id} to item at index ${index}`
+            );
           }
 
           return cleanedItem;
@@ -579,34 +626,44 @@ async function loadLocalList() {
         await saveLocalList(false); // カテゴリー更新なしで保存
       }
 
-      console.log(`[📥 ${loadOperationId}] Processed ${AppState.data.localPromptList.length} items (cleaned: ${cleanedCount})`);
-      
+      console.log(
+        `[📥 ${loadOperationId}] Processed ${AppState.data.localPromptList.length} items (cleaned: ${cleanedCount})`
+      );
+
       // 辞書タブ用：ロード完了後に必ずID整合性を確保（ソート問題解決）
       if (window.ensureLocalPromptIntegrity) {
-        console.log(`[📥 ${loadOperationId}] Ensuring local prompt ID integrity after load...`);
+        console.log(
+          `[📥 ${loadOperationId}] Ensuring local prompt ID integrity after load...`
+        );
         await window.ensureLocalPromptIntegrity(false); // 保存はしない（ロード直後なので）
       } else {
         // フォールバック：従来のID整合性確保
         ensureLocalPromptIds();
       }
 
-      console.log(`[📥 ${loadOperationId}] Final localPromptList contents:`, 
+      console.log(
+        `[📥 ${loadOperationId}] Final localPromptList contents:`,
         AppState.data.localPromptList.map((item, idx) => ({
           index: idx,
           id: item?.id,
           sort: item?.sort,
           data: item?.data,
-          prompt: item?.prompt?.substring(0, 20) + '...'
+          prompt: item?.prompt?.substring(0, 20) + "...",
         }))
       );
       console.log(`[📥 ${loadOperationId}] ===== LOAD LOCAL LIST END =====`);
     } else {
-      console.log(`[📥 ${loadOperationId}] No data found in storage - initializing empty list`);
+      console.log(
+        `[📥 ${loadOperationId}] No data found in storage - initializing empty list`
+      );
       AppState.data.localPromptList = [];
       console.log(`[📥 ${loadOperationId}] ===== LOAD LOCAL LIST END =====`);
     }
   } catch (error) {
-    console.error(`[📥 ${loadOperationId}] ❌ Failed to load local list:`, error);
+    console.error(
+      `[📥 ${loadOperationId}] ❌ Failed to load local list:`,
+      error
+    );
   }
 }
 
@@ -819,7 +876,7 @@ async function loadOptionData() {
 async function updateUIBasedOnCurrentTab() {
   return new Promise((resolve) => {
     const uiTypeButtons = document.querySelectorAll('[name="UIType"]');
-    const editTypeSelect = document.querySelector('#EditType');
+    const editTypeSelect = document.querySelector("#EditType");
 
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const currentUrl = tabs[0].url;
@@ -848,7 +905,8 @@ async function updateUIBasedOnCurrentTab() {
       }
 
       if (editTypeSelect) {
-        editTypeSelect.value = AppState.userSettings.optionData.editType || "SELECT";
+        editTypeSelect.value =
+          AppState.userSettings.optionData.editType || "SELECT";
       }
 
       resolve();
@@ -1492,7 +1550,9 @@ async function saveDebugSettings() {
       debugMode: AppState.config.debugMode,
     };
     await Storage.set({ debugSettings });
-    console.log(`[DebugSettings] Saved debug mode: ${AppState.config.debugMode}`);
+    console.log(
+      `[DebugSettings] Saved debug mode: ${AppState.config.debugMode}`
+    );
   } catch (error) {
     console.error("Failed to save debug settings:", error);
     throw error;
@@ -1507,11 +1567,15 @@ async function loadDebugSettings() {
     const result = await Storage.get("debugSettings");
     if (result.debugSettings) {
       AppState.config.debugMode = result.debugSettings.debugMode || false;
-      console.log(`[DebugSettings] Loaded debug mode: ${AppState.config.debugMode}`);
+      console.log(
+        `[DebugSettings] Loaded debug mode: ${AppState.config.debugMode}`
+      );
     } else {
       // デフォルト値を設定
       AppState.config.debugMode = false;
-      console.log(`[DebugSettings] No saved settings, using default: ${AppState.config.debugMode}`);
+      console.log(
+        `[DebugSettings] No saved settings, using default: ${AppState.config.debugMode}`
+      );
     }
   } catch (error) {
     console.error("Failed to load debug settings:", error);
@@ -1534,37 +1598,43 @@ window.savePromptDictionaries = savePromptDictionaries;
  */
 function ensureDictionaryElementIds(dataArray) {
   if (!Array.isArray(dataArray)) {
-    console.warn('[DATA_MANAGER] ensureDictionaryElementIds: Invalid data array');
+    console.warn(
+      "[DATA_MANAGER] ensureDictionaryElementIds: Invalid data array"
+    );
     return dataArray;
   }
 
   let maxId = 0;
-  
+
   // 既存のIDの最大値を取得
-  dataArray.forEach(element => {
+  dataArray.forEach((element) => {
     if (element && element.id !== undefined && element.id > maxId) {
       maxId = element.id;
     }
   });
-  
+
   // IDが欠けている要素に新しいIDを付与
   let needsReassignment = false;
-  dataArray.forEach(element => {
+  dataArray.forEach((element) => {
     if (element && (element.id === undefined || element.id === null)) {
       element.id = ++maxId;
       needsReassignment = true;
-      
+
       if (AppState.config.debugMode) {
-        console.log(`[DATA_MANAGER] Assigned new ID ${element.id} to dictionary element:`, 
-          element.prompt?.substring(0, 30) || 'No prompt');
+        console.log(
+          `[DATA_MANAGER] Assigned new ID ${element.id} to dictionary element:`,
+          element.prompt?.substring(0, 30) || "No prompt"
+        );
       }
     }
   });
-  
+
   if (needsReassignment && AppState.config.debugMode) {
-    console.log(`[DATA_MANAGER] Dictionary ID integrity ensured. Max ID: ${maxId}`);
+    console.log(
+      `[DATA_MANAGER] Dictionary ID integrity ensured. Max ID: ${maxId}`
+    );
   }
-  
+
   return dataArray;
 }
 
@@ -1575,32 +1645,38 @@ function ensureDictionaryElementIds(dataArray) {
 async function ensureLocalPromptIntegrity(saveAfterUpdate = true) {
   try {
     if (AppState.config.debugMode) {
-      console.log('[DATA_MANAGER] Starting local prompt integrity check...');
+      console.log("[DATA_MANAGER] Starting local prompt integrity check...");
     }
-    
+
     // ID整合性確保
-    AppState.data.localPromptList = ensureDictionaryElementIds(AppState.data.localPromptList);
-    
+    AppState.data.localPromptList = ensureDictionaryElementIds(
+      AppState.data.localPromptList
+    );
+
     // sort値の整合性確保（欠けているsort値を補完）
     AppState.data.localPromptList.forEach((element, index) => {
       if (element && (element.sort === undefined || element.sort === null)) {
         element.sort = index;
         if (AppState.config.debugMode) {
-          console.log(`[DATA_MANAGER] Assigned sort value ${index} to element ID ${element.id}`);
+          console.log(
+            `[DATA_MANAGER] Assigned sort value ${index} to element ID ${element.id}`
+          );
         }
       }
     });
-    
+
     // 保存処理
     if (saveAfterUpdate) {
       await saveLocalList(AppState.data.localPromptList);
       if (AppState.config.debugMode) {
-        console.log('[DATA_MANAGER] Local prompt integrity ensured and saved');
+        console.log("[DATA_MANAGER] Local prompt integrity ensured and saved");
       }
     }
-    
   } catch (error) {
-    console.error('[DATA_MANAGER] Failed to ensure local prompt integrity:', error);
+    console.error(
+      "[DATA_MANAGER] Failed to ensure local prompt integrity:",
+      error
+    );
     throw error;
   }
 }

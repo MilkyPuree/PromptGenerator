@@ -225,16 +225,7 @@
           });
         });
 
-        // アクションボタン
-        const saveBtn = this.getElement("#saveSelectors");
-        if (saveBtn) {
-          this.addEventListener(saveBtn, "click", () => this.saveSelectors());
-        }
-
-        const clearBtn = this.getElement("#clearSelectors");
-        if (clearBtn) {
-          this.addEventListener(clearBtn, "click", () => this.clearSelectors());
-        }
+        // アクションボタン（保存・クリアボタンは削除済み）
 
         // セレクター入力フィールドの変更監視
         ["selector-positive", "selector-generate"].forEach((id) => {
@@ -530,12 +521,15 @@
           }
           this.endVisualSelection();
 
-          // メインセレクターの場合のみ自動保存
+          // メインセレクターの場合はAppStateに直接保存
           if (
-            this.visualSelectorState.targetInputId === "selector-positive" ||
+            this.visualSelectorState.targetInputId === "selector-positive"
+          ) {
+            AppState.selector.positiveSelector = message.selector;
+          } else if (
             this.visualSelectorState.targetInputId === "selector-generate"
           ) {
-            this.saveSelectors();
+            AppState.selector.generateSelector = message.selector;
           }
         } else if (message.action === "visualSelectionCanceled") {
           this.endVisualSelection();
@@ -621,108 +615,6 @@
         }
       }
 
-      // セレクターを保存（AppState.selectorに保存）
-      // other-tab.js の修正（saveSelectorsメソッド）
-      // other-tab.js の修正（saveSelectorsメソッド）
-      async saveSelectors() {
-        const positiveSelector = this.getElement(
-          DOM_SELECTORS.BY_ID.SELECTOR_POSITIVE
-        )?.value;
-        const generateSelector = this.getElement(
-          DOM_SELECTORS.BY_ID.SELECTOR_GENERATE
-        )?.value;
-
-        if (!positiveSelector || !generateSelector) {
-          ErrorHandler.notify("両方のセレクターを入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
-          return;
-        }
-
-        try {
-          // AppState.selectorを更新
-          const serviceSelect = this.getElement(
-            DOM_SELECTORS.BY_ID.SELECTOR_SERVICE
-          );
-          const serviceKey = serviceSelect.value;
-
-          AppState.selector.positiveSelector = positiveSelector;
-          AppState.selector.generateSelector = generateSelector;
-
-          // 選択されたサービスの設定を更新（組み込みサービスまたはカスタムサイト）
-          if (AppState.selector.serviceSets[serviceKey]) {
-            // 組み込みサービスの場合
-            AppState.selector.serviceSets[serviceKey].positiveSelector =
-              positiveSelector;
-            AppState.selector.serviceSets[serviceKey].generateSelector =
-              generateSelector;
-          } else if (AppState.selector.customSites[serviceKey]) {
-            // カスタムサイトの場合
-            AppState.selector.customSites[serviceKey].positiveSelector =
-              positiveSelector;
-            AppState.selector.customSites[serviceKey].generateSelector =
-              generateSelector;
-          }
-
-          // Chrome Storageに保存（グローバル関数を呼び出す）
-          await window.saveSelectors(); // ← data-manager.jsの関数を明示的に呼び出す
-
-          // カスタムサイトの変更も保存
-          if (AppState.selector.customSites[serviceKey]) {
-            await saveCustomSites();
-          }
-
-          ErrorHandler.notify("セレクターを保存しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
-
-          // Generateボタンの表示を更新
-          this.updateGenerateButtonVisibility();
-        } catch (error) {
-          console.error("Save error:", error);
-          ErrorHandler.notify("保存に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
-        }
-      }
-      // セレクターをクリア
-      async clearSelectors() {
-        if (!confirm("セレクターをクリアしますか？")) return;
-
-        const positiveInput = this.getElement(
-          DOM_SELECTORS.BY_ID.SELECTOR_POSITIVE
-        );
-        const generateInput = this.getElement(
-          DOM_SELECTORS.BY_ID.SELECTOR_GENERATE
-        );
-
-        if (positiveInput) positiveInput.value = "";
-        if (generateInput) generateInput.value = "";
-
-        // ステータスをクリア
-        document.querySelectorAll(".selector-status").forEach((status) => {
-          status.textContent = "";
-          status.style.display = "none";
-        });
-
-        try {
-          // AppState.selectorをクリア
-          AppState.selector.positiveSelector = null;
-          AppState.selector.generateSelector = null;
-
-          ErrorHandler.notify("セレクターをクリアしました", {
-            type: ErrorHandler.NotificationType.TOAST,
-          });
-
-          // Generateボタンを非表示に
-          this.updateGenerateButtonVisibility();
-        } catch (error) {
-          console.error("Clear error:", error);
-        }
-      }
 
       // Generateボタンの表示/非表示を更新
       updateGenerateButtonVisibility() {
