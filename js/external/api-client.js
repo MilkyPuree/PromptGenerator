@@ -152,7 +152,7 @@ function processToolInfoItem(item) {
         const noticeElement = document.getElementById(DOM_IDS.OTHER.NOTICE);
         if (noticeElement) {
           noticeElement.innerHTML =
-            "最新のバージョンがあります</br><a href ='https://github.com/MilkyPuree/PromptGenerator' target='_blank'>Githubにて最新のものが取得できます。</a>";
+            "最新のバージョンがあります</br><a href ='https://milkypuree.github.io/PromptGeneratorPage/index.html' target='_blank'>サイトにて最新のものが取得できます。</r>アップデートの項目にてやり方をご確認ください。</a>";
         }
       }
       break;
@@ -179,12 +179,18 @@ function processToolInfoItem(item) {
 
     case "novelAIpositivePromptText":
       // ユーザー設定を優先するため、外部APIによるセレクター上書きを無効化
-      console.log("[AUTO-GENERATE-DEBUG] Ignored external selector override for positiveSelector:", item.value);
+      console.log(
+        "[AUTO-GENERATE-DEBUG] Ignored external selector override for positiveSelector:",
+        item.value
+      );
       break;
 
     case "novelAIgenerateButton":
       // ユーザー設定を優先するため、外部APIによるセレクター上書きを無効化
-      console.log("[AUTO-GENERATE-DEBUG] Ignored external selector override for generateSelector:", item.value);
+      console.log(
+        "[AUTO-GENERATE-DEBUG] Ignored external selector override for generateSelector:",
+        item.value
+      );
       break;
   }
 
@@ -337,13 +343,13 @@ function masterDicDownload(jsonURL) {
     // バージョンチェックは不要
     const masterPrompts = getMasterPrompts();
     console.log(`Master data available: ${masterPrompts.length} items`);
-    
+
     // マスターデータが利用できない場合は処理をスキップ
     if (masterPrompts.length === 0) {
       console.warn("Master data not available, skipping masterDicDownload");
       return;
     }
-    
+
     // カテゴリデータのみ更新
     if (typeof categoryData !== "undefined" && categoryData.update) {
       categoryData.update();
