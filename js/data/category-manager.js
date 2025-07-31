@@ -240,12 +240,49 @@ const categoryData = {
     if (level < 0 || level > 2) return [];
 
     if (level === 0 || !parentValue) {
-      return this.data[level].map((item) => item.value);
+      let categories = this.data[level].map((item) => item.value);
+      
+      // 大カテゴリ（level 0）の場合、NSFWフィルタリングを適用
+      if (level === 0) {
+        categories = this.filterNSFWCategories(categories);
+      }
+      
+      return categories;
     }
 
     return this.data[level]
       .filter((item) => item.parent === parentValue)
       .map((item) => item.value);
+  },
+
+  /**
+   * NSFWカテゴリのフィルタリング
+   * @param {Array} categories - フィルタリング対象のカテゴリ配列
+   * @returns {Array} フィルタリング後のカテゴリ配列
+   */
+  filterNSFWCategories: function (categories) {
+    // NSFWカテゴリ表示設定をチェック（安全性優先：未定義の場合はfalse）
+    const showNSFW = AppState.userSettings?.optionData?.showNSFWCategories === true;
+    
+    if (showNSFW) {
+      // NSFW表示が明示的に有効な場合のみフィルタリングしない
+      return categories;
+    }
+    
+    // デフォルト動作：NSFWを含む大カテゴリを除外（安全性優先）
+    return categories.filter(category => {
+      // NSFWを含むカテゴリ名をフィルタリング
+      const categoryStr = String(category || '').trim();
+      
+      // NSFWパターンマッチング（完全一致と前方一致）
+      const isNSFW = categoryStr === 'NSFW' || 
+                     categoryStr.startsWith('NSFW:') ||
+                     categoryStr === 'nsfw' || 
+                     categoryStr.startsWith('nsfw:') ||
+                     categoryStr.toUpperCase().includes('NSFW');
+      
+      return !isNSFW;
+    });
   },
 
   /**

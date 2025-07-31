@@ -858,6 +858,8 @@ async function loadOptionData() {
         // ボタン表示設定（デフォルトは非表示）
         showCopyButton: false,
         showGenerateButton: false,
+        // NSFWカテゴリ表示設定（デフォルトは非表示で安全性優先）
+        showNSFWCategories: false,
       };
     }
 

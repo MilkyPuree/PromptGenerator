@@ -1,6 +1,3430 @@
 let defaultMaster = {
   data: [
   {
+    prompt: "nwg",
+    data: ["NSFW", "!必須タグ", "nsfw + girl"]
+  },
+  {
+    prompt: "nsfw",
+    data: ["NSFW", "!必須タグ", "エロ画像"]
+  },
+  {
+    prompt: "artificial vagina",
+    data: ["NSFW:アイテム", "アイテム", "オナホール"]
+  },
+  {
+    prompt: "glowing penis",
+    data: ["NSFW:アイテム", "アイテム", "ゲーミングちんぽ"]
+  },
+  {
+    prompt: "aurora glowing penis",
+    data: ["NSFW:アイテム", "アイテム", "ゲーミングちんぽ(オーロラ)"]
+  },
+  {
+    prompt: "rainbow glowing penis",
+    data: ["NSFW:アイテム", "アイテム", "ゲーミングちんぽ(レインボー)"]
+  },
+  {
+    prompt: "condom with sperm (object)",
+    data: ["NSFW:アイテム", "アイテム", "コンドーム"]
+  },
+  {
+    prompt: "dildo",
+    data: ["NSFW:アイテム", "アイテム", "ディルド"]
+  },
+  {
+    prompt: "vibrator in thighhighs,thighvibe",
+    data: ["NSFW:アイテム", "アイテム", "ピンクローター"]
+  },
+  {
+    prompt: "penis band",
+    data: ["NSFW:アイテム", "アイテム", "ペニスバンド"]
+  },
+  {
+    prompt: "bottle",
+    data: ["NSFW:アイテム", "アイテム", "ボトル※母乳除外にも"]
+  },
+  {
+    prompt: "nipple piercing",
+    data: ["NSFW:アイテム", "アイテム", "乳首ピアス"]
+  },
+  {
+    prompt: "used condom",
+    data: ["NSFW:アイテム", "アイテム", "使ったコンドーム"]
+  },
+  {
+    prompt: "used condo",
+    data: ["NSFW:アイテム", "アイテム", "使用済みコンドーム"]
+  },
+  {
+    prompt: "used tissue",
+    data: ["NSFW:アイテム", "アイテム", "使用済みティッシュ"]
+  },
+  {
+    prompt: "condom in mouth",
+    data: ["NSFW:アイテム", "アイテム", "咥えコンドーム"]
+  },
+  {
+    prompt: "many tentacles",
+    data: ["NSFW:アイテム", "アイテム", "多くの触手"]
+  },
+  {
+    prompt: "huge dildo",
+    data: ["NSFW:アイテム", "アイテム", "巨大なディルド"]
+  },
+  {
+    prompt: "condom wrapper",
+    data: ["NSFW:アイテム", "アイテム", "未使用コンドーム"]
+  },
+  {
+    prompt: "coin on string",
+    data: ["NSFW:アイテム", "アイテム", "紐で吊るされたコイン"]
+  },
+  {
+    prompt: "tentacle",
+    data: ["NSFW:アイテム", "アイテム", "触手"]
+  },
+  {
+    prompt: "dvd cover, fake cover",
+    data: ["NSFW:シチュ", "シチュ", "AVっぽくなる"]
+  },
+  {
+    prompt: "cuckold",
+    data: ["NSFW:シチュ", "シチュ", "NTR"]
+  },
+  {
+    prompt: "undressing",
+    data: ["NSFW:シチュ", "シチュ", "ぬぎぬぎ"]
+  },
+  {
+    prompt: "1girl,pee,skirt lift,pussy line,nsfw,public urination,lifting person,1boy,spread legs,knees up,carrying,carrying person,public indecency,hetero,faceless boy,leaning back,holding thigh",
+    data: ["NSFW:シチュ", "シチュ", "やり手水"]
+  },
+  {
+    prompt: "ri-net style,1girl,pee,skirt lift,pussy line,nsfw,public urination,lifting person,1boy,spread legs,knees up,carrying,carrying person,public indecency,hetero,faceless boy,leaning back,holding thigh",
+    data: ["NSFW:シチュ", "シチュ", "やり手水"]
+  },
+  {
+    prompt: "breasts on glass",
+    data: ["NSFW:シチュ", "シチュ", "ガラス越しの乳"]
+  },
+  {
+    prompt: "group sex",
+    data: ["NSFW:シチュ", "シチュ", "グループセックス"]
+  },
+  {
+    prompt: "under covers",
+    data: ["NSFW:シチュ", "シチュ", "シーツで隠れている"]
+  },
+  {
+    prompt: "hand over another's mouth",
+    data: ["NSFW:シチュ", "シチュ", "ハンドギャグ,口ふさぎ"]
+  },
+  {
+    prompt: "harem",
+    data: ["NSFW:シチュ", "シチュ", "ハーレム"]
+  },
+  {
+    prompt: "pantyshot",
+    data: ["NSFW:シチュ", "シチュ", "パンチラ"]
+  },
+  {
+    prompt: "sobbing,crying with eyes open,sad,despair,horrified",
+    data: ["NSFW:シチュ", "シチュ", "ボロボロ"]
+  },
+  {
+    prompt: "tattered",
+    data: ["NSFW:シチュ", "シチュ", "ボロボロ"]
+  },
+  {
+    prompt: "presenting",
+    data: ["NSFW:シチュ", "シチュ", "ヤる前の空気"]
+  },
+  {
+    prompt: "{{{{{{{{{{{ryona}}}}}}}}}},{{{{{{{{{{guro}}}}}}}}}},{{{{{{{{{{snuff}}}}}}}}},{{{{{strangulation}}}}}, {{{{{{{{{suffocation}}}}}}}}}, {{{{{violence}}}}}, {{{{{dead}}}}}",
+    data: ["NSFW:シチュ", "シチュ", "リョナ(首絞め)"]
+  },
+  {
+    prompt: "rape",
+    data: ["NSFW:シチュ", "シチュ", "レイプ"]
+  },
+  {
+    prompt: "spit roast",
+    data: ["NSFW:シチュ", "シチュ", "串焼き"]
+  },
+  {
+    prompt: "accepting without reservation",
+    data: ["NSFW:シチュ", "シチュ", "丸のみ"]
+  },
+  {
+    prompt: "orgy",
+    data: ["NSFW:シチュ", "シチュ", "乱交"]
+  },
+  {
+    prompt: "symmetrical docking",
+    data: ["NSFW:シチュ", "シチュ", "乳合わせ(左右)"]
+  },
+  {
+    prompt: "breast press",
+    data: ["NSFW:シチュ", "シチュ", "何かに胸を当てる(別要素と併用)"]
+  },
+  {
+    prompt: "hypnosis",
+    data: ["NSFW:シチュ", "シチュ", "催眠"]
+  },
+  {
+    prompt: "public indecency",
+    data: ["NSFW:シチュ", "シチュ", "公然猥褻,野外露出"]
+  },
+  {
+    prompt: "(defloration, bleeding from vagina:1.3)",
+    data: ["NSFW:シチュ", "シチュ", "処女喪失"]
+  },
+  {
+    prompt: "gag",
+    data: ["NSFW:シチュ", "シチュ", "口を塞ぐ(人質的な)"]
+  },
+  {
+    prompt: "{{bend over}},pussy {{{buried in the wall}}},nsfw",
+    data: ["NSFW:シチュ", "シチュ", "壁尻(尻のみ)"]
+  },
+  {
+    prompt: "prostitution",
+    data: ["NSFW:シチュ", "シチュ", "売春(援交)"]
+  },
+  {
+    prompt: "girl sandwich",
+    data: ["NSFW:シチュ", "シチュ", "女の子サンド"]
+  },
+  {
+    prompt: "the rope my crotch",
+    data: ["NSFW:シチュ", "シチュ", "拘束,亀甲縛り"]
+  },
+  {
+    prompt: "sweat, steam, smile, school {{{festival}}}, on stage, bandstand, open air stage, {{idol}}, dancing, singing, holding handheld microphone, in motion, {{blue sky}},  school ground, {{bunting}}, [audience], nsfw, panties, tuck up skirt, {confetti}, looking afar, yellow hair",
+    data: ["NSFW:シチュ", "シチュ", "文化祭ライブパンチラ"]
+  },
+  {
+    prompt: "{{{{dark-skinned female}}}},{{{bikini tan}}}",
+    data: ["NSFW:シチュ", "シチュ", "日焼けエッチ◎"]
+  },
+  {
+    prompt: "lactation through clothes",
+    data: ["NSFW:シチュ", "シチュ", "服越しの母乳"]
+  },
+  {
+    prompt: "egg laying",
+    data: ["NSFW:シチュ", "シチュ", "産卵"]
+  },
+  {
+    prompt: "1girl,1boy",
+    data: ["NSFW:シチュ", "シチュ", "男女一人"]
+  },
+  {
+    prompt: "molest",
+    data: ["NSFW:シチュ", "シチュ", "痴漢1"]
+  },
+  {
+    prompt: "molestation",
+    data: ["NSFW:シチュ", "シチュ", "痴漢2"]
+  },
+  {
+    prompt: "clothed sex",
+    data: ["NSFW:シチュ", "シチュ", "着衣セックス"]
+  },
+  {
+    prompt: "cfnm",
+    data: ["NSFW:シチュ", "シチュ", "着衣プレイ"]
+  },
+  {
+    prompt: "sleeping rape",
+    data: ["NSFW:シチュ", "シチュ", "睡姦"]
+  },
+  {
+    prompt: "1.3::female ejaculation,trembling motionline for orgasm,arched back",
+    data: ["NSFW:シチュ", "シチュ", "絶頂テンプレ"]
+  },
+  {
+    prompt: "bound",
+    data: ["NSFW:シチュ", "シチュ", "緊縛"]
+  },
+  {
+    prompt: "grabbing,grabbing another's breast,grabbing from behind",
+    data: ["NSFW:シチュ", "シチュ", "背後からの乳揉み"]
+  },
+  {
+    prompt: "person between breasts",
+    data: ["NSFW:シチュ", "シチュ", "胸に小人"]
+  },
+  {
+    prompt: "crowd",
+    data: ["NSFW:シチュ", "シチュ", "衆人環視,見られている,注目を浴びる"]
+  },
+  {
+    prompt: "promiscuous sex",
+    data: ["NSFW:シチュ", "シチュ", "見境のないセックス"]
+  },
+  {
+    prompt: "strangling by tentacles",
+    data: ["NSFW:シチュ", "シチュ", "触手による絞殺"]
+  },
+  {
+    prompt: "gang bang",
+    data: ["NSFW:シチュ", "シチュ", "輪姦"]
+  },
+  {
+    prompt: "gang rape",
+    data: ["NSFW:シチュ", "シチュ", "輪姦2"]
+  },
+  {
+    prompt: "mtu virus",
+    data: ["NSFW:シチュ", "シチュ", "追加視点パンチラ"]
+  },
+  {
+    prompt: "secret adultery",
+    data: ["NSFW:シチュ", "シチュ", "陰で"]
+  },
+  {
+    prompt: "nsfw, nude, in shower room, {{full-face blush}}, looking at viewer, {{surprised}}, embarrassed, scared, angry,  steam, sweat,  {{{{covering breasts}}}} by hands, covering crotch",
+    data: ["NSFW:シチュ", "シチュ", "風呂ラッキースケベ"]
+  },
+  {
+    prompt: "pee",
+    data: ["NSFW:シチュ", "スカトロ", "おしっこ"]
+  },
+  {
+    prompt: "pee puddle",
+    data: ["NSFW:シチュ", "スカトロ", "おしっこの水たまり"]
+  },
+  {
+    prompt: "leaking pee",
+    data: ["NSFW:シチュ", "スカトロ", "おもらし"]
+  },
+  {
+    prompt: "excrement",
+    data: ["NSFW:シチュ", "スカトロ", "排泄物"]
+  },
+  {
+    prompt: "peeing",
+    data: ["NSFW:シチュ", "スカトロ", "放尿"]
+  },
+  {
+    prompt: "faeces",
+    data: ["NSFW:シチュ", "スカトロ", "糞便"]
+  },
+  {
+    prompt: "nsfw,1boy,1girl,highly detailed,{{{{hetero,cowgirl position sex,girl on top}}}}, {{{{woman singing with a microphone in her hand while having sex}}}}, {{{{{{{woman holding a microphone with one hand}}}}}}, {{{{{{singing}}}}}}, {{panties aside}}, boy grab ass,cum, {{looking at viewer}}, grin, motion lines,evil smile,drop tears,heart,musical note speech bubble,{{{gasp out}}},{{saliva}},[[crying]],[embarrassed],blush face,{open mouse},{room with monitor in background}",
+    data: ["NSFW:テンプレ", "シチュ", "カラオケエッチ"]
+  },
+  {
+    prompt: "nsfw,1boy,{{{{phone in one hand}}}},doggy style,sex,{orgasm},{sweaty},fat man,nude,nipples, breasts,cum, hetero, pussy,vaginal,penis,on the bed",
+    data: ["NSFW:テンプレ", "シチュ", "寝取られ通話"]
+  },
+  {
+    prompt: "nsfw,{sweat},teasing smile,1girl,on back,{spread legs},{{legs up}},{{{girl is fucked by dick}}},{{money}},cum on vagina,{{steam}},{{{the girl is lying on the oilily pink air mattress}}},pink wall,pink room, bathroom,{{{oil}}},{{{vagina focus}},{{{money}}},beautiful detailed vagina,beautiful detailed legs,high contrast,pov,no panties",
+    data: ["NSFW:テンプレ", "シチュ", "足上げ風俗堕ちセックス"]
+  },
+  {
+    prompt: "nsfw,{{{{{on the train}}}}},{highres},looking at viewer,teasingsmile,sweatdrop,best quality,highly detaile,lying on person,ass,stretch legs,bare legs,from above,{{{{{shiny skin}}}}},{standing on one leg},{leg grab},{leg up},from side ~ nude,nipples,pussy,arched back,clothed sex,{{{{{1boy}}}}},{{{sex from behind}}},{{{standing doggy style}}},{{{standing sex}}},{{torso grab}},{{paizuri}},public indecency,love juice,undressing,{{{{{{{{{{bukkake}}}}}}}}}},{{{{{{{{{{excessive cum}}}}}}}}}},{{{{{{{{{{cum on breasts}}}}}}}}}},{{{{{{{{{{pojecile cum}}}}}}}}}},{{{{{{{{{{cum in pussy}}}}}}}}}},naked,manyboysis,{{{{{{{{{{head out of frame}}}}}}}}}}",
+    data: ["NSFW:テンプレ", "シチュ", "電車痴漢"]
+  },
+  {
+    prompt: "nsfw,{{{{{on the train}}}}},{highres},looking at viewer,teasingsmile,sweatdrop,best quality,highly detaile,lying on person,ass,stretch legs,bare legs,from above,{{{{{shiny skin}}}}},from side ~ nude,nipples,pussy,arched back,clothed sex,{{{{{1boy}}}}},{{{sex from behind}}},{{{standing doggy style}}},{{{standing sex}}},{{torso grab}},{{paizuri}},public indecency,love juice,undressing,{{{{{{{{{{bukkake}}}}}}}}}},{{{{{{{{{{excessive cum}}}}}}}}}},{{{{{{{{{{cum on breasts}}}}}}}}}},{{{{{{{{{{pojecile cum}}}}}}}}}},{{{{{{{{{{cum in pussy}}}}}}}}}},naked,manyboysis",
+    data: ["NSFW:テンプレ", "シチュ", "電車痴漢２"]
+  },
+  {
+    prompt: "{{{{molestation}}}, from behind, {{{{the man behind the girl}}}, {{{the man grabbing the girl's ass}}}, {{{ass grab}}} by the man, aroused, embarrassed, scared, angry, steam sweat, panties",
+    data: ["NSFW:テンプレ", "前戯", "セクハラ尻揉み"]
+  },
+  {
+    prompt: "nsfw,1boy,1girl,paizuri,breast squeeze,looking at viewer,big penis,steam,shiny skin",
+    data: ["NSFW:テンプレ", "前戯", "パイズリテンプレ"]
+  },
+  {
+    prompt: "nsfw,1boy,1girl,paizuri,breast squeeze,looking at viewer,big penis,steam,shiny skin,fellatio,oral,licking penis,looking at viewer,pov",
+    data: ["NSFW:テンプレ", "前戯", "パイズリフェラテンプレ"]
+  },
+  {
+    prompt: "1boy,nsfw,1girl,fellatio,oral,licking penis,large penis,solo focus",
+    data: ["NSFW:テンプレ", "前戯", "フェラテンプレ"]
+  },
+  {
+    prompt: "nsfw,1boy,1girl,fellatio,oral,licking penis,looking at viewer,big penis,steam,shiny skin",
+    data: ["NSFW:テンプレ", "前戯", "一人称フェラテンプレ"]
+  },
+  {
+    prompt: "masterpiece,best quality,amazing quality,absurdres,very aesthetic,newest,1girl,one breast out,lactation,grabbing own breasts,seductive smile,blush,from below,dynamic angle",
+    data: ["NSFW:テンプレ", "前戯", "主観メイド授乳"]
+  },
+  {
+    prompt: "nsfw,1girl,squatting,dildo on floor,dildo in pussy,love juice",
+    data: ["NSFW:テンプレ", "前戯", "床ディルドーオナニー"]
+  },
+  {
+    prompt: "caressing his crotch, over the clothes,clothed man,pov,touch penis",
+    data: ["NSFW:テンプレ", "前戯", "服の上ちん触る"]
+  },
+  {
+    prompt: "viewfinder, battery indicator, hidden camera, recording",
+    data: ["NSFW:テンプレ", "前戯", "盗撮風"]
+  },
+  {
+    prompt: "nsfw,headpat,{pov hands},surprised,fellatio,tearing up",
+    data: ["NSFW:テンプレ", "前戯", "頭を押さえつけてのイラマ"]
+  },
+  {
+    prompt: "nsfw, 1girl, nude, lovestruck expression, 1boy, having sex,fuck, leg lock, hug, sitting position, kissing,french kiss,faceless male",
+    data: ["NSFW:テンプレ", "挿入", "だいしゅき座位"]
+  },
+  {
+    prompt: "1girl, 1boy, sex, hetero, uneven eyes, clenched teeth, arched back, wide-eyed, female orgasm, missionary, pov, bed, lying, heavy breathing, heart \\ (symbol\\), happy, dashed eyes, sheet grab, looking up, head back, blue eyes, blonde hair, medium breasts,arched back,head back",
+    data: ["NSFW:テンプレ", "挿入", "イキ海老反り"]
+  },
+  {
+    prompt: "nsfw,{{{{{{{{1boy}}}}}}}},{{{{{{{{couple}}}}}}}},{{{{{threesome}}}}},{{{{{hug}}}}},{{{{{face to face}}}}},{{{{{kiss}}}}},{{{{{french kiss}}}}},{{{missionary position}}},{{girl in heat}},{{{wet vagina}}},penis,{{{{blush}}}},{{{{{looking at viewer}}}}},{{{{{wet sweat}}}}},{{flying sweatdrops}},splash,{{{creampie}}},vaginal cumshot,{{cum pussy}},lewd,nymphomaniac,{{{side view}}}",
+    data: ["NSFW:テンプレ", "挿入", "キスハメテンプレ"]
+  },
+  {
+    prompt: "sex,fuck, hug,kissing",
+    data: ["NSFW:テンプレ", "挿入", "キス対面SEX"]
+  },
+  {
+    prompt: "nsfw,pussy,vaginal,sex,1boy,penis",
+    data: ["NSFW:テンプレ", "挿入", "セックス"]
+  },
+  {
+    prompt: "nsfw,{{{pussy}}},{{{vaginal}}},{{{sex}}},{{{1boy}}},penis,{{{{{sperma}}}}},cum in uterus,cream shoot,{{creampie}}",
+    data: ["NSFW:テンプレ", "挿入", "中出しエッチ"]
+  },
+  {
+    prompt: "2 boys and 1 girl,{{spit roast}},group sex,rape,{1 girl},open clothes,arms at sides,lean against,choking,sad,empty eyes,tearful,collar,nipples,shiny hair,breasts,{1 boy},naked,macho,faceless male,she is swallowing his penis,licking penis,irrumatio,oral,{{veiny penis}},testicles,legs,he is grabbing her head,{1 boy},naked,macho,faceless male,she is doing doggystyle sex,he is grabbing her butt,{{excessive cum}},{sweat},steam,on bed,from outside,girl focus,{{trembling effect motion lines with sexual climax}},beautiful face,{{perfect anatomy}},4k,insanely detailed and intricate,pretty,ornate,hyper realistic,super detailed,",
+    data: ["NSFW:テンプレ", "挿入", "串刺し"]
+  },
+  {
+    prompt: "nsfw, 1girl,{{{3boys}}}, {{promiscuous sex}},gang rape,vagina,cunt,sex, showing navel and{{light pink nipples}}, presenting{{wet pussy}},{pussy juice},anal focus,laugh,threesome, on bed, all fours,fellatio,cum in mouth,cum in pussy",
+    data: ["NSFW:テンプレ", "挿入", "乱交テンプレ"]
+  },
+  {
+    prompt: "nsfw,1girl,1boy,insert vagina,missionary position,embarrassed,sad,arms behind head",
+    data: ["NSFW:テンプレ", "挿入", "後ろ手正常位"]
+  },
+  {
+    prompt: "nsfw,hetero,{{intense angle}},leaning forward,{{{{doggy style}}}},{{{{{sex}}}}},sperma,{{{{{creampie}}}}}",
+    data: ["NSFW:テンプレ", "挿入", "後背位テンプレ"]
+  },
+  {
+    prompt: "doggystyle,sex from behind,ass ,ass focus",
+    data: ["NSFW:テンプレ", "挿入", "後背位テンプレ2"]
+  },
+  {
+    prompt: "nsfw,missionary,lying,on bed,1girl,nude,nipples,navel,cum,hetero,pussy,vaginal,sweat,sex,1boy,penis",
+    data: ["NSFW:テンプレ", "挿入", "正常位テンプレ"]
+  },
+  {
+    prompt: "missionary,lying,on bed",
+    data: ["NSFW:テンプレ", "挿入", "正常位テンプレ2"]
+  },
+  {
+    prompt: "nsfw,{{intense angle}},{{fuck buddy}},{{{friend with benefits}}},leaning forward,{{{{doggy style}}}},{{{{{wet sweat}}}}},{{{{{sex}}}}},{{girl in heat}},4boys,cockslut,{{orgy}},open mouth,sperma,{{{{{creampie}}}}},{{girl in heat}},gang bang,sweatdrop,flying sweatdrops,holding hands",
+    data: ["NSFW:テンプレ", "挿入", "輪姦後背位テンプレ"]
+  },
+  {
+    prompt: "{nsfw}, sex, fuck, {{{{{orgasm}}}}}, missionary, {incoming kiss}, {imminent kiss}, lick, {saliva}, {saliva trail},  face, breasts,  thighs, spread legs, slouching, front, pov, {{looking at viewer}},  {{{reaching out 2arms}}},  {{{{{face focus}}}}}, steam, sweat, {cum}, {aroused}, excited",
+    data: ["NSFW:テンプレ", "挿入", "顔近正常位POV"]
+  },
+  {
+    prompt: "nsfw,girl on top,straddling,1girl,nude,nipples,navel,cum,squatting cowgirl position,hetero,pussy,vaginal,sweat,sex,1boy,penis,crosssection",
+    data: ["NSFW:テンプレ", "挿入", "騎乗位テンプレ"]
+  },
+  {
+    prompt: "girl on top,straddling",
+    data: ["NSFW:テンプレ", "挿入", "騎乗位テンプレ2"]
+  },
+  {
+    prompt: "nsfw,1girl,{{a girl is being fucked by a penis growing out of the ground while spreading her legs and showing off her ass.}},cum on ass,cum on clothes,forced orgasm,spoken heart,:<>,{{post apocalypse}},in the rubble of a devastated city covered with plants,dirty clothes",
+    data: ["NSFW:テンプレ", "特殊", "地面から男性器"]
+  },
+  {
+    prompt: "upperbody,{{{two transparent milking machine are attached to the nipple}}}, {{{dairy plant milking machine connect to nipple, suctioned breast milk}}} ,breast milk flow into transparent funnel tube,arms behind back, mechanical restraints, stationary restraints, french braid,nsfw",
+    data: ["NSFW:テンプレ", "特殊", "搾乳機"]
+  },
+  {
+    prompt: "nsfw,{{{{girl have intercourse and spreading legs high up with boy inserting the penis into the pussy at main view}}}},{{{uterus at viewer penis deeply inserting to vagina with sperm and fertilization from a cross section looking through}}},{{{sperm cum in uterus}}}",
+    data: ["NSFW:テンプレ", "特殊", "断面図テンプレ"]
+  },
+  {
+    prompt: "nsfw, {{{{{machine holding}}}}}, {{{spread arms}}}, locked arms, sex, cable in vagina, locked legs",
+    data: ["NSFW:テンプレ", "特殊", "機械姦"]
+  },
+  {
+    prompt: "1boy have smartphone and photographing 1girl",
+    data: ["NSFW:テンプレ", "特殊", "男撮影ハンド"]
+  },
+  {
+    prompt: "nsfw,{{{cum on tongue}}},{{{{{tentacles vaginal fuck}}}}},{creampie},{{{sperma}}},{{{{{cum inside pussy}}}}}",
+    data: ["NSFW:テンプレ", "特殊", "触手姦テンプレ"]
+  },
+  {
+    prompt: "cum in mouth,cum on tongue,facial,bukkake",
+    data: ["NSFW:テンプレ", "露出", "ぶっかけテンプレ"]
+  },
+  {
+    prompt: "nsfw,{{spread legs}},{{spread pussy}},{{{{open your own pussy}}}},{{spread pussy with fingers}},kupaa,pussy,looking at viewer,presenting,on bed,pussy juice,1girl,nude,{{{loli}}},{child},uc sex,mutated hands and fingers,open clothe",
+    data: ["NSFW:テンプレ", "露出", "クパァ"]
+  },
+  {
+    prompt: "tuck up skirt, panties",
+    data: ["NSFW:テンプレ", "露出", "パンツ見えてる"]
+  },
+  {
+    prompt: "nsfw,2girls, clothing aside, panties aside, pussy juice, yuri, tribadism, mating press, skirt lift, looking at viewer, half-closed eyes, uncensored,pussy",
+    data: ["NSFW:テンプレ", "露出", "挿入待機"]
+  },
+  {
+    prompt: "nsfw,1girl,squatting,{{{\"pussy juice drip through clothes\"}}}, {{peeing}}, \"yellow puddle\"",
+    data: ["NSFW:テンプレ", "露出", "放尿"]
+  },
+  {
+    prompt: "nfsw,large breasts ,female,1gir,pussy focus,from below,feet out of frame,very close to viewers,girls' front,hands behind one's back,standing, bowlegged,trembling motionline for orgasm,wet pussy,vaginal,wet vagina,{{hand in pussy,panties aside,pubic hair,peeing}},{{{background,big stone wall,deep shadows}}}, {{{stone pavement}}},day light,closed mouth,looking away,strong light coming in,high resolution, best quality, blush,full-face blush,wet,ompetition swimsuit ,highleg swimsuit ,blue one-piece swimsuit ,long foot",
+    data: ["NSFW:テンプレ", "露出", "競泳水着で放尿(見上げる視点)"]
+  },
+  {
+    prompt: "spread legs, two legs up, thighs,  leg open, wide spread legs open one's stance,  two legs up,  {two thighs up}, tuck up skirt, {{{pussy, beautiful detailed vagina,uncensored}}},pussy juice",
+    data: ["NSFW:テンプレ", "露出", "脚を広げてマンコを見せる"]
+  },
+  {
+    prompt: "hips look, semen shot over shot from vagina, semen fall from vagina, semen beam from vagina, {{{look from behind,}}} {{{hips focus, hips close-up,}}} semen fall out effect, motion lines",
+    data: ["NSFW:テンプレ", "露出", "膣から精液噴出テンプレ"]
+  },
+  {
+    prompt: "nsfw,nude,nipples,navel,pussy,vaginal,sweat,sex,outside,squatting,arm support",
+    data: ["NSFW:テンプレ", "露出", "露出テンプレ"]
+  },
+  {
+    prompt: "nsfw,nude,nipples,navel,pussy,vaginal,sweat,sex,outside,squatting,double peace",
+    data: ["NSFW:テンプレ", "露出", "露出ピーステンプレ"]
+  },
+  {
+    prompt: "{{1girl,}}, {{masterpiece}},dramatic angle,{ultra-detailed}, {illustration}, [novel illustration], high resolution,{{an extremely delicate and beautiful}}, accurate describe shapes, thorough and precise, dynamic pose,  dynamic angle, {{photorealistic}}, nsfw,  nipples out, exhibitionism, turn up coat, open coat,  {{{a flu mask}}}, {{{in night}}}, in alley, vending machine, traffic lights, night city,  {{sweat}}, steam",
+    data: ["NSFW:テンプレ", "露出", "露出徘徊"]
+  },
+  {
+    prompt: "thong panties",
+    data: ["NSFW:ファッション", "下着", "Tバックパンティ"]
+  },
+  {
+    prompt: "cute patterned panties",
+    data: ["NSFW:ファッション", "下着", "かわいい柄のパンティ"]
+  },
+  {
+    prompt: "cute patterned bra",
+    data: ["NSFW:ファッション", "下着", "かわいい柄のブラ"]
+  },
+  {
+    prompt: "panties aside,pubic hair",
+    data: ["NSFW:ファッション", "下着", "ずらし(陰毛あり)"]
+  },
+  {
+    prompt: "highleg panties,black bra",
+    data: ["NSFW:ファッション", "下着", "エロ黒下着"]
+  },
+  {
+    prompt: "cupless bra",
+    data: ["NSFW:ファッション", "下着", "ガワだけブラ"]
+  },
+  {
+    prompt: "simple panties",
+    data: ["NSFW:ファッション", "下着", "シンプルなパンティ"]
+  },
+  {
+    prompt: "simple bra",
+    data: ["NSFW:ファッション", "下着", "シンプルなブラ"]
+  },
+  {
+    prompt: "see-through panties",
+    data: ["NSFW:ファッション", "下着", "シースルーパンティ"]
+  },
+  {
+    prompt: "see-through bra",
+    data: ["NSFW:ファッション", "下着", "シースルーブラ"]
+  },
+  {
+    prompt: "strapless bra",
+    data: ["NSFW:ファッション", "下着", "ストラップレスブラ"]
+  },
+  {
+    prompt: "bra with straps",
+    data: ["NSFW:ファッション", "下着", "ストラップ付きブラ"]
+  },
+  {
+    prompt: "string panties",
+    data: ["NSFW:ファッション", "下着", "ストリングパンティ"]
+  },
+  {
+    prompt: "sports panties",
+    data: ["NSFW:ファッション", "下着", "スポーツパンティ"]
+  },
+  {
+    prompt: "sports bra",
+    data: ["NSFW:ファッション", "下着", "スポーツブラ"]
+  },
+  {
+    prompt: "sexy panties",
+    data: ["NSFW:ファッション", "下着", "セクシーなパンティ"]
+  },
+  {
+    prompt: "sexy bra",
+    data: ["NSFW:ファッション", "下着", "セクシーなブラ"]
+  },
+  {
+    prompt: "wireless bra",
+    data: ["NSFW:ファッション", "下着", "ノンワイヤーブラ"]
+  },
+  {
+    prompt: "high-leg panties",
+    data: ["NSFW:ファッション", "下着", "ハイレグパンティ"]
+  },
+  {
+    prompt: "frilly panties",
+    data: ["NSFW:ファッション", "下着", "フリル付きパンティ"]
+  },
+  {
+    prompt: "frilly bra",
+    data: ["NSFW:ファッション", "下着", "フリル付きブラ"]
+  },
+  {
+    prompt: "panties with ribbon",
+    data: ["NSFW:ファッション", "下着", "リボン付きパンティ"]
+  },
+  {
+    prompt: "bra with ribbon",
+    data: ["NSFW:ファッション", "下着", "リボン付きブラ"]
+  },
+  {
+    prompt: "low-rise panties",
+    data: ["NSFW:ファッション", "下着", "ローライズパンティ"]
+  },
+  {
+    prompt: "large panties",
+    data: ["NSFW:ファッション", "下着", "大きめのパンティ"]
+  },
+  {
+    prompt: "large bra",
+    data: ["NSFW:ファッション", "下着", "大きめのブラ"]
+  },
+  {
+    prompt: "small panties",
+    data: ["NSFW:ファッション", "下着", "小さめのパンティ"]
+  },
+  {
+    prompt: "small bra",
+    data: ["NSFW:ファッション", "下着", "小さめのブラ"]
+  },
+  {
+    prompt: "pants open around anus",
+    data: ["NSFW:ファッション", "服装", "アナル周辺まで開いたズボン"]
+  },
+  {
+    prompt: "saliva,drivel,saliva trail,harem outfit,harem pants,see-through veil,mouth veil,hip vent,see-through pants,see-through sleeves,see-through skirt,micro bikini",
+    data: ["NSFW:ファッション", "服装", "エロダンサー"]
+  },
+  {
+    prompt: "backless dress,halter dress,plunging neckline,short dress,miniskirt, skirt lift,lifted by self",
+    data: ["NSFW:ファッション", "服装", "エロドレス"]
+  },
+  {
+    prompt: "see-through leotard",
+    data: ["NSFW:ファッション", "服装", "スケレオダード"]
+  },
+  {
+    prompt: "bunny girl",
+    data: ["NSFW:ファッション", "服装", "バニーガール"]
+  },
+  {
+    prompt: "wearing a bunny suit",
+    data: ["NSFW:ファッション", "服装", "バニーガール"]
+  },
+  {
+    prompt: "bunny suits",
+    data: ["NSFW:ファッション", "服装", "バニーガール2"]
+  },
+  {
+    prompt: "playboy bunny",
+    data: ["NSFW:ファッション", "服装", "バニーガール3"]
+  },
+  {
+    prompt: "side-tie leotard",
+    data: ["NSFW:ファッション", "服装", "バニーガールの服"]
+  },
+  {
+    prompt: "highleg leotard",
+    data: ["NSFW:ファッション", "服装", "バニーガールの服(紐無し)"]
+  },
+  {
+    prompt: "hostess uniform",
+    data: ["NSFW:ファッション", "服装", "ホステス"]
+  },
+  {
+    prompt: "host uniform",
+    data: ["NSFW:ファッション", "服装", "ホスト"]
+  },
+  {
+    prompt: "bdsm",
+    data: ["NSFW:ファッション", "服装", "ボンテージ"]
+  },
+  {
+    prompt: "bondage",
+    data: ["NSFW:ファッション", "服装", "ボンテージ2"]
+  },
+  {
+    prompt: "fusion shinny paraphilia and latex corset leotard garter straps long gloves long boots belt collar",
+    data: ["NSFW:ファッション", "服装", "ボンテージスーツ"]
+  },
+  {
+    prompt: "sexual bondage",
+    data: ["NSFW:ファッション", "服装", "ボンデージ"]
+  },
+  {
+    prompt: "micro bikini,  micro shorts, denim shorts, short shorts, cutoffs",
+    data: ["NSFW:ファッション", "服装", "マイクロビキニセット"]
+  },
+  {
+    prompt: "show off nipples",
+    data: ["NSFW:ファッション", "服装", "乳首が見えている"]
+  },
+  {
+    prompt: "zentai,featureless full face black suit,shinny paraphilia and latex suit",
+    data: ["NSFW:ファッション", "服装", "全体スーツ"]
+  },
+  {
+    prompt: "prostitute",
+    data: ["NSFW:ファッション", "服装", "娼婦"]
+  },
+  {
+    prompt: "official style,dressed as {mizuki yukikaze (cosplay), taimanin (series)}, very aesthetic, best quality, intricate, overall detail, nsfw, alternate costume, {mizuki yukikaze (cosplay)}, skindentation, black leotard, black gloves, black thighhighs",
+    data: ["NSFW:ファッション", "服装", "対魔忍コス"]
+  },
+  {
+    prompt: "torn leotard",
+    data: ["NSFW:ファッション", "服装", "破れたレオタード"]
+  },
+  {
+    prompt: "crotchless leotard",
+    data: ["NSFW:ファッション", "服装", "股間の空いたレオタード"]
+  },
+  {
+    prompt: "breasts out",
+    data: ["NSFW:ファッション", "服装", "胸出し,開いた谷間"]
+  },
+  {
+    prompt: "arm covering breasts",
+    data: ["NSFW:ファッション", "服装", "胸隠し"]
+  },
+  {
+    prompt: "naked bandage",
+    data: ["NSFW:ファッション", "服装", "裸の包帯"]
+  },
+  {
+    prompt: "naked apron",
+    data: ["NSFW:ファッション", "服装", "裸エプロン"]
+  },
+  {
+    prompt: "necktie between breasts",
+    data: ["NSFW:ファッション", "服装", "谷間ネクタイ"]
+  },
+  {
+    prompt: "fishnet bodysuit, reverse bunnysuit,heart pasties,rabbit ears,fake animal ears",
+    data: ["NSFW:ファッション", "服装", "逆バニー1"]
+  },
+  {
+    prompt: "see-through leotard,playboy bunny,see-through,transpbunny,rabbit ears,fake animal ears",
+    data: ["NSFW:ファッション", "服装", "逆バニー2"]
+  },
+  {
+    prompt: "spanking",
+    data: ["NSFW:プレイ", "SM", "お尻たたき"]
+  },
+  {
+    prompt: "asphyxiation",
+    data: ["NSFW:プレイ", "SM", "窒息"]
+  },
+  {
+    prompt: "floating,execution,hanged,noose,rope around neck, imminent death ,asphyxiation}}}}}},{{{rolling eyes,constricted pupils,tongue out",
+    data: ["NSFW:プレイ", "SM", "絞首刑系"]
+  },
+  {
+    prompt: "hanged,hanging,noose,execution, asphyxiation",
+    data: ["NSFW:プレイ", "SM", "縛り系"]
+  },
+  {
+    prompt: "accidentally wetting their pants with pee",
+    data: ["NSFW:プレイ", "プレイ", "ズボンにおもらし"]
+  },
+  {
+    prompt: "sex",
+    data: ["NSFW:プレイ", "プレイ", "セックス"]
+  },
+  {
+    prompt: "intercourse with a man",
+    data: ["NSFW:プレイ", "プレイ", "セックス(男性との)"]
+  },
+  {
+    prompt: "paizuri",
+    data: ["NSFW:プレイ", "プレイ", "パイズリ"]
+  },
+  {
+    prompt: "titty fuck",
+    data: ["NSFW:プレイ", "プレイ", "パイズリ1"]
+  },
+  {
+    prompt: "titfuck",
+    data: ["NSFW:プレイ", "プレイ", "パイズリ2"]
+  },
+  {
+    prompt: "tit wank",
+    data: ["NSFW:プレイ", "プレイ", "パイズリ3"]
+  },
+  {
+    prompt: "cum on breasts,bukkake,cum on body,cum",
+    data: ["NSFW:プレイ", "プレイ", "パイズリ射精"]
+  },
+  {
+    prompt: "accidentally wetting her panties with pee",
+    data: ["NSFW:プレイ", "プレイ", "パンティにおもらし"]
+  },
+  {
+    prompt: "accidentally wetting his briefs with pee",
+    data: ["NSFW:プレイ", "プレイ", "ブリーフにおもらし"]
+  },
+  {
+    prompt: "accidentally wetting their underwear with pee",
+    data: ["NSFW:プレイ", "プレイ", "下着におもらし"]
+  },
+  {
+    prompt: "breasts on glass",
+    data: ["NSFW:プレイ", "プレイ", "乳ワイパー"]
+  },
+  {
+    prompt: "tortoise shell bondage",
+    data: ["NSFW:プレイ", "プレイ", "亀甲縛り"]
+  },
+  {
+    prompt: "mating",
+    data: ["NSFW:プレイ", "プレイ", "交尾"]
+  },
+  {
+    prompt: "copulation",
+    data: ["NSFW:プレイ", "プレイ", "交尾2"]
+  },
+  {
+    prompt: "human toilet",
+    data: ["NSFW:プレイ", "プレイ", "人便"]
+  },
+  {
+    prompt: "breast grab",
+    data: ["NSFW:プレイ", "プレイ", "他人が胸を掴む"]
+  },
+  {
+    prompt: "against glass,butt press",
+    data: ["NSFW:プレイ", "プレイ", "尻をガラスに押し付ける"]
+  },
+  {
+    prompt: "buttjob",
+    data: ["NSFW:プレイ", "プレイ", "尻コキ"]
+  },
+  {
+    prompt: "softcore",
+    data: ["NSFW:プレイ", "プレイ", "性交がないエロ"]
+  },
+  {
+    prompt: "hardcore",
+    data: ["NSFW:プレイ", "プレイ", "性交のあるエロ"]
+  },
+  {
+    prompt: "restrained",
+    data: ["NSFW:プレイ", "プレイ", "拘束"]
+  },
+  {
+    prompt: "lactation through clothes",
+    data: ["NSFW:プレイ", "プレイ", "服を着ながら胸を出す"]
+  },
+  {
+    prompt: "basfd",
+    data: ["NSFW:プレイ", "プレイ", "束縛"]
+  },
+  {
+    prompt: "grabbing from front",
+    data: ["NSFW:プレイ", "プレイ", "正面から胸を揉む"]
+  },
+  {
+    prompt: "bestiality",
+    data: ["NSFW:プレイ", "プレイ", "獣姦"]
+  },
+  {
+    prompt: "sleep molestation",
+    data: ["NSFW:プレイ", "プレイ", "睡眠セックス"]
+  },
+  {
+    prompt: "strangling",
+    data: ["NSFW:プレイ", "プレイ", "絞殺"]
+  },
+  {
+    prompt: "grabbing from behind",
+    data: ["NSFW:プレイ", "プレイ", "背後から胸を揉む"]
+  },
+  {
+    prompt: "against glass,chest press",
+    data: ["NSFW:プレイ", "プレイ", "胸をガラスに押し付ける"]
+  },
+  {
+    prompt: "breast squeeze",
+    data: ["NSFW:プレイ", "プレイ", "胸を絞る"]
+  },
+  {
+    prompt: "restrained by many tentacle",
+    data: ["NSFW:プレイ", "プレイ", "触手による拘束"]
+  },
+  {
+    prompt: "fellatio tentacles",
+    data: ["NSFW:プレイ", "プレイ", "触手をフェラ"]
+  },
+  {
+    prompt: "footjob",
+    data: ["NSFW:プレイ", "プレイ", "足コキ"]
+  },
+  {
+    prompt: "against glass,cheek press",
+    data: ["NSFW:プレイ", "プレイ", "頬をガラスに押し付ける"]
+  },
+  {
+    prompt: "{{situation (strangling, {{{{grab neck}}}}), {{man put hands on neck}})}}",
+    data: ["NSFW:プレイ", "プレイ", "首絞めックス"]
+  },
+  {
+    prompt: "double penetration",
+    data: ["NSFW:プレイ", "体位", "2穴挿入"]
+  },
+  {
+    prompt: "standing on one leg,leg up",
+    data: ["NSFW:プレイ", "体位", "Y字バランス"]
+  },
+  {
+    prompt: "top-down bottom-up",
+    data: ["NSFW:プレイ", "体位", "お尻を突き出す"]
+  },
+  {
+    prompt: "squatting cowgirl position",
+    data: ["NSFW:プレイ", "体位", "しゃがみ騎乗位"]
+  },
+  {
+    prompt: "kiss,face to face,hug,{{{{{girl lying face up on bed}}}}},leg lock,on bed, motion lines",
+    data: ["NSFW:プレイ", "体位", "だいしゅきホールド"]
+  },
+  {
+    prompt: "folded",
+    data: ["NSFW:プレイ", "体位", "ちんぐり返し"]
+  },
+  {
+    prompt: "amazon position",
+    data: ["NSFW:プレイ", "体位", "ちんぐり返し騎乗位"]
+  },
+  {
+    prompt: "pile-driver",
+    data: ["NSFW:プレイ", "体位", "まんぐり返し"]
+  },
+  {
+    prompt: "cunnilingus",
+    data: ["NSFW:プレイ", "体位", "クンニ"]
+  },
+  {
+    prompt: "69",
+    data: ["NSFW:プレイ", "体位", "シックスナイン1"]
+  },
+  {
+    prompt: "sixty nine",
+    data: ["NSFW:プレイ", "体位", "シックスナイン2"]
+  },
+  {
+    prompt: "position: standing from behind",
+    data: ["NSFW:プレイ", "体位", "バック立位"]
+  },
+  {
+    prompt: "vaginal penis, {{stepped on}}, {{from below}}",
+    data: ["NSFW:プレイ", "体位", "バック股下視点"]
+  },
+  {
+    prompt: "breasts blowjob",
+    data: ["NSFW:プレイ", "体位", "パイズリフェラ"]
+  },
+  {
+    prompt: "mating press",
+    data: ["NSFW:プレイ", "体位", "プレス"]
+  },
+  {
+    prompt: "tribadism",
+    data: ["NSFW:プレイ", "体位", "交差位"]
+  },
+  {
+    prompt: "spooning",
+    data: ["NSFW:プレイ", "体位", "側位"]
+  },
+  {
+    prompt: "lie on sides,spooning,sex from behind",
+    data: ["NSFW:プレイ", "体位", "側位2"]
+  },
+  {
+    prompt: "spitroast",
+    data: ["NSFW:プレイ", "体位", "前と後ろから挿入"]
+  },
+  {
+    prompt: "missionary",
+    data: ["NSFW:プレイ", "体位", "宣教師"]
+  },
+  {
+    prompt: "hetero, kiss,face to face,hug,{{{{{girl lying face up on yoga mat}}}}},leg lock",
+    data: ["NSFW:プレイ", "体位", "寝た状態の対面座位"]
+  },
+  {
+    prompt: "prone bone",
+    data: ["NSFW:プレイ", "体位", "寝バック"]
+  },
+  {
+    prompt: "lying face down on bed",
+    data: ["NSFW:プレイ", "体位", "寝バック1"]
+  },
+  {
+    prompt: "upright straddle",
+    data: ["NSFW:プレイ", "体位", "対面座位"]
+  },
+  {
+    prompt: "sitting face to face",
+    data: ["NSFW:プレイ", "体位", "対面座位2"]
+  },
+  {
+    prompt: "position: standing face to face",
+    data: ["NSFW:プレイ", "体位", "対面立位"]
+  },
+  {
+    prompt: "sitting position",
+    data: ["NSFW:プレイ", "体位", "座位"]
+  },
+  {
+    prompt: "doggystyle",
+    data: ["NSFW:プレイ", "体位", "後背位,バック"]
+  },
+  {
+    prompt: "doggy style",
+    data: ["NSFW:プレイ", "体位", "後背位,バック2"]
+  },
+  {
+    prompt: "missionary position",
+    data: ["NSFW:プレイ", "体位", "正常位"]
+  },
+  {
+    prompt: "deep penetration",
+    data: ["NSFW:プレイ", "体位", "深い挿入,深く挿入"]
+  },
+  {
+    prompt: "standing missionary",
+    data: ["NSFW:プレイ", "体位", "立位"]
+  },
+  {
+    prompt: "reverse upright straddle",
+    data: ["NSFW:プレイ", "体位", "背面座位"]
+  },
+  {
+    prompt: "sitting back to back",
+    data: ["NSFW:プレイ", "体位", "背面座位2"]
+  },
+  {
+    prompt: "reverse cowgirl position",
+    data: ["NSFW:プレイ", "体位", "背面騎乗位"]
+  },
+  {
+    prompt: "kneeling doggystyle",
+    data: ["NSFW:プレイ", "体位", "膝立ち後背位"]
+  },
+  {
+    prompt: "suspended congress",
+    data: ["NSFW:プレイ", "体位", "駅弁"]
+  },
+  {
+    prompt: "cowgirl position",
+    data: ["NSFW:プレイ", "体位", "騎乗位"]
+  },
+  {
+    prompt: "sex from behind",
+    data: ["NSFW:プレイ", "体位", "Ｈバック"]
+  },
+  {
+    prompt: "cooperative fellatio,harem",
+    data: ["NSFW:プレイ", "口淫", "Wフェラ"]
+  },
+  {
+    prompt: ":>=",
+    data: ["NSFW:プレイ", "口淫", "ひょっとこフェラ"]
+  },
+  {
+    prompt: "anilingus",
+    data: ["NSFW:プレイ", "口淫", "アナル舐め"]
+  },
+  {
+    prompt: "irrumatio",
+    data: ["NSFW:プレイ", "口淫", "イラマチオ"]
+  },
+  {
+    prompt: "deep throat",
+    data: ["NSFW:プレイ", "口淫", "ディープスロート"]
+  },
+  {
+    prompt: "(:>=,vacuum fellatio),hetero,solo focus,1boy,pov crotch,deepthroat,deep penetration,saliva, (:>=,vacuum fellatio),top-down bottom-up",
+    data: ["NSFW:プレイ", "口淫", "バキューム"]
+  },
+  {
+    prompt: "(|||expression3|||=, vacuum fellatio),hetero,solo focus,1boy,pov crotch,deepthroat,deep penetration,saliva,top-down bottom-up",
+    data: ["NSFW:プレイ", "口淫", "バキューム"]
+  },
+  {
+    prompt: "vacuum fellatio",
+    data: ["NSFW:プレイ", "口淫", "バキュームフェラ"]
+  },
+  {
+    prompt: "licking penis",
+    data: ["NSFW:プレイ", "口淫", "フェラ"]
+  },
+  {
+    prompt: "fellatio",
+    data: ["NSFW:プレイ", "口淫", "フェラ1"]
+  },
+  {
+    prompt: "blow job",
+    data: ["NSFW:プレイ", "口淫", "フェラ2"]
+  },
+  {
+    prompt: "fellatio penis",
+    data: ["NSFW:プレイ", "口淫", "フェラチオ(口に含む)"]
+  },
+  {
+    prompt: "blowjob face",
+    data: ["NSFW:プレイ", "口淫", "フェラ顔"]
+  },
+  {
+    prompt: "fellatio,sucking,deepthroat",
+    data: ["NSFW:プレイ", "口淫", "フェラ(深め)"]
+  },
+  {
+    prompt: "breasts sucking",
+    data: ["NSFW:プレイ", "口淫", "乳吸い"]
+  },
+  {
+    prompt: "breast sucking",
+    data: ["NSFW:プレイ", "口淫", "乳首なめ"]
+  },
+  {
+    prompt: "stray pubic hair",
+    data: ["NSFW:プレイ", "口淫", "抜け陰毛"]
+  },
+  {
+    prompt: "hug and suck",
+    data: ["NSFW:プレイ", "口淫", "抱きしめてフェラ"]
+  },
+  {
+    prompt: "lactation",
+    data: ["NSFW:プレイ", "口淫", "授乳"]
+  },
+  {
+    prompt: "milking",
+    data: ["NSFW:プレイ", "口淫", "搾乳"]
+  },
+  {
+    prompt: "implied fellatio",
+    data: ["NSFW:プレイ", "口淫", "暗示的なフェラ"]
+  },
+  {
+    prompt: "cheek bulge",
+    data: ["NSFW:プレイ", "口淫", "歯磨きフェラ"]
+  },
+  {
+    prompt: "breastfeeding",
+    data: ["NSFW:プレイ", "口淫", "母乳育児"]
+  },
+  {
+    prompt: "swallow",
+    data: ["NSFW:プレイ", "口淫", "深く咥える"]
+  },
+  {
+    prompt: "testicle sucking",
+    data: ["NSFW:プレイ", "口淫", "玉なめ"]
+  },
+  {
+    prompt: "1boy,male,penis,pov,sex",
+    data: ["NSFW:プレイ", "性交", "セックス時の男追加(主観)"]
+  },
+  {
+    prompt: "photographing or filming of sex,{through a smartphone}",
+    data: ["NSFW:プレイ", "性交", "ハメ撮り"]
+  },
+  {
+    prompt: "nsfw,1girl,1boy,sex,rape,cfnm,trembling motionline,troubled eyebrows,fatman,hug,hetero, mating press,missionary position, penis, pussy,vaginal,motion lines",
+    data: ["NSFW:プレイ", "性交", "密着"]
+  },
+  {
+    prompt: "implied sex",
+    data: ["NSFW:プレイ", "性交", "性交"]
+  },
+  {
+    prompt: "intercourse",
+    data: ["NSFW:プレイ", "性交", "性交"]
+  },
+  {
+    prompt: "sexual foreplay",
+    data: ["NSFW:プレイ", "性交", "性的前戯"]
+  },
+  {
+    prompt: "double handjob",
+    data: ["NSFW:プレイ", "手淫", "ダブル手コキ"]
+  },
+  {
+    prompt: "handjob",
+    data: ["NSFW:プレイ", "手淫", "手コキ"]
+  },
+  {
+    prompt: "nursing handjob",
+    data: ["NSFW:プレイ", "手淫", "看護手コキ"]
+  },
+  {
+    prompt: "caressing testicles",
+    data: ["NSFW:プレイ", "手淫", "睾丸を愛撫する"]
+  },
+  {
+    prompt: "insert vagina",
+    data: ["NSFW:プレイ", "挿入", "女性器に挿入"]
+  },
+  {
+    prompt: "screaming",
+    data: ["NSFW:プレイ", "挿入", "性的完全挿入"]
+  },
+  {
+    prompt: "sexual full penetration",
+    data: ["NSFW:プレイ", "挿入", "性的完全挿入"]
+  },
+  {
+    prompt: "1.2::guide to vaginal with hand for imminent penis penetration just the tip",
+    data: ["NSFW:プレイ", "挿入", "挿入ガイド"]
+  },
+  {
+    prompt: "deep penetration",
+    data: ["NSFW:プレイ", "挿入", "根元まで,深い挿入,深く挿入"]
+  },
+  {
+    prompt: "mating press",
+    data: ["NSFW:プレイ", "挿入", "種付けプレス"]
+  },
+  {
+    prompt: "tentacles fucks",
+    data: ["NSFW:プレイ", "挿入", "触手がファック"]
+  },
+  {
+    prompt: "tentacles anal fuck",
+    data: ["NSFW:プレイ", "挿入", "触手肛門挿入"]
+  },
+  {
+    prompt: "tentacles vaginal fuck",
+    data: ["NSFW:プレイ", "挿入", "触手膣挿入"]
+  },
+  {
+    prompt: "wank",
+    data: ["NSFW:プレイ", "自慰", "オナニー1"]
+  },
+  {
+    prompt: "masturbation",
+    data: ["NSFW:プレイ", "自慰", "オナニー2"]
+  },
+  {
+    prompt: "masturbate",
+    data: ["NSFW:プレイ", "自慰", "オナニー3"]
+  },
+  {
+    prompt: "insert dildo to pussy",
+    data: ["NSFW:プレイ", "自慰", "ディルドを膣に挿入します"]
+  },
+  {
+    prompt: "colorful clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "カラフルなクリトリス"]
+  },
+  {
+    prompt: "colorful nipples",
+    data: ["NSFW:プロンプト", "ネガティブ", "カラフルな乳首"]
+  },
+  {
+    prompt: "missing clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "クリトリスがありません"]
+  },
+  {
+    prompt: "poorly drawn pussy",
+    data: ["NSFW:プロンプト", "ネガティブ", "不十分に描かれた膣"]
+  },
+  {
+    prompt: "extra penises",
+    data: ["NSFW:プロンプト", "ネガティブ", "余分なペニス"]
+  },
+  {
+    prompt: "bad clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "悪いクリトリス"]
+  },
+  {
+    prompt: "bad cum",
+    data: ["NSFW:プロンプト", "ネガティブ", "悪い精液"]
+  },
+  {
+    prompt: "bad crotch",
+    data: ["NSFW:プロンプト", "ネガティブ", "悪い股"]
+  },
+  {
+    prompt: "bad crotch seam",
+    data: ["NSFW:プロンプト", "ネガティブ", "悪い股の縫い目"]
+  },
+  {
+    prompt: "bad pussy",
+    data: ["NSFW:プロンプト", "ネガティブ", "悪い膣"]
+  },
+  {
+    prompt: "poorly drawn cum",
+    data: ["NSFW:プロンプト", "ネガティブ", "描かれていない精液"]
+  },
+  {
+    prompt: "poorly drawn crotch",
+    data: ["NSFW:プロンプト", "ネガティブ", "描かれていない股"]
+  },
+  {
+    prompt: "poorly drawn crotch seam",
+    data: ["NSFW:プロンプト", "ネガティブ", "描かれていない股の縫い目"]
+  },
+  {
+    prompt: "liquid clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "液体クリトリス"]
+  },
+  {
+    prompt: "fused cum",
+    data: ["NSFW:プロンプト", "ネガティブ", "混ざった精子"]
+  },
+  {
+    prompt: "poorly drawn anus",
+    data: ["NSFW:プロンプト", "ネガティブ", "肛門が描かれていない"]
+  },
+  {
+    prompt: "fused clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "融合したクリトリス"]
+  },
+  {
+    prompt: "fused seam",
+    data: ["NSFW:プロンプト", "ネガティブ", "融合縫い目"]
+  },
+  {
+    prompt: "fused anus",
+    data: ["NSFW:プロンプト", "ネガティブ", "融合肛門"]
+  },
+  {
+    prompt: "fused crotch",
+    data: ["NSFW:プロンプト", "ネガティブ", "融合股"]
+  },
+  {
+    prompt: "fused pussy",
+    data: ["NSFW:プロンプト", "ネガティブ", "融合膣"]
+  },
+  {
+    prompt: "multiple penises",
+    data: ["NSFW:プロンプト", "ネガティブ", "複数のペニス"]
+  },
+  {
+    prompt: "disembodied penis",
+    data: ["NSFW:プロンプト", "ネガティブ", "身体のないペニス"]
+  },
+  {
+    prompt: "black clit",
+    data: ["NSFW:プロンプト", "ネガティブ", "黒いクリトリス"]
+  },
+  {
+    prompt: "m-legs",
+    data: ["NSFW:ポーズ", "ポーズ", "M字開脚"]
+  },
+  {
+    prompt: "m-shaped pose",
+    data: ["NSFW:ポーズ", "ポーズ", "M字開脚"]
+  },
+  {
+    prompt: "open vagina,spread pussy,pussy juice,hands on own crotch,legs apart",
+    data: ["NSFW:ポーズ", "ポーズ", "おまんこくぱぁ"]
+  },
+  {
+    prompt: "ass grab",
+    data: ["NSFW:ポーズ", "ポーズ", "お尻をつかんでいるポーズ"]
+  },
+  {
+    prompt: "clothes lift",
+    data: ["NSFW:ポーズ", "ポーズ", "たくし上げ"]
+  },
+  {
+    prompt: "head back",
+    data: ["NSFW:ポーズ", "ポーズ", "のけぞり"]
+  },
+  {
+    prompt: "straddling",
+    data: ["NSFW:ポーズ", "ポーズ", "またがり, M字開脚,馬乗り"]
+  },
+  {
+    prompt: "hand on own crotch",
+    data: ["NSFW:ポーズ", "ポーズ", "まんこに手"]
+  },
+  {
+    prompt: "squatting,arms behind head,spread legs, double peace",
+    data: ["NSFW:ポーズ", "ポーズ", "エッチな開脚"]
+  },
+  {
+    prompt: "crouching, open legs",
+    data: ["NSFW:ポーズ", "ポーズ", "エロ蹲踞"]
+  },
+  {
+    prompt: "shirt lift",
+    data: ["NSFW:ポーズ", "ポーズ", "シャツたくし上げ"]
+  },
+  {
+    prompt: "top down bottom up",
+    data: ["NSFW:ポーズ", "ポーズ", "ジャックオーチャレンジ"]
+  },
+  {
+    prompt: "lift up one's skirt",
+    data: ["NSFW:ポーズ", "ポーズ", "スカートたくし上げ"]
+  },
+  {
+    prompt: "upskirt",
+    data: ["NSFW:ポーズ", "ポーズ", "スカートたくし上げ2"]
+  },
+  {
+    prompt: "sweater lift",
+    data: ["NSFW:ポーズ", "ポーズ", "セーターたくし上げ"]
+  },
+  {
+    prompt: "squat toilet",
+    data: ["NSFW:ポーズ", "ポーズ", "トイレに跨る"]
+  },
+  {
+    prompt: "fellatio gesture",
+    data: ["NSFW:ポーズ", "ポーズ", "フェラをする素振り"]
+  },
+  {
+    prompt: "female masturbation",
+    data: ["NSFW:ポーズ", "ポーズ", "ポーズ"]
+  },
+  {
+    prompt: "covering nipples",
+    data: ["NSFW:ポーズ", "ポーズ", "乳首を隠す"]
+  },
+  {
+    prompt: "sitting on person",
+    data: ["NSFW:ポーズ", "ポーズ", "人に座る"]
+  },
+  {
+    prompt: "oral invitation",
+    data: ["NSFW:ポーズ", "ポーズ", "口開け舌出し"]
+  },
+  {
+    prompt: "right hand in the crotch",
+    data: ["NSFW:ポーズ", "ポーズ", "右手を股間に"]
+  },
+  {
+    prompt: "on all fours",
+    data: ["NSFW:ポーズ", "ポーズ", "四つん這い"]
+  },
+  {
+    prompt: "all fours, straddling, girl on top, cowgirl position, upper body, looking at viewer, from below",
+    data: ["NSFW:ポーズ", "ポーズ", "四つん這いで乗ってくる"]
+  },
+  {
+    prompt: "pushed against wall",
+    data: ["NSFW:ポーズ", "ポーズ", "壁に押し付けられた体勢"]
+  },
+  {
+    prompt: "hand in pussy",
+    data: ["NSFW:ポーズ", "ポーズ", "女性器に手"]
+  },
+  {
+    prompt: "fingering vaginal",
+    data: ["NSFW:ポーズ", "ポーズ", "女性器に指"]
+  },
+  {
+    prompt: "touch her crotch with own hand",
+    data: ["NSFW:ポーズ", "ポーズ", "女性器に触れる"]
+  },
+  {
+    prompt: "spread pussy",
+    data: ["NSFW:ポーズ", "ポーズ", "女性器を広げる,クパァ"]
+  },
+  {
+    prompt: "spread vagina",
+    data: ["NSFW:ポーズ", "ポーズ", "女性器を広げる,クパァ2"]
+  },
+  {
+    prompt: "supine pose",
+    data: ["NSFW:ポーズ", "ポーズ", "寝そべりながら"]
+  },
+  {
+    prompt: "1girl, 1boy,nsfw,{{{{sex}}}},short hair, tareme ,fox girl ,large breasts,thick thighs , white hair, blue eye ,school uniform ,cum in pussy ,kiss,profile ,cleavage,black bra,fat man ,faceless male",
+    data: ["NSFW:ポーズ", "ポーズ", "対面位キスハメ"]
+  },
+  {
+    prompt: "squatting",
+    data: ["NSFW:ポーズ", "ポーズ", "屈む,しゃがむ,スクワット体勢,しゃがむ"]
+  },
+  {
+    prompt: "arms behind back }blindfold",
+    data: ["NSFW:ポーズ", "ポーズ", "後ろ手に目隠し"]
+  },
+  {
+    prompt: "handjob gesture",
+    data: ["NSFW:ポーズ", "ポーズ", "手コキのジェスチャー"]
+  },
+  {
+    prompt: "clinging pose",
+    data: ["NSFW:ポーズ", "ポーズ", "抱きついた体勢"]
+  },
+  {
+    prompt: "pinned down",
+    data: ["NSFW:ポーズ", "ポーズ", "押し倒された体勢"]
+  },
+  {
+    prompt: "position on a desk",
+    data: ["NSFW:ポーズ", "ポーズ", "机の上での体位"]
+  },
+  {
+    prompt: "position on a chair",
+    data: ["NSFW:ポーズ", "ポーズ", "椅子の上での体位"]
+  },
+  {
+    prompt: "one leg up pose",
+    data: ["NSFW:ポーズ", "ポーズ", "片脚を上げた体位"]
+  },
+  {
+    prompt: "crotch grab",
+    data: ["NSFW:ポーズ", "ポーズ", "股を掴む"]
+  },
+  {
+    prompt: "arm under breasts",
+    data: ["NSFW:ポーズ", "ポーズ", "胸の下に腕"]
+  },
+  {
+    prompt: "covering breasts",
+    data: ["NSFW:ポーズ", "ポーズ", "胸を隠す"]
+  },
+  {
+    prompt: "leg grab",
+    data: ["NSFW:ポーズ", "ポーズ", "脚をつかむ"]
+  },
+  {
+    prompt: "licking testicle",
+    data: ["NSFW:ポーズ", "ポーズ", "脚を大きく広げる"]
+  },
+  {
+    prompt: "leg open",
+    data: ["NSFW:ポーズ", "ポーズ", "脚を広げて(sex)"]
+  },
+  {
+    prompt: "insert fingers to pussy",
+    data: ["NSFW:ポーズ", "ポーズ", "膣を広げる"]
+  },
+  {
+    prompt: "stick tongue out",
+    data: ["NSFW:ポーズ", "ポーズ", "舌を突き出す"]
+  },
+  {
+    prompt: "spread legs up",
+    data: ["NSFW:ポーズ", "ポーズ", "足を広げて上げる"]
+  },
+  {
+    prompt: "spread legs",
+    data: ["NSFW:ポーズ", "ポーズ", "足を広げる"]
+  },
+  {
+    prompt: "intertwined legs pose",
+    data: ["NSFW:ポーズ", "ポーズ", "足を絡めた体位"]
+  },
+  {
+    prompt: "overlapping bodies pose",
+    data: ["NSFW:ポーズ", "ポーズ", "身体を重ねたポーズ"]
+  },
+  {
+    prompt: "long tongue,tongue out",
+    data: ["NSFW:ポーズ", "ポーズ", "長舌出し"]
+  },
+  {
+    prompt: "spread leg",
+    data: ["NSFW:ポーズ", "ポーズ", "開脚"]
+  },
+  {
+    prompt: "sitting with legs spread",
+    data: ["NSFW:ポーズ", "ポーズ", "開脚して座る"]
+  },
+  {
+    prompt: "revealing sitting pose",
+    data: ["NSFW:ポーズ", "ポーズ", "露出度の高い座りポーズ"]
+  },
+  {
+    prompt: "cunnilingus,sitting on face",
+    data: ["NSFW:ポーズ", "ポーズ", "顔面騎乗"]
+  },
+  {
+    prompt: "straddling arms behind head",
+    data: ["NSFW:ポーズ", "ポーズ", "騎乗位で手を後頭部に"]
+  },
+  {
+    prompt: "straddling spread legs",
+    data: ["NSFW:ポーズ", "ポーズ", "騎乗位で脚を広げる"]
+  },
+  {
+    prompt: "hands on own crotch",
+    data: ["NSFW:動作", "動作", "おまんこに手"]
+  },
+  {
+    prompt: "hand grabbing ass",
+    data: ["NSFW:動作", "動作", "お尻を手でつかむ"]
+  },
+  {
+    prompt: "leg lock and hug",
+    data: ["NSFW:動作", "動作", "だいしゅきホールド"]
+  },
+  {
+    prompt: "double middle finger",
+    data: ["NSFW:動作", "動作", "だぶるふぁっきゅー"]
+  },
+  {
+    prompt: "penis grab",
+    data: ["NSFW:動作", "動作", "ちんこ掴み"]
+  },
+  {
+    prompt: "dick slap face",
+    data: ["NSFW:動作", "動作", "ちんぺち"]
+  },
+  {
+    prompt: "breast smother",
+    data: ["NSFW:動作", "動作", "ぱふぱふ"]
+  },
+  {
+    prompt: "middle finger",
+    data: ["NSFW:動作", "動作", "ふぁっきゅー"]
+  },
+  {
+    prompt: "strips",
+    data: ["NSFW:動作", "動作", "ストリップ"]
+  },
+  {
+    prompt: "paizuri invitation",
+    data: ["NSFW:動作", "動作", "パイズリを誘う"]
+  },
+  {
+    prompt: "skirt lift,panties",
+    data: ["NSFW:動作", "動作", "パンツたくし上げ"]
+  },
+  {
+    prompt: "presenting removed panties",
+    data: ["NSFW:動作", "動作", "パンツをプレゼント"]
+  },
+  {
+    prompt: "panties aside",
+    data: ["NSFW:動作", "動作", "パンツズラし"]
+  },
+  {
+    prompt: "remove your bra",
+    data: ["NSFW:動作", "動作", "ブラをはずす"]
+  },
+  {
+    prompt: "raise the middle finger",
+    data: ["NSFW:動作", "動作", "中指を立てる"]
+  },
+  {
+    prompt: "1girl,1man,nswf,grabbing from behind,lactation through clothes,trembling motionline ,troubled eyebrows",
+    data: ["NSFW:動作", "動作", "乳もみ"]
+  },
+  {
+    prompt: "penis on nipple",
+    data: ["NSFW:動作", "動作", "乳首にペニスを押し付ける"]
+  },
+  {
+    prompt: "nipple biting",
+    data: ["NSFW:動作", "動作", "乳首をつまむ"]
+  },
+  {
+    prompt: "nipples tweak",
+    data: ["NSFW:動作", "動作", "乳首責め"]
+  },
+  {
+    prompt: "undressing,assisted exposure",
+    data: ["NSFW:動作", "動作", "他人による脱衣"]
+  },
+  {
+    prompt: "she is swallowing his penis",
+    data: ["NSFW:動作", "動作", "彼女は彼のペニスを飲み込んでいる"]
+  },
+  {
+    prompt: "hands tied behind back reference",
+    data: ["NSFW:動作", "動作", "後ろ手に組まされる"]
+  },
+  {
+    prompt: "nsfw,1boy,1girl,fingering pussy",
+    data: ["NSFW:動作", "動作", "手マン"]
+  },
+  {
+    prompt: "finger to mouth",
+    data: ["NSFW:動作", "動作", "指を舐める"]
+  },
+  {
+    prompt: "striking a provocative pose",
+    data: ["NSFW:動作", "動作", "挑発的なポーズ"]
+  },
+  {
+    prompt: "provocative pose",
+    data: ["NSFW:動作", "動作", "挑発的な立ち方"]
+  },
+  {
+    prompt: "provocative beckoning finger",
+    data: ["NSFW:動作", "動作", "挑発的に指を招いている"]
+  },
+  {
+    prompt: "massage",
+    data: ["NSFW:動作", "動作", "揉む,触れる"]
+  },
+  {
+    prompt: "breasts rest on table",
+    data: ["NSFW:動作", "動作", "机の上に胸を置く"]
+  },
+  {
+    prompt: "covering chest with one hand",
+    data: ["NSFW:動作", "動作", "片手で胸を隠している"]
+  },
+  {
+    prompt: "covering one breasts",
+    data: ["NSFW:動作", "動作", "片方の胸を隠す"]
+  },
+  {
+    prompt: "pov hands, (breast lift:1.2)",
+    data: ["NSFW:動作", "動作", "第三者が胸を持ち上げる"]
+  },
+  {
+    prompt: "grabbing own breasts",
+    data: ["NSFW:動作", "動作", "胸を揉む"]
+  },
+  {
+    prompt: "breasts envy",
+    data: ["NSFW:動作", "動作", "胸囲が欲しい"]
+  },
+  {
+    prompt: "armpits",
+    data: ["NSFW:動作", "動作", "脇を見せる"]
+  },
+  {
+    prompt: "open clothes,bra",
+    data: ["NSFW:動作", "動作", "脱いでブラ見せ"]
+  },
+  {
+    prompt: "boy grab her waist",
+    data: ["NSFW:動作", "動作", "腰掴み"]
+  },
+  {
+    prompt: "grabbing own breast",
+    data: ["NSFW:動作", "動作", "自分の胸をつかむ"]
+  },
+  {
+    prompt: "come hither",
+    data: ["NSFW:動作", "動作", "色仕掛け"]
+  },
+  {
+    prompt: "invitation",
+    data: ["NSFW:動作", "動作", "誘う"]
+  },
+  {
+    prompt: "forcefully rub penis on cheek",
+    data: ["NSFW:動作", "動作", "頬にペニスを強引にこすりつける"]
+  },
+  {
+    prompt: "cheek poking",
+    data: ["NSFW:動作", "動作", "頬をつつく"]
+  },
+  {
+    prompt: "restrained",
+    data: ["NSFW:動作", "動作", "頭の上で手を拘束"]
+  },
+  {
+    prompt: "messy room,too many dildos,condoms,vibrators,sex toys",
+    data: ["NSFW:場所", "場所", "ヤリ部屋"]
+  },
+  {
+    prompt: "public toilet",
+    data: ["NSFW:場所", "場所", "公衆トイレ"]
+  },
+  {
+    prompt: "pussy line",
+    data: ["NSFW:性器", "女性器", "きれいなすじ,ぷにまんこ,ぷにまん"]
+  },
+  {
+    prompt: "erect clitoris",
+    data: ["NSFW:性器", "女性器", "勃起クリ"]
+  },
+  {
+    prompt: "pussy girl",
+    data: ["NSFW:性器", "女性器", "女性器"]
+  },
+  {
+    prompt: "pussy juice",
+    data: ["NSFW:性器", "女性器", "愛液,股間隠し"]
+  },
+  {
+    prompt: "pussy juice trail",
+    data: ["NSFW:性器", "女性器", "愛液の線,汁あと"]
+  },
+  {
+    prompt: "pussy cum,cum in pussy,cross-section,internal cumshot",
+    data: ["NSFW:性器", "子宮", "中出し断面"]
+  },
+  {
+    prompt: "fertilization",
+    data: ["NSFW:性器", "子宮", "受精"]
+  },
+  {
+    prompt: "sperm cum in uterus",
+    data: ["NSFW:性器", "子宮", "子宮内の精子兼"]
+  },
+  {
+    prompt: "os uteri",
+    data: ["NSFW:性器", "子宮", "子宮口"]
+  },
+  {
+    prompt: "close eyes,troubled eyebrows,orgasm,close mouth,clench teeth,cross-section of uterus,fertilization,pussy cum",
+    data: ["NSFW:性器", "子宮", "断面イキ"]
+  },
+  {
+    prompt: "1.5::cross section:: on female body",
+    data: ["NSFW:性器", "子宮", "断面図"]
+  },
+  {
+    prompt: "cross-section of uterus,fertilization,pussy cum",
+    data: ["NSFW:性器", "子宮", "断面図"]
+  },
+  {
+    prompt: "uterus at viewer penis inserted into pussy from cross section looking through,cum in uterus",
+    data: ["NSFW:性器", "子宮", "断面図"]
+  },
+  {
+    prompt: "uterus at viewer penis inserted into pussy from cross section looking through",
+    data: ["NSFW:性器", "子宮", "断面図(要体位設定)"]
+  },
+  {
+    prompt: "1.3::detailed cross section on female body,x-ray view of a large penis inserted into a vagina::",
+    data: ["NSFW:性器", "子宮", "断面図(体表)"]
+  },
+  {
+    prompt: "anal hair",
+    data: ["NSFW:性器", "尻", "ケツ毛"]
+  },
+  {
+    prompt: "puckered anus",
+    data: ["NSFW:性器", "尻", "引き締まったアナル"]
+  },
+  {
+    prompt: "dark anus",
+    data: ["NSFW:性器", "尻", "黒いアナル"]
+  },
+  {
+    prompt: "cleft of venus",
+    data: ["NSFW:性器", "性器", "1,すじまん"]
+  },
+  {
+    prompt: "tits",
+    data: ["NSFW:性器", "性器", "おっぱい"]
+  },
+  {
+    prompt: "wrinkled areola",
+    data: ["NSFW:性器", "性器", "しわのある乳輪"]
+  },
+  {
+    prompt: "excellent beautiful pussy",
+    data: ["NSFW:性器", "性器", "とても美しい女性器"]
+  },
+  {
+    prompt: "puffy nipples",
+    data: ["NSFW:性器", "性器", "ふくらんでいる乳首"]
+  },
+  {
+    prompt: "futanari",
+    data: ["NSFW:性器", "性器", "ふたなり"]
+  },
+  {
+    prompt: "plump nipples",
+    data: ["NSFW:性器", "性器", "ぷっくりとした乳首"]
+  },
+  {
+    prompt: "fat mons",
+    data: ["NSFW:性器", "性器", "ぷにまん"]
+  },
+  {
+    prompt: "anal",
+    data: ["NSFW:性器", "性器", "アナル,肛門"]
+  },
+  {
+    prompt: "clitoris",
+    data: ["NSFW:性器", "性器", "クリトリス"]
+  },
+  {
+    prompt: "cameltoe",
+    data: ["NSFW:性器", "性器", "スジ"]
+  },
+  {
+    prompt: "pink nipples",
+    data: ["NSFW:性器", "性器", "ピンクの乳首,ピンク色の乳首"]
+  },
+  {
+    prompt: "pink areola",
+    data: ["NSFW:性器", "性器", "ピンク色の乳輪"]
+  },
+  {
+    prompt: "camel toe",
+    data: ["NSFW:性器", "性器", "マンすじ"]
+  },
+  {
+    prompt: "beautiful xtra small pussy",
+    data: ["NSFW:性器", "性器", "ロリマン"]
+  },
+  {
+    prompt: "downward-pointing nipples",
+    data: ["NSFW:性器", "性器", "下向きの乳首"]
+  },
+  {
+    prompt: "round areola",
+    data: ["NSFW:性器", "性器", "丸い乳輪"]
+  },
+  {
+    prompt: "round nipples",
+    data: ["NSFW:性器", "性器", "丸い乳首"]
+  },
+  {
+    prompt: "nipples",
+    data: ["NSFW:性器", "性器", "乳首"]
+  },
+  {
+    prompt: "matching areola and nipple color",
+    data: ["NSFW:性器", "性器", "乳首と同じ色の乳輪"]
+  },
+  {
+    prompt: "nipple slip",
+    data: ["NSFW:性器", "性器", "乳首ポロリ"]
+  },
+  {
+    prompt: "pointed nipples",
+    data: ["NSFW:性器", "性器", "先が尖った乳首"]
+  },
+  {
+    prompt: "glossy nipples",
+    data: ["NSFW:性器", "性器", "光沢のある乳首"]
+  },
+  {
+    prompt: "erect penis",
+    data: ["NSFW:性器", "性器", "勃起したペニス"]
+  },
+  {
+    prompt: "flaccid penis",
+    data: ["NSFW:性器", "性器", "勃起していないペニス"]
+  },
+  {
+    prompt: "flaccid small penis",
+    data: ["NSFW:性器", "性器", "勃起していない小さなペニス"]
+  },
+  {
+    prompt: "big veiny penis",
+    data: ["NSFW:性器", "性器", "大きく脈打つペニス"]
+  },
+  {
+    prompt: "big penis",
+    data: ["NSFW:性器", "性器", "大きなペニス"]
+  },
+  {
+    prompt: "large penis",
+    data: ["NSFW:性器", "性器", "大きなペニス2"]
+  },
+  {
+    prompt: "large areola",
+    data: ["NSFW:性器", "性器", "大きな乳輪"]
+  },
+  {
+    prompt: "large nipples",
+    data: ["NSFW:性器", "性器", "大きな乳首"]
+  },
+  {
+    prompt: "thick nipples",
+    data: ["NSFW:性器", "性器", "太めの乳首"]
+  },
+  {
+    prompt: "pussy",
+    data: ["NSFW:性器", "性器", "女性器"]
+  },
+  {
+    prompt: "vagina",
+    data: ["NSFW:性器", "性器", "女性器2"]
+  },
+  {
+    prompt: "cunt",
+    data: ["NSFW:性器", "性器", "女性器3"]
+  },
+  {
+    prompt: "the uterus",
+    data: ["NSFW:性器", "性器", "子宮"]
+  },
+  {
+    prompt: "anus",
+    data: ["NSFW:性器", "性器", "尻の穴、肛門"]
+  },
+  {
+    prompt: "giant penis",
+    data: ["NSFW:性器", "性器", "巨大なペニス"]
+  },
+  {
+    prompt: "flat nipples",
+    data: ["NSFW:性器", "性器", "平らな乳首"]
+  },
+  {
+    prompt: "wide areola",
+    data: ["NSFW:性器", "性器", "広がった乳輪"]
+  },
+  {
+    prompt: "1viewer's penis",
+    data: ["NSFW:性器", "性器", "撮影者のペニス"]
+  },
+  {
+    prompt: "covered nipples",
+    data: ["NSFW:性器", "性器", "浮き乳首"]
+  },
+  {
+    prompt: "light pink nipples",
+    data: ["NSFW:性器", "性器", "淡いピンクの乳首"]
+  },
+  {
+    prompt: "smooth areola",
+    data: ["NSFW:性器", "性器", "滑らかな乳輪"]
+  },
+  {
+    prompt: "dark-colored areola",
+    data: ["NSFW:性器", "性器", "濃い色の乳輪"]
+  },
+  {
+    prompt: "wet pussy",
+    data: ["NSFW:性器", "性器", "濡れた女性器"]
+  },
+  {
+    prompt: "penis",
+    data: ["NSFW:性器", "性器", "男性器"]
+  },
+  {
+    prompt: "protruding nipples",
+    data: ["NSFW:性器", "性器", "突起のある乳首"]
+  },
+  {
+    prompt: "testis",
+    data: ["NSFW:性器", "性器", "精巣"]
+  },
+  {
+    prompt: "cum pussy",
+    data: ["NSFW:性器", "性器", "精液マンコ"]
+  },
+  {
+    prompt: "beautiful vagina",
+    data: ["NSFW:性器", "性器", "美しい膣"]
+  },
+  {
+    prompt: "breasts cleavage",
+    data: ["NSFW:性器", "性器", "胸の谷間"]
+  },
+  {
+    prompt: "vaginal",
+    data: ["NSFW:性器", "性器", "膣"]
+  },
+  {
+    prompt: "pale-colored nipples",
+    data: ["NSFW:性器", "性器", "色素が薄い乳首"]
+  },
+  {
+    prompt: "brown areola",
+    data: ["NSFW:性器", "性器", "茶色い乳輪"]
+  },
+  {
+    prompt: "brown nipples",
+    data: ["NSFW:性器", "性器", "茶色い乳首"]
+  },
+  {
+    prompt: "light-colored areola",
+    data: ["NSFW:性器", "性器", "薄い色の乳輪"]
+  },
+  {
+    prompt: "veiny penis",
+    data: ["NSFW:性器", "性器", "血管が浮き出るペニス"]
+  },
+  {
+    prompt: "long nipples",
+    data: ["NSFW:性器", "性器", "長い乳首"]
+  },
+  {
+    prompt: "long breasts",
+    data: ["NSFW:性器", "性器", "長乳"]
+  },
+  {
+    prompt: "inverted nipples",
+    data: ["NSFW:性器", "性器", "陥没乳首"]
+  },
+  {
+    prompt: "asymmetrical areola",
+    data: ["NSFW:性器", "性器", "非対称の乳輪"]
+  },
+  {
+    prompt: "dark labia",
+    data: ["NSFW:性器", "性器", "黒いマンコ"]
+  },
+  {
+    prompt: "pussy juice stain",
+    data: ["NSFW:性器", "性器の状態", "マン汁の染み"]
+  },
+  {
+    prompt: "after vaginal",
+    data: ["NSFW:性器", "性器の状態", "事後の膣"]
+  },
+  {
+    prompt: "excessive pussy juice",
+    data: ["NSFW:性器", "性器の状態", "大量の汁"]
+  },
+  {
+    prompt: "cum in uterus",
+    data: ["NSFW:性器", "性器の状態", "子宮内の精液"]
+  },
+  {
+    prompt: "precum",
+    data: ["NSFW:性器", "性器の状態", "我慢汁"]
+  },
+  {
+    prompt: "mother's milk is seeping out.",
+    data: ["NSFW:性器", "性器の状態", "母乳が染み出ている"]
+  },
+  {
+    prompt: "wet vagina",
+    data: ["NSFW:性器", "性器の状態", "濡れた膣"]
+  },
+  {
+    prompt: "large insertion",
+    data: ["NSFW:性器", "性器の状態", "腹ボコちんちん"]
+  },
+  {
+    prompt: "stomach bulge",
+    data: ["NSFW:性器", "性器の状態", "腹ボコまん"]
+  },
+  {
+    prompt: "cum inside pussy",
+    data: ["NSFW:性器", "性器の状態", "膣から精子"]
+  },
+  {
+    prompt: "used condom on penis",
+    data: ["NSFW:性器", "男性器", "コンドーム付きペニス"]
+  },
+  {
+    prompt: "glans penis",
+    data: ["NSFW:性器", "男性器", "亀頭"]
+  },
+  {
+    prompt: "erection under clothes",
+    data: ["NSFW:性器", "男性器", "服下勃起"]
+  },
+  {
+    prompt: "testicles",
+    data: ["NSFW:性器", "男性器", "睾丸、金玉"]
+  },
+  {
+    prompt: "testicle",
+    data: ["NSFW:性器", "男性器", "金玉"]
+  },
+  {
+    prompt: "big testicles bouncing, big black penis",
+    data: ["NSFW:性器", "男性器", "黒い睾丸、ペニス"]
+  },
+  {
+    prompt: "a perspective of a female pussy",
+    data: ["NSFW:構図", "構図", "マンコにフォーカスする視点"]
+  },
+  {
+    prompt: "trefoil",
+    data: ["NSFW:構図", "構図", "三つ葉"]
+  },
+  {
+    prompt: "presentingwet pussy",
+    data: ["NSFW:構図", "構図", "女性器が見えるように"]
+  },
+  {
+    prompt: "pussy focus",
+    data: ["NSFW:構図", "構図", "女性器にフォーカス"]
+  },
+  {
+    prompt: "nsfwal",
+    data: ["NSFW:特徴・詳細", "オプション", "nsfwな~(形容詞化)"]
+  },
+  {
+    prompt: "ass ripple",
+    data: ["NSFW:特徴・詳細", "オプション", "お尻の波紋"]
+  },
+  {
+    prompt: "precum",
+    data: ["NSFW:特徴・詳細", "オプション", "ガマン汁"]
+  },
+  {
+    prompt: "thick thighs, (tanlines),sweat,sweatdrop,dark skin,shiny skin, (exposed clothes)",
+    data: ["NSFW:特徴・詳細", "オプション", "ドスケベ日焼けボディ"]
+  },
+  {
+    prompt: "hentai",
+    data: ["NSFW:特徴・詳細", "オプション", "性的表現のある日本のアニメやマンガ"]
+  },
+  {
+    prompt: "womb tattoo",
+    data: ["NSFW:特徴・詳細", "オプション", "淫紋"]
+  },
+  {
+    prompt: "uncensored",
+    data: ["NSFW:特徴・詳細", "オプション", "無修正"]
+  },
+  {
+    prompt: "breasts shade",
+    data: ["NSFW:特徴・詳細", "オプション", "胸の影"]
+  },
+  {
+    prompt: "{{{cleavage folded cash}}},{{{huge wad of cash}}},{{between breasts}}",
+    data: ["NSFW:特徴・詳細", "オプション", "谷間にお金"]
+  },
+  {
+    prompt: "slipping clothes",
+    data: ["NSFW:特徴・詳細", "属性", "ずり落ちた服"]
+  },
+  {
+    prompt: "futa with female",
+    data: ["NSFW:特徴・詳細", "属性", "ふたなりと女性"]
+  },
+  {
+    prompt: "futa",
+    data: ["NSFW:特徴・詳細", "属性", "ふたなり２"]
+  },
+  {
+    prompt: "potbelly",
+    data: ["NSFW:特徴・詳細", "属性", "ぽっちゃり"]
+  },
+  {
+    prompt: "baby shota",
+    data: ["NSFW:特徴・詳細", "属性", "もっと幼い少年"]
+  },
+  {
+    prompt: "taking off shirt",
+    data: ["NSFW:特徴・詳細", "属性", "シャツを脱ぎかけている"]
+  },
+  {
+    prompt: "flipped skirt",
+    data: ["NSFW:特徴・詳細", "属性", "スカートがめくれている"]
+  },
+  {
+    prompt: "friend with benefits",
+    data: ["NSFW:特徴・詳細", "属性", "セフレ"]
+  },
+  {
+    prompt: "fuck buddy",
+    data: ["NSFW:特徴・詳細", "属性", "セフレ2"]
+  },
+  {
+    prompt: "large areolae",
+    data: ["NSFW:特徴・詳細", "属性", "デカい乳輪"]
+  },
+  {
+    prompt: "bitch",
+    data: ["NSFW:特徴・詳細", "属性", "ビッチ"]
+  },
+  {
+    prompt: "visible bra through clothes",
+    data: ["NSFW:特徴・詳細", "属性", "ブラが透けて見える"]
+  },
+  {
+    prompt: "unbuttoned clothes",
+    data: ["NSFW:特徴・詳細", "属性", "ボタンが外れかけている"]
+  },
+  {
+    prompt: "mesugaki",
+    data: ["NSFW:特徴・詳細", "属性", "メスガキ"]
+  },
+  {
+    prompt: "yaoi",
+    data: ["NSFW:特徴・詳細", "属性", "ヤオイ"]
+  },
+  {
+    prompt: "cockslut",
+    data: ["NSFW:特徴・詳細", "属性", "ヤリマン"]
+  },
+  {
+    prompt: "loli",
+    data: ["NSFW:特徴・詳細", "属性", "ロリ"]
+  },
+  {
+    prompt: "disheveled clothes",
+    data: ["NSFW:特徴・詳細", "属性", "乱れた服"]
+  },
+  {
+    prompt: "homosexuality",
+    data: ["NSFW:特徴・詳細", "属性", "同性愛者"]
+  },
+  {
+    prompt: "breast milk",
+    data: ["NSFW:特徴・詳細", "属性", "垂れる母乳"]
+  },
+  {
+    prompt: "hanging breasts",
+    data: ["NSFW:特徴・詳細", "属性", "垂れ乳"]
+  },
+  {
+    prompt: "pregnant",
+    data: ["NSFW:特徴・詳細", "属性", "妊娠中,妊婦,ボテ腹"]
+  },
+  {
+    prompt: "shota",
+    data: ["NSFW:特徴・詳細", "属性", "幼い少年,ショタ"]
+  },
+  {
+    prompt: "little shota",
+    data: ["NSFW:特徴・詳細", "属性", "更に幼い少年"]
+  },
+  {
+    prompt: "clothes clinging to skin",
+    data: ["NSFW:特徴・詳細", "属性", "服が張りついている"]
+  },
+  {
+    prompt: "wet clothes",
+    data: ["NSFW:特徴・詳細", "属性", "服が濡れている"]
+  },
+  {
+    prompt: "tight-fitting clothes",
+    data: ["NSFW:特徴・詳細", "属性", "服が身体に密着している"]
+  },
+  {
+    prompt: "see-through clothes",
+    data: ["NSFW:特徴・詳細", "属性", "服が透けている"]
+  },
+  {
+    prompt: "clothes being pulled",
+    data: ["NSFW:特徴・詳細", "属性", "服を引っ張られている"]
+  },
+  {
+    prompt: "lactation through clothes",
+    data: ["NSFW:特徴・詳細", "属性", "服越しの母乳"]
+  },
+  {
+    prompt: "lactation",
+    data: ["NSFW:特徴・詳細", "属性", "母乳"]
+  },
+  {
+    prompt: "lewd",
+    data: ["NSFW:特徴・詳細", "属性", "淫らな"]
+  },
+  {
+    prompt: "nympho",
+    data: ["NSFW:特徴・詳細", "属性", "淫乱1"]
+  },
+  {
+    prompt: "nymphomaniac",
+    data: ["NSFW:特徴・詳細", "属性", "淫乱2"]
+  },
+  {
+    prompt: "large areolae,{{{inverted nipples}}}",
+    data: ["NSFW:特徴・詳細", "属性", "爆乳陥没乳首"]
+  },
+  {
+    prompt: "one side off",
+    data: ["NSFW:特徴・詳細", "属性", "片方だけ脱げている"]
+  },
+  {
+    prompt: "otoko no ko",
+    data: ["NSFW:特徴・詳細", "属性", "男の娘"]
+  },
+  {
+    prompt: "hetero",
+    data: ["NSFW:特徴・詳細", "属性", "異性愛者"]
+  },
+  {
+    prompt: "girl in heat",
+    data: ["NSFW:特徴・詳細", "属性", "発情期の女の子"]
+  },
+  {
+    prompt: "torn clothes",
+    data: ["NSFW:特徴・詳細", "属性", "破れた服"]
+  },
+  {
+    prompt: "cumdump",
+    data: ["NSFW:特徴・詳細", "属性", "肉便器"]
+  },
+  {
+    prompt: "exposed shoulders",
+    data: ["NSFW:特徴・詳細", "属性", "肩が露出している"]
+  },
+  {
+    prompt: "deep neckline",
+    data: ["NSFW:特徴・詳細", "属性", "胸元が大きく開いている"]
+  },
+  {
+    prompt: "clothes in sexy disarray",
+    data: ["NSFW:特徴・詳細", "属性", "衣服が乱れてセクシーになっている"]
+  },
+  {
+    prompt: "sleeves slipping down",
+    data: ["NSFW:特徴・詳細", "属性", "袖がずり落ちている"]
+  },
+  {
+    prompt: "gigantic breasts,gleaming skin",
+    data: ["NSFW:特徴・詳細", "属性", "超乳"]
+  },
+  {
+    prompt: "partially exposed",
+    data: ["NSFW:特徴・詳細", "属性", "部分的に露出している"]
+  },
+  {
+    prompt: "inverted nipples",
+    data: ["NSFW:特徴・詳細", "属性", "陥没乳首"]
+  },
+  {
+    prompt: "dark nipples",
+    data: ["NSFW:特徴・詳細", "属性", "黒ずんだ乳首"]
+  },
+  {
+    prompt: "closed eyes,{{orgasm}},trembling motionline for orgasm",
+    data: ["NSFW:特徴・詳細", "状態", "ビクビク"]
+  },
+  {
+    prompt: "{{orgasm}},trembling motionline for orgasm,motion blur",
+    data: ["NSFW:特徴・詳細", "状態", "ビクン"]
+  },
+  {
+    prompt: "breathless",
+    data: ["NSFW:特徴・詳細", "状態", "息切れ"]
+  },
+  {
+    prompt: "stomach bulge",
+    data: ["NSFW:特徴・詳細", "状態", "腹ボコ"]
+  },
+  {
+    prompt: "stomach bulge by penis",
+    data: ["NSFW:特徴・詳細", "状態", "腹ボコ2"]
+  },
+  {
+    prompt: "orgasm",
+    data: ["NSFW:特徴・詳細", "絶頂", "オーガズム"]
+  },
+  {
+    prompt: "pussy juice puddle",
+    data: ["NSFW:特徴・詳細", "絶頂", "ジュース溜まり"]
+  },
+  {
+    prompt: "female ejaculation,trembling motionline for orgasm,arched back, head back",
+    data: ["NSFW:特徴・詳細", "絶頂", "仰け反り絶頂"]
+  },
+  {
+    prompt: "pussy juice puddle}",
+    data: ["NSFW:特徴・詳細", "絶頂", "愛液だまり"]
+  },
+  {
+    prompt: "squirting",
+    data: ["NSFW:特徴・詳細", "絶頂", "潮吹き1"]
+  },
+  {
+    prompt: "female ejaculation",
+    data: ["NSFW:特徴・詳細", "絶頂", "潮吹き2"]
+  },
+  {
+    prompt: "gushing",
+    data: ["NSFW:特徴・詳細", "絶頂", "潮吹き3"]
+  },
+  {
+    prompt: "cum",
+    data: ["NSFW:特徴・詳細", "絶頂", "絶頂,精液"]
+  },
+  {
+    prompt: "trembling motionline for orgasm",
+    data: ["NSFW:特徴・詳細", "絶頂", "絶頂の際の痙攣エフェクト"]
+  },
+  {
+    prompt: "acp",
+    data: ["NSFW:精液", "射精", "お尻に出す"]
+  },
+  {
+    prompt: "ejaculating on stomach",
+    data: ["NSFW:精液", "射精", "お腹に射精している"]
+  },
+  {
+    prompt: "bukkake",
+    data: ["NSFW:精液", "射精", "ぶっかけ"]
+  },
+  {
+    prompt: "cum in pussy",
+    data: ["NSFW:精液", "射精", "中出し"]
+  },
+  {
+    prompt: "cum string",
+    data: ["NSFW:精液", "射精", "伸びた精液"]
+  },
+  {
+    prompt: "cum on body",
+    data: ["NSFW:精液", "射精", "体にぶっかけ"]
+  },
+  {
+    prompt: "excessive precum",
+    data: ["NSFW:精液", "射精", "先走り汁"]
+  },
+  {
+    prompt: "pre-cum",
+    data: ["NSFW:精液", "射精", "先走り汁,我慢汁・がまん汁・カウパー"]
+  },
+  {
+    prompt: "forceful ejaculation",
+    data: ["NSFW:精液", "射精", "勢いよく射精している"]
+  },
+  {
+    prompt: "ejaculating in mouth",
+    data: ["NSFW:精液", "射精", "口に射精している"]
+  },
+  {
+    prompt: "cim",
+    data: ["NSFW:精液", "射精", "口内射精"]
+  },
+  {
+    prompt: "cum in mouth",
+    data: ["NSFW:精液", "射精", "口内射精2"]
+  },
+  {
+    prompt: "massive creampie",
+    data: ["NSFW:精液", "射精", "大量中出し射精"]
+  },
+  {
+    prompt: "excessive cum",
+    data: ["NSFW:精液", "射精", "大量射精"]
+  },
+  {
+    prompt: "cream shoot",
+    data: ["NSFW:精液", "射精", "射精1"]
+  },
+  {
+    prompt: "cumshot",
+    data: ["NSFW:精液", "射精", "射精2"]
+  },
+  {
+    prompt: "ejaculation",
+    data: ["NSFW:精液", "射精", "射精3,劇核"]
+  },
+  {
+    prompt: "climax moment",
+    data: ["NSFW:精液", "射精", "射精の瞬間"]
+  },
+  {
+    prompt: "watching ejaculation",
+    data: ["NSFW:精液", "射精", "射精を見つめている"]
+  },
+  {
+    prompt: "excessive cum,female ejaculation,{{{{trembling motionline for orgasm}}}}",
+    data: ["NSFW:精液", "射精", "射精フィニッシュ"]
+  },
+  {
+    prompt: "ejaculating in hands",
+    data: ["NSFW:精液", "射精", "手に射精している"]
+  },
+  {
+    prompt: "criempie drop",
+    data: ["NSFW:精液", "射精", "拘束中出し"]
+  },
+  {
+    prompt: "ejaculating over clothes",
+    data: ["NSFW:精液", "射精", "服の上から射精している"]
+  },
+  {
+    prompt: "creampie,excessive cum",
+    data: ["NSFW:精液", "射精", "溢れる精液大量射精"]
+  },
+  {
+    prompt: "ejaculating in anus",
+    data: ["NSFW:精液", "射精", "肛門に射精している"]
+  },
+  {
+    prompt: "cum on breasts",
+    data: ["NSFW:精液", "射精", "胸にぶっかけ"]
+  },
+  {
+    prompt: "ejaculating on breasts",
+    data: ["NSFW:精液", "射精", "胸に射精している"]
+  },
+  {
+    prompt: "ejaculating on legs",
+    data: ["NSFW:精液", "射精", "脚に射精している"]
+  },
+  {
+    prompt: "ejaculating inside vagina",
+    data: ["NSFW:精液", "射精", "膣内に射精している"]
+  },
+  {
+    prompt: "covered in multiple ejaculations",
+    data: ["NSFW:精液", "射精", "複数の射精を浴びている"]
+  },
+  {
+    prompt: "repeated ejaculation",
+    data: ["NSFW:精液", "射精", "連続で射精している"]
+  },
+  {
+    prompt: "cum on cheeks",
+    data: ["NSFW:精液", "射精", "頬にぶっかけ"]
+  },
+  {
+    prompt: "ejaculating on face",
+    data: ["NSFW:精液", "射精", "顔に射精している"]
+  },
+  {
+    prompt: "facial",
+    data: ["NSFW:精液", "射精", "顔射"]
+  },
+  {
+    prompt: "pojecile cum",
+    data: ["NSFW:精液", "射精", "飛び散る射精"]
+  },
+  {
+    prompt: "cum on hair",
+    data: ["NSFW:精液", "射精", "髪にぶっかけ"]
+  },
+  {
+    prompt: "cum overflow",
+    data: ["NSFW:精液", "精子", "大量の精液"]
+  },
+  {
+    prompt: "cum on clothes",
+    data: ["NSFW:精液", "精子", "服にぶっかけ"]
+  },
+  {
+    prompt: "creampie",
+    data: ["NSFW:精液", "精子", "溢れる精液"]
+  },
+  {
+    prompt: "cloudy sperm",
+    data: ["NSFW:精液", "精子", "濁った精液"]
+  },
+  {
+    prompt: "white splash",
+    data: ["NSFW:精液", "精子", "白いスプラッシュ"]
+  },
+  {
+    prompt: "white liquid",
+    data: ["NSFW:精液", "精子", "白い液体"]
+  },
+  {
+    prompt: "sperma",
+    data: ["NSFW:精液", "精子", "精子,精液"]
+  },
+  {
+    prompt: "semen dripping from mouth",
+    data: ["NSFW:精液", "精子", "精液が口から垂れている"]
+  },
+  {
+    prompt: "stringy semen",
+    data: ["NSFW:精液", "精子", "精液が糸を引いている"]
+  },
+  {
+    prompt: "semen splattered on breasts",
+    data: ["NSFW:精液", "精子", "精液が胸に飛び散っている"]
+  },
+  {
+    prompt: "semen leaking from vagina",
+    data: ["NSFW:精液", "精子", "精液が膣から漏れている"]
+  },
+  {
+    prompt: "semen on face",
+    data: ["NSFW:精液", "精子", "精液が顔に付いている"]
+  },
+  {
+    prompt: "splattering semen",
+    data: ["NSFW:精液", "精子", "精液が飛び散っている"]
+  },
+  {
+    prompt: "gulp",
+    data: ["NSFW:精液", "精子", "精液ごっくん"]
+  },
+  {
+    prompt: "covered in semen",
+    data: ["NSFW:精液", "精子", "精液まみれになっている"]
+  },
+  {
+    prompt: "licking semen",
+    data: ["NSFW:精液", "精子", "精液を舐めている"]
+  },
+  {
+    prompt: "drinking semen",
+    data: ["NSFW:精液", "精子", "精液を飲んでいる"]
+  },
+  {
+    prompt: "projectile cumdrip,cum overflow,cum splatter",
+    data: ["NSFW:精液", "精子", "膣から精液噴出"]
+  },
+  {
+    prompt: "cum on tongue",
+    data: ["NSFW:精液", "精子", "舌に精液"]
+  },
+  {
+    prompt: "yellowish cum",
+    data: ["NSFW:精液", "精子", "黄ばんだザーメン"]
+  },
+  {
+    prompt: "v-shaped eyebrows",
+    data: ["NSFW:表情・感情", "表情", "V眉,v眉"]
+  },
+  {
+    prompt: "v-shaped eyebrows,annoyed",
+    data: ["NSFW:表情・感情", "表情", "v眉+眉間皺"]
+  },
+  {
+    prompt: "ahegao",
+    data: ["NSFW:表情・感情", "表情", "あえぎ顔,アヘ顔,アヘ顔"]
+  },
+  {
+    prompt: "scornful",
+    data: ["NSFW:表情・感情", "表情", "あざけった顔"]
+  },
+  {
+    prompt: "dazed eyes",
+    data: ["NSFW:表情・感情", "表情", "うっとりした目"]
+  },
+  {
+    prompt: "half-lidded expression",
+    data: ["NSFW:表情・感情", "表情", "うっとりした目の表情"]
+  },
+  {
+    prompt: "dazed expression",
+    data: ["NSFW:表情・感情", "表情", "うっとりした表情"]
+  },
+  {
+    prompt: "{{{{cross-eyed}}}},{{{{upturned eyes}}}},{{{{{constricted pupils}}}}},{{{{sanpaku}}}},rolling eyes",
+    data: ["NSFW:表情・感情", "表情", "えろえろ目"]
+  },
+  {
+    prompt: "teasing smile",
+    data: ["NSFW:表情・感情", "表情", "からかう笑顔"]
+  },
+  {
+    prompt: "close eyes, troubled eyebrows, orgasm, close mouth, clench teeth",
+    data: ["NSFW:表情・感情", "表情", "くいしばる"]
+  },
+  {
+    prompt: "full-face blush",
+    data: ["NSFW:表情・感情", "表情", "すごく恥ずかしい表情・感情"]
+  },
+  {
+    prompt: "yearning expression",
+    data: ["NSFW:表情・感情", "表情", "せつなそうな表情,満たされたい表情"]
+  },
+  {
+    prompt: "looking at penis",
+    data: ["NSFW:表情・感情", "表情", "ちんちん目線"]
+  },
+  {
+    prompt: "half-lidded eyes",
+    data: ["NSFW:表情・感情", "表情", "とろんとした目"]
+  },
+  {
+    prompt: "hazy expression",
+    data: ["NSFW:表情・感情", "表情", "ぼんやりとした表情"]
+  },
+  {
+    prompt: "glazed expression",
+    data: ["NSFW:表情・感情", "表情", "ぼーっとした表情"]
+  },
+  {
+    prompt: "languid expression",
+    data: ["NSFW:表情・感情", "表情", "まどろむような表情"]
+  },
+  {
+    prompt: "faceless female",
+    data: ["NSFW:表情・感情", "表情", "めかくれ"]
+  },
+  {
+    prompt: "{{drooling}},saliva,drivel,saliva trail",
+    data: ["NSFW:表情・感情", "表情", "よだれ"]
+  },
+  {
+    prompt: "mouth drool",
+    data: ["NSFW:表情・感情", "表情", "よだれが垂れてる"]
+  },
+  {
+    prompt: "ahegao, open mouth, drivel, be breathless, blush, very humid, steam, perspired, fog, pink heart effect, semen, bukkake",
+    data: ["NSFW:表情・感情", "表情", "アヘ顔事後"]
+  },
+  {
+    prompt: "constricted pupils",
+    data: ["NSFW:表情・感情", "表情", "イってる目,瞳小さく"]
+  },
+  {
+    prompt: "be almost there",
+    data: ["NSFW:表情・感情", "表情", "イキそう"]
+  },
+  {
+    prompt: "cross-eyed,upturned eyes,{{{constricted pupils}}},rolling eyes",
+    data: ["NSFW:表情・感情", "表情", "イキ目"]
+  },
+  {
+    prompt: "rolling eyes,upturned eyes",
+    data: ["NSFW:表情・感情", "表情", "エロイキ目"]
+  },
+  {
+    prompt: "{{{{{dot mouth}}}}},parted lips",
+    data: ["NSFW:表情・感情", "表情", "オホ口◎"]
+  },
+  {
+    prompt: "fucked silly",
+    data: ["NSFW:表情・感情", "表情", "オホ顔,スケベ顔"]
+  },
+  {
+    prompt: "drunken eyes",
+    data: ["NSFW:表情・感情", "表情", "ボーっとした目"]
+  },
+  {
+    prompt: "evil smile",
+    data: ["NSFW:表情・感情", "表情", "メスガキスマイル"]
+  },
+  {
+    prompt: "shaded face,no eyes",
+    data: ["NSFW:表情・感情", "表情", "モブ顔"]
+  },
+  {
+    prompt: "looking up with lustful eyes",
+    data: ["NSFW:表情・感情", "表情", "上目遣いで見つめる"]
+  },
+  {
+    prompt: "vulgarity",
+    data: ["NSFW:表情・感情", "表情", "下品なエロ"]
+  },
+  {
+    prompt: "uneven eyes",
+    data: ["NSFW:表情・感情", "表情", "不均一な目"]
+  },
+  {
+    prompt: "disheveled expression",
+    data: ["NSFW:表情・感情", "表情", "乱れた表情"]
+  },
+  {
+    prompt: "afterglow",
+    data: ["NSFW:表情・感情", "表情", "事後"]
+  },
+  {
+    prompt: "content expression",
+    data: ["NSFW:表情・感情", "表情", "充実感や満足感に満ちた表情"]
+  },
+  {
+    prompt: "adventurous expression",
+    data: ["NSFW:表情・感情", "表情", "冒険的な期待の表情"]
+  },
+  {
+    prompt: "pining expression",
+    data: ["NSFW:表情・感情", "表情", "切なげな表情"]
+  },
+  {
+    prompt: "wistful expression",
+    data: ["NSFW:表情・感情", "表情", "切なさがにじむ表情"]
+  },
+  {
+    prompt: "longing expression",
+    data: ["NSFW:表情・感情", "表情", "切望する表情"]
+  },
+  {
+    prompt: "craving expression",
+    data: ["NSFW:表情・感情", "表情", "刺激を求める表情"]
+  },
+  {
+    prompt: "thrilling satisfaction expression",
+    data: ["NSFW:表情・感情", "表情", "刺激的な満足感の表情"]
+  },
+  {
+    prompt: "half-closed eyes",
+    data: ["NSFW:表情・感情", "表情", "半目"]
+  },
+  {
+    prompt: "risky excitement expression",
+    data: ["NSFW:表情・感情", "表情", "危険な刺激の表情"]
+  },
+  {
+    prompt: "defiant look",
+    data: ["NSFW:表情・感情", "表情", "反抗的な視線"]
+  },
+  {
+    prompt: "half-open mouth",
+    data: ["NSFW:表情・感情", "表情", "口を半開きにしている"]
+  },
+  {
+    prompt: "open-mouthed expression",
+    data: ["NSFW:表情・感情", "表情", "口を開けた驚きや興奮の表情"]
+  },
+  {
+    prompt: "open mouth, drivel, be breathless, blush, very humid, steam",
+    data: ["NSFW:表情・感情", "表情", "口開けエロ顔"]
+  },
+  {
+    prompt: "moaning mouth",
+    data: ["NSFW:表情・感情", "表情", "喘いでいるような口元"]
+  },
+  {
+    prompt: "moaning",
+    data: ["NSFW:表情・感情", "表情", "喘ぎ声"]
+  },
+  {
+    prompt: "troubled eyebrows,embarrassed",
+    data: ["NSFW:表情・感情", "表情", "困り眉困惑"]
+  },
+  {
+    prompt: "crying out expression",
+    data: ["NSFW:表情・感情", "表情", "声を上げるような表情"]
+  },
+  {
+    prompt: "dreamy expression",
+    data: ["NSFW:表情・感情", "表情", "夢見心地の表情"]
+  },
+  {
+    prompt: "possessive desire expression",
+    data: ["NSFW:表情・感情", "表情", "奪いたい欲求の表情"]
+  },
+  {
+    prompt: "captivated expression",
+    data: ["NSFW:表情・感情", "表情", "官能に魅了される表情,心を奪われた表情"]
+  },
+  {
+    prompt: "sensual pleasure expression",
+    data: ["NSFW:表情・感情", "表情", "官能的な喜びの表情"]
+  },
+  {
+    prompt: "sensual excitement expression",
+    data: ["NSFW:表情・感情", "表情", "官能的な興奮の表情"]
+  },
+  {
+    prompt: "sensual expression",
+    data: ["NSFW:表情・感情", "表情", "官能的な表情"]
+  },
+  {
+    prompt: "cross-eyed",
+    data: ["NSFW:表情・感情", "表情", "寄り目"]
+  },
+  {
+    prompt: "dot mouth",
+    data: ["NSFW:表情・感情", "表情", "小さい口"]
+  },
+  {
+    prompt: "intense pleasure expression",
+    data: ["NSFW:表情・感情", "表情", "強い快感の表情"]
+  },
+  {
+    prompt: "intense expression",
+    data: ["NSFW:表情・感情", "表情", "強い感情が表れた表情"]
+  },
+  {
+    prompt: "intense urge expression",
+    data: ["NSFW:表情・感情", "表情", "強い衝動の表情"]
+  },
+  {
+    prompt: "dominant desire expression",
+    data: ["NSFW:表情・感情", "表情", "征服したい欲求の表情"]
+  },
+  {
+    prompt: "slightly smiling in pleasure",
+    data: ["NSFW:表情・感情", "表情", "微笑みながら乱れている"]
+  },
+  {
+    prompt: "stirred expression",
+    data: ["NSFW:表情・感情", "表情", "心を掻き乱される表情"]
+  },
+  {
+    prompt: "soothing sensation expression",
+    data: ["NSFW:表情・感情", "表情", "心地よい感覚の表情"]
+  },
+  {
+    prompt: "delightful arousal expression",
+    data: ["NSFW:表情・感情", "表情", "快い官能の表情"]
+  },
+  {
+    prompt: "suppressing pleasure",
+    data: ["NSFW:表情・感情", "表情", "快感に耐えている表情"]
+  },
+  {
+    prompt: "quivering in pleasure",
+    data: ["NSFW:表情・感情", "表情", "快感に震えている"]
+  },
+  {
+    prompt: "quivering expression",
+    data: ["NSFW:表情・感情", "表情", "快感に震える表情"]
+  },
+  {
+    prompt: "pleasure-filled expression",
+    data: ["NSFW:表情・感情", "表情", "快楽に満ちた表情"]
+  },
+  {
+    prompt: "pleasure expression",
+    data: ["NSFW:表情・感情", "表情", "快楽の表情"]
+  },
+  {
+    prompt: "sexually suggestive",
+    data: ["NSFW:表情・感情", "表情", "性的な恥じらい"]
+  },
+  {
+    prompt: "naughty face",
+    data: ["NSFW:表情・感情", "表情", "性的な表情・感情,誘っている表情・感情,いたずら顔"]
+  },
+  {
+    prompt: "sexual delight expression",
+    data: ["NSFW:表情・感情", "表情", "性的快楽の表情"]
+  },
+  {
+    prompt: "sexual satisfaction expression",
+    data: ["NSFW:表情・感情", "表情", "性的満足感の表情"]
+  },
+  {
+    prompt: "arousal expression",
+    data: ["NSFW:表情・感情", "表情", "性的興奮の表情"]
+  },
+  {
+    prompt: "sexually attracted expression",
+    data: ["NSFW:表情・感情", "表情", "性的魅力を感じる表情"]
+  },
+  {
+    prompt: "rapture expression",
+    data: ["NSFW:表情・感情", "表情", "恍惚とした幸福感の表情"]
+  },
+  {
+    prompt: "sultry smile",
+    data: ["NSFW:表情・感情", "表情", "恍惚とした微笑み"]
+  },
+  {
+    prompt: "ecstatic expression",
+    data: ["NSFW:表情・感情", "表情", "恍惚とした表情,恍惚の表情"]
+  },
+  {
+    prompt: "ravished expression",
+    data: ["NSFW:表情・感情", "表情", "恍惚として圧倒された表情"]
+  },
+  {
+    prompt: "sighing expression",
+    data: ["NSFW:表情・感情", "表情", "恍惚とため息をつく表情"]
+  },
+  {
+    prompt: "ecstasy expression",
+    data: ["NSFW:表情・感情", "表情", "恍惚感の表情"]
+  },
+  {
+    prompt: "embarrassed",
+    data: ["NSFW:表情・感情", "表情", "恥ずかしい"]
+  },
+  {
+    prompt: "trembling",
+    data: ["NSFW:表情・感情", "表情", "恥ずかしそうに怯える"]
+  },
+  {
+    prompt: "scared",
+    data: ["NSFW:表情・感情", "表情", "恥ずかしそうに警戒"]
+  },
+  {
+    prompt: "breathless expression",
+    data: ["NSFW:表情・感情", "表情", "息が上がった表情"]
+  },
+  {
+    prompt: "out of breath",
+    data: ["NSFW:表情・感情", "表情", "息を切らしている"]
+  },
+  {
+    prompt: "gasping expression",
+    data: ["NSFW:表情・感情", "表情", "息を呑むような表情"]
+  },
+  {
+    prompt: "passion expression",
+    data: ["NSFW:表情・感情", "表情", "情熱的な衝動の表情"]
+  },
+  {
+    prompt: "passionate expression",
+    data: ["NSFW:表情・感情", "表情", "情熱的な表情"]
+  },
+  {
+    prompt: "intense gaze expression",
+    data: ["NSFW:表情・感情", "表情", "情熱的に見つめる表情"]
+  },
+  {
+    prompt: "sensory bliss expression",
+    data: ["NSFW:表情・感情", "表情", "感覚の幸福の表情"]
+  },
+  {
+    prompt: "pleading eyes",
+    data: ["NSFW:表情・感情", "表情", "懇願する目"]
+  },
+  {
+    prompt: "lost-in-the-moment expression",
+    data: ["NSFW:表情・感情", "表情", "我を忘れた表情"]
+  },
+  {
+    prompt: "unrestrained expression",
+    data: ["NSFW:表情・感情", "表情", "抑えきれない表情"]
+  },
+  {
+    prompt: "uncontrollable expression",
+    data: ["NSFW:表情・感情", "表情", "抑えられない欲求の表情"]
+  },
+  {
+    prompt: "provocative expression",
+    data: ["NSFW:表情・感情", "表情", "挑発的な興奮の表情"]
+  },
+  {
+    prompt: "provocative gaze",
+    data: ["NSFW:表情・感情", "表情", "挑発的な視線"]
+  },
+  {
+    prompt: "vacant expression",
+    data: ["NSFW:表情・感情", "表情", "放心状態"]
+  },
+  {
+    prompt: "chestnut mouth",
+    data: ["NSFW:表情・感情", "表情", "栗口アへ◎"]
+  },
+  {
+    prompt: "dashed eye",
+    data: ["NSFW:表情・感情", "表情", "横線が入った目"]
+  },
+  {
+    prompt: "desire expression",
+    data: ["NSFW:表情・感情", "表情", "欲情の表情"]
+  },
+  {
+    prompt: "lustful expression",
+    data: ["NSFW:表情・感情", "表情", "欲望に満ちた表情"]
+  },
+  {
+    prompt: "frustrated expression",
+    data: ["NSFW:表情・感情", "表情", "欲求不満そうな表情"]
+  },
+  {
+    prompt: "sweaty expression",
+    data: ["NSFW:表情・感情", "表情", "汗ばんだ熱のこもった表情"]
+  },
+  {
+    prompt: "tearful expression",
+    data: ["NSFW:表情・感情", "表情", "涙ぐんだ表情"]
+  },
+  {
+    prompt: "teary eyes",
+    data: ["NSFW:表情・感情", "表情", "涙目"]
+  },
+  {
+    prompt: "lewd smile",
+    data: ["NSFW:表情・感情", "表情", "淫らな笑み"]
+  },
+  {
+    prompt: "profound sensuality expression",
+    data: ["NSFW:表情・感情", "表情", "深い官能の満足の表情"]
+  },
+  {
+    prompt: "deep satisfaction expression",
+    data: ["NSFW:表情・感情", "表情", "深い満足の表情"]
+  },
+  {
+    prompt: "fulfilled expression",
+    data: ["NSFW:表情・感情", "表情", "満ち足りた表情"]
+  },
+  {
+    prompt: "gratified expression",
+    data: ["NSFW:表情・感情", "表情", "満足しきった表情"]
+  },
+  {
+    prompt: "vulnerable expression",
+    data: ["NSFW:表情・感情", "表情", "無防備で感じ入っている表情"]
+  },
+  {
+    prompt: "heated expression",
+    data: ["NSFW:表情・感情", "表情", "熱を帯びた表情"]
+  },
+  {
+    prompt: "fiery sensation expression",
+    data: ["NSFW:表情・感情", "表情", "燃えるような感覚の表情"]
+  },
+  {
+    prompt: "smoldering expression",
+    data: ["NSFW:表情・感情", "表情", "燃え上がるような表情"]
+  },
+  {
+    prompt: "moaning expression",
+    data: ["NSFW:表情・感情", "表情", "甘い声を漏らしているような表情"]
+  },
+  {
+    prompt: "in awe expression",
+    data: ["NSFW:表情・感情", "表情", "畏怖や感動の表情"]
+  },
+  {
+    prompt: "exhausted",
+    data: ["NSFW:表情・感情", "表情", "疲れ果てる"]
+  },
+  {
+    prompt: "aroused",
+    data: ["NSFW:表情・感情", "表情", "発情"]
+  },
+  {
+    prompt: "heart eyes",
+    data: ["NSFW:表情・感情", "表情", "目がハート"]
+  },
+  {
+    prompt: "bags under eyes",
+    data: ["NSFW:表情・感情", "表情", "目の下のクマ"]
+  },
+  {
+    prompt: "moist eyes",
+    data: ["NSFW:表情・感情", "表情", "目を潤ませている"]
+  },
+  {
+    prompt: "sultry gaze expression",
+    data: ["NSFW:表情・感情", "表情", "目を細めた魅惑的な表情"]
+  },
+  {
+    prompt: "squinting",
+    data: ["NSFW:表情・感情", "表情", "目を細める"]
+  },
+  {
+    prompt: "wild-eyed expression",
+    data: ["NSFW:表情・感情", "表情", "目を見開いた熱狂的な表情"]
+  },
+  {
+    prompt: "eyes-closed expression",
+    data: ["NSFW:表情・感情", "表情", "目を閉じて感じている表情"]
+  },
+  {
+    prompt: "illicit attraction expression",
+    data: ["NSFW:表情・感情", "表情", "禁じられた魅力の表情"]
+  },
+  {
+    prompt: "forbidden pleasure expression",
+    data: ["NSFW:表情・感情", "表情", "禁断の喜びの表情"]
+  },
+  {
+    prompt: "climaxed expression",
+    data: ["NSFW:表情・感情", "表情", "絶頂を迎えたときの表情"]
+  },
+  {
+    prompt: "sensuous expression",
+    data: ["NSFW:表情・感情", "表情", "耽美的な表情"]
+  },
+  {
+    prompt: "voluptuous expression",
+    data: ["NSFW:表情・感情", "表情", "肉感的な表情"]
+  },
+  {
+    prompt: "desired expression",
+    data: ["NSFW:表情・感情", "表情", "自分が求められている表情"]
+  },
+  {
+    prompt: "liberated desire expression",
+    data: ["NSFW:表情・感情", "表情", "自分を解放したい表情"]
+  },
+  {
+    prompt: "liberated expression",
+    data: ["NSFW:表情・感情", "表情", "自分を解放した表情"]
+  },
+  {
+    prompt: "bliss expression",
+    data: ["NSFW:表情・感情", "表情", "至福の表情"]
+  },
+  {
+    prompt: "tongue out",
+    data: ["NSFW:表情・感情", "表情", "舌を出している"]
+  },
+  {
+    prompt: "licking lips",
+    data: ["NSFW:表情・感情", "表情", "舌ペロ"]
+  },
+  {
+    prompt: "seductive expression",
+    data: ["NSFW:表情・感情", "表情", "色っぽい表情,誘惑的な表情,誘惑するような顔"]
+  },
+  {
+    prompt: "lust expression",
+    data: ["NSFW:表情・感情", "表情", "色欲の表情"]
+  },
+  {
+    prompt: "seductive smile",
+    data: ["NSFW:表情・感情", "表情", "艶笑,誘惑顔"]
+  },
+  {
+    prompt: "impulsive desire expression",
+    data: ["NSFW:表情・感情", "表情", "衝動的な欲求の表情"]
+  },
+  {
+    prompt: "tempted expression",
+    data: ["NSFW:表情・感情", "表情", "誘惑される表情"]
+  },
+  {
+    prompt: "blushing",
+    data: ["NSFW:表情・感情", "表情", "赤面している"]
+  },
+  {
+    prompt: "entranced expression",
+    data: ["NSFW:表情・感情", "表情", "陶然とした表情"]
+  },
+  {
+    prompt: "inebriated expression",
+    data: ["NSFW:表情・感情", "表情", "陶酔しきった表情"]
+  },
+  {
+    prompt: "blissful expression",
+    data: ["NSFW:表情・感情", "表情", "陶酔した表情"]
+  },
+  {
+    prompt: "intoxication expression",
+    data: ["NSFW:表情・感情", "表情", "陶酔の表情"]
+  },
+  {
+    prompt: "shaky-breath expression",
+    data: ["NSFW:表情・感情", "表情", "震えながら息を漏らす表情"]
+  },
+  {
+    prompt: "shuddering expression",
+    data: ["NSFW:表情・感情", "表情", "震えるような表情(快感や感情の高まりによる)"]
+  },
+  {
+    prompt: "flushed expression",
+    data: ["NSFW:表情・感情", "表情", "顔が赤くなっている表情(興奮や恥じらい)"]
+  },
+  {
+    prompt: "aroused expression",
+    data: ["NSFW:表情・感情", "表情", "高ぶった表情"]
+  },
+  {
+    prompt: "heightened excitement expression",
+    data: ["NSFW:表情・感情", "表情", "高まる興奮の表情"]
+  },
+  {
+    prompt: "euphoria expression",
+    data: ["NSFW:表情・感情", "表情", "高揚感の表情"]
+  },
+  {
+    prompt: "mesmerizing feeling expression",
+    data: ["NSFW:表情・感情", "表情", "魅了される感覚の表情"]
+  },
+  {
+    prompt: "seductive fulfillment expression",
+    data: ["NSFW:表情・感情", "表情", "魅惑的な満足感の表情"]
+  },
+  {
+    prompt: "gleaming skin",
+    data: ["NSFW:身体", "肌", "エロテカ肌"]
+  },
+  {
+    prompt: "glistening skin",
+    data: ["NSFW:身体", "肌", "エロテカ肌2"]
+  },
+  {
+    prompt: "hickey,lipstick mark , bite mark",
+    data: ["NSFW:身体", "肌", "キスマと歯形"]
+  },
+  {
+    prompt: "compare breasts",
+    data: ["NSFW:身体", "胸", "ちちくらべ"]
+  },
+  {
+    prompt: "open chest",
+    data: ["NSFW:身体", "胸", "はだけた胸"]
+  },
+  {
+    prompt: "{{{{{{large nipples,thick nipples,large areolae}}}}}",
+    data: ["NSFW:身体", "胸", "デカ乳首"]
+  },
+  {
+    prompt: "nipples become erect",
+    data: ["NSFW:身体", "胸", "乳首が勃つ"]
+  },
+  {
+    prompt: "erectile nipples",
+    data: ["NSFW:身体", "胸", "勃起乳首"]
+  },
+  {
+    prompt: "saggy breasts",
+    data: ["NSFW:身体", "胸", "垂れ気味の胸"]
+  },
+  {
+    prompt: "deformed breasts, unaligned breasts",
+    data: ["NSFW:身体", "胸", "変形した胸"]
+  },
+  {
+    prompt: "large breasts",
+    data: ["NSFW:身体", "胸", "大きめの胸"]
+  },
+  {
+    prompt: "breasts squeezed together",
+    data: ["NSFW:身体", "胸", "寄せ乳"]
+  },
+  {
+    prompt: "small breasts",
+    data: ["NSFW:身体", "胸", "小さめの胸"]
+  },
+  {
+    prompt: "pointy breasts",
+    data: ["NSFW:身体", "胸", "尖った胸"]
+  },
+  {
+    prompt: "huge breasts",
+    data: ["NSFW:身体", "胸", "巨乳"]
+  },
+  {
+    prompt: "breast expansion",
+    data: ["NSFW:身体", "胸", "巨乳化"]
+  },
+  {
+    prompt: "large areolae",
+    data: ["NSFW:身体", "胸", "巨乳輪"]
+  },
+  {
+    prompt: "huge areolae",
+    data: ["NSFW:身体", "胸", "巨大な乳輪"]
+  },
+  {
+    prompt: "perky breasts",
+    data: ["NSFW:身体", "胸", "張りのある胸,強調気味の乳首"]
+  },
+  {
+    prompt: "medium breasts",
+    data: ["NSFW:身体", "胸", "普通サイズの胸"]
+  },
+  {
+    prompt: "coverd nipples",
+    data: ["NSFW:身体", "胸", "浮き乳首"]
+  },
+  {
+    prompt: "nipple outline",
+    data: ["NSFW:身体", "胸", "浮き出る乳首"]
+  },
+  {
+    prompt: "massive breasts",
+    data: ["NSFW:身体", "胸", "爆乳"]
+  },
+  {
+    prompt: "natural-shaped breasts",
+    data: ["NSFW:身体", "胸", "自然な形の胸"]
+  },
+  {
+    prompt: "absurdly large breasts",
+    data: ["NSFW:身体", "胸", "超爆乳"]
+  },
+  {
+    prompt: "nipples visible through clothes",
+    data: ["NSFW:身体", "胸", "透け乳首"]
+  },
+  {
+    prompt: "inverted nipples",
+    data: ["NSFW:身体", "胸", "陥没乳首"]
+  },
+  {
+    prompt: "breasts apart",
+    data: ["NSFW:身体", "胸", "離れ乳"]
+  },
+  {
     prompt: "sns",
     data: ["アイテム", "デジタル", "SNS"]
   },
@@ -27765,6 +31189,10 @@ let defaultMaster = {
     data: ["場所", "音楽・エンターテイメント", "ライブ会場2"]
   },
   {
+    prompt: "prompt",
+    data: ["大項目", "中項目", "小項目"]
+  },
+  {
     prompt: "in the late morning",
     data: ["天候と時間帯", "一日の時間", "午前中"]
   },
@@ -28039,3430 +31467,6 @@ let defaultMaster = {
   {
     prompt: "surrounded by fog",
     data: ["天候と時間帯", "特殊気象", "霧が立ち込めている"]
-  },
-  {
-    prompt: "nwg",
-    data: ["成人向け", "!必須タグ", "nsfw + girl"]
-  },
-  {
-    prompt: "nsfw",
-    data: ["成人向け", "!必須タグ", "エロ画像"]
-  },
-  {
-    prompt: "spanking",
-    data: ["成人向け", "SM", "お尻たたき"]
-  },
-  {
-    prompt: "asphyxiation",
-    data: ["成人向け", "SM", "窒息"]
-  },
-  {
-    prompt: "floating,execution,hanged,noose,rope around neck, imminent death ,asphyxiation}}}}}},{{{rolling eyes,constricted pupils,tongue out",
-    data: ["成人向け", "SM", "絞首刑系"]
-  },
-  {
-    prompt: "hanged,hanging,noose,execution, asphyxiation",
-    data: ["成人向け", "SM", "縛り系"]
-  },
-  {
-    prompt: "artificial vagina",
-    data: ["成人向け", "アイテム", "オナホール"]
-  },
-  {
-    prompt: "glowing penis",
-    data: ["成人向け", "アイテム", "ゲーミングちんぽ"]
-  },
-  {
-    prompt: "aurora glowing penis",
-    data: ["成人向け", "アイテム", "ゲーミングちんぽ(オーロラ)"]
-  },
-  {
-    prompt: "rainbow glowing penis",
-    data: ["成人向け", "アイテム", "ゲーミングちんぽ(レインボー)"]
-  },
-  {
-    prompt: "condom with sperm (object)",
-    data: ["成人向け", "アイテム", "コンドーム"]
-  },
-  {
-    prompt: "dildo",
-    data: ["成人向け", "アイテム", "ディルド"]
-  },
-  {
-    prompt: "vibrator in thighhighs,thighvibe",
-    data: ["成人向け", "アイテム", "ピンクローター"]
-  },
-  {
-    prompt: "penis band",
-    data: ["成人向け", "アイテム", "ペニスバンド"]
-  },
-  {
-    prompt: "bottle",
-    data: ["成人向け", "アイテム", "ボトル※母乳除外にも"]
-  },
-  {
-    prompt: "nipple piercing",
-    data: ["成人向け", "アイテム", "乳首ピアス"]
-  },
-  {
-    prompt: "used condom",
-    data: ["成人向け", "アイテム", "使ったコンドーム"]
-  },
-  {
-    prompt: "used condo",
-    data: ["成人向け", "アイテム", "使用済みコンドーム"]
-  },
-  {
-    prompt: "used tissue",
-    data: ["成人向け", "アイテム", "使用済みティッシュ"]
-  },
-  {
-    prompt: "condom in mouth",
-    data: ["成人向け", "アイテム", "咥えコンドーム"]
-  },
-  {
-    prompt: "many tentacles",
-    data: ["成人向け", "アイテム", "多くの触手"]
-  },
-  {
-    prompt: "huge dildo",
-    data: ["成人向け", "アイテム", "巨大なディルド"]
-  },
-  {
-    prompt: "condom wrapper",
-    data: ["成人向け", "アイテム", "未使用コンドーム"]
-  },
-  {
-    prompt: "coin on string",
-    data: ["成人向け", "アイテム", "紐で吊るされたコイン"]
-  },
-  {
-    prompt: "tentacle",
-    data: ["成人向け", "アイテム", "触手"]
-  },
-  {
-    prompt: "nsfwal",
-    data: ["成人向け", "オプション", "nsfwな~(形容詞化)"]
-  },
-  {
-    prompt: "ass ripple",
-    data: ["成人向け", "オプション", "お尻の波紋"]
-  },
-  {
-    prompt: "precum",
-    data: ["成人向け", "オプション", "ガマン汁"]
-  },
-  {
-    prompt: "thick thighs, (tanlines),sweat,sweatdrop,dark skin,shiny skin, (exposed clothes)",
-    data: ["成人向け", "オプション", "ドスケベ日焼けボディ"]
-  },
-  {
-    prompt: "hentai",
-    data: ["成人向け", "オプション", "性的表現のある日本のアニメやマンガ"]
-  },
-  {
-    prompt: "womb tattoo",
-    data: ["成人向け", "オプション", "淫紋"]
-  },
-  {
-    prompt: "uncensored",
-    data: ["成人向け", "オプション", "無修正"]
-  },
-  {
-    prompt: "breasts shade",
-    data: ["成人向け", "オプション", "胸の影"]
-  },
-  {
-    prompt: "{{{cleavage folded cash}}},{{{huge wad of cash}}},{{between breasts}}",
-    data: ["成人向け", "オプション", "谷間にお金"]
-  },
-  {
-    prompt: "dvd cover, fake cover",
-    data: ["成人向け", "シチュ", "AVっぽくなる"]
-  },
-  {
-    prompt: "cuckold",
-    data: ["成人向け", "シチュ", "NTR"]
-  },
-  {
-    prompt: "undressing",
-    data: ["成人向け", "シチュ", "ぬぎぬぎ"]
-  },
-  {
-    prompt: "1girl,pee,skirt lift,pussy line,nsfw,public urination,lifting person,1boy,spread legs,knees up,carrying,carrying person,public indecency,hetero,faceless boy,leaning back,holding thigh",
-    data: ["成人向け", "シチュ", "やり手水"]
-  },
-  {
-    prompt: "ri-net style,1girl,pee,skirt lift,pussy line,nsfw,public urination,lifting person,1boy,spread legs,knees up,carrying,carrying person,public indecency,hetero,faceless boy,leaning back,holding thigh",
-    data: ["成人向け", "シチュ", "やり手水"]
-  },
-  {
-    prompt: "breasts on glass",
-    data: ["成人向け", "シチュ", "ガラス越しの乳"]
-  },
-  {
-    prompt: "group sex",
-    data: ["成人向け", "シチュ", "グループセックス"]
-  },
-  {
-    prompt: "under covers",
-    data: ["成人向け", "シチュ", "シーツで隠れている"]
-  },
-  {
-    prompt: "hand over another's mouth",
-    data: ["成人向け", "シチュ", "ハンドギャグ,口ふさぎ"]
-  },
-  {
-    prompt: "harem",
-    data: ["成人向け", "シチュ", "ハーレム"]
-  },
-  {
-    prompt: "pantyshot",
-    data: ["成人向け", "シチュ", "パンチラ"]
-  },
-  {
-    prompt: "sobbing,crying with eyes open,sad,despair,horrified",
-    data: ["成人向け", "シチュ", "ボロボロ"]
-  },
-  {
-    prompt: "tattered",
-    data: ["成人向け", "シチュ", "ボロボロ"]
-  },
-  {
-    prompt: "presenting",
-    data: ["成人向け", "シチュ", "ヤる前の空気"]
-  },
-  {
-    prompt: "{{{{{{{{{{{ryona}}}}}}}}}},{{{{{{{{{{guro}}}}}}}}}},{{{{{{{{{{snuff}}}}}}}}},{{{{{strangulation}}}}}, {{{{{{{{{suffocation}}}}}}}}}, {{{{{violence}}}}}, {{{{{dead}}}}}",
-    data: ["成人向け", "シチュ", "リョナ(首絞め)"]
-  },
-  {
-    prompt: "rape",
-    data: ["成人向け", "シチュ", "レイプ"]
-  },
-  {
-    prompt: "spit roast",
-    data: ["成人向け", "シチュ", "串焼き"]
-  },
-  {
-    prompt: "accepting without reservation",
-    data: ["成人向け", "シチュ", "丸のみ"]
-  },
-  {
-    prompt: "orgy",
-    data: ["成人向け", "シチュ", "乱交"]
-  },
-  {
-    prompt: "symmetrical docking",
-    data: ["成人向け", "シチュ", "乳合わせ(左右)"]
-  },
-  {
-    prompt: "breast press",
-    data: ["成人向け", "シチュ", "何かに胸を当てる(別要素と併用)"]
-  },
-  {
-    prompt: "hypnosis",
-    data: ["成人向け", "シチュ", "催眠"]
-  },
-  {
-    prompt: "public indecency",
-    data: ["成人向け", "シチュ", "公然猥褻,野外露出"]
-  },
-  {
-    prompt: "(defloration, bleeding from vagina:1.3)",
-    data: ["成人向け", "シチュ", "処女喪失"]
-  },
-  {
-    prompt: "gag",
-    data: ["成人向け", "シチュ", "口を塞ぐ(人質的な)"]
-  },
-  {
-    prompt: "{{bend over}},pussy {{{buried in the wall}}},nsfw",
-    data: ["成人向け", "シチュ", "壁尻(尻のみ)"]
-  },
-  {
-    prompt: "prostitution",
-    data: ["成人向け", "シチュ", "売春(援交)"]
-  },
-  {
-    prompt: "girl sandwich",
-    data: ["成人向け", "シチュ", "女の子サンド"]
-  },
-  {
-    prompt: "the rope my crotch",
-    data: ["成人向け", "シチュ", "拘束,亀甲縛り"]
-  },
-  {
-    prompt: "sweat, steam, smile, school {{{festival}}}, on stage, bandstand, open air stage, {{idol}}, dancing, singing, holding handheld microphone, in motion, {{blue sky}},  school ground, {{bunting}}, [audience], nsfw, panties, tuck up skirt, {confetti}, looking afar, yellow hair",
-    data: ["成人向け", "シチュ", "文化祭ライブパンチラ"]
-  },
-  {
-    prompt: "{{{{dark-skinned female}}}},{{{bikini tan}}}",
-    data: ["成人向け", "シチュ", "日焼けエッチ◎"]
-  },
-  {
-    prompt: "lactation through clothes",
-    data: ["成人向け", "シチュ", "服越しの母乳"]
-  },
-  {
-    prompt: "egg laying",
-    data: ["成人向け", "シチュ", "産卵"]
-  },
-  {
-    prompt: "1girl,1boy",
-    data: ["成人向け", "シチュ", "男女一人"]
-  },
-  {
-    prompt: "molest",
-    data: ["成人向け", "シチュ", "痴漢1"]
-  },
-  {
-    prompt: "molestation",
-    data: ["成人向け", "シチュ", "痴漢2"]
-  },
-  {
-    prompt: "clothed sex",
-    data: ["成人向け", "シチュ", "着衣セックス"]
-  },
-  {
-    prompt: "cfnm",
-    data: ["成人向け", "シチュ", "着衣プレイ"]
-  },
-  {
-    prompt: "sleeping rape",
-    data: ["成人向け", "シチュ", "睡姦"]
-  },
-  {
-    prompt: "1.3::female ejaculation,trembling motionline for orgasm,arched back",
-    data: ["成人向け", "シチュ", "絶頂テンプレ"]
-  },
-  {
-    prompt: "bound",
-    data: ["成人向け", "シチュ", "緊縛"]
-  },
-  {
-    prompt: "grabbing,grabbing another's breast,grabbing from behind",
-    data: ["成人向け", "シチュ", "背後からの乳揉み"]
-  },
-  {
-    prompt: "person between breasts",
-    data: ["成人向け", "シチュ", "胸に小人"]
-  },
-  {
-    prompt: "crowd",
-    data: ["成人向け", "シチュ", "衆人環視,見られている,注目を浴びる"]
-  },
-  {
-    prompt: "promiscuous sex",
-    data: ["成人向け", "シチュ", "見境のないセックス"]
-  },
-  {
-    prompt: "strangling by tentacles",
-    data: ["成人向け", "シチュ", "触手による絞殺"]
-  },
-  {
-    prompt: "gang bang",
-    data: ["成人向け", "シチュ", "輪姦"]
-  },
-  {
-    prompt: "gang rape",
-    data: ["成人向け", "シチュ", "輪姦2"]
-  },
-  {
-    prompt: "mtu virus",
-    data: ["成人向け", "シチュ", "追加視点パンチラ"]
-  },
-  {
-    prompt: "secret adultery",
-    data: ["成人向け", "シチュ", "陰で"]
-  },
-  {
-    prompt: "nsfw, nude, in shower room, {{full-face blush}}, looking at viewer, {{surprised}}, embarrassed, scared, angry,  steam, sweat,  {{{{covering breasts}}}} by hands, covering crotch",
-    data: ["成人向け", "シチュ", "風呂ラッキースケベ"]
-  },
-  {
-    prompt: "pee",
-    data: ["成人向け", "スカトロ", "おしっこ"]
-  },
-  {
-    prompt: "pee puddle",
-    data: ["成人向け", "スカトロ", "おしっこの水たまり"]
-  },
-  {
-    prompt: "leaking pee",
-    data: ["成人向け", "スカトロ", "おもらし"]
-  },
-  {
-    prompt: "excrement",
-    data: ["成人向け", "スカトロ", "排泄物"]
-  },
-  {
-    prompt: "peeing",
-    data: ["成人向け", "スカトロ", "放尿"]
-  },
-  {
-    prompt: "faeces",
-    data: ["成人向け", "スカトロ", "糞便"]
-  },
-  {
-    prompt: "nsfw,1boy,1girl,highly detailed,{{{{hetero,cowgirl position sex,girl on top}}}}, {{{{woman singing with a microphone in her hand while having sex}}}}, {{{{{{{woman holding a microphone with one hand}}}}}}, {{{{{{singing}}}}}}, {{panties aside}}, boy grab ass,cum, {{looking at viewer}}, grin, motion lines,evil smile,drop tears,heart,musical note speech bubble,{{{gasp out}}},{{saliva}},[[crying]],[embarrassed],blush face,{open mouse},{room with monitor in background}",
-    data: ["成人向け", "テンプレシチュ", "カラオケエッチ"]
-  },
-  {
-    prompt: "nsfw,1boy,{{{{phone in one hand}}}},doggy style,sex,{orgasm},{sweaty},fat man,nude,nipples, breasts,cum, hetero, pussy,vaginal,penis,on the bed",
-    data: ["成人向け", "テンプレシチュ", "寝取られ通話"]
-  },
-  {
-    prompt: "nsfw,{sweat},teasing smile,1girl,on back,{spread legs},{{legs up}},{{{girl is fucked by dick}}},{{money}},cum on vagina,{{steam}},{{{the girl is lying on the oilily pink air mattress}}},pink wall,pink room, bathroom,{{{oil}}},{{{vagina focus}},{{{money}}},beautiful detailed vagina,beautiful detailed legs,high contrast,pov,no panties",
-    data: ["成人向け", "テンプレシチュ", "足上げ風俗堕ちセックス"]
-  },
-  {
-    prompt: "nsfw,{{{{{on the train}}}}},{highres},looking at viewer,teasingsmile,sweatdrop,best quality,highly detaile,lying on person,ass,stretch legs,bare legs,from above,{{{{{shiny skin}}}}},{standing on one leg},{leg grab},{leg up},from side ~ nude,nipples,pussy,arched back,clothed sex,{{{{{1boy}}}}},{{{sex from behind}}},{{{standing doggy style}}},{{{standing sex}}},{{torso grab}},{{paizuri}},public indecency,love juice,undressing,{{{{{{{{{{bukkake}}}}}}}}}},{{{{{{{{{{excessive cum}}}}}}}}}},{{{{{{{{{{cum on breasts}}}}}}}}}},{{{{{{{{{{pojecile cum}}}}}}}}}},{{{{{{{{{{cum in pussy}}}}}}}}}},naked,manyboysis,{{{{{{{{{{head out of frame}}}}}}}}}}",
-    data: ["成人向け", "テンプレシチュ", "電車痴漢"]
-  },
-  {
-    prompt: "nsfw,{{{{{on the train}}}}},{highres},looking at viewer,teasingsmile,sweatdrop,best quality,highly detaile,lying on person,ass,stretch legs,bare legs,from above,{{{{{shiny skin}}}}},from side ~ nude,nipples,pussy,arched back,clothed sex,{{{{{1boy}}}}},{{{sex from behind}}},{{{standing doggy style}}},{{{standing sex}}},{{torso grab}},{{paizuri}},public indecency,love juice,undressing,{{{{{{{{{{bukkake}}}}}}}}}},{{{{{{{{{{excessive cum}}}}}}}}}},{{{{{{{{{{cum on breasts}}}}}}}}}},{{{{{{{{{{pojecile cum}}}}}}}}}},{{{{{{{{{{cum in pussy}}}}}}}}}},naked,manyboysis",
-    data: ["成人向け", "テンプレシチュ", "電車痴漢２"]
-  },
-  {
-    prompt: "{{{{molestation}}}, from behind, {{{{the man behind the girl}}}, {{{the man grabbing the girl's ass}}}, {{{ass grab}}} by the man, aroused, embarrassed, scared, angry, steam sweat, panties",
-    data: ["成人向け", "テンプレ前戯", "セクハラ尻揉み"]
-  },
-  {
-    prompt: "nsfw,1boy,1girl,paizuri,breast squeeze,looking at viewer,big penis,steam,shiny skin",
-    data: ["成人向け", "テンプレ前戯", "パイズリテンプレ"]
-  },
-  {
-    prompt: "nsfw,1boy,1girl,paizuri,breast squeeze,looking at viewer,big penis,steam,shiny skin,fellatio,oral,licking penis,looking at viewer,pov",
-    data: ["成人向け", "テンプレ前戯", "パイズリフェラテンプレ"]
-  },
-  {
-    prompt: "1boy,nsfw,1girl,fellatio,oral,licking penis,large penis,solo focus",
-    data: ["成人向け", "テンプレ前戯", "フェラテンプレ"]
-  },
-  {
-    prompt: "nsfw,1boy,1girl,fellatio,oral,licking penis,looking at viewer,big penis,steam,shiny skin",
-    data: ["成人向け", "テンプレ前戯", "一人称フェラテンプレ"]
-  },
-  {
-    prompt: "masterpiece,best quality,amazing quality,absurdres,very aesthetic,newest,1girl,one breast out,lactation,grabbing own breasts,seductive smile,blush,from below,dynamic angle",
-    data: ["成人向け", "テンプレ前戯", "主観メイド授乳"]
-  },
-  {
-    prompt: "nsfw,1girl,squatting,dildo on floor,dildo in pussy,love juice",
-    data: ["成人向け", "テンプレ前戯", "床ディルドーオナニー"]
-  },
-  {
-    prompt: "caressing his crotch, over the clothes,clothed man,pov,touch penis",
-    data: ["成人向け", "テンプレ前戯", "服の上ちん触る"]
-  },
-  {
-    prompt: "viewfinder, battery indicator, hidden camera, recording",
-    data: ["成人向け", "テンプレ前戯", "盗撮風"]
-  },
-  {
-    prompt: "nsfw,headpat,{pov hands},surprised,fellatio,tearing up",
-    data: ["成人向け", "テンプレ前戯", "頭を押さえつけてのイラマ"]
-  },
-  {
-    prompt: "nsfw, 1girl, nude, lovestruck expression, 1boy, having sex,fuck, leg lock, hug, sitting position, kissing,french kiss,faceless male",
-    data: ["成人向け", "テンプレ挿入", "だいしゅき座位"]
-  },
-  {
-    prompt: "1girl, 1boy, sex, hetero, uneven eyes, clenched teeth, arched back, wide-eyed, female orgasm, missionary, pov, bed, lying, heavy breathing, heart \\ (symbol\\), happy, dashed eyes, sheet grab, looking up, head back, blue eyes, blonde hair, medium breasts,arched back,head back",
-    data: ["成人向け", "テンプレ挿入", "イキ海老反り"]
-  },
-  {
-    prompt: "nsfw,{{{{{{{{1boy}}}}}}}},{{{{{{{{couple}}}}}}}},{{{{{threesome}}}}},{{{{{hug}}}}},{{{{{face to face}}}}},{{{{{kiss}}}}},{{{{{french kiss}}}}},{{{missionary position}}},{{girl in heat}},{{{wet vagina}}},penis,{{{{blush}}}},{{{{{looking at viewer}}}}},{{{{{wet sweat}}}}},{{flying sweatdrops}},splash,{{{creampie}}},vaginal cumshot,{{cum pussy}},lewd,nymphomaniac,{{{side view}}}",
-    data: ["成人向け", "テンプレ挿入", "キスハメテンプレ"]
-  },
-  {
-    prompt: "sex,fuck, hug,kissing",
-    data: ["成人向け", "テンプレ挿入", "キス対面SEX"]
-  },
-  {
-    prompt: "nsfw,pussy,vaginal,sex,1boy,penis",
-    data: ["成人向け", "テンプレ挿入", "セックス"]
-  },
-  {
-    prompt: "nsfw,{{{pussy}}},{{{vaginal}}},{{{sex}}},{{{1boy}}},penis,{{{{{sperma}}}}},cum in uterus,cream shoot,{{creampie}}",
-    data: ["成人向け", "テンプレ挿入", "中出しエッチ"]
-  },
-  {
-    prompt: "{{official art}},matsukai mao,nijisanji, 2 boys and 1 girl, {{spit roast, group sex, rape}},{1 girl,open clothes,arms at sides,lean against,choking,sad,empty eyes,tearful,collar,nipples,shiny hair,breasts},{1 boy,naked,macho,faceless male,she is swallowing his penis,licking penis,irrumatio,oral,{{veiny penis,testicles}},legs,he is grabbing her head},{1 boy,naked,macho,faceless male,she is doing doggystyle sex,he is grabbing her butt},{{excessive cum}}, {sweat, steam},on bed, from outside, girl focus,{{trembling effect motion lines with sexual climax}}, beautiful face, {{perfect anatomy}}, 4k, insanely detailed and intricate, pretty, ornate, hyper realistic, super detailed",
-    data: ["成人向け", "テンプレ挿入", "串刺し"]
-  },
-  {
-    prompt: "nsfw, 1girl,{{{3boys}}}, {{promiscuous sex}},gang rape,vagina,cunt,sex, showing navel and{{light pink nipples}}, presenting{{wet pussy}},{pussy juice},anal focus,laugh,threesome, on bed, all fours,fellatio,cum in mouth,cum in pussy",
-    data: ["成人向け", "テンプレ挿入", "乱交テンプレ"]
-  },
-  {
-    prompt: "nsfw,1girl,1boy,insert vagina,missionary position,embarrassed,sad,arms behind head",
-    data: ["成人向け", "テンプレ挿入", "後ろ手正常位"]
-  },
-  {
-    prompt: "nsfw,hetero,{{intense angle}},leaning forward,{{{{doggy style}}}},{{{{{sex}}}}},sperma,{{{{{creampie}}}}}",
-    data: ["成人向け", "テンプレ挿入", "後背位テンプレ"]
-  },
-  {
-    prompt: "doggystyle,sex from behind,ass ,ass focus",
-    data: ["成人向け", "テンプレ挿入", "後背位テンプレ2"]
-  },
-  {
-    prompt: "nsfw,missionary,lying,on bed,1girl,nude,nipples,navel,cum,hetero,pussy,vaginal,sweat,sex,1boy,penis",
-    data: ["成人向け", "テンプレ挿入", "正常位テンプレ"]
-  },
-  {
-    prompt: "missionary,lying,on bed",
-    data: ["成人向け", "テンプレ挿入", "正常位テンプレ2"]
-  },
-  {
-    prompt: "nsfw,{{intense angle}},{{fuck buddy}},{{{friend with benefits}}},leaning forward,{{{{doggy style}}}},{{{{{wet sweat}}}}},{{{{{sex}}}}},{{girl in heat}},4boys,cockslut,{{orgy}},open mouth,sperma,{{{{{creampie}}}}},{{girl in heat}},gang bang,sweatdrop,flying sweatdrops,holding hands",
-    data: ["成人向け", "テンプレ挿入", "輪姦後背位テンプレ"]
-  },
-  {
-    prompt: "{nsfw}, sex, fuck, {{{{{orgasm}}}}}, missionary, {incoming kiss}, {imminent kiss}, lick, {saliva}, {saliva trail},  face, breasts,  thighs, spread legs, slouching, front, pov, {{looking at viewer}},  {{{reaching out 2arms}}},  {{{{{face focus}}}}}, steam, sweat, {cum}, {aroused}, excited",
-    data: ["成人向け", "テンプレ挿入", "顔近正常位POV"]
-  },
-  {
-    prompt: "nsfw,girl on top,straddling,1girl,nude,nipples,navel,cum,squatting cowgirl position,hetero,pussy,vaginal,sweat,sex,1boy,penis,crosssection",
-    data: ["成人向け", "テンプレ挿入", "騎乗位テンプレ"]
-  },
-  {
-    prompt: "girl on top,straddling",
-    data: ["成人向け", "テンプレ挿入", "騎乗位テンプレ2"]
-  },
-  {
-    prompt: "nsfw,1girl,{{a girl is being fucked by a penis growing out of the ground while spreading her legs and showing off her ass.}},cum on ass,cum on clothes,forced orgasm,spoken heart,:<>,{{post apocalypse}},in the rubble of a devastated city covered with plants,dirty clothes",
-    data: ["成人向け", "テンプレ特殊", "地面から男性器"]
-  },
-  {
-    prompt: "upperbody,{{{two transparent milking machine are attached to the nipple}}}, {{{dairy plant milking machine connect to nipple, suctioned breast milk}}} ,breast milk flow into transparent funnel tube,arms behind back, mechanical restraints, stationary restraints, french braid,nsfw",
-    data: ["成人向け", "テンプレ特殊", "搾乳機"]
-  },
-  {
-    prompt: "nsfw,{{{{girl have intercourse and spreading legs high up with boy inserting the penis into the pussy at main view}}}},{{{uterus at viewer penis deeply inserting to vagina with sperm and fertilization from a cross section looking through}}},{{{sperm cum in uterus}}}",
-    data: ["成人向け", "テンプレ特殊", "断面図テンプレ"]
-  },
-  {
-    prompt: "nsfw, {{{{{machine holding}}}}}, {{{spread arms}}}, locked arms, sex, cable in vagina, locked legs",
-    data: ["成人向け", "テンプレ特殊", "機械姦"]
-  },
-  {
-    prompt: "1boy have smartphone and photographing 1girl",
-    data: ["成人向け", "テンプレ特殊", "男撮影ハンド"]
-  },
-  {
-    prompt: "nsfw,{{{cum on tongue}}},{{{{{tentacles vaginal fuck}}}}},{creampie},{{{sperma}}},{{{{{cum inside pussy}}}}}",
-    data: ["成人向け", "テンプレ特殊", "触手姦テンプレ"]
-  },
-  {
-    prompt: "cum in mouth,cum on tongue,facial,bukkake",
-    data: ["成人向け", "テンプレ露出", "ぶっかけテンプレ"]
-  },
-  {
-    prompt: "nsfw,{{spread legs}},{{spread pussy}},{{{{open your own pussy}}}},{{spread pussy with fingers}},kupaa,pussy,looking at viewer,presenting,on bed,pussy juice,1girl,nude,{{{loli}}},{child},uc sex,mutated hands and fingers,open clothe",
-    data: ["成人向け", "テンプレ露出", "クパァ"]
-  },
-  {
-    prompt: "tuck up skirt, panties",
-    data: ["成人向け", "テンプレ露出", "パンツ見えてる"]
-  },
-  {
-    prompt: "nsfw,2girls, clothing aside, panties aside, pussy juice, yuri, tribadism, mating press, skirt lift, looking at viewer, half-closed eyes, uncensored,pussy",
-    data: ["成人向け", "テンプレ露出", "挿入待機"]
-  },
-  {
-    prompt: "nsfw,1girl,squatting,{{{\"pussy juice drip through clothes\"}}}, {{peeing}}, \"yellow puddle\"",
-    data: ["成人向け", "テンプレ露出", "放尿"]
-  },
-  {
-    prompt: "nfsw,large breasts ,female,1gir,pussy focus,from below,feet out of frame,very close to viewers,girls' front,hands behind one's back,standing, bowlegged,trembling motionline for orgasm,wet pussy,vaginal,wet vagina,{{hand in pussy,panties aside,pubic hair,peeing}},{{{background,big stone wall,deep shadows}}}, {{{stone pavement}}},day light,closed mouth,looking away,strong light coming in,high resolution, best quality, blush,full-face blush,wet,ompetition swimsuit ,highleg swimsuit ,blue one-piece swimsuit ,long foot",
-    data: ["成人向け", "テンプレ露出", "競泳水着で放尿(見上げる視点)"]
-  },
-  {
-    prompt: "spread legs, two legs up, thighs,  leg open, wide spread legs open one's stance,  two legs up,  {two thighs up}, tuck up skirt, {{{pussy, beautiful detailed vagina,uncensored}}},pussy juice",
-    data: ["成人向け", "テンプレ露出", "脚を広げてマンコを見せる"]
-  },
-  {
-    prompt: "hips look, semen shot over shot from vagina, semen fall from vagina, semen beam from vagina, {{{look from behind,}}} {{{hips focus, hips close-up,}}} semen fall out effect, motion lines",
-    data: ["成人向け", "テンプレ露出", "膣から精液噴出テンプレ"]
-  },
-  {
-    prompt: "nsfw,nude,nipples,navel,pussy,vaginal,sweat,sex,outside,squatting,arm support",
-    data: ["成人向け", "テンプレ露出", "露出テンプレ"]
-  },
-  {
-    prompt: "nsfw,nude,nipples,navel,pussy,vaginal,sweat,sex,outside,squatting,double peace",
-    data: ["成人向け", "テンプレ露出", "露出ピーステンプレ"]
-  },
-  {
-    prompt: "{{1girl,}}, {{masterpiece}},dramatic angle,{ultra-detailed}, {illustration}, [novel illustration], high resolution,{{an extremely delicate and beautiful}}, accurate describe shapes, thorough and precise, dynamic pose,  dynamic angle, {{photorealistic}}, nsfw,  nipples out, exhibitionism, turn up coat, open coat,  {{{a flu mask}}}, {{{in night}}}, in alley, vending machine, traffic lights, night city,  {{sweat}}, steam",
-    data: ["成人向け", "テンプレ露出", "露出徘徊"]
-  },
-  {
-    prompt: "colorful clit",
-    data: ["成人向け", "ネガティブプロンプト", "カラフルなクリトリス"]
-  },
-  {
-    prompt: "colorful nipples",
-    data: ["成人向け", "ネガティブプロンプト", "カラフルな乳首"]
-  },
-  {
-    prompt: "missing clit",
-    data: ["成人向け", "ネガティブプロンプト", "クリトリスがありません"]
-  },
-  {
-    prompt: "poorly drawn pussy",
-    data: ["成人向け", "ネガティブプロンプト", "不十分に描かれた膣"]
-  },
-  {
-    prompt: "extra penises",
-    data: ["成人向け", "ネガティブプロンプト", "余分なペニス"]
-  },
-  {
-    prompt: "bad clit",
-    data: ["成人向け", "ネガティブプロンプト", "悪いクリトリス"]
-  },
-  {
-    prompt: "bad cum",
-    data: ["成人向け", "ネガティブプロンプト", "悪い精液"]
-  },
-  {
-    prompt: "bad crotch",
-    data: ["成人向け", "ネガティブプロンプト", "悪い股"]
-  },
-  {
-    prompt: "bad crotch seam",
-    data: ["成人向け", "ネガティブプロンプト", "悪い股の縫い目"]
-  },
-  {
-    prompt: "bad pussy",
-    data: ["成人向け", "ネガティブプロンプト", "悪い膣"]
-  },
-  {
-    prompt: "poorly drawn cum",
-    data: ["成人向け", "ネガティブプロンプト", "描かれていない精液"]
-  },
-  {
-    prompt: "poorly drawn crotch",
-    data: ["成人向け", "ネガティブプロンプト", "描かれていない股"]
-  },
-  {
-    prompt: "poorly drawn crotch seam",
-    data: ["成人向け", "ネガティブプロンプト", "描かれていない股の縫い目"]
-  },
-  {
-    prompt: "liquid clit",
-    data: ["成人向け", "ネガティブプロンプト", "液体クリトリス"]
-  },
-  {
-    prompt: "fused cum",
-    data: ["成人向け", "ネガティブプロンプト", "混ざった精子"]
-  },
-  {
-    prompt: "poorly drawn anus",
-    data: ["成人向け", "ネガティブプロンプト", "肛門が描かれていない"]
-  },
-  {
-    prompt: "fused clit",
-    data: ["成人向け", "ネガティブプロンプト", "融合したクリトリス"]
-  },
-  {
-    prompt: "fused seam",
-    data: ["成人向け", "ネガティブプロンプト", "融合縫い目"]
-  },
-  {
-    prompt: "fused anus",
-    data: ["成人向け", "ネガティブプロンプト", "融合肛門"]
-  },
-  {
-    prompt: "fused crotch",
-    data: ["成人向け", "ネガティブプロンプト", "融合股"]
-  },
-  {
-    prompt: "fused pussy",
-    data: ["成人向け", "ネガティブプロンプト", "融合膣"]
-  },
-  {
-    prompt: "multiple penises",
-    data: ["成人向け", "ネガティブプロンプト", "複数のペニス"]
-  },
-  {
-    prompt: "disembodied penis",
-    data: ["成人向け", "ネガティブプロンプト", "身体のないペニス"]
-  },
-  {
-    prompt: "black clit",
-    data: ["成人向け", "ネガティブプロンプト", "黒いクリトリス"]
-  },
-  {
-    prompt: "accidentally wetting their pants with pee",
-    data: ["成人向け", "プレイ", "ズボンにおもらし"]
-  },
-  {
-    prompt: "sex",
-    data: ["成人向け", "プレイ", "セックス"]
-  },
-  {
-    prompt: "intercourse with a man",
-    data: ["成人向け", "プレイ", "セックス(男性との)"]
-  },
-  {
-    prompt: "paizuri",
-    data: ["成人向け", "プレイ", "パイズリ"]
-  },
-  {
-    prompt: "titty fuck",
-    data: ["成人向け", "プレイ", "パイズリ1"]
-  },
-  {
-    prompt: "titfuck",
-    data: ["成人向け", "プレイ", "パイズリ2"]
-  },
-  {
-    prompt: "tit wank",
-    data: ["成人向け", "プレイ", "パイズリ3"]
-  },
-  {
-    prompt: "cum on breasts,bukkake,cum on body,cum",
-    data: ["成人向け", "プレイ", "パイズリ射精"]
-  },
-  {
-    prompt: "accidentally wetting her panties with pee",
-    data: ["成人向け", "プレイ", "パンティにおもらし"]
-  },
-  {
-    prompt: "accidentally wetting his briefs with pee",
-    data: ["成人向け", "プレイ", "ブリーフにおもらし"]
-  },
-  {
-    prompt: "accidentally wetting their underwear with pee",
-    data: ["成人向け", "プレイ", "下着におもらし"]
-  },
-  {
-    prompt: "breasts on glass",
-    data: ["成人向け", "プレイ", "乳ワイパー"]
-  },
-  {
-    prompt: "tortoise shell bondage",
-    data: ["成人向け", "プレイ", "亀甲縛り"]
-  },
-  {
-    prompt: "mating",
-    data: ["成人向け", "プレイ", "交尾"]
-  },
-  {
-    prompt: "copulation",
-    data: ["成人向け", "プレイ", "交尾2"]
-  },
-  {
-    prompt: "human toilet",
-    data: ["成人向け", "プレイ", "人便"]
-  },
-  {
-    prompt: "breast grab",
-    data: ["成人向け", "プレイ", "他人が胸を掴む"]
-  },
-  {
-    prompt: "against glass,butt press",
-    data: ["成人向け", "プレイ", "尻をガラスに押し付ける"]
-  },
-  {
-    prompt: "buttjob",
-    data: ["成人向け", "プレイ", "尻コキ"]
-  },
-  {
-    prompt: "softcore",
-    data: ["成人向け", "プレイ", "性交がないエロ"]
-  },
-  {
-    prompt: "hardcore",
-    data: ["成人向け", "プレイ", "性交のあるエロ"]
-  },
-  {
-    prompt: "restrained",
-    data: ["成人向け", "プレイ", "拘束"]
-  },
-  {
-    prompt: "lactation through clothes",
-    data: ["成人向け", "プレイ", "服を着ながら胸を出す"]
-  },
-  {
-    prompt: "basfd",
-    data: ["成人向け", "プレイ", "束縛"]
-  },
-  {
-    prompt: "grabbing from front",
-    data: ["成人向け", "プレイ", "正面から胸を揉む"]
-  },
-  {
-    prompt: "bestiality",
-    data: ["成人向け", "プレイ", "獣姦"]
-  },
-  {
-    prompt: "sleep molestation",
-    data: ["成人向け", "プレイ", "睡眠セックス"]
-  },
-  {
-    prompt: "strangling",
-    data: ["成人向け", "プレイ", "絞殺"]
-  },
-  {
-    prompt: "grabbing from behind",
-    data: ["成人向け", "プレイ", "背後から胸を揉む"]
-  },
-  {
-    prompt: "against glass,chest press",
-    data: ["成人向け", "プレイ", "胸をガラスに押し付ける"]
-  },
-  {
-    prompt: "breast squeeze",
-    data: ["成人向け", "プレイ", "胸を絞る"]
-  },
-  {
-    prompt: "restrained by many tentacle",
-    data: ["成人向け", "プレイ", "触手による拘束"]
-  },
-  {
-    prompt: "fellatio tentacles",
-    data: ["成人向け", "プレイ", "触手をフェラ"]
-  },
-  {
-    prompt: "footjob",
-    data: ["成人向け", "プレイ", "足コキ"]
-  },
-  {
-    prompt: "against glass,cheek press",
-    data: ["成人向け", "プレイ", "頬をガラスに押し付ける"]
-  },
-  {
-    prompt: "{{situation (strangling, {{{{grab neck}}}}), {{man put hands on neck}})}}",
-    data: ["成人向け", "プレイ", "首絞めックス"]
-  },
-  {
-    prompt: "m-legs",
-    data: ["成人向け", "ポーズ", "M字開脚"]
-  },
-  {
-    prompt: "m-shaped pose",
-    data: ["成人向け", "ポーズ", "M字開脚"]
-  },
-  {
-    prompt: "open vagina,spread pussy,pussy juice,hands on own crotch,legs apart",
-    data: ["成人向け", "ポーズ", "おまんこくぱぁ"]
-  },
-  {
-    prompt: "ass grab",
-    data: ["成人向け", "ポーズ", "お尻をつかんでいるポーズ"]
-  },
-  {
-    prompt: "clothes lift",
-    data: ["成人向け", "ポーズ", "たくし上げ"]
-  },
-  {
-    prompt: "head back",
-    data: ["成人向け", "ポーズ", "のけぞり"]
-  },
-  {
-    prompt: "straddling",
-    data: ["成人向け", "ポーズ", "またがり, M字開脚,馬乗り"]
-  },
-  {
-    prompt: "hand on own crotch",
-    data: ["成人向け", "ポーズ", "まんこに手"]
-  },
-  {
-    prompt: "squatting,arms behind head,spread legs, double peace",
-    data: ["成人向け", "ポーズ", "エッチな開脚"]
-  },
-  {
-    prompt: "crouching, open legs",
-    data: ["成人向け", "ポーズ", "エロ蹲踞"]
-  },
-  {
-    prompt: "shirt lift",
-    data: ["成人向け", "ポーズ", "シャツたくし上げ"]
-  },
-  {
-    prompt: "top down bottom up",
-    data: ["成人向け", "ポーズ", "ジャックオーチャレンジ"]
-  },
-  {
-    prompt: "lift up one's skirt",
-    data: ["成人向け", "ポーズ", "スカートたくし上げ"]
-  },
-  {
-    prompt: "upskirt",
-    data: ["成人向け", "ポーズ", "スカートたくし上げ2"]
-  },
-  {
-    prompt: "sweater lift",
-    data: ["成人向け", "ポーズ", "セーターたくし上げ"]
-  },
-  {
-    prompt: "squat toilet",
-    data: ["成人向け", "ポーズ", "トイレに跨る"]
-  },
-  {
-    prompt: "fellatio gesture",
-    data: ["成人向け", "ポーズ", "フェラをする素振り"]
-  },
-  {
-    prompt: "female masturbation",
-    data: ["成人向け", "ポーズ", "ポーズ"]
-  },
-  {
-    prompt: "covering nipples",
-    data: ["成人向け", "ポーズ", "乳首を隠す"]
-  },
-  {
-    prompt: "sitting on person",
-    data: ["成人向け", "ポーズ", "人に座る"]
-  },
-  {
-    prompt: "oral invitation",
-    data: ["成人向け", "ポーズ", "口開け舌出し"]
-  },
-  {
-    prompt: "right hand in the crotch",
-    data: ["成人向け", "ポーズ", "右手を股間に"]
-  },
-  {
-    prompt: "on all fours",
-    data: ["成人向け", "ポーズ", "四つん這い"]
-  },
-  {
-    prompt: "all fours, straddling, girl on top, cowgirl position, upper body, looking at viewer, from below",
-    data: ["成人向け", "ポーズ", "四つん這いで乗ってくる"]
-  },
-  {
-    prompt: "pushed against wall",
-    data: ["成人向け", "ポーズ", "壁に押し付けられた体勢"]
-  },
-  {
-    prompt: "hand in pussy",
-    data: ["成人向け", "ポーズ", "女性器に手"]
-  },
-  {
-    prompt: "fingering vaginal",
-    data: ["成人向け", "ポーズ", "女性器に指"]
-  },
-  {
-    prompt: "touch her crotch with own hand",
-    data: ["成人向け", "ポーズ", "女性器に触れる"]
-  },
-  {
-    prompt: "spread pussy",
-    data: ["成人向け", "ポーズ", "女性器を広げる,クパァ"]
-  },
-  {
-    prompt: "spread vagina",
-    data: ["成人向け", "ポーズ", "女性器を広げる,クパァ2"]
-  },
-  {
-    prompt: "supine pose",
-    data: ["成人向け", "ポーズ", "寝そべりながら"]
-  },
-  {
-    prompt: "1girl, 1boy,nsfw,{{{{sex}}}},short hair, tareme ,fox girl ,large breasts,thick thighs , white hair, blue eye ,school uniform ,cum in pussy ,kiss,profile ,cleavage,black bra,fat man ,faceless male",
-    data: ["成人向け", "ポーズ", "対面位キスハメ"]
-  },
-  {
-    prompt: "squatting",
-    data: ["成人向け", "ポーズ", "屈む,しゃがむ,スクワット体勢,しゃがむ"]
-  },
-  {
-    prompt: "arms behind back }blindfold",
-    data: ["成人向け", "ポーズ", "後ろ手に目隠し"]
-  },
-  {
-    prompt: "handjob gesture",
-    data: ["成人向け", "ポーズ", "手コキのジェスチャー"]
-  },
-  {
-    prompt: "clinging pose",
-    data: ["成人向け", "ポーズ", "抱きついた体勢"]
-  },
-  {
-    prompt: "pinned down",
-    data: ["成人向け", "ポーズ", "押し倒された体勢"]
-  },
-  {
-    prompt: "position on a desk",
-    data: ["成人向け", "ポーズ", "机の上での体位"]
-  },
-  {
-    prompt: "position on a chair",
-    data: ["成人向け", "ポーズ", "椅子の上での体位"]
-  },
-  {
-    prompt: "one leg up pose",
-    data: ["成人向け", "ポーズ", "片脚を上げた体位"]
-  },
-  {
-    prompt: "crotch grab",
-    data: ["成人向け", "ポーズ", "股を掴む"]
-  },
-  {
-    prompt: "arm under breasts",
-    data: ["成人向け", "ポーズ", "胸の下に腕"]
-  },
-  {
-    prompt: "covering breasts",
-    data: ["成人向け", "ポーズ", "胸を隠す"]
-  },
-  {
-    prompt: "leg grab",
-    data: ["成人向け", "ポーズ", "脚をつかむ"]
-  },
-  {
-    prompt: "licking testicle",
-    data: ["成人向け", "ポーズ", "脚を大きく広げる"]
-  },
-  {
-    prompt: "leg open",
-    data: ["成人向け", "ポーズ", "脚を広げて(sex)"]
-  },
-  {
-    prompt: "insert fingers to pussy",
-    data: ["成人向け", "ポーズ", "膣を広げる"]
-  },
-  {
-    prompt: "stick tongue out",
-    data: ["成人向け", "ポーズ", "舌を突き出す"]
-  },
-  {
-    prompt: "spread legs up",
-    data: ["成人向け", "ポーズ", "足を広げて上げる"]
-  },
-  {
-    prompt: "spread legs",
-    data: ["成人向け", "ポーズ", "足を広げる"]
-  },
-  {
-    prompt: "intertwined legs pose",
-    data: ["成人向け", "ポーズ", "足を絡めた体位"]
-  },
-  {
-    prompt: "overlapping bodies pose",
-    data: ["成人向け", "ポーズ", "身体を重ねたポーズ"]
-  },
-  {
-    prompt: "long tongue,tongue out",
-    data: ["成人向け", "ポーズ", "長舌出し"]
-  },
-  {
-    prompt: "spread leg",
-    data: ["成人向け", "ポーズ", "開脚"]
-  },
-  {
-    prompt: "sitting with legs spread",
-    data: ["成人向け", "ポーズ", "開脚して座る"]
-  },
-  {
-    prompt: "revealing sitting pose",
-    data: ["成人向け", "ポーズ", "露出度の高い座りポーズ"]
-  },
-  {
-    prompt: "cunnilingus,sitting on face",
-    data: ["成人向け", "ポーズ", "顔面騎乗"]
-  },
-  {
-    prompt: "straddling arms behind head",
-    data: ["成人向け", "ポーズ", "騎乗位で手を後頭部に"]
-  },
-  {
-    prompt: "straddling spread legs",
-    data: ["成人向け", "ポーズ", "騎乗位で脚を広げる"]
-  },
-  {
-    prompt: "thong panties",
-    data: ["成人向け", "下着", "Tバックパンティ"]
-  },
-  {
-    prompt: "cute patterned panties",
-    data: ["成人向け", "下着", "かわいい柄のパンティ"]
-  },
-  {
-    prompt: "cute patterned bra",
-    data: ["成人向け", "下着", "かわいい柄のブラ"]
-  },
-  {
-    prompt: "panties aside,pubic hair",
-    data: ["成人向け", "下着", "ずらし(陰毛あり)"]
-  },
-  {
-    prompt: "highleg panties,black bra",
-    data: ["成人向け", "下着", "エロ黒下着"]
-  },
-  {
-    prompt: "cupless bra",
-    data: ["成人向け", "下着", "ガワだけブラ"]
-  },
-  {
-    prompt: "simple panties",
-    data: ["成人向け", "下着", "シンプルなパンティ"]
-  },
-  {
-    prompt: "simple bra",
-    data: ["成人向け", "下着", "シンプルなブラ"]
-  },
-  {
-    prompt: "see-through panties",
-    data: ["成人向け", "下着", "シースルーパンティ"]
-  },
-  {
-    prompt: "see-through bra",
-    data: ["成人向け", "下着", "シースルーブラ"]
-  },
-  {
-    prompt: "strapless bra",
-    data: ["成人向け", "下着", "ストラップレスブラ"]
-  },
-  {
-    prompt: "bra with straps",
-    data: ["成人向け", "下着", "ストラップ付きブラ"]
-  },
-  {
-    prompt: "string panties",
-    data: ["成人向け", "下着", "ストリングパンティ"]
-  },
-  {
-    prompt: "sports panties",
-    data: ["成人向け", "下着", "スポーツパンティ"]
-  },
-  {
-    prompt: "sports bra",
-    data: ["成人向け", "下着", "スポーツブラ"]
-  },
-  {
-    prompt: "sexy panties",
-    data: ["成人向け", "下着", "セクシーなパンティ"]
-  },
-  {
-    prompt: "sexy bra",
-    data: ["成人向け", "下着", "セクシーなブラ"]
-  },
-  {
-    prompt: "wireless bra",
-    data: ["成人向け", "下着", "ノンワイヤーブラ"]
-  },
-  {
-    prompt: "high-leg panties",
-    data: ["成人向け", "下着", "ハイレグパンティ"]
-  },
-  {
-    prompt: "frilly panties",
-    data: ["成人向け", "下着", "フリル付きパンティ"]
-  },
-  {
-    prompt: "frilly bra",
-    data: ["成人向け", "下着", "フリル付きブラ"]
-  },
-  {
-    prompt: "panties with ribbon",
-    data: ["成人向け", "下着", "リボン付きパンティ"]
-  },
-  {
-    prompt: "bra with ribbon",
-    data: ["成人向け", "下着", "リボン付きブラ"]
-  },
-  {
-    prompt: "low-rise panties",
-    data: ["成人向け", "下着", "ローライズパンティ"]
-  },
-  {
-    prompt: "large panties",
-    data: ["成人向け", "下着", "大きめのパンティ"]
-  },
-  {
-    prompt: "large bra",
-    data: ["成人向け", "下着", "大きめのブラ"]
-  },
-  {
-    prompt: "small panties",
-    data: ["成人向け", "下着", "小さめのパンティ"]
-  },
-  {
-    prompt: "small bra",
-    data: ["成人向け", "下着", "小さめのブラ"]
-  },
-  {
-    prompt: "double penetration",
-    data: ["成人向け", "体位", "2穴挿入"]
-  },
-  {
-    prompt: "standing on one leg,leg up",
-    data: ["成人向け", "体位", "Y字バランス"]
-  },
-  {
-    prompt: "top-down bottom-up",
-    data: ["成人向け", "体位", "お尻を突き出す"]
-  },
-  {
-    prompt: "squatting cowgirl position",
-    data: ["成人向け", "体位", "しゃがみ騎乗位"]
-  },
-  {
-    prompt: "kiss,face to face,hug,{{{{{girl lying face up on bed}}}}},leg lock,on bed, motion lines",
-    data: ["成人向け", "体位", "だいしゅきホールド"]
-  },
-  {
-    prompt: "folded",
-    data: ["成人向け", "体位", "ちんぐり返し"]
-  },
-  {
-    prompt: "amazon position",
-    data: ["成人向け", "体位", "ちんぐり返し騎乗位"]
-  },
-  {
-    prompt: "pile-driver",
-    data: ["成人向け", "体位", "まんぐり返し"]
-  },
-  {
-    prompt: "cunnilingus",
-    data: ["成人向け", "体位", "クンニ"]
-  },
-  {
-    prompt: "69",
-    data: ["成人向け", "体位", "シックスナイン1"]
-  },
-  {
-    prompt: "sixty nine",
-    data: ["成人向け", "体位", "シックスナイン2"]
-  },
-  {
-    prompt: "position: standing from behind",
-    data: ["成人向け", "体位", "バック立位"]
-  },
-  {
-    prompt: "vaginal penis, {{stepped on}}, {{from below}}",
-    data: ["成人向け", "体位", "バック股下視点"]
-  },
-  {
-    prompt: "breasts blowjob",
-    data: ["成人向け", "体位", "パイズリフェラ"]
-  },
-  {
-    prompt: "mating press",
-    data: ["成人向け", "体位", "プレス"]
-  },
-  {
-    prompt: "tribadism",
-    data: ["成人向け", "体位", "交差位"]
-  },
-  {
-    prompt: "spooning",
-    data: ["成人向け", "体位", "側位"]
-  },
-  {
-    prompt: "lie on sides,spooning,sex from behind",
-    data: ["成人向け", "体位", "側位2"]
-  },
-  {
-    prompt: "spitroast",
-    data: ["成人向け", "体位", "前と後ろから挿入"]
-  },
-  {
-    prompt: "missionary",
-    data: ["成人向け", "体位", "宣教師"]
-  },
-  {
-    prompt: "hetero, kiss,face to face,hug,{{{{{girl lying face up on yoga mat}}}}},leg lock",
-    data: ["成人向け", "体位", "寝た状態の対面座位"]
-  },
-  {
-    prompt: "prone bone",
-    data: ["成人向け", "体位", "寝バック"]
-  },
-  {
-    prompt: "lying face down on bed",
-    data: ["成人向け", "体位", "寝バック1"]
-  },
-  {
-    prompt: "upright straddle",
-    data: ["成人向け", "体位", "対面座位"]
-  },
-  {
-    prompt: "sitting face to face",
-    data: ["成人向け", "体位", "対面座位2"]
-  },
-  {
-    prompt: "position: standing face to face",
-    data: ["成人向け", "体位", "対面立位"]
-  },
-  {
-    prompt: "sitting position",
-    data: ["成人向け", "体位", "座位"]
-  },
-  {
-    prompt: "doggystyle",
-    data: ["成人向け", "体位", "後背位,バック"]
-  },
-  {
-    prompt: "doggy style",
-    data: ["成人向け", "体位", "後背位,バック2"]
-  },
-  {
-    prompt: "missionary position",
-    data: ["成人向け", "体位", "正常位"]
-  },
-  {
-    prompt: "deep penetration",
-    data: ["成人向け", "体位", "深い挿入,深く挿入"]
-  },
-  {
-    prompt: "standing missionary",
-    data: ["成人向け", "体位", "立位"]
-  },
-  {
-    prompt: "reverse upright straddle",
-    data: ["成人向け", "体位", "背面座位"]
-  },
-  {
-    prompt: "sitting back to back",
-    data: ["成人向け", "体位", "背面座位2"]
-  },
-  {
-    prompt: "reverse cowgirl position",
-    data: ["成人向け", "体位", "背面騎乗位"]
-  },
-  {
-    prompt: "kneeling doggystyle",
-    data: ["成人向け", "体位", "膝立ち後背位"]
-  },
-  {
-    prompt: "suspended congress",
-    data: ["成人向け", "体位", "駅弁"]
-  },
-  {
-    prompt: "cowgirl position",
-    data: ["成人向け", "体位", "騎乗位"]
-  },
-  {
-    prompt: "sex from behind",
-    data: ["成人向け", "体位", "Ｈバック"]
-  },
-  {
-    prompt: "hands on own crotch",
-    data: ["成人向け", "動作", "おまんこに手"]
-  },
-  {
-    prompt: "hand grabbing ass",
-    data: ["成人向け", "動作", "お尻を手でつかむ"]
-  },
-  {
-    prompt: "leg lock and hug",
-    data: ["成人向け", "動作", "だいしゅきホールド"]
-  },
-  {
-    prompt: "double middle finger",
-    data: ["成人向け", "動作", "だぶるふぁっきゅー"]
-  },
-  {
-    prompt: "penis grab",
-    data: ["成人向け", "動作", "ちんこ掴み"]
-  },
-  {
-    prompt: "dick slap face",
-    data: ["成人向け", "動作", "ちんぺち"]
-  },
-  {
-    prompt: "breast smother",
-    data: ["成人向け", "動作", "ぱふぱふ"]
-  },
-  {
-    prompt: "middle finger",
-    data: ["成人向け", "動作", "ふぁっきゅー"]
-  },
-  {
-    prompt: "strips",
-    data: ["成人向け", "動作", "ストリップ"]
-  },
-  {
-    prompt: "paizuri invitation",
-    data: ["成人向け", "動作", "パイズリを誘う"]
-  },
-  {
-    prompt: "skirt lift,panties",
-    data: ["成人向け", "動作", "パンツたくし上げ"]
-  },
-  {
-    prompt: "presenting removed panties",
-    data: ["成人向け", "動作", "パンツをプレゼント"]
-  },
-  {
-    prompt: "panties aside",
-    data: ["成人向け", "動作", "パンツズラし"]
-  },
-  {
-    prompt: "remove your bra",
-    data: ["成人向け", "動作", "ブラをはずす"]
-  },
-  {
-    prompt: "raise the middle finger",
-    data: ["成人向け", "動作", "中指を立てる"]
-  },
-  {
-    prompt: "1girl,1man,nswf,grabbing from behind,lactation through clothes,trembling motionline ,troubled eyebrows",
-    data: ["成人向け", "動作", "乳もみ"]
-  },
-  {
-    prompt: "penis on nipple",
-    data: ["成人向け", "動作", "乳首にペニスを押し付ける"]
-  },
-  {
-    prompt: "nipple biting",
-    data: ["成人向け", "動作", "乳首をつまむ"]
-  },
-  {
-    prompt: "nipples tweak",
-    data: ["成人向け", "動作", "乳首責め"]
-  },
-  {
-    prompt: "undressing,assisted exposure",
-    data: ["成人向け", "動作", "他人による脱衣"]
-  },
-  {
-    prompt: "she is swallowing his penis",
-    data: ["成人向け", "動作", "彼女は彼のペニスを飲み込んでいる"]
-  },
-  {
-    prompt: "hands tied behind back reference",
-    data: ["成人向け", "動作", "後ろ手に組まされる"]
-  },
-  {
-    prompt: "nsfw,1boy,1girl,fingering pussy",
-    data: ["成人向け", "動作", "手マン"]
-  },
-  {
-    prompt: "finger to mouth",
-    data: ["成人向け", "動作", "指を舐める"]
-  },
-  {
-    prompt: "striking a provocative pose",
-    data: ["成人向け", "動作", "挑発的なポーズ"]
-  },
-  {
-    prompt: "provocative pose",
-    data: ["成人向け", "動作", "挑発的な立ち方"]
-  },
-  {
-    prompt: "provocative beckoning finger",
-    data: ["成人向け", "動作", "挑発的に指を招いている"]
-  },
-  {
-    prompt: "massage",
-    data: ["成人向け", "動作", "揉む,触れる"]
-  },
-  {
-    prompt: "breasts rest on table",
-    data: ["成人向け", "動作", "机の上に胸を置く"]
-  },
-  {
-    prompt: "covering chest with one hand",
-    data: ["成人向け", "動作", "片手で胸を隠している"]
-  },
-  {
-    prompt: "covering one breasts",
-    data: ["成人向け", "動作", "片方の胸を隠す"]
-  },
-  {
-    prompt: "pov hands, (breast lift:1.2)",
-    data: ["成人向け", "動作", "第三者が胸を持ち上げる"]
-  },
-  {
-    prompt: "grabbing own breasts",
-    data: ["成人向け", "動作", "胸を揉む"]
-  },
-  {
-    prompt: "breasts envy",
-    data: ["成人向け", "動作", "胸囲が欲しい"]
-  },
-  {
-    prompt: "armpits",
-    data: ["成人向け", "動作", "脇を見せる"]
-  },
-  {
-    prompt: "open clothes,bra",
-    data: ["成人向け", "動作", "脱いでブラ見せ"]
-  },
-  {
-    prompt: "boy grab her waist",
-    data: ["成人向け", "動作", "腰掴み"]
-  },
-  {
-    prompt: "grabbing own breast",
-    data: ["成人向け", "動作", "自分の胸をつかむ"]
-  },
-  {
-    prompt: "come hither",
-    data: ["成人向け", "動作", "色仕掛け"]
-  },
-  {
-    prompt: "invitation",
-    data: ["成人向け", "動作", "誘う"]
-  },
-  {
-    prompt: "forcefully rub penis on cheek",
-    data: ["成人向け", "動作", "頬にペニスを強引にこすりつける"]
-  },
-  {
-    prompt: "cheek poking",
-    data: ["成人向け", "動作", "頬をつつく"]
-  },
-  {
-    prompt: "restrained",
-    data: ["成人向け", "動作", "頭の上で手を拘束"]
-  },
-  {
-    prompt: "cooperative fellatio,harem",
-    data: ["成人向け", "口淫", "Wフェラ"]
-  },
-  {
-    prompt: ":>=",
-    data: ["成人向け", "口淫", "ひょっとこフェラ"]
-  },
-  {
-    prompt: "anilingus",
-    data: ["成人向け", "口淫", "アナル舐め"]
-  },
-  {
-    prompt: "irrumatio",
-    data: ["成人向け", "口淫", "イラマチオ"]
-  },
-  {
-    prompt: "deep throat",
-    data: ["成人向け", "口淫", "ディープスロート"]
-  },
-  {
-    prompt: "(:>=,vacuum fellatio),hetero,solo focus,1boy,pov crotch,deepthroat,deep penetration,saliva, (:>=,vacuum fellatio),top-down bottom-up",
-    data: ["成人向け", "口淫", "バキューム"]
-  },
-  {
-    prompt: "(|||expression3|||=, vacuum fellatio),hetero,solo focus,1boy,pov crotch,deepthroat,deep penetration,saliva,top-down bottom-up",
-    data: ["成人向け", "口淫", "バキューム"]
-  },
-  {
-    prompt: "vacuum fellatio",
-    data: ["成人向け", "口淫", "バキュームフェラ"]
-  },
-  {
-    prompt: "licking penis",
-    data: ["成人向け", "口淫", "フェラ"]
-  },
-  {
-    prompt: "fellatio",
-    data: ["成人向け", "口淫", "フェラ1"]
-  },
-  {
-    prompt: "blow job",
-    data: ["成人向け", "口淫", "フェラ2"]
-  },
-  {
-    prompt: "fellatio penis",
-    data: ["成人向け", "口淫", "フェラチオ(口に含む)"]
-  },
-  {
-    prompt: "blowjob face",
-    data: ["成人向け", "口淫", "フェラ顔"]
-  },
-  {
-    prompt: "fellatio,sucking,deepthroat",
-    data: ["成人向け", "口淫", "フェラ(深め)"]
-  },
-  {
-    prompt: "breasts sucking",
-    data: ["成人向け", "口淫", "乳吸い"]
-  },
-  {
-    prompt: "breast sucking",
-    data: ["成人向け", "口淫", "乳首なめ"]
-  },
-  {
-    prompt: "stray pubic hair",
-    data: ["成人向け", "口淫", "抜け陰毛"]
-  },
-  {
-    prompt: "hug and suck",
-    data: ["成人向け", "口淫", "抱きしめてフェラ"]
-  },
-  {
-    prompt: "lactation",
-    data: ["成人向け", "口淫", "授乳"]
-  },
-  {
-    prompt: "milking",
-    data: ["成人向け", "口淫", "搾乳"]
-  },
-  {
-    prompt: "implied fellatio",
-    data: ["成人向け", "口淫", "暗示的なフェラ"]
-  },
-  {
-    prompt: "cheek bulge",
-    data: ["成人向け", "口淫", "歯磨きフェラ"]
-  },
-  {
-    prompt: "breastfeeding",
-    data: ["成人向け", "口淫", "母乳育児"]
-  },
-  {
-    prompt: "swallow",
-    data: ["成人向け", "口淫", "深く咥える"]
-  },
-  {
-    prompt: "testicle sucking",
-    data: ["成人向け", "口淫", "玉なめ"]
-  },
-  {
-    prompt: "messy room,too many dildos,condoms,vibrators,sex toys",
-    data: ["成人向け", "場所", "ヤリ部屋"]
-  },
-  {
-    prompt: "public toilet",
-    data: ["成人向け", "場所", "公衆トイレ"]
-  },
-  {
-    prompt: "pussy line",
-    data: ["成人向け", "女性器", "きれいなすじ,ぷにまんこ,ぷにまん"]
-  },
-  {
-    prompt: "erect clitoris",
-    data: ["成人向け", "女性器", "勃起クリ"]
-  },
-  {
-    prompt: "pussy girl",
-    data: ["成人向け", "女性器", "女性器"]
-  },
-  {
-    prompt: "pussy juice",
-    data: ["成人向け", "女性器", "愛液,股間隠し"]
-  },
-  {
-    prompt: "pussy juice trail",
-    data: ["成人向け", "女性器", "愛液の線,汁あと"]
-  },
-  {
-    prompt: "pussy cum,cum in pussy,cross-section,internal cumshot",
-    data: ["成人向け", "子宮", "中出し断面"]
-  },
-  {
-    prompt: "fertilization",
-    data: ["成人向け", "子宮", "受精"]
-  },
-  {
-    prompt: "sperm cum in uterus",
-    data: ["成人向け", "子宮", "子宮内の精子兼"]
-  },
-  {
-    prompt: "os uteri",
-    data: ["成人向け", "子宮", "子宮口"]
-  },
-  {
-    prompt: "close eyes,troubled eyebrows,orgasm,close mouth,clench teeth,cross-section of uterus,fertilization,pussy cum",
-    data: ["成人向け", "子宮", "断面イキ"]
-  },
-  {
-    prompt: "1.5::cross section:: on female body",
-    data: ["成人向け", "子宮", "断面図"]
-  },
-  {
-    prompt: "cross-section of uterus,fertilization,pussy cum",
-    data: ["成人向け", "子宮", "断面図"]
-  },
-  {
-    prompt: "uterus at viewer penis inserted into pussy from cross section looking through,cum in uterus",
-    data: ["成人向け", "子宮", "断面図"]
-  },
-  {
-    prompt: "uterus at viewer penis inserted into pussy from cross section looking through",
-    data: ["成人向け", "子宮", "断面図(要体位設定)"]
-  },
-  {
-    prompt: "1.3::detailed cross section on female body,x-ray view of a large penis inserted into a vagina::",
-    data: ["成人向け", "子宮", "断面図(体表)"]
-  },
-  {
-    prompt: "acp",
-    data: ["成人向け", "射精", "お尻に出す"]
-  },
-  {
-    prompt: "ejaculating on stomach",
-    data: ["成人向け", "射精", "お腹に射精している"]
-  },
-  {
-    prompt: "bukkake",
-    data: ["成人向け", "射精", "ぶっかけ"]
-  },
-  {
-    prompt: "cum in pussy",
-    data: ["成人向け", "射精", "中出し"]
-  },
-  {
-    prompt: "cum string",
-    data: ["成人向け", "射精", "伸びた精液"]
-  },
-  {
-    prompt: "cum on body",
-    data: ["成人向け", "射精", "体にぶっかけ"]
-  },
-  {
-    prompt: "excessive precum",
-    data: ["成人向け", "射精", "先走り汁"]
-  },
-  {
-    prompt: "pre-cum",
-    data: ["成人向け", "射精", "先走り汁,我慢汁・がまん汁・カウパー"]
-  },
-  {
-    prompt: "forceful ejaculation",
-    data: ["成人向け", "射精", "勢いよく射精している"]
-  },
-  {
-    prompt: "ejaculating in mouth",
-    data: ["成人向け", "射精", "口に射精している"]
-  },
-  {
-    prompt: "cim",
-    data: ["成人向け", "射精", "口内射精"]
-  },
-  {
-    prompt: "cum in mouth",
-    data: ["成人向け", "射精", "口内射精2"]
-  },
-  {
-    prompt: "massive creampie",
-    data: ["成人向け", "射精", "大量中出し射精"]
-  },
-  {
-    prompt: "excessive cum",
-    data: ["成人向け", "射精", "大量射精"]
-  },
-  {
-    prompt: "cream shoot",
-    data: ["成人向け", "射精", "射精1"]
-  },
-  {
-    prompt: "cumshot",
-    data: ["成人向け", "射精", "射精2"]
-  },
-  {
-    prompt: "ejaculation",
-    data: ["成人向け", "射精", "射精3,劇核"]
-  },
-  {
-    prompt: "climax moment",
-    data: ["成人向け", "射精", "射精の瞬間"]
-  },
-  {
-    prompt: "watching ejaculation",
-    data: ["成人向け", "射精", "射精を見つめている"]
-  },
-  {
-    prompt: "excessive cum,female ejaculation,{{{{trembling motionline for orgasm}}}}",
-    data: ["成人向け", "射精", "射精フィニッシュ"]
-  },
-  {
-    prompt: "ejaculating in hands",
-    data: ["成人向け", "射精", "手に射精している"]
-  },
-  {
-    prompt: "criempie drop",
-    data: ["成人向け", "射精", "拘束中出し"]
-  },
-  {
-    prompt: "ejaculating over clothes",
-    data: ["成人向け", "射精", "服の上から射精している"]
-  },
-  {
-    prompt: "creampie,excessive cum",
-    data: ["成人向け", "射精", "溢れる精液大量射精"]
-  },
-  {
-    prompt: "ejaculating in anus",
-    data: ["成人向け", "射精", "肛門に射精している"]
-  },
-  {
-    prompt: "cum on breasts",
-    data: ["成人向け", "射精", "胸にぶっかけ"]
-  },
-  {
-    prompt: "ejaculating on breasts",
-    data: ["成人向け", "射精", "胸に射精している"]
-  },
-  {
-    prompt: "ejaculating on legs",
-    data: ["成人向け", "射精", "脚に射精している"]
-  },
-  {
-    prompt: "ejaculating inside vagina",
-    data: ["成人向け", "射精", "膣内に射精している"]
-  },
-  {
-    prompt: "covered in multiple ejaculations",
-    data: ["成人向け", "射精", "複数の射精を浴びている"]
-  },
-  {
-    prompt: "repeated ejaculation",
-    data: ["成人向け", "射精", "連続で射精している"]
-  },
-  {
-    prompt: "cum on cheeks",
-    data: ["成人向け", "射精", "頬にぶっかけ"]
-  },
-  {
-    prompt: "ejaculating on face",
-    data: ["成人向け", "射精", "顔に射精している"]
-  },
-  {
-    prompt: "facial",
-    data: ["成人向け", "射精", "顔射"]
-  },
-  {
-    prompt: "pojecile cum",
-    data: ["成人向け", "射精", "飛び散る射精"]
-  },
-  {
-    prompt: "cum on hair",
-    data: ["成人向け", "射精", "髪にぶっかけ"]
-  },
-  {
-    prompt: "anal hair",
-    data: ["成人向け", "尻", "ケツ毛"]
-  },
-  {
-    prompt: "puckered anus",
-    data: ["成人向け", "尻", "引き締まったアナル"]
-  },
-  {
-    prompt: "dark anus",
-    data: ["成人向け", "尻", "黒いアナル"]
-  },
-  {
-    prompt: "slipping clothes",
-    data: ["成人向け", "属性", "ずり落ちた服"]
-  },
-  {
-    prompt: "futa with female",
-    data: ["成人向け", "属性", "ふたなりと女性"]
-  },
-  {
-    prompt: "futa",
-    data: ["成人向け", "属性", "ふたなり２"]
-  },
-  {
-    prompt: "potbelly",
-    data: ["成人向け", "属性", "ぽっちゃり"]
-  },
-  {
-    prompt: "baby shota",
-    data: ["成人向け", "属性", "もっと幼い少年"]
-  },
-  {
-    prompt: "taking off shirt",
-    data: ["成人向け", "属性", "シャツを脱ぎかけている"]
-  },
-  {
-    prompt: "flipped skirt",
-    data: ["成人向け", "属性", "スカートがめくれている"]
-  },
-  {
-    prompt: "friend with benefits",
-    data: ["成人向け", "属性", "セフレ"]
-  },
-  {
-    prompt: "fuck buddy",
-    data: ["成人向け", "属性", "セフレ2"]
-  },
-  {
-    prompt: "large areolae",
-    data: ["成人向け", "属性", "デカい乳輪"]
-  },
-  {
-    prompt: "bitch",
-    data: ["成人向け", "属性", "ビッチ"]
-  },
-  {
-    prompt: "visible bra through clothes",
-    data: ["成人向け", "属性", "ブラが透けて見える"]
-  },
-  {
-    prompt: "unbuttoned clothes",
-    data: ["成人向け", "属性", "ボタンが外れかけている"]
-  },
-  {
-    prompt: "mesugaki",
-    data: ["成人向け", "属性", "メスガキ"]
-  },
-  {
-    prompt: "yaoi",
-    data: ["成人向け", "属性", "ヤオイ"]
-  },
-  {
-    prompt: "cockslut",
-    data: ["成人向け", "属性", "ヤリマン"]
-  },
-  {
-    prompt: "loli",
-    data: ["成人向け", "属性", "ロリ"]
-  },
-  {
-    prompt: "disheveled clothes",
-    data: ["成人向け", "属性", "乱れた服"]
-  },
-  {
-    prompt: "homosexuality",
-    data: ["成人向け", "属性", "同性愛者"]
-  },
-  {
-    prompt: "breast milk",
-    data: ["成人向け", "属性", "垂れる母乳"]
-  },
-  {
-    prompt: "hanging breasts",
-    data: ["成人向け", "属性", "垂れ乳"]
-  },
-  {
-    prompt: "pregnant",
-    data: ["成人向け", "属性", "妊娠中,妊婦,ボテ腹"]
-  },
-  {
-    prompt: "shota",
-    data: ["成人向け", "属性", "幼い少年,ショタ"]
-  },
-  {
-    prompt: "little shota",
-    data: ["成人向け", "属性", "更に幼い少年"]
-  },
-  {
-    prompt: "clothes clinging to skin",
-    data: ["成人向け", "属性", "服が張りついている"]
-  },
-  {
-    prompt: "wet clothes",
-    data: ["成人向け", "属性", "服が濡れている"]
-  },
-  {
-    prompt: "tight-fitting clothes",
-    data: ["成人向け", "属性", "服が身体に密着している"]
-  },
-  {
-    prompt: "see-through clothes",
-    data: ["成人向け", "属性", "服が透けている"]
-  },
-  {
-    prompt: "clothes being pulled",
-    data: ["成人向け", "属性", "服を引っ張られている"]
-  },
-  {
-    prompt: "lactation through clothes",
-    data: ["成人向け", "属性", "服越しの母乳"]
-  },
-  {
-    prompt: "lactation",
-    data: ["成人向け", "属性", "母乳"]
-  },
-  {
-    prompt: "lewd",
-    data: ["成人向け", "属性", "淫らな"]
-  },
-  {
-    prompt: "nympho",
-    data: ["成人向け", "属性", "淫乱1"]
-  },
-  {
-    prompt: "nymphomaniac",
-    data: ["成人向け", "属性", "淫乱2"]
-  },
-  {
-    prompt: "large areolae,{{{inverted nipples}}}",
-    data: ["成人向け", "属性", "爆乳陥没乳首"]
-  },
-  {
-    prompt: "one side off",
-    data: ["成人向け", "属性", "片方だけ脱げている"]
-  },
-  {
-    prompt: "otoko no ko",
-    data: ["成人向け", "属性", "男の娘"]
-  },
-  {
-    prompt: "hetero",
-    data: ["成人向け", "属性", "異性愛者"]
-  },
-  {
-    prompt: "girl in heat",
-    data: ["成人向け", "属性", "発情期の女の子"]
-  },
-  {
-    prompt: "torn clothes",
-    data: ["成人向け", "属性", "破れた服"]
-  },
-  {
-    prompt: "cumdump",
-    data: ["成人向け", "属性", "肉便器"]
-  },
-  {
-    prompt: "exposed shoulders",
-    data: ["成人向け", "属性", "肩が露出している"]
-  },
-  {
-    prompt: "deep neckline",
-    data: ["成人向け", "属性", "胸元が大きく開いている"]
-  },
-  {
-    prompt: "clothes in sexy disarray",
-    data: ["成人向け", "属性", "衣服が乱れてセクシーになっている"]
-  },
-  {
-    prompt: "sleeves slipping down",
-    data: ["成人向け", "属性", "袖がずり落ちている"]
-  },
-  {
-    prompt: "gigantic breasts,gleaming skin",
-    data: ["成人向け", "属性", "超乳"]
-  },
-  {
-    prompt: "partially exposed",
-    data: ["成人向け", "属性", "部分的に露出している"]
-  },
-  {
-    prompt: "inverted nipples",
-    data: ["成人向け", "属性", "陥没乳首"]
-  },
-  {
-    prompt: "dark nipples",
-    data: ["成人向け", "属性", "黒ずんだ乳首"]
-  },
-  {
-    prompt: "1boy,male,penis,pov,sex",
-    data: ["成人向け", "性交", "セックス時の男追加(主観)"]
-  },
-  {
-    prompt: "photographing or filming of sex,{through a smartphone}",
-    data: ["成人向け", "性交", "ハメ撮り"]
-  },
-  {
-    prompt: "nsfw,1girl,1boy,sex,rape,cfnm,trembling motionline,troubled eyebrows,fatman,hug,hetero, mating press,missionary position, penis, pussy,vaginal,motion lines",
-    data: ["成人向け", "性交", "密着"]
-  },
-  {
-    prompt: "implied sex",
-    data: ["成人向け", "性交", "性交"]
-  },
-  {
-    prompt: "intercourse",
-    data: ["成人向け", "性交", "性交"]
-  },
-  {
-    prompt: "sexual foreplay",
-    data: ["成人向け", "性交", "性的前戯"]
-  },
-  {
-    prompt: "cleft of venus",
-    data: ["成人向け", "性器", "1,すじまん"]
-  },
-  {
-    prompt: "tits",
-    data: ["成人向け", "性器", "おっぱい"]
-  },
-  {
-    prompt: "wrinkled areola",
-    data: ["成人向け", "性器", "しわのある乳輪"]
-  },
-  {
-    prompt: "excellent beautiful pussy",
-    data: ["成人向け", "性器", "とても美しい女性器"]
-  },
-  {
-    prompt: "puffy nipples",
-    data: ["成人向け", "性器", "ふくらんでいる乳首"]
-  },
-  {
-    prompt: "futanari",
-    data: ["成人向け", "性器", "ふたなり"]
-  },
-  {
-    prompt: "plump nipples",
-    data: ["成人向け", "性器", "ぷっくりとした乳首"]
-  },
-  {
-    prompt: "fat mons",
-    data: ["成人向け", "性器", "ぷにまん"]
-  },
-  {
-    prompt: "anal",
-    data: ["成人向け", "性器", "アナル,肛門"]
-  },
-  {
-    prompt: "clitoris",
-    data: ["成人向け", "性器", "クリトリス"]
-  },
-  {
-    prompt: "cameltoe",
-    data: ["成人向け", "性器", "スジ"]
-  },
-  {
-    prompt: "pink nipples",
-    data: ["成人向け", "性器", "ピンクの乳首,ピンク色の乳首"]
-  },
-  {
-    prompt: "pink areola",
-    data: ["成人向け", "性器", "ピンク色の乳輪"]
-  },
-  {
-    prompt: "camel toe",
-    data: ["成人向け", "性器", "マンすじ"]
-  },
-  {
-    prompt: "beautiful xtra small pussy",
-    data: ["成人向け", "性器", "ロリマン"]
-  },
-  {
-    prompt: "downward-pointing nipples",
-    data: ["成人向け", "性器", "下向きの乳首"]
-  },
-  {
-    prompt: "round areola",
-    data: ["成人向け", "性器", "丸い乳輪"]
-  },
-  {
-    prompt: "round nipples",
-    data: ["成人向け", "性器", "丸い乳首"]
-  },
-  {
-    prompt: "nipples",
-    data: ["成人向け", "性器", "乳首"]
-  },
-  {
-    prompt: "matching areola and nipple color",
-    data: ["成人向け", "性器", "乳首と同じ色の乳輪"]
-  },
-  {
-    prompt: "nipple slip",
-    data: ["成人向け", "性器", "乳首ポロリ"]
-  },
-  {
-    prompt: "pointed nipples",
-    data: ["成人向け", "性器", "先が尖った乳首"]
-  },
-  {
-    prompt: "glossy nipples",
-    data: ["成人向け", "性器", "光沢のある乳首"]
-  },
-  {
-    prompt: "erect penis",
-    data: ["成人向け", "性器", "勃起したペニス"]
-  },
-  {
-    prompt: "flaccid penis",
-    data: ["成人向け", "性器", "勃起していないペニス"]
-  },
-  {
-    prompt: "flaccid small penis",
-    data: ["成人向け", "性器", "勃起していない小さなペニス"]
-  },
-  {
-    prompt: "big veiny penis",
-    data: ["成人向け", "性器", "大きく脈打つペニス"]
-  },
-  {
-    prompt: "big penis",
-    data: ["成人向け", "性器", "大きなペニス"]
-  },
-  {
-    prompt: "large penis",
-    data: ["成人向け", "性器", "大きなペニス2"]
-  },
-  {
-    prompt: "large areola",
-    data: ["成人向け", "性器", "大きな乳輪"]
-  },
-  {
-    prompt: "large nipples",
-    data: ["成人向け", "性器", "大きな乳首"]
-  },
-  {
-    prompt: "thick nipples",
-    data: ["成人向け", "性器", "太めの乳首"]
-  },
-  {
-    prompt: "pussy",
-    data: ["成人向け", "性器", "女性器"]
-  },
-  {
-    prompt: "vagina",
-    data: ["成人向け", "性器", "女性器2"]
-  },
-  {
-    prompt: "cunt",
-    data: ["成人向け", "性器", "女性器3"]
-  },
-  {
-    prompt: "the uterus",
-    data: ["成人向け", "性器", "子宮"]
-  },
-  {
-    prompt: "anus",
-    data: ["成人向け", "性器", "尻の穴、肛門"]
-  },
-  {
-    prompt: "giant penis",
-    data: ["成人向け", "性器", "巨大なペニス"]
-  },
-  {
-    prompt: "flat nipples",
-    data: ["成人向け", "性器", "平らな乳首"]
-  },
-  {
-    prompt: "wide areola",
-    data: ["成人向け", "性器", "広がった乳輪"]
-  },
-  {
-    prompt: "1viewer's penis",
-    data: ["成人向け", "性器", "撮影者のペニス"]
-  },
-  {
-    prompt: "covered nipples",
-    data: ["成人向け", "性器", "浮き乳首"]
-  },
-  {
-    prompt: "light pink nipples",
-    data: ["成人向け", "性器", "淡いピンクの乳首"]
-  },
-  {
-    prompt: "smooth areola",
-    data: ["成人向け", "性器", "滑らかな乳輪"]
-  },
-  {
-    prompt: "dark-colored areola",
-    data: ["成人向け", "性器", "濃い色の乳輪"]
-  },
-  {
-    prompt: "wet pussy",
-    data: ["成人向け", "性器", "濡れた女性器"]
-  },
-  {
-    prompt: "penis",
-    data: ["成人向け", "性器", "男性器"]
-  },
-  {
-    prompt: "protruding nipples",
-    data: ["成人向け", "性器", "突起のある乳首"]
-  },
-  {
-    prompt: "testis",
-    data: ["成人向け", "性器", "精巣"]
-  },
-  {
-    prompt: "cum pussy",
-    data: ["成人向け", "性器", "精液マンコ"]
-  },
-  {
-    prompt: "beautiful vagina",
-    data: ["成人向け", "性器", "美しい膣"]
-  },
-  {
-    prompt: "breasts cleavage",
-    data: ["成人向け", "性器", "胸の谷間"]
-  },
-  {
-    prompt: "vaginal",
-    data: ["成人向け", "性器", "膣"]
-  },
-  {
-    prompt: "pale-colored nipples",
-    data: ["成人向け", "性器", "色素が薄い乳首"]
-  },
-  {
-    prompt: "brown areola",
-    data: ["成人向け", "性器", "茶色い乳輪"]
-  },
-  {
-    prompt: "brown nipples",
-    data: ["成人向け", "性器", "茶色い乳首"]
-  },
-  {
-    prompt: "light-colored areola",
-    data: ["成人向け", "性器", "薄い色の乳輪"]
-  },
-  {
-    prompt: "veiny penis",
-    data: ["成人向け", "性器", "血管が浮き出るペニス"]
-  },
-  {
-    prompt: "long nipples",
-    data: ["成人向け", "性器", "長い乳首"]
-  },
-  {
-    prompt: "long breasts",
-    data: ["成人向け", "性器", "長乳"]
-  },
-  {
-    prompt: "inverted nipples",
-    data: ["成人向け", "性器", "陥没乳首"]
-  },
-  {
-    prompt: "asymmetrical areola",
-    data: ["成人向け", "性器", "非対称の乳輪"]
-  },
-  {
-    prompt: "dark labia",
-    data: ["成人向け", "性器", "黒いマンコ"]
-  },
-  {
-    prompt: "pussy juice stain",
-    data: ["成人向け", "性器の状態", "マン汁の染み"]
-  },
-  {
-    prompt: "after vaginal",
-    data: ["成人向け", "性器の状態", "事後の膣"]
-  },
-  {
-    prompt: "excessive pussy juice",
-    data: ["成人向け", "性器の状態", "大量の汁"]
-  },
-  {
-    prompt: "cum in uterus",
-    data: ["成人向け", "性器の状態", "子宮内の精液"]
-  },
-  {
-    prompt: "precum",
-    data: ["成人向け", "性器の状態", "我慢汁"]
-  },
-  {
-    prompt: "mother's milk is seeping out.",
-    data: ["成人向け", "性器の状態", "母乳が染み出ている"]
-  },
-  {
-    prompt: "wet vagina",
-    data: ["成人向け", "性器の状態", "濡れた膣"]
-  },
-  {
-    prompt: "large insertion",
-    data: ["成人向け", "性器の状態", "腹ボコちんちん"]
-  },
-  {
-    prompt: "stomach bulge",
-    data: ["成人向け", "性器の状態", "腹ボコまん"]
-  },
-  {
-    prompt: "cum inside pussy",
-    data: ["成人向け", "性器の状態", "膣から精子"]
-  },
-  {
-    prompt: "double handjob",
-    data: ["成人向け", "手淫", "ダブル手コキ"]
-  },
-  {
-    prompt: "handjob",
-    data: ["成人向け", "手淫", "手コキ"]
-  },
-  {
-    prompt: "nursing handjob",
-    data: ["成人向け", "手淫", "看護手コキ"]
-  },
-  {
-    prompt: "caressing testicles",
-    data: ["成人向け", "手淫", "睾丸を愛撫する"]
-  },
-  {
-    prompt: "insert vagina",
-    data: ["成人向け", "挿入", "女性器に挿入"]
-  },
-  {
-    prompt: "screaming",
-    data: ["成人向け", "挿入", "性的完全挿入"]
-  },
-  {
-    prompt: "sexual full penetration",
-    data: ["成人向け", "挿入", "性的完全挿入"]
-  },
-  {
-    prompt: "1.2::guide to vaginal with hand for imminent penis penetration just the tip",
-    data: ["成人向け", "挿入", "挿入ガイド"]
-  },
-  {
-    prompt: "deep penetration",
-    data: ["成人向け", "挿入", "根元まで,深い挿入,深く挿入"]
-  },
-  {
-    prompt: "mating press",
-    data: ["成人向け", "挿入", "種付けプレス"]
-  },
-  {
-    prompt: "tentacles fucks",
-    data: ["成人向け", "挿入", "触手がファック"]
-  },
-  {
-    prompt: "tentacles anal fuck",
-    data: ["成人向け", "挿入", "触手肛門挿入"]
-  },
-  {
-    prompt: "tentacles vaginal fuck",
-    data: ["成人向け", "挿入", "触手膣挿入"]
-  },
-  {
-    prompt: "pants open around anus",
-    data: ["成人向け", "服装", "アナル周辺まで開いたズボン"]
-  },
-  {
-    prompt: "saliva,drivel,saliva trail,harem outfit,harem pants,see-through veil,mouth veil,hip vent,see-through pants,see-through sleeves,see-through skirt,micro bikini",
-    data: ["成人向け", "服装", "エロダンサー"]
-  },
-  {
-    prompt: "backless dress,halter dress,plunging neckline,short dress,miniskirt, skirt lift,lifted by self",
-    data: ["成人向け", "服装", "エロドレス"]
-  },
-  {
-    prompt: "see-through leotard",
-    data: ["成人向け", "服装", "スケレオダード"]
-  },
-  {
-    prompt: "bunny girl",
-    data: ["成人向け", "服装", "バニーガール"]
-  },
-  {
-    prompt: "wearing a bunny suit",
-    data: ["成人向け", "服装", "バニーガール"]
-  },
-  {
-    prompt: "bunny suits",
-    data: ["成人向け", "服装", "バニーガール2"]
-  },
-  {
-    prompt: "playboy bunny",
-    data: ["成人向け", "服装", "バニーガール3"]
-  },
-  {
-    prompt: "side-tie leotard",
-    data: ["成人向け", "服装", "バニーガールの服"]
-  },
-  {
-    prompt: "highleg leotard",
-    data: ["成人向け", "服装", "バニーガールの服(紐無し)"]
-  },
-  {
-    prompt: "hostess uniform",
-    data: ["成人向け", "服装", "ホステス"]
-  },
-  {
-    prompt: "host uniform",
-    data: ["成人向け", "服装", "ホスト"]
-  },
-  {
-    prompt: "bdsm",
-    data: ["成人向け", "服装", "ボンテージ"]
-  },
-  {
-    prompt: "bondage",
-    data: ["成人向け", "服装", "ボンテージ2"]
-  },
-  {
-    prompt: "fusion shinny paraphilia and latex corset leotard garter straps long gloves long boots belt collar",
-    data: ["成人向け", "服装", "ボンテージスーツ"]
-  },
-  {
-    prompt: "sexual bondage",
-    data: ["成人向け", "服装", "ボンデージ"]
-  },
-  {
-    prompt: "micro bikini,  micro shorts, denim shorts, short shorts, cutoffs",
-    data: ["成人向け", "服装", "マイクロビキニセット"]
-  },
-  {
-    prompt: "show off nipples",
-    data: ["成人向け", "服装", "乳首が見えている"]
-  },
-  {
-    prompt: "zentai,featureless full face black suit,shinny paraphilia and latex suit",
-    data: ["成人向け", "服装", "全体スーツ"]
-  },
-  {
-    prompt: "prostitute",
-    data: ["成人向け", "服装", "娼婦"]
-  },
-  {
-    prompt: "official style,dressed as {mizuki yukikaze (cosplay), taimanin (series)}, very aesthetic, best quality, intricate, overall detail, nsfw, alternate costume, {mizuki yukikaze (cosplay)}, skindentation, black leotard, black gloves, black thighhighs",
-    data: ["成人向け", "服装", "対魔忍コス"]
-  },
-  {
-    prompt: "torn leotard",
-    data: ["成人向け", "服装", "破れたレオタード"]
-  },
-  {
-    prompt: "crotchless leotard",
-    data: ["成人向け", "服装", "股間の空いたレオタード"]
-  },
-  {
-    prompt: "breasts out",
-    data: ["成人向け", "服装", "胸出し,開いた谷間"]
-  },
-  {
-    prompt: "arm covering breasts",
-    data: ["成人向け", "服装", "胸隠し"]
-  },
-  {
-    prompt: "naked bandage",
-    data: ["成人向け", "服装", "裸の包帯"]
-  },
-  {
-    prompt: "naked apron",
-    data: ["成人向け", "服装", "裸エプロン"]
-  },
-  {
-    prompt: "necktie between breasts",
-    data: ["成人向け", "服装", "谷間ネクタイ"]
-  },
-  {
-    prompt: "fishnet bodysuit, reverse bunnysuit,heart pasties,rabbit ears,fake animal ears",
-    data: ["成人向け", "服装", "逆バニー1"]
-  },
-  {
-    prompt: "see-through leotard,playboy bunny,see-through,transpbunny,rabbit ears,fake animal ears",
-    data: ["成人向け", "服装", "逆バニー2"]
-  },
-  {
-    prompt: "a perspective of a female pussy",
-    data: ["成人向け", "構図", "マンコにフォーカスする視点"]
-  },
-  {
-    prompt: "trefoil",
-    data: ["成人向け", "構図", "三つ葉"]
-  },
-  {
-    prompt: "presentingwet pussy",
-    data: ["成人向け", "構図", "女性器が見えるように"]
-  },
-  {
-    prompt: "pussy focus",
-    data: ["成人向け", "構図", "女性器にフォーカス"]
-  },
-  {
-    prompt: "closed eyes,{{orgasm}},trembling motionline for orgasm",
-    data: ["成人向け", "状態", "ビクビク"]
-  },
-  {
-    prompt: "{{orgasm}},trembling motionline for orgasm,motion blur",
-    data: ["成人向け", "状態", "ビクン"]
-  },
-  {
-    prompt: "breathless",
-    data: ["成人向け", "状態", "息切れ"]
-  },
-  {
-    prompt: "stomach bulge",
-    data: ["成人向け", "状態", "腹ボコ"]
-  },
-  {
-    prompt: "stomach bulge by penis",
-    data: ["成人向け", "状態", "腹ボコ2"]
-  },
-  {
-    prompt: "used condom on penis",
-    data: ["成人向け", "男性器", "コンドーム付きペニス"]
-  },
-  {
-    prompt: "glans penis",
-    data: ["成人向け", "男性器", "亀頭"]
-  },
-  {
-    prompt: "erection under clothes",
-    data: ["成人向け", "男性器", "服下勃起"]
-  },
-  {
-    prompt: "testicles",
-    data: ["成人向け", "男性器", "睾丸、金玉"]
-  },
-  {
-    prompt: "testicle",
-    data: ["成人向け", "男性器", "金玉"]
-  },
-  {
-    prompt: "big testicles bouncing, big black penis",
-    data: ["成人向け", "男性器", "黒い睾丸、ペニス"]
-  },
-  {
-    prompt: "cum overflow",
-    data: ["成人向け", "精液", "大量の精液"]
-  },
-  {
-    prompt: "cum on clothes",
-    data: ["成人向け", "精液", "服にぶっかけ"]
-  },
-  {
-    prompt: "creampie",
-    data: ["成人向け", "精液", "溢れる精液"]
-  },
-  {
-    prompt: "cloudy sperm",
-    data: ["成人向け", "精液", "濁った精液"]
-  },
-  {
-    prompt: "white splash",
-    data: ["成人向け", "精液", "白いスプラッシュ"]
-  },
-  {
-    prompt: "white liquid",
-    data: ["成人向け", "精液", "白い液体"]
-  },
-  {
-    prompt: "sperma",
-    data: ["成人向け", "精液", "精子,精液"]
-  },
-  {
-    prompt: "semen dripping from mouth",
-    data: ["成人向け", "精液", "精液が口から垂れている"]
-  },
-  {
-    prompt: "stringy semen",
-    data: ["成人向け", "精液", "精液が糸を引いている"]
-  },
-  {
-    prompt: "semen splattered on breasts",
-    data: ["成人向け", "精液", "精液が胸に飛び散っている"]
-  },
-  {
-    prompt: "semen leaking from vagina",
-    data: ["成人向け", "精液", "精液が膣から漏れている"]
-  },
-  {
-    prompt: "semen on face",
-    data: ["成人向け", "精液", "精液が顔に付いている"]
-  },
-  {
-    prompt: "splattering semen",
-    data: ["成人向け", "精液", "精液が飛び散っている"]
-  },
-  {
-    prompt: "gulp",
-    data: ["成人向け", "精液", "精液ごっくん"]
-  },
-  {
-    prompt: "covered in semen",
-    data: ["成人向け", "精液", "精液まみれになっている"]
-  },
-  {
-    prompt: "licking semen",
-    data: ["成人向け", "精液", "精液を舐めている"]
-  },
-  {
-    prompt: "drinking semen",
-    data: ["成人向け", "精液", "精液を飲んでいる"]
-  },
-  {
-    prompt: "projectile cumdrip,cum overflow,cum splatter",
-    data: ["成人向け", "精液", "膣から精液噴出"]
-  },
-  {
-    prompt: "cum on tongue",
-    data: ["成人向け", "精液", "舌に精液"]
-  },
-  {
-    prompt: "yellowish cum",
-    data: ["成人向け", "精液", "黄ばんだザーメン"]
-  },
-  {
-    prompt: "orgasm",
-    data: ["成人向け", "絶頂", "オーガズム"]
-  },
-  {
-    prompt: "pussy juice puddle",
-    data: ["成人向け", "絶頂", "ジュース溜まり"]
-  },
-  {
-    prompt: "female ejaculation,trembling motionline for orgasm,arched back, head back",
-    data: ["成人向け", "絶頂", "仰け反り絶頂"]
-  },
-  {
-    prompt: "pussy juice puddle}",
-    data: ["成人向け", "絶頂", "愛液だまり"]
-  },
-  {
-    prompt: "squirting",
-    data: ["成人向け", "絶頂", "潮吹き1"]
-  },
-  {
-    prompt: "female ejaculation",
-    data: ["成人向け", "絶頂", "潮吹き2"]
-  },
-  {
-    prompt: "gushing",
-    data: ["成人向け", "絶頂", "潮吹き3"]
-  },
-  {
-    prompt: "cum",
-    data: ["成人向け", "絶頂", "絶頂,精液"]
-  },
-  {
-    prompt: "trembling motionline for orgasm",
-    data: ["成人向け", "絶頂", "絶頂の際の痙攣エフェクト"]
-  },
-  {
-    prompt: "gleaming skin",
-    data: ["成人向け", "肌", "エロテカ肌"]
-  },
-  {
-    prompt: "glistening skin",
-    data: ["成人向け", "肌", "エロテカ肌2"]
-  },
-  {
-    prompt: "hickey,lipstick mark , bite mark",
-    data: ["成人向け", "肌", "キスマと歯形"]
-  },
-  {
-    prompt: "compare breasts",
-    data: ["成人向け", "胸", "ちちくらべ"]
-  },
-  {
-    prompt: "open chest",
-    data: ["成人向け", "胸", "はだけた胸"]
-  },
-  {
-    prompt: "{{{{{{large nipples,thick nipples,large areolae}}}}}",
-    data: ["成人向け", "胸", "デカ乳首"]
-  },
-  {
-    prompt: "nipples become erect",
-    data: ["成人向け", "胸", "乳首が勃つ"]
-  },
-  {
-    prompt: "erectile nipples",
-    data: ["成人向け", "胸", "勃起乳首"]
-  },
-  {
-    prompt: "saggy breasts",
-    data: ["成人向け", "胸", "垂れ気味の胸"]
-  },
-  {
-    prompt: "deformed breasts, unaligned breasts",
-    data: ["成人向け", "胸", "変形した胸"]
-  },
-  {
-    prompt: "large breasts",
-    data: ["成人向け", "胸", "大きめの胸"]
-  },
-  {
-    prompt: "breasts squeezed together",
-    data: ["成人向け", "胸", "寄せ乳"]
-  },
-  {
-    prompt: "small breasts",
-    data: ["成人向け", "胸", "小さめの胸"]
-  },
-  {
-    prompt: "pointy breasts",
-    data: ["成人向け", "胸", "尖った胸"]
-  },
-  {
-    prompt: "huge breasts",
-    data: ["成人向け", "胸", "巨乳"]
-  },
-  {
-    prompt: "breast expansion",
-    data: ["成人向け", "胸", "巨乳化"]
-  },
-  {
-    prompt: "large areolae",
-    data: ["成人向け", "胸", "巨乳輪"]
-  },
-  {
-    prompt: "huge areolae",
-    data: ["成人向け", "胸", "巨大な乳輪"]
-  },
-  {
-    prompt: "perky breasts",
-    data: ["成人向け", "胸", "張りのある胸,強調気味の乳首"]
-  },
-  {
-    prompt: "medium breasts",
-    data: ["成人向け", "胸", "普通サイズの胸"]
-  },
-  {
-    prompt: "coverd nipples",
-    data: ["成人向け", "胸", "浮き乳首"]
-  },
-  {
-    prompt: "nipple outline",
-    data: ["成人向け", "胸", "浮き出る乳首"]
-  },
-  {
-    prompt: "massive breasts",
-    data: ["成人向け", "胸", "爆乳"]
-  },
-  {
-    prompt: "natural-shaped breasts",
-    data: ["成人向け", "胸", "自然な形の胸"]
-  },
-  {
-    prompt: "absurdly large breasts",
-    data: ["成人向け", "胸", "超爆乳"]
-  },
-  {
-    prompt: "nipples visible through clothes",
-    data: ["成人向け", "胸", "透け乳首"]
-  },
-  {
-    prompt: "inverted nipples",
-    data: ["成人向け", "胸", "陥没乳首"]
-  },
-  {
-    prompt: "breasts apart",
-    data: ["成人向け", "胸", "離れ乳"]
-  },
-  {
-    prompt: "wank",
-    data: ["成人向け", "自慰", "オナニー1"]
-  },
-  {
-    prompt: "masturbation",
-    data: ["成人向け", "自慰", "オナニー2"]
-  },
-  {
-    prompt: "masturbate",
-    data: ["成人向け", "自慰", "オナニー3"]
-  },
-  {
-    prompt: "insert dildo to pussy",
-    data: ["成人向け", "自慰", "ディルドを膣に挿入します"]
-  },
-  {
-    prompt: "v-shaped eyebrows",
-    data: ["成人向け", "表情", "V眉,v眉"]
-  },
-  {
-    prompt: "v-shaped eyebrows,annoyed",
-    data: ["成人向け", "表情", "v眉+眉間皺"]
-  },
-  {
-    prompt: "ahegao",
-    data: ["成人向け", "表情", "あえぎ顔,アヘ顔,アヘ顔"]
-  },
-  {
-    prompt: "scornful",
-    data: ["成人向け", "表情", "あざけった顔"]
-  },
-  {
-    prompt: "dazed eyes",
-    data: ["成人向け", "表情", "うっとりした目"]
-  },
-  {
-    prompt: "half-lidded expression",
-    data: ["成人向け", "表情", "うっとりした目の表情"]
-  },
-  {
-    prompt: "dazed expression",
-    data: ["成人向け", "表情", "うっとりした表情"]
-  },
-  {
-    prompt: "{{{{cross-eyed}}}},{{{{upturned eyes}}}},{{{{{constricted pupils}}}}},{{{{sanpaku}}}},rolling eyes",
-    data: ["成人向け", "表情", "えろえろ目"]
-  },
-  {
-    prompt: "teasing smile",
-    data: ["成人向け", "表情", "からかう笑顔"]
-  },
-  {
-    prompt: "close eyes, troubled eyebrows, orgasm, close mouth, clench teeth",
-    data: ["成人向け", "表情", "くいしばる"]
-  },
-  {
-    prompt: "full-face blush",
-    data: ["成人向け", "表情", "すごく恥ずかしい表情・感情"]
-  },
-  {
-    prompt: "yearning expression",
-    data: ["成人向け", "表情", "せつなそうな表情,満たされたい表情"]
-  },
-  {
-    prompt: "looking at penis",
-    data: ["成人向け", "表情", "ちんちん目線"]
-  },
-  {
-    prompt: "half-lidded eyes",
-    data: ["成人向け", "表情", "とろんとした目"]
-  },
-  {
-    prompt: "hazy expression",
-    data: ["成人向け", "表情", "ぼんやりとした表情"]
-  },
-  {
-    prompt: "glazed expression",
-    data: ["成人向け", "表情", "ぼーっとした表情"]
-  },
-  {
-    prompt: "languid expression",
-    data: ["成人向け", "表情", "まどろむような表情"]
-  },
-  {
-    prompt: "faceless female",
-    data: ["成人向け", "表情", "めかくれ"]
-  },
-  {
-    prompt: "{{drooling}},saliva,drivel,saliva trail",
-    data: ["成人向け", "表情", "よだれ"]
-  },
-  {
-    prompt: "mouth drool",
-    data: ["成人向け", "表情", "よだれが垂れてる"]
-  },
-  {
-    prompt: "ahegao, open mouth, drivel, be breathless, blush, very humid, steam, perspired, fog, pink heart effect, semen, bukkake",
-    data: ["成人向け", "表情", "アヘ顔事後"]
-  },
-  {
-    prompt: "constricted pupils",
-    data: ["成人向け", "表情", "イってる目,瞳小さく"]
-  },
-  {
-    prompt: "be almost there",
-    data: ["成人向け", "表情", "イキそう"]
-  },
-  {
-    prompt: "cross-eyed,upturned eyes,{{{constricted pupils}}},rolling eyes",
-    data: ["成人向け", "表情", "イキ目"]
-  },
-  {
-    prompt: "rolling eyes,upturned eyes",
-    data: ["成人向け", "表情", "エロイキ目"]
-  },
-  {
-    prompt: "{{{{{dot mouth}}}}},parted lips",
-    data: ["成人向け", "表情", "オホ口◎"]
-  },
-  {
-    prompt: "fucked silly",
-    data: ["成人向け", "表情", "オホ顔,スケベ顔"]
-  },
-  {
-    prompt: "drunken eyes",
-    data: ["成人向け", "表情", "ボーっとした目"]
-  },
-  {
-    prompt: "evil smile",
-    data: ["成人向け", "表情", "メスガキスマイル"]
-  },
-  {
-    prompt: "shaded face,no eyes",
-    data: ["成人向け", "表情", "モブ顔"]
-  },
-  {
-    prompt: "looking up with lustful eyes",
-    data: ["成人向け", "表情", "上目遣いで見つめる"]
-  },
-  {
-    prompt: "vulgarity",
-    data: ["成人向け", "表情", "下品なエロ"]
-  },
-  {
-    prompt: "uneven eyes",
-    data: ["成人向け", "表情", "不均一な目"]
-  },
-  {
-    prompt: "disheveled expression",
-    data: ["成人向け", "表情", "乱れた表情"]
-  },
-  {
-    prompt: "afterglow",
-    data: ["成人向け", "表情", "事後"]
-  },
-  {
-    prompt: "content expression",
-    data: ["成人向け", "表情", "充実感や満足感に満ちた表情"]
-  },
-  {
-    prompt: "adventurous expression",
-    data: ["成人向け", "表情", "冒険的な期待の表情"]
-  },
-  {
-    prompt: "pining expression",
-    data: ["成人向け", "表情", "切なげな表情"]
-  },
-  {
-    prompt: "wistful expression",
-    data: ["成人向け", "表情", "切なさがにじむ表情"]
-  },
-  {
-    prompt: "longing expression",
-    data: ["成人向け", "表情", "切望する表情"]
-  },
-  {
-    prompt: "craving expression",
-    data: ["成人向け", "表情", "刺激を求める表情"]
-  },
-  {
-    prompt: "thrilling satisfaction expression",
-    data: ["成人向け", "表情", "刺激的な満足感の表情"]
-  },
-  {
-    prompt: "half-closed eyes",
-    data: ["成人向け", "表情", "半目"]
-  },
-  {
-    prompt: "risky excitement expression",
-    data: ["成人向け", "表情", "危険な刺激の表情"]
-  },
-  {
-    prompt: "defiant look",
-    data: ["成人向け", "表情", "反抗的な視線"]
-  },
-  {
-    prompt: "half-open mouth",
-    data: ["成人向け", "表情", "口を半開きにしている"]
-  },
-  {
-    prompt: "open-mouthed expression",
-    data: ["成人向け", "表情", "口を開けた驚きや興奮の表情"]
-  },
-  {
-    prompt: "open mouth, drivel, be breathless, blush, very humid, steam",
-    data: ["成人向け", "表情", "口開けエロ顔"]
-  },
-  {
-    prompt: "moaning mouth",
-    data: ["成人向け", "表情", "喘いでいるような口元"]
-  },
-  {
-    prompt: "moaning",
-    data: ["成人向け", "表情", "喘ぎ声"]
-  },
-  {
-    prompt: "troubled eyebrows,embarrassed",
-    data: ["成人向け", "表情", "困り眉困惑"]
-  },
-  {
-    prompt: "crying out expression",
-    data: ["成人向け", "表情", "声を上げるような表情"]
-  },
-  {
-    prompt: "dreamy expression",
-    data: ["成人向け", "表情", "夢見心地の表情"]
-  },
-  {
-    prompt: "possessive desire expression",
-    data: ["成人向け", "表情", "奪いたい欲求の表情"]
-  },
-  {
-    prompt: "captivated expression",
-    data: ["成人向け", "表情", "官能に魅了される表情,心を奪われた表情"]
-  },
-  {
-    prompt: "sensual pleasure expression",
-    data: ["成人向け", "表情", "官能的な喜びの表情"]
-  },
-  {
-    prompt: "sensual excitement expression",
-    data: ["成人向け", "表情", "官能的な興奮の表情"]
-  },
-  {
-    prompt: "sensual expression",
-    data: ["成人向け", "表情", "官能的な表情"]
-  },
-  {
-    prompt: "cross-eyed",
-    data: ["成人向け", "表情", "寄り目"]
-  },
-  {
-    prompt: "dot mouth",
-    data: ["成人向け", "表情", "小さい口"]
-  },
-  {
-    prompt: "intense pleasure expression",
-    data: ["成人向け", "表情", "強い快感の表情"]
-  },
-  {
-    prompt: "intense expression",
-    data: ["成人向け", "表情", "強い感情が表れた表情"]
-  },
-  {
-    prompt: "intense urge expression",
-    data: ["成人向け", "表情", "強い衝動の表情"]
-  },
-  {
-    prompt: "dominant desire expression",
-    data: ["成人向け", "表情", "征服したい欲求の表情"]
-  },
-  {
-    prompt: "slightly smiling in pleasure",
-    data: ["成人向け", "表情", "微笑みながら乱れている"]
-  },
-  {
-    prompt: "stirred expression",
-    data: ["成人向け", "表情", "心を掻き乱される表情"]
-  },
-  {
-    prompt: "soothing sensation expression",
-    data: ["成人向け", "表情", "心地よい感覚の表情"]
-  },
-  {
-    prompt: "delightful arousal expression",
-    data: ["成人向け", "表情", "快い官能の表情"]
-  },
-  {
-    prompt: "suppressing pleasure",
-    data: ["成人向け", "表情", "快感に耐えている表情"]
-  },
-  {
-    prompt: "quivering in pleasure",
-    data: ["成人向け", "表情", "快感に震えている"]
-  },
-  {
-    prompt: "quivering expression",
-    data: ["成人向け", "表情", "快感に震える表情"]
-  },
-  {
-    prompt: "pleasure-filled expression",
-    data: ["成人向け", "表情", "快楽に満ちた表情"]
-  },
-  {
-    prompt: "pleasure expression",
-    data: ["成人向け", "表情", "快楽の表情"]
-  },
-  {
-    prompt: "sexually suggestive",
-    data: ["成人向け", "表情", "性的な恥じらい"]
-  },
-  {
-    prompt: "naughty face",
-    data: ["成人向け", "表情", "性的な表情・感情,誘っている表情・感情,いたずら顔"]
-  },
-  {
-    prompt: "sexual delight expression",
-    data: ["成人向け", "表情", "性的快楽の表情"]
-  },
-  {
-    prompt: "sexual satisfaction expression",
-    data: ["成人向け", "表情", "性的満足感の表情"]
-  },
-  {
-    prompt: "arousal expression",
-    data: ["成人向け", "表情", "性的興奮の表情"]
-  },
-  {
-    prompt: "sexually attracted expression",
-    data: ["成人向け", "表情", "性的魅力を感じる表情"]
-  },
-  {
-    prompt: "rapture expression",
-    data: ["成人向け", "表情", "恍惚とした幸福感の表情"]
-  },
-  {
-    prompt: "sultry smile",
-    data: ["成人向け", "表情", "恍惚とした微笑み"]
-  },
-  {
-    prompt: "ecstatic expression",
-    data: ["成人向け", "表情", "恍惚とした表情,恍惚の表情"]
-  },
-  {
-    prompt: "ravished expression",
-    data: ["成人向け", "表情", "恍惚として圧倒された表情"]
-  },
-  {
-    prompt: "sighing expression",
-    data: ["成人向け", "表情", "恍惚とため息をつく表情"]
-  },
-  {
-    prompt: "ecstasy expression",
-    data: ["成人向け", "表情", "恍惚感の表情"]
-  },
-  {
-    prompt: "embarrassed",
-    data: ["成人向け", "表情", "恥ずかしい"]
-  },
-  {
-    prompt: "trembling",
-    data: ["成人向け", "表情", "恥ずかしそうに怯える"]
-  },
-  {
-    prompt: "scared",
-    data: ["成人向け", "表情", "恥ずかしそうに警戒"]
-  },
-  {
-    prompt: "breathless expression",
-    data: ["成人向け", "表情", "息が上がった表情"]
-  },
-  {
-    prompt: "out of breath",
-    data: ["成人向け", "表情", "息を切らしている"]
-  },
-  {
-    prompt: "gasping expression",
-    data: ["成人向け", "表情", "息を呑むような表情"]
-  },
-  {
-    prompt: "passion expression",
-    data: ["成人向け", "表情", "情熱的な衝動の表情"]
-  },
-  {
-    prompt: "passionate expression",
-    data: ["成人向け", "表情", "情熱的な表情"]
-  },
-  {
-    prompt: "intense gaze expression",
-    data: ["成人向け", "表情", "情熱的に見つめる表情"]
-  },
-  {
-    prompt: "sensory bliss expression",
-    data: ["成人向け", "表情", "感覚の幸福の表情"]
-  },
-  {
-    prompt: "pleading eyes",
-    data: ["成人向け", "表情", "懇願する目"]
-  },
-  {
-    prompt: "lost-in-the-moment expression",
-    data: ["成人向け", "表情", "我を忘れた表情"]
-  },
-  {
-    prompt: "unrestrained expression",
-    data: ["成人向け", "表情", "抑えきれない表情"]
-  },
-  {
-    prompt: "uncontrollable expression",
-    data: ["成人向け", "表情", "抑えられない欲求の表情"]
-  },
-  {
-    prompt: "provocative expression",
-    data: ["成人向け", "表情", "挑発的な興奮の表情"]
-  },
-  {
-    prompt: "provocative gaze",
-    data: ["成人向け", "表情", "挑発的な視線"]
-  },
-  {
-    prompt: "vacant expression",
-    data: ["成人向け", "表情", "放心状態"]
-  },
-  {
-    prompt: "chestnut mouth",
-    data: ["成人向け", "表情", "栗口アへ◎"]
-  },
-  {
-    prompt: "dashed eye",
-    data: ["成人向け", "表情", "横線が入った目"]
-  },
-  {
-    prompt: "desire expression",
-    data: ["成人向け", "表情", "欲情の表情"]
-  },
-  {
-    prompt: "lustful expression",
-    data: ["成人向け", "表情", "欲望に満ちた表情"]
-  },
-  {
-    prompt: "frustrated expression",
-    data: ["成人向け", "表情", "欲求不満そうな表情"]
-  },
-  {
-    prompt: "sweaty expression",
-    data: ["成人向け", "表情", "汗ばんだ熱のこもった表情"]
-  },
-  {
-    prompt: "tearful expression",
-    data: ["成人向け", "表情", "涙ぐんだ表情"]
-  },
-  {
-    prompt: "teary eyes",
-    data: ["成人向け", "表情", "涙目"]
-  },
-  {
-    prompt: "lewd smile",
-    data: ["成人向け", "表情", "淫らな笑み"]
-  },
-  {
-    prompt: "profound sensuality expression",
-    data: ["成人向け", "表情", "深い官能の満足の表情"]
-  },
-  {
-    prompt: "deep satisfaction expression",
-    data: ["成人向け", "表情", "深い満足の表情"]
-  },
-  {
-    prompt: "fulfilled expression",
-    data: ["成人向け", "表情", "満ち足りた表情"]
-  },
-  {
-    prompt: "gratified expression",
-    data: ["成人向け", "表情", "満足しきった表情"]
-  },
-  {
-    prompt: "vulnerable expression",
-    data: ["成人向け", "表情", "無防備で感じ入っている表情"]
-  },
-  {
-    prompt: "heated expression",
-    data: ["成人向け", "表情", "熱を帯びた表情"]
-  },
-  {
-    prompt: "fiery sensation expression",
-    data: ["成人向け", "表情", "燃えるような感覚の表情"]
-  },
-  {
-    prompt: "smoldering expression",
-    data: ["成人向け", "表情", "燃え上がるような表情"]
-  },
-  {
-    prompt: "moaning expression",
-    data: ["成人向け", "表情", "甘い声を漏らしているような表情"]
-  },
-  {
-    prompt: "in awe expression",
-    data: ["成人向け", "表情", "畏怖や感動の表情"]
-  },
-  {
-    prompt: "exhausted",
-    data: ["成人向け", "表情", "疲れ果てる"]
-  },
-  {
-    prompt: "aroused",
-    data: ["成人向け", "表情", "発情"]
-  },
-  {
-    prompt: "heart eyes",
-    data: ["成人向け", "表情", "目がハート"]
-  },
-  {
-    prompt: "bags under eyes",
-    data: ["成人向け", "表情", "目の下のクマ"]
-  },
-  {
-    prompt: "moist eyes",
-    data: ["成人向け", "表情", "目を潤ませている"]
-  },
-  {
-    prompt: "sultry gaze expression",
-    data: ["成人向け", "表情", "目を細めた魅惑的な表情"]
-  },
-  {
-    prompt: "squinting",
-    data: ["成人向け", "表情", "目を細める"]
-  },
-  {
-    prompt: "wild-eyed expression",
-    data: ["成人向け", "表情", "目を見開いた熱狂的な表情"]
-  },
-  {
-    prompt: "eyes-closed expression",
-    data: ["成人向け", "表情", "目を閉じて感じている表情"]
-  },
-  {
-    prompt: "illicit attraction expression",
-    data: ["成人向け", "表情", "禁じられた魅力の表情"]
-  },
-  {
-    prompt: "forbidden pleasure expression",
-    data: ["成人向け", "表情", "禁断の喜びの表情"]
-  },
-  {
-    prompt: "climaxed expression",
-    data: ["成人向け", "表情", "絶頂を迎えたときの表情"]
-  },
-  {
-    prompt: "sensuous expression",
-    data: ["成人向け", "表情", "耽美的な表情"]
-  },
-  {
-    prompt: "voluptuous expression",
-    data: ["成人向け", "表情", "肉感的な表情"]
-  },
-  {
-    prompt: "desired expression",
-    data: ["成人向け", "表情", "自分が求められている表情"]
-  },
-  {
-    prompt: "liberated desire expression",
-    data: ["成人向け", "表情", "自分を解放したい表情"]
-  },
-  {
-    prompt: "liberated expression",
-    data: ["成人向け", "表情", "自分を解放した表情"]
-  },
-  {
-    prompt: "bliss expression",
-    data: ["成人向け", "表情", "至福の表情"]
-  },
-  {
-    prompt: "tongue out",
-    data: ["成人向け", "表情", "舌を出している"]
-  },
-  {
-    prompt: "licking lips",
-    data: ["成人向け", "表情", "舌ペロ"]
-  },
-  {
-    prompt: "seductive expression",
-    data: ["成人向け", "表情", "色っぽい表情,誘惑的な表情,誘惑するような顔"]
-  },
-  {
-    prompt: "lust expression",
-    data: ["成人向け", "表情", "色欲の表情"]
-  },
-  {
-    prompt: "seductive smile",
-    data: ["成人向け", "表情", "艶笑,誘惑顔"]
-  },
-  {
-    prompt: "impulsive desire expression",
-    data: ["成人向け", "表情", "衝動的な欲求の表情"]
-  },
-  {
-    prompt: "tempted expression",
-    data: ["成人向け", "表情", "誘惑される表情"]
-  },
-  {
-    prompt: "blushing",
-    data: ["成人向け", "表情", "赤面している"]
-  },
-  {
-    prompt: "entranced expression",
-    data: ["成人向け", "表情", "陶然とした表情"]
-  },
-  {
-    prompt: "inebriated expression",
-    data: ["成人向け", "表情", "陶酔しきった表情"]
-  },
-  {
-    prompt: "blissful expression",
-    data: ["成人向け", "表情", "陶酔した表情"]
-  },
-  {
-    prompt: "intoxication expression",
-    data: ["成人向け", "表情", "陶酔の表情"]
-  },
-  {
-    prompt: "shaky-breath expression",
-    data: ["成人向け", "表情", "震えながら息を漏らす表情"]
-  },
-  {
-    prompt: "shuddering expression",
-    data: ["成人向け", "表情", "震えるような表情(快感や感情の高まりによる)"]
-  },
-  {
-    prompt: "flushed expression",
-    data: ["成人向け", "表情", "顔が赤くなっている表情(興奮や恥じらい)"]
-  },
-  {
-    prompt: "aroused expression",
-    data: ["成人向け", "表情", "高ぶった表情"]
-  },
-  {
-    prompt: "heightened excitement expression",
-    data: ["成人向け", "表情", "高まる興奮の表情"]
-  },
-  {
-    prompt: "euphoria expression",
-    data: ["成人向け", "表情", "高揚感の表情"]
-  },
-  {
-    prompt: "mesmerizing feeling expression",
-    data: ["成人向け", "表情", "魅了される感覚の表情"]
-  },
-  {
-    prompt: "seductive fulfillment expression",
-    data: ["成人向け", "表情", "魅惑的な満足感の表情"]
   },
   {
     prompt: "artificial light",

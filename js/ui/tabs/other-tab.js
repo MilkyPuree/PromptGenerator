@@ -1512,6 +1512,10 @@
                   <input type="checkbox" id="modal-showTooltips" value="showTooltips" />
                   ツールチップ（ヘルプ表示）を有効にする
                 </label>
+                <label class="settings-checkbox-label" title="成人向けコンテンツ用のカテゴリを検索・編集時に表示します">
+                  <input type="checkbox" id="modal-showNSFWCategories" value="showNSFWCategories" />
+                  NSFWカテゴリを表示する
+                </label>
                 <label class="settings-input-label" title="DeepL APIを使用した翻訳機能に必要なAPIキーです">
                   DeepL APIキー
                   <input type="password" id="modal-DeeplAuth" placeholder="DeepL APIキーを入力" class="settings-input" title="無料プランまたは有料プランのAPIキーを入力してください" />
@@ -1606,6 +1610,38 @@
       }
 
       /**
+       * 全タブのカテゴリ表示を強制更新
+       */
+      refreshAllCategoryDisplays() {
+        try {
+          // 検索タブの大項目ドロップダウンを強制リセット
+          const searchCat0 = document.getElementById('search-cat0');
+          if (searchCat0) {
+            searchCat0.innerHTML = '<option value="">-- 選択してください --</option>';
+            searchCat0.disabled = false;
+          }
+          
+          // 検索タブのドロップダウンを更新
+          if (window.categoryUIManager) {
+            window.categoryUIManager.initializeCategoryChain('search');
+          }
+          
+          // 編集タブのカテゴリドロップダウンも更新（存在する場合）
+          if (window.editTab && typeof window.editTab.refreshCategoryOptions === 'function') {
+            window.editTab.refreshCategoryOptions();
+          }
+          
+          // 他のカテゴリ依存の表示も更新
+          if (typeof refreshCategoryRelatedDisplays === 'function') {
+            refreshCategoryRelatedDisplays();
+          }
+          
+        } catch (error) {
+          console.error('[Settings] Error refreshing category displays:', error);
+        }
+      }
+
+      /**
        * モーダルに現在の設定値をロード
        */
       loadSettingsToModal() {
@@ -1638,6 +1674,12 @@
         const showTooltipsCheck = document.getElementById("modal-showTooltips");
         if (showTooltipsCheck && AppState.userSettings.optionData) {
           showTooltipsCheck.checked = AppState.userSettings.optionData.showTooltips !== false;
+        }
+
+        // NSFWカテゴリ表示設定をロード
+        const showNSFWCategoriesCheck = document.getElementById("modal-showNSFWCategories");
+        if (showNSFWCategoriesCheck && AppState.userSettings.optionData) {
+          showNSFWCategoriesCheck.checked = AppState.userSettings.optionData.showNSFWCategories || false;
         }
 
         // テーマ設定をロード
@@ -1745,6 +1787,22 @@
               }
               
               console.log(`[Settings] Tooltips ${showTooltipsCheck.checked ? 'enabled' : 'disabled'}`);
+            }
+          });
+        }
+
+        // NSFWカテゴリ表示設定の変更を監視
+        const showNSFWCategoriesCheck = document.getElementById("modal-showNSFWCategories");
+        if (showNSFWCategoriesCheck) {
+          showNSFWCategoriesCheck.addEventListener("change", () => {
+            if (AppState.userSettings.optionData) {
+              AppState.userSettings.optionData.showNSFWCategories = showNSFWCategoriesCheck.checked;
+              saveOptionData();
+              
+              console.log(`[Settings] NSFW categories ${showNSFWCategoriesCheck.checked ? 'enabled' : 'disabled'}`);
+              
+              // カテゴリ表示を即座に更新
+              this.refreshAllCategoryDisplays();
             }
           });
         }
