@@ -1430,7 +1430,7 @@
             DOM_SELECTORS.BY_ID.MASTER_DIC_LIST,
             {
               fields: STANDARD_CATEGORY_FIELDS,
-              buttons: [{ type: "register" }],
+              buttons: STANDARD_BUTTONS,
               showHeaders: true,
               readonly: true, // マスター辞書は読み取り専用
               sortable: false,
@@ -1452,7 +1452,7 @@
             DOM_SELECTORS.BY_ID.MASTER_DIC_LIST,
             {
               fields: STANDARD_CATEGORY_FIELDS,
-              buttons: [{ type: "register" }],
+              buttons: STANDARD_BUTTONS,
               showHeaders: true,
               readonly: true,
               sortable: false,

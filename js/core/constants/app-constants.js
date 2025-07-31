@@ -67,7 +67,7 @@ const NOTIFICATION_DURATION = {
 // 仮想スクロール・リスト関連
 // ============================================
 const VIRTUAL_SCROLL = {
-  THRESHOLD: 5000, // 仮想スクロール使用判定の閾値（アイテム数）
+  THRESHOLD: 500, // 仮想スクロール使用判定の閾値（アイテム数）
   ITEM_HEIGHT: 40, // デフォルトアイテム高さ (px)
   BUFFER_SIZE: 3, // バッファサイズ（画面外の表示倍数）
   CONTAINER_HEIGHT: 600, // デフォルトコンテナ高さ (px)
@@ -214,7 +214,7 @@ class ExportFilenameGenerator {
    */
   static generateBaseName(dataType, dictName = null) {
     let baseName;
-    
+
     if (dataType === "prompts") {
       baseName = EXPORT_FILE_NAMES.PROMPT_DICTIONARY;
       // お気に入りの場合は辞書名も含める
@@ -229,7 +229,7 @@ class ExportFilenameGenerator {
     } else {
       baseName = EXPORT_FILE_NAMES.USER_DICTIONARY; // デフォルト
     }
-    
+
     return baseName;
   }
 }

@@ -1585,9 +1585,150 @@ class PromptListManager {
    * 仮想リストアイテムを更新（統合版）
    */
   async updateVirtualListItem(element, item, index, config) {
-    // 仮想スクロールでの要素再利用時は、単純に再作成する
-    // パフォーマンスよりも確実性を重視
+    const updateStart = performance.now();
+    
+    // パフォーマンス改善: 差分更新を試行
+    const hasInputFields = element.querySelectorAll('input, select').length > 0;
+    
+    // 既存要素の値のみ更新を試行
+    if (hasInputFields && this.tryUpdateExistingFields(element, item, config)) {
+      const fastUpdateTime = performance.now() - updateStart;
+      if (AppState?.config?.debugMode && fastUpdateTime > 1) {
+        console.log(`[PERF_FAST_UPDATE] Fast update: ${fastUpdateTime.toFixed(2)}ms for index ${index}`);
+      }
+      return;
+    }
+    
+    // フォールバック: 従来の再作成方式
+    if (AppState?.config?.debugMode) {
+      console.log(`[PERF_FALLBACK] Falling back to full recreation for index ${index}`);
+    }
     await this.createVirtualListItem(element, item, index, config);
+    
+    const totalUpdateTime = performance.now() - updateStart;
+    if (AppState?.config?.debugMode && totalUpdateTime > 5) {
+      console.warn(`[PERF_FALLBACK] ⚠️ Slow fallback update: ${totalUpdateTime.toFixed(2)}ms for index ${index}`);
+    }
+  }
+
+  /**
+   * 既存フィールドの差分更新を試行（パフォーマンス改善）
+   */
+  tryUpdateExistingFields(element, item, config) {
+    try {
+      const fields = config.fields || STANDARD_CATEGORY_FIELDS;
+      let updateSuccess = true;
+      
+      fields.forEach((field, fieldIndex) => {
+        const input = element.querySelector(`[data-field="${field.key}"]`);
+        if (input) {
+          const newValue = this.getFieldValue(item, field);
+          
+          // 値が変更された場合のみ更新
+          if (input.value !== newValue) {
+            input.value = newValue;
+          }
+        } else {
+          // フィールドが見つからない場合は差分更新失敗
+          updateSuccess = false;
+        }
+      });
+      
+      return updateSuccess;
+    } catch (error) {
+      if (AppState?.config?.debugMode) {
+        console.warn('[PERF_FAST_UPDATE] Differential update failed:', error);
+      }
+      return false;
+    }
+  }
+
+  /**
+   * CustomDropdownの遅延初期化（パフォーマンス改善）
+   */
+  initializeDropdownOnDemand(input, dropdownConfig) {
+    // 遅延初期化用のメタデータを設定
+    input._lazyDropdownConfig = dropdownConfig;
+    input.setAttribute('data-dropdown-lazy', 'true');
+    
+    // Intersection Observer による可視性監視
+    let isVisible = true; // デフォルトは表示状態
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (!isVisible && input._pendingInit) {
+          // 画面外に移動した場合、初期化をキャンセル
+          clearTimeout(input._pendingInit);
+          input._pendingInit = null;
+          if (AppState?.config?.debugMode) {
+            console.log(`[PERF_LAZY_DROPDOWN] Cancelled initialization (element moved out of view)`);
+          }
+        }
+      });
+    }, { threshold: 0.1 }); // 10%見えていれば表示中とみなす
+    
+    observer.observe(input);
+    input._intersectionObserver = observer;
+    
+    // フォーカス時に初期化
+    const initializeDropdown = () => {
+      if (!input.customDropdown && input._lazyDropdownConfig) {
+        // 画面外の場合は初期化を遅延
+        if (!isVisible) {
+          if (AppState?.config?.debugMode) {
+            console.log(`[PERF_LAZY_DROPDOWN] Delaying initialization (element out of view)`);
+          }
+          input._pendingInit = setTimeout(() => {
+            if (input._lazyDropdownConfig) {
+              initializeDropdown();
+            }
+          }, 100); // 100ms後に再チェック
+          return;
+        }
+        
+        const initStart = performance.now();
+        
+        input.customDropdown = new CustomDropdown(input, input._lazyDropdownConfig);
+        input.removeAttribute('data-dropdown-lazy');
+        
+        const initTime = performance.now() - initStart;
+        if (AppState?.config?.debugMode) {
+          console.log(`[PERF_LAZY_DROPDOWN] Initialized CustomDropdown: ${initTime.toFixed(2)}ms for level ${input._lazyDropdownConfig.categoryLevel}`);
+        }
+        
+        // 初期化後にクリーンアップ
+        input._lazyDropdownConfig = null;
+        if (input._initializeDropdownHandler) {
+          input.removeEventListener('focus', input._initializeDropdownHandler);
+          input.removeEventListener('click', input._initializeDropdownHandler);
+          input._initializeDropdownHandler = null;
+        }
+        
+        // Intersection Observer も停止
+        if (input._intersectionObserver) {
+          input._intersectionObserver.disconnect();
+          input._intersectionObserver = null;
+        }
+      }
+      
+      // フォーカス移動（初期化後）
+      if (input.customDropdown) {
+        setTimeout(() => input.focus(), 0);
+      }
+    };
+    
+    // フォーカスまたはクリック時に初期化（重複防止）
+    // 既存のリスナーがある場合は削除してから追加
+    if (input._initializeDropdownHandler) {
+      input.removeEventListener('focus', input._initializeDropdownHandler);
+      input.removeEventListener('click', input._initializeDropdownHandler);
+    }
+    
+    // 関数参照を保存して確実に削除できるようにする
+    input._initializeDropdownHandler = initializeDropdown;
+    input.addEventListener('focus', initializeDropdown, { once: false });
+    input.addEventListener('click', initializeDropdown, { once: false });
   }
 
   /**
@@ -3097,7 +3238,8 @@ class PromptListManager {
           }
         );
 
-      bigInput.customDropdown = new CustomDropdown(bigInput, {
+      // パフォーマンス改善: CustomDropdownの遅延初期化
+      this.initializeDropdownOnDemand(bigInput, {
         categoryLevel: 0,
         onSubmit: (value) => {
           if (AppState.config.debugMode)
@@ -3313,7 +3455,8 @@ class PromptListManager {
             }
           );
 
-        middleInput.customDropdown = new CustomDropdown(middleInput, {
+        // パフォーマンス改善: CustomDropdownの遅延初期化
+        this.initializeDropdownOnDemand(middleInput, {
           categoryLevel: 1,
           onSubmit: (value) => {
             if (AppState.config.debugMode)
@@ -3522,7 +3665,8 @@ class PromptListManager {
       let originalSmallValue = smallInput.value;
 
       // 新しいカスタムドロップダウンを作成
-      smallInput.customDropdown = new CustomDropdown(smallInput, {
+      // パフォーマンス改善: CustomDropdownの遅延初期化
+      this.initializeDropdownOnDemand(smallInput, {
         categoryLevel: 2,
         onSubmit: (value) => {
           // 値が変更されていない場合は早期リターン

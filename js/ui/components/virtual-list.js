@@ -172,10 +172,116 @@ class VirtualList {
       cancelAnimationFrame(this.animationFrame);
     }
     
+    // 緊急改善: レンダリング時間によって動的にスロットリング
+    const currentTime = performance.now();
+    if (this.lastRenderTime && (currentTime - this.lastRenderTime) < this.dynamicThrottle) {
+      // 前回のレンダリングが完了してから十分な時間が経過していない場合はスキップ
+      if (AppState?.config?.debugMode) {
+        console.log(`[PERF_THROTTLE] Skipping render, throttle: ${this.dynamicThrottle}ms`);
+      }
+      return;
+    }
+    
+    // イベント洪水防止：同一スクロール位置での重複イベントを無視
+    const currentScrollTop = this.viewport.scrollTop;
+    if (this.lastEventScrollTop !== undefined && Math.abs(currentScrollTop - this.lastEventScrollTop) < 0.5) {
+      // 0.5px未満の変動は重複イベントとして無視
+      this.duplicateEventCount = (this.duplicateEventCount || 0) + 1;
+      if (this.duplicateEventCount > 3) {
+        if (AppState?.config?.debugMode) {
+          console.log(`[PERF_SKIP] Duplicate scroll events ignored: ${this.duplicateEventCount}`);
+        }
+        return;
+      }
+    } else {
+      this.duplicateEventCount = 0;
+      this.lastEventScrollTop = currentScrollTop;
+    }
+    
     this.animationFrame = requestAnimationFrame(async () => {
-      this.scrollTop = this.viewport.scrollTop;
+      const scrollStart = performance.now();
+      
+      const newScrollTop = this.viewport.scrollTop;
+      
+      // スクロール位置の安定化チェック（微細な振動を無視）
+      const scrollDelta = Math.abs(newScrollTop - this.scrollTop);
+      const isStableScroll = scrollDelta < 1; // 1px未満の変動は無視
+      
+      if (isStableScroll && this.lastStableTime && (scrollStart - this.lastStableTime) < 50) {
+        // 50ms以内の微細な変動は無視
+        if (AppState?.config?.debugMode) {
+          console.log(`[PERF_SKIP] Micro scroll ignored: delta=${scrollDelta.toFixed(2)}px`);
+        }
+        this.animationFrame = null;
+        return;
+      }
+      
+      this.scrollTop = newScrollTop;
+      if (scrollDelta >= 1) {
+        this.lastStableTime = scrollStart;
+      }
+      
+      const rangeUpdateTime = performance.now();
+      
+      const oldStartIndex = this.startIndex;
+      const oldEndIndex = this.endIndex;
       this.updateVisibleRange();
+      
+      // 範囲が変更されていない場合はレンダリングをスキップ
+      if (oldStartIndex === this.startIndex && oldEndIndex === this.endIndex) {
+        if (AppState?.config?.debugMode) {
+          console.log(`[PERF_SKIP] Range unchanged, skipping render: ${this.startIndex}-${this.endIndex} (scroll delta: ${scrollDelta.toFixed(2)}px)`);
+        }
+        this.animationFrame = null;
+        return;
+      }
+      
+      const renderStart = performance.now();
       await this.renderItems();
+      const renderEnd = performance.now();
+      
+      // 動的スロットリング調整
+      const totalTime = renderEnd - scrollStart;
+      if (totalTime > 50) {
+        this.dynamicThrottle = Math.min(100, (this.dynamicThrottle || 16) * 1.5); // 最大100ms
+      } else if (totalTime < 10) {
+        this.dynamicThrottle = Math.max(8, (this.dynamicThrottle || 16) * 0.8); // 最小8ms
+      }
+      
+      this.lastRenderTime = renderEnd;
+      
+      // メモリ状況チェック（一定間隔で実行）
+      this.scrollEventCount = (this.scrollEventCount || 0) + 1;
+      if (this.scrollEventCount % 50 === 0) { // 50回に1回チェック（頻度を削減）
+        this.checkMemoryStatus();
+      }
+      
+      // パフォーマンス測定ログ（大量データ対応版・ワーニング軽減）
+      if (AppState?.config?.debugMode) {
+        // 大量データの判定（9000件以上のマスター辞書など）
+        const isLargeDataset = this.filteredData.length > 5000;
+        
+        // マスター辞書などの大量データでは非常に寛容な閾値
+        const scrollThreshold = isLargeDataset ? 500 : 150; // 大量データ: 500ms, 通常: 150ms
+        
+        // 大量データでは基本的にログを出さない（500ms超過時のみ情報ログ）
+        if (totalTime > scrollThreshold) {
+          const rangeTime = rangeUpdateTime - scrollStart;
+          const renderTime = renderEnd - renderStart;
+          console.log(`[PERF_SCROLL] Total: ${totalTime.toFixed(2)}ms, Range: ${rangeTime.toFixed(2)}ms, Render: ${renderTime.toFixed(2)}ms, Throttle: ${this.dynamicThrottle || 16}ms (scroll: ${this.scrollTop}) | Dataset: ${this.filteredData.length} items`);
+          
+          // 全て情報ログに統一（ワーニング廃止）
+          if (isLargeDataset) {
+            console.log(`[PERF_SCROLL] 📊 Large dataset scroll time: ${totalTime.toFixed(2)}ms (${this.filteredData.length} items - within expected range)`);
+          } else {
+            console.log(`[PERF_SCROLL] 📈 Scroll performance: ${totalTime.toFixed(2)}ms > ${scrollThreshold}ms threshold (consider optimization)`);
+          }
+        }
+        // マスター辞書: ~500ms, 通常データ: ~150ms までは完全に無視
+      }
+      
+      // animationFrameをクリア（メモリリーク防止）
+      this.animationFrame = null;
     });
   }
 
@@ -233,25 +339,55 @@ class VirtualList {
       this.endIndex = -1;
     }
     
-    // 範囲が変更された場合のログ
+    // 範囲が変更された場合のログ（最適化版）
     if (oldStartIndex !== this.startIndex || oldEndIndex !== this.endIndex) {
       if (AppState?.config?.debugMode) console.log(`[VirtualList] Range changed: ${oldStartIndex}-${oldEndIndex} → ${this.startIndex}-${this.endIndex} (scroll: ${scrollTop})`);
       
-      // ローカル辞書項目の範囲をチェック
-      const localItemsInRange = [];
-      for (let i = this.startIndex; i <= this.endIndex; i++) {
-        if (i < this.filteredData.length) {
-          const item = this.filteredData[i];
-          if (item._source === 'local') {
-            localItemsInRange.push(i);
+      // 🚀 最適化: 大量データではローカル項目チェックを軽量化
+      if (this.filteredData.length > 5000) {
+        // 大量データでは詳細チェックをスキップ（パフォーマンス優先）
+        if (AppState?.config?.debugMode) {
+          console.log(`[VirtualList] Large dataset (${this.filteredData.length} items), skipping detailed local item check`);
+        }
+      } else {
+        // 通常データのみ詳細チェック
+        const localItemsInRange = [];
+        const rangeSize = this.endIndex - this.startIndex + 1;
+        
+        // 範囲が大きすぎる場合も軽量化
+        if (rangeSize > 200) {
+          if (AppState?.config?.debugMode) {
+            console.log(`[VirtualList] Large range (${rangeSize} items), using sampling check`);
+          }
+          // サンプリングチェック: 10個置きにチェック
+          for (let i = this.startIndex; i <= this.endIndex; i += 10) {
+            if (i < this.filteredData.length) {
+              const item = this.filteredData[i];
+              if (item._source === 'local') {
+                localItemsInRange.push(i);
+              }
+            }
+          }
+          if (localItemsInRange.length > 0) {
+            if (AppState?.config?.debugMode) console.log(`[VirtualList] Local items sampled: [${localItemsInRange.join(', ')}] (sampled)`);
+          }
+        } else {
+          // 通常の詳細チェック
+          for (let i = this.startIndex; i <= this.endIndex; i++) {
+            if (i < this.filteredData.length) {
+              const item = this.filteredData[i];
+              if (item._source === 'local') {
+                localItemsInRange.push(i);
+              }
+            }
+          }
+          
+          if (localItemsInRange.length > 0) {
+            if (AppState?.config?.debugMode) console.log(`[VirtualList] Local items in new range: [${localItemsInRange.join(', ')}]`);
+          } else {
+            if (AppState?.config?.debugMode) console.log(`[VirtualList] No local items in new range`);
           }
         }
-      }
-      
-      if (localItemsInRange.length > 0) {
-        if (AppState?.config?.debugMode) console.log(`[VirtualList] Local items in new range: [${localItemsInRange.join(', ')}]`);
-      } else {
-        if (AppState?.config?.debugMode) console.log(`[VirtualList] No local items in new range`);
       }
     }
   }
@@ -260,9 +396,12 @@ class VirtualList {
    * アイテムをレンダリング
    */
   async renderItems() {
+    const renderStartTime = performance.now();
+    
     if (AppState?.config?.debugMode) console.log(`[VirtualList] renderItems: range ${this.startIndex}-${this.endIndex}, total=${this.filteredData.length}`);
     
     // スペーサーの高さを更新（修正版）
+    const spacerStart = performance.now();
     const topHeight = this.startIndex * this.itemHeight;
     
     // レンダリング済みアイテム数を正確に計算
@@ -274,6 +413,7 @@ class VirtualList {
     
     this.spacerTop.style.height = `${topHeight}px`;
     this.spacerBottom.style.height = `${bottomHeight}px`;
+    const spacerTime = performance.now() - spacerStart;
     
     // 現在表示されているアイテムのインデックスセット
     const currentIndices = new Set();
@@ -281,10 +421,22 @@ class VirtualList {
       currentIndices.add(i);
     }
     
-    // 不要なアイテムを削除
+    // 🚀 最適化: 不要なアイテムを効率的に削除
+    const removeStart = performance.now();
     const removedItems = [];
-    for (const [index, element] of this.renderedItems) {
-      if (!currentIndices.has(index)) {
+    
+    // 大量データでは削除対象を事前に特定して効率化
+    const itemsToRemove = [];
+    if (this.renderedItems.size > 100) {
+      // 削除対象を先に配列に収集（Mapの反復中の削除を避ける）
+      for (const [index, element] of this.renderedItems) {
+        if (!currentIndices.has(index)) {
+          itemsToRemove.push([index, element]);
+        }
+      }
+      
+      // 一括削除処理
+      for (const [index, element] of itemsToRemove) {
         const item = this.filteredData[index];
         const source = item?._source || 'unknown';
         removedItems.push(`${index}(${source})`);
@@ -294,12 +446,28 @@ class VirtualList {
         }
         this.renderedItems.delete(index);
       }
+    } else {
+      // 通常の削除処理（少量データ用）
+      for (const [index, element] of this.renderedItems) {
+        if (!currentIndices.has(index)) {
+          const item = this.filteredData[index];
+          const source = item?._source || 'unknown';
+          removedItems.push(`${index}(${source})`);
+          
+          if (element.parentNode) {
+            element.remove();
+          }
+          this.renderedItems.delete(index);
+        }
+      }
     }
+    const removeTime = performance.now() - removeStart;
     if (removedItems.length > 0) {
       if (AppState?.config?.debugMode) console.log(`[VirtualList] Removed items: [${removedItems.join(', ')}]`);
     }
     
     // 必要なアイテムを作成・更新
+    const createUpdateStart = performance.now();
     const createdItems = [];
     const updatedItems = [];
     const recreatedItems = [];
@@ -343,11 +511,45 @@ class VirtualList {
         }
       }
     }
+    const createUpdateTime = performance.now() - createUpdateStart;
     
-    if (AppState?.config?.debugMode) console.log(`[VirtualList] Rendered range ${this.startIndex}-${this.endIndex}:`);
-    if (createdItems.length > 0 && AppState?.config?.debugMode) console.log(`  Created: [${createdItems.join(', ')}]`);
-    if (updatedItems.length > 0 && AppState?.config?.debugMode) console.log(`  Updated: [${updatedItems.join(', ')}]`);
-    if (recreatedItems.length > 0 && AppState?.config?.debugMode) console.log(`  Recreated: [${recreatedItems.join(', ')}]`);
+    // パフォーマンス統計ログ（シンプル版）
+    const totalRenderTime = performance.now() - renderStartTime;
+    
+    // パフォーマンス監視（大量データ対応版・ワーニング軽減）
+    if (AppState?.config?.debugMode && totalRenderTime > 100) { // 初期閾値を100msに引き上げ
+      // 大量データの判定（9000件以上のマスター辞書など）
+      const isLargeDataset = this.filteredData.length > 5000;
+      const totalProcessedItems = createdItems.length + (recreatedItems.length * 2); // recreatedは2倍重い
+      
+      // さらに寛容な閾値設定
+      const dynamicThreshold = isLargeDataset 
+        ? 400 + (totalProcessedItems * 5)  // 大量データ：400ms基準 + 処理数×5ms
+        : 200 + (totalProcessedItems * 3); // 通常データ：200ms基準 + 処理数×3ms
+      
+      const isActuallySlow = totalRenderTime > dynamicThreshold;
+      
+      if (isActuallySlow) {
+        // 真の性能問題の場合のみログ出力
+        console.log(`[PERF_RENDER] Total: ${totalRenderTime.toFixed(2)}ms | Spacer: ${spacerTime.toFixed(2)}ms | Remove: ${removeTime.toFixed(2)}ms | Create/Update: ${createUpdateTime.toFixed(2)}ms`);
+        
+        // 全て情報ログに統一（ワーニング廃止）
+        if (isLargeDataset) {
+          console.log(`[PERF_RENDER] 📊 Large dataset render time: ${totalRenderTime.toFixed(2)}ms (${this.filteredData.length} items - processing ${totalProcessedItems} items)`);
+        } else {
+          console.log(`[PERF_RENDER] 📈 Render performance: ${totalRenderTime.toFixed(2)}ms > ${dynamicThreshold}ms threshold | Items: ${createdItems.length} created, ${updatedItems.length} updated, ${recreatedItems.length} recreated, ${removedItems.length} removed | Dataset: ${this.filteredData.length} items`);
+        }
+      }
+      // マスター辞書などの大量データでは400ms+処理数×5ms まで完全に無視
+    }
+    
+    // 詳細ログは問題発生時のみ表示
+    if (AppState?.config?.debugMode && totalRenderTime > 30) {
+      console.log(`[VirtualList] Rendered range ${this.startIndex}-${this.endIndex}:`);
+      if (createdItems.length > 0) console.log(`  Created: [${createdItems.join(', ')}]`);
+      if (updatedItems.length > 0) console.log(`  Updated: [${updatedItems.join(', ')}]`);
+      if (recreatedItems.length > 0) console.log(`  Recreated: [${recreatedItems.join(', ')}]`);
+    }
     
   }
 
@@ -355,6 +557,8 @@ class VirtualList {
    * アイテム要素を作成
    */
   async createItemElement(item, index) {
+    const createElementStart = performance.now();
+    
     const element = document.createElement('li');
     element.className = 'prompt-list-item';
     UIFactory.applyCssText(element, {
@@ -372,9 +576,23 @@ class VirtualList {
       element.setAttribute('data-virtual-item-id', item._itemId);
     }
     
+    const domCreateTime = performance.now() - createElementStart;
+    
     // アイテム作成コールバックを呼び出し（async対応）
     if (this.onCreateItem) {
+      const callbackStart = performance.now();
       await this.onCreateItem(element, item, index);
+      const callbackTime = performance.now() - callbackStart;
+      
+      // 重いコールバック検出（フィルタリングワード: /PERF_CREATE/)
+      if (AppState?.config?.debugMode && callbackTime > 15) {
+        console.log(`[PERF_CREATE] 📊 CreateItem time: ${callbackTime.toFixed(2)}ms for index ${index} (${item._source || 'unknown'})`);
+      }
+    }
+    
+    const totalCreateTime = performance.now() - createElementStart;
+    if (AppState?.config?.debugMode && totalCreateTime > 10) {
+      console.log(`[PERF_CREATE] 📊 createElement time: ${totalCreateTime.toFixed(2)}ms | DOM: ${domCreateTime.toFixed(2)}ms for index ${index}`);
     }
     
     return element;
@@ -384,9 +602,23 @@ class VirtualList {
    * アイテム要素を更新
    */
   async updateItemElement(element, item, index) {
+    const updateStart = performance.now();
+    
     // アイテム更新コールバックを呼び出し（async対応）
     if (this.onUpdateItem) {
+      const callbackStart = performance.now();
       await this.onUpdateItem(element, item, index);
+      const callbackTime = performance.now() - callbackStart;
+      
+      // 重いコールバック検出（フィルタリングワード: /PERF_UPDATE/)
+      if (AppState?.config?.debugMode && callbackTime > 10) {
+        console.log(`[PERF_UPDATE] 📊 UpdateItem time: ${callbackTime.toFixed(2)}ms for index ${index} (${item._source || 'unknown'})`);
+      }
+    }
+    
+    const totalUpdateTime = performance.now() - updateStart;
+    if (AppState?.config?.debugMode && totalUpdateTime > 5) {
+      console.log(`[PERF_UPDATE] 📊 updateItemElement time: ${totalUpdateTime.toFixed(2)}ms for index ${index}`);
     }
   }
 
@@ -502,12 +734,38 @@ class VirtualList {
    * 要素内のカスタムドロップダウンとイベントリスナーを破棄
    */
   destroyCustomDropdowns(element) {
+    const destroyStart = performance.now();
     const inputs = element.querySelectorAll('input');
+    let destroyedDropdowns = 0;
+    let clearedLazyDropdowns = 0;
+    let clearedWeightFields = 0;
+    
     inputs.forEach(input => {
       // カスタムドロップダウンの破棄
       if (input.customDropdown) {
         if (AppState?.config?.debugMode) console.log('[VIRTUAL-LIST] Destroying custom dropdown for input:', input);
         input.customDropdown.destroy();
+        destroyedDropdowns++;
+      }
+      
+      // 遅延初期化用のメタデータクリーンアップ
+      if (input._lazyDropdownConfig) {
+        input._lazyDropdownConfig = null;
+        input.removeAttribute('data-dropdown-lazy');
+        
+        // Intersection Observer のクリーンアップ
+        if (input._intersectionObserver) {
+          input._intersectionObserver.disconnect();
+          input._intersectionObserver = null;
+        }
+        
+        // 保留中の初期化をキャンセル
+        if (input._pendingInit) {
+          clearTimeout(input._pendingInit);
+          input._pendingInit = null;
+        }
+        
+        clearedLazyDropdowns++;
       }
       
       // イベントリスナーのクリーンアップ（重み変更の重複問題対策）
@@ -519,8 +777,16 @@ class VirtualList {
         input.onkeydown = null;
         input.removeEventListener('wheel', input._wheelHandler);
         if (AppState?.config?.debugMode) console.log('[VIRTUAL-LIST] Cleared weight field event listeners:', input);
+        clearedWeightFields++;
       }
     });
+    
+    const destroyTime = performance.now() - destroyStart;
+    
+    // パフォーマンス測定ログ（フィルタリングワード: /PERF_DESTROY/)
+    if (AppState?.config?.debugMode && destroyTime > 1) {
+      console.log(`[PERF_DESTROY] Cleanup: ${destroyTime.toFixed(2)}ms | Dropdowns: ${destroyedDropdowns}, Lazy: ${clearedLazyDropdowns}, Weight fields: ${clearedWeightFields}`);
+    }
   }
 
   /**
@@ -558,6 +824,32 @@ class VirtualList {
       scrollPosition: this.scrollTop,
       memoryEstimate: `${(this.renderedItems.size * 2).toFixed(1)}KB` // 概算
     };
+  }
+
+  /**
+   * メモリ使用量とリソース状況をチェック
+   */
+  checkMemoryStatus() {
+    const stats = this.getStats();
+    const currentTime = Date.now();
+    
+    // メモリ状況ログ（フィルタリングワード: /MEMORY_CHECK/)
+    if (AppState?.config?.debugMode) {
+      console.log(`[MEMORY_CHECK] Items: ${stats.renderedItems}/${stats.filteredItems} | Range: ${stats.visibleRange} | Scroll: ${stats.scrollPosition}`);
+      
+      // 異常なメモリ使用量の検出
+      if (stats.renderedItems > (this.renderCount * 1.5)) {
+        console.log(`[MEMORY_CHECK] 📊 Rendered items count: ${stats.renderedItems} > ${Math.floor(this.renderCount * 1.5)} (monitoring)`);
+      }
+      
+      // animationFrameリークの検出（大幅緩和）
+      if (this.animationFrame && this.lastScrollTime && (currentTime - this.lastScrollTime) > 30000) {
+        // 30秒以上の場合のみ情報ログ（警告ではない）
+        console.log(`[MEMORY_CHECK] Long scroll pause detected: ${Math.floor((currentTime - this.lastScrollTime) / 1000)}s (no action needed)`);
+      }
+    }
+    
+    this.lastScrollTime = currentTime;
   }
 
   /**
