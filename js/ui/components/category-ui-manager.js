@@ -375,6 +375,7 @@ class CategoryUIManager {
 
   /**
    * カテゴリーデータをレベル別に取得
+   * NSFWフィルタリングを含む統一処理
    */
   getCategoriesByLevel(level, parentValue = null) {
     if (!window.categoryData || !categoryData.data) {
@@ -386,8 +387,10 @@ class CategoryUIManager {
       return [];
     }
 
+    // categoryData.getCategoriesByParentを使用してNSFWフィルタリングを確実に通す
+    console.log(`[CategoryUIManager] 📞 Calling getCategoriesByParent for level=${level}, parent=${parentValue}`);
     const result = categoryData.getCategoriesByParent(level, parentValue);
-    console.log(`[CategoryUIManager] getCategoriesByLevel(${level}, ${parentValue}) returned ${result.length} items`);
+    console.log(`[CategoryUIManager] 📞 Got ${result.length} categories from getCategoriesByParent`);
     return result;
   }
 
@@ -475,58 +478,6 @@ class CategoryUIManager {
     }
   }
 
-  /**
-   * レベル別カテゴリーデータを取得
-   * @param {number} level - カテゴリーレベル（0=大項目, 1=中項目, 2=小項目）
-   * @param {string} parentValue - 親カテゴリーの値（中項目・小項目の場合）
-   * @returns {Array} カテゴリーデータの配列
-   */
-  getCategoriesByLevel(level, parentValue = null) {
-    // categoryDataが利用可能かチェック
-    if (typeof window.categoryData === 'undefined' || !window.categoryData.data) {
-      console.warn('CategoryData not available');
-      return [];
-    }
-
-    const allItems = window.categoryData.data[level];
-    if (!allItems) {
-      console.warn(`No category data found at level ${level}`);
-      return [];
-    }
-
-    // 大項目の場合は親フィルタリングなし
-    if (level === 0) {
-      return allItems.map(item => item.value).filter(Boolean);
-    }
-
-    // 中項目・小項目の場合は親でフィルタリング
-    if (!parentValue) {
-      return [];
-    }
-
-    // 完全一致でフィルタリング
-    let filteredItems = allItems.filter(item => item.parent === parentValue);
-
-    // 完全一致しない場合は記号を除去して再検索
-    if (filteredItems.length === 0) {
-      const normalizeForMatching = (str) => {
-        return str
-          .replace(/[！!]/g, '') // 感嘆符を除去
-          .replace(/[♪♡☆★～〜]/g, '') // 音楽記号、ハート、星、波線を除去
-          .replace(/\s+/g, ' ') // 連続空白を単一空白に
-          .trim();
-      };
-
-      const normalizedParentValue = normalizeForMatching(parentValue);
-      filteredItems = allItems.filter(item => {
-        if (!item.parent) return false;
-        const normalizedItemParent = normalizeForMatching(item.parent);
-        return normalizedItemParent === normalizedParentValue;
-      });
-    }
-
-    return filteredItems.map(item => item.value).filter(Boolean);
-  }
 
   /**
    * カテゴリーチェーンをリセット
