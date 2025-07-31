@@ -388,10 +388,7 @@ class CategoryUIManager {
     }
 
     // categoryData.getCategoriesByParentを使用してNSFWフィルタリングを確実に通す
-    console.log(`[CategoryUIManager] 📞 Calling getCategoriesByParent for level=${level}, parent=${parentValue}`);
-    const result = categoryData.getCategoriesByParent(level, parentValue);
-    console.log(`[CategoryUIManager] 📞 Got ${result.length} categories from getCategoriesByParent`);
-    return result;
+    return categoryData.getCategoriesByParent(level, parentValue);
   }
 
   /**

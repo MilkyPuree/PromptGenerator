@@ -182,7 +182,6 @@
           // categoryDataが利用可能かチェック
           if (window.categoryData && categoryData.data && categoryData.data[0]?.length > 0) {
             console.log('[SearchTab] CategoryData is available, initializing dropdowns');
-            console.log('[NSFW Debug] SearchTab calling initializeCategoryChain');
             this.categoryUIManager.initializeCategoryChain('search');
             return true;
           } else {

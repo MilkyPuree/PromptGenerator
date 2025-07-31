@@ -237,17 +237,13 @@ const categoryData = {
    * @returns {Array} マッチするカテゴリーの配列
    */
   getCategoriesByParent: function (level, parentValue = null) {
-    console.log(`[NSFW Debug] getCategoriesByParent called: level=${level}, parentValue=${parentValue}`);
-    
     if (level < 0 || level > 2) return [];
 
     if (level === 0 || !parentValue) {
       let categories = this.data[level].map((item) => item.value);
-      console.log(`[NSFW Debug] Raw categories count: ${categories.length}`);
       
       // 大カテゴリ（level 0）の場合、NSFWフィルタリングを適用
       if (level === 0) {
-        console.log(`[NSFW Debug] Applying NSFW filter for level 0`);
         categories = this.filterNSFWCategories(categories);
       }
       
@@ -268,20 +264,13 @@ const categoryData = {
     // NSFWカテゴリ表示設定をチェック（安全性優先：未定義の場合はfalse）
     const showNSFW = AppState.userSettings?.optionData?.showNSFWCategories === true;
     
-    console.log(`[NSFW Debug] showNSFW: ${showNSFW}, AppState:`, {
-      userSettings: !!AppState.userSettings,
-      optionData: !!AppState.userSettings?.optionData,
-      showNSFWValue: AppState.userSettings?.optionData?.showNSFWCategories
-    });
-    
     if (showNSFW) {
       // NSFW表示が明示的に有効な場合のみフィルタリングしない
-      console.log('[NSFW Debug] NSFW display enabled, no filtering');
       return categories;
     }
     
     // デフォルト動作：NSFWを含む大カテゴリを除外（安全性優先）
-    const filtered = categories.filter(category => {
+    return categories.filter(category => {
       // NSFWを含むカテゴリ名をフィルタリング
       const categoryStr = String(category || '').trim();
       
@@ -292,15 +281,8 @@ const categoryData = {
                      categoryStr.startsWith('nsfw:') ||
                      categoryStr.toUpperCase().includes('NSFW');
       
-      if (isNSFW) {
-        console.log(`[NSFW Debug] Filtering out: "${category}"`);
-      }
-      
       return !isNSFW;
     });
-    
-    console.log(`[NSFW Debug] Filtered: ${categories.length} -> ${filtered.length}`);
-    return filtered;
   },
 
   /**
