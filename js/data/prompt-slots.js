@@ -36,8 +36,8 @@ class PromptSlotManager {
         sequentialIndex: 0,
         currentExtraction: null,
         lastExtractionTime: null,
-        absoluteWeight: 1.0, // SD形式の絶対値（編集タブと同じ）
-        weight: null, // 表示用重み（初期化時は後で設定）
+        absoluteWeight: this.getDefaultWeight(), // 現在の形式に応じたデフォルト重み
+        weight: this.getDefaultWeight(), // 表示用重み（デフォルト値で初期化）
         muted: false, // ミュート状態
         // データソース関連
         dataSource: 'dictionary', // 'dictionary' | 'favorites'
@@ -75,8 +75,8 @@ class PromptSlotManager {
       sequentialIndex: 0,
       currentExtraction: null,
       lastExtractionTime: null,
-      absoluteWeight: 1.0, // SD形式の絶対値（編集タブと同じ）
-      weight: null, // 表示用重み（初期化時は後で設定）
+      absoluteWeight: this.getDefaultWeight(), // 現在の形式に応じたデフォルト重み
+      weight: this.getDefaultWeight(), // 表示用重み（デフォルト値で初期化）
       muted: false, // ミュート状態
       // データソース関連
       dataSource: 'dictionary', // 'dictionary' | 'favorites'

@@ -1911,19 +1911,26 @@
           // Chrome Storageをクリア
           await chrome.storage.local.clear();
 
-          // デフォルトグループを含むスロットグループの初期データを作成
-          if (window.slotGroupManager) {
+          // まず、promptSlotManagerを正しく初期化
+          if (window.promptSlotManager) {
+            // 3つのスロットで初期化
+            window.promptSlotManager.initializeSlots(3);
+            await window.promptSlotManager.saveToStorage();
+          }
+
+          // その後、スロットグループマネージャーを初期化
+          if (window.slotGroupManager && window.promptSlotManager) {
             // 既存のグループデータをクリア
             window.slotGroupManager.groups.clear();
             
-            // 空のデフォルトグループを作成（既存データの移行なし）
+            // promptSlotManagerの現在のスロットデータを使用してデフォルトグループを作成
             const emptyDefaultGroup = {
               id: 'default',
               name: window.slotGroupManager.defaultGroupName,
               description: '初期設定のスロットグループ',
               createdAt: Date.now(),
               lastModified: Date.now(),
-              slots: window.slotGroupManager.createDefaultSlots(), // 空のデフォルトスロットを作成
+              slots: window.slotGroupManager.cloneSlots(window.promptSlotManager.slots), // promptSlotManagerのスロットをクローン
               isDefault: true
             };
             
@@ -1937,6 +1944,11 @@
           // AppStateをリセット
           if (window.settingsManager) {
             await window.settingsManager.reloadAppState();
+          }
+
+          // 全データ削除後の重み調整（NAIモード対応）
+          if (window.promptSlotManager) {
+            await this.adjustSlotWeightsAfterReset();
           }
 
           ErrorHandler.notify("設定をリセットしました", {
@@ -1954,6 +1966,43 @@
             type: ErrorHandler.NotificationType.TOAST,
             messageType: "error",
           });
+        }
+      }
+
+      /**
+       * 全データリセット後のスロット重み調整処理
+       * NAIモード時に正しい重み値(0.0)に調整する
+       */
+      async adjustSlotWeightsAfterReset() {
+        try {
+          // 現在のshaping設定を取得
+          const currentShaping = AppState.userSettings?.optionData?.shaping || 'SD';
+          
+          // NAIモードでない場合は何もしない
+          if (currentShaping !== 'NAI') {
+            return;
+          }
+
+          // NAIモード時のみ、全スロットの重みを0.0に調整
+          if (window.promptSlotManager?.slots) {
+            window.promptSlotManager.slots.forEach(slot => {
+              if (slot.weight === 1.0) { // SD基準の値が設定されている場合のみ修正
+                slot.weight = 0.0;
+              }
+              if (slot.absoluteWeight === 1.0) { // absoluteWeightも調整
+                slot.absoluteWeight = 0.0;
+              }
+            });
+
+            // スロットデータを保存
+            await window.promptSlotManager.saveToStorage();
+
+            if (AppState.debugMode) {
+              console.log('[RESET_SETTINGS] NAIモード用重み調整完了: 全スロット0.0に設定');
+            }
+          }
+        } catch (error) {
+          console.error('[RESET_SETTINGS] スロット重み調整でエラー:', error);
         }
       }
 

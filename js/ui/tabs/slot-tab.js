@@ -2202,6 +2202,17 @@
        * @param {string} newShaping - 新しいshaping設定
        */
       updateSlotWeightsForNewShaping(oldShaping, newShaping) {
+        console.log('[SD/NAI切替] === 重み更新処理開始 ===');
+        console.log('[SD/NAI切替] 変更:', oldShaping, '→', newShaping);
+        console.log('[SD/NAI切替] 現在のスロット数:', this.slotManager.slots.length);
+        console.log('[SD/NAI切替] スロットデータ:', this.slotManager.slots.map((s, i) => ({
+          index: i + 1,
+          id: s.id,
+          mode: s.mode,
+          absoluteWeight: s.absoluteWeight,
+          weight: s.weight,
+          prompt: s.prompt ? s.prompt.substring(0, 30) + '...' : '空'
+        })));
         
         // 引数で受け取った新しいshaping設定を使用
         const currentFormat = newShaping || 'SD';
@@ -2209,6 +2220,13 @@
         let promptUpdatedCount = 0;
 
         this.slotManager.slots.forEach((slot, index) => {
+          console.log(`[SD/NAI切替] スロット${index + 1}の処理開始:`, {
+            id: slot.id,
+            mode: slot.mode,
+            前_absoluteWeight: slot.absoluteWeight,
+            前_weight: slot.weight
+          });
+          
           // 全スロットを対象に記法変換を実行（通常モードも含む）
           const oldPrompt = slot.prompt;
           
@@ -2219,31 +2237,54 @@
             if (convertedPrompt !== oldPrompt) {
               slot.prompt = convertedPrompt;
               promptUpdatedCount++;
+              console.log(`[SD/NAI切替] スロット${index + 1}: プロンプト記法変換完了`);
             }
           }
           
-          // 抽出モードのスロットのみ重み値も変換
-          if (slot.mode === 'random' || slot.mode === 'sequential') {
-            const absoluteWeight = slot.absoluteWeight || 1.0; // SD絶対値
-            const oldWeight = slot.weight;
-            
-            // 絶対値（SD値）を現在の形式に変換して表示用weightに設定
-            if (currentFormat === 'NAI') {
-              slot.weight = WeightConverter.convertSDToNAI(absoluteWeight);
-            } else if (currentFormat === 'SD') {
-              slot.weight = absoluteWeight; // SD形式なら絶対値そのまま
-            } else {
-              slot.weight = 1.0; // None形式のデフォルト
-            }
-            
-            // 範囲制限
-            const weightConfig = WeightConverter.getWeightConfig(this.getCurrentShaping());
-            slot.weight = Math.max(weightConfig.min, Math.min(weightConfig.max, slot.weight));
-            
-            if (oldWeight !== slot.weight) {
-              updatedCount++;
-            }
+          // すべてのスロットで重み値を更新（normalモードも含む）
+          // absoluteWeightが0の場合、それは間違った初期値の可能性があるため修正
+          if (slot.absoluteWeight === 0 && oldShaping === 'NAI' && newShaping === 'SD') {
+            // NAI→SDの切り替えで、absoluteWeightが0の場合は1.0に修正
+            slot.absoluteWeight = 1.0;
+            console.log(`[SD/NAI切替] スロット${index + 1}: absoluteWeightを0→1.0に修正`);
+          } else if (slot.absoluteWeight === 1.0 && oldShaping === 'SD' && newShaping === 'NAI') {
+            // SD→NAIの切り替えで、absoluteWeightが1.0の場合は0.0に修正
+            slot.absoluteWeight = 0.0;
+            console.log(`[SD/NAI切替] スロット${index + 1}: absoluteWeightを1.0→0.0に修正`);
           }
+          
+          const absoluteWeight = slot.absoluteWeight;
+          const oldWeight = slot.weight;
+          
+          // 絶対値（SD値）を現在の形式に変換して表示用weightに設定
+          if (currentFormat === 'NAI') {
+            slot.weight = WeightConverter.convertSDToNAI(absoluteWeight);
+          } else if (currentFormat === 'SD') {
+            slot.weight = absoluteWeight; // SD形式なら絶対値そのまま
+          } else {
+            slot.weight = 1.0; // None形式のデフォルト
+          }
+          
+          // 範囲制限
+          const weightConfig = WeightConverter.getWeightConfig(this.getCurrentShaping());
+          slot.weight = Math.max(weightConfig.min, Math.min(weightConfig.max, slot.weight));
+          
+          console.log(`[SD/NAI切替] スロット${index + 1}: 重み更新`, {
+            mode: slot.mode,
+            absoluteWeight,
+            oldWeight,
+            newWeight: slot.weight,
+            currentFormat
+          });
+          
+          if (oldWeight !== slot.weight) {
+            updatedCount++;
+          }
+          
+          console.log(`[SD/NAI切替] スロット${index + 1}の処理完了:`, {
+            後_absoluteWeight: slot.absoluteWeight,
+            後_weight: slot.weight
+          });
         });
 
         // 現在編集中のプロンプトエディタの内容も記法変換
@@ -2270,9 +2311,21 @@
         // スロットカードを再描画して記法変換後のプロンプト内容を表示
         this.updateDisplay();
         
+        console.log('[SD/NAI切替] === 重み更新処理完了 ===', {
+          更新されたスロット数: updatedCount,
+          変換されたプロンプト数: promptUpdatedCount,
+          最終スロットデータ: this.slotManager.slots.map((s, i) => ({
+            index: i + 1,
+            id: s.id,
+            absoluteWeight: s.absoluteWeight,
+            weight: s.weight
+          }))
+        });
+        
         if (updatedCount > 0 || promptUpdatedCount > 0) {
           // ストレージに保存
           this.slotManager.saveToStorage();
+          console.log('[SD/NAI切替] ストレージ保存完了');
         }
       }
 
@@ -3239,6 +3292,24 @@
           
           // 状態を同期
           this.currentShapingMode = currentShaping;
+        }
+
+        // スロット詳細比較ログ
+        console.log('[スロットタブonShow] promptSlotManagerスロット数:', this.slotManager?.slots?.length);
+        console.log('[スロットタブonShow] slotGroupManagerデフォルトグループスロット数:', this.groupManager?.getGroup('default')?.slots?.length);
+        
+        // スロット0の詳細比較
+        const promptSlot0 = this.slotManager?.slots?.[0];
+        const groupSlot0 = this.groupManager?.getGroup('default')?.slots?.[0];
+        
+        if (promptSlot0) {
+          console.log('[スロットタブonShow] promptSlotスロット0:', 
+            `prompt="${promptSlot0.prompt}", mode="${promptSlot0.mode}", category="${promptSlot0.category?.big}|${promptSlot0.category?.middle}", dataSource="${promptSlot0.dataSource}", favoriteDictionaryId="${promptSlot0.favoriteDictionaryId}"`);
+        }
+        
+        if (groupSlot0) {
+          console.log('[スロットタブonShow] groupSlotスロット0:',
+            `prompt="${groupSlot0.prompt}", mode="${groupSlot0.mode}", category="${groupSlot0.category?.big}|${groupSlot0.category?.middle}", dataSource="${groupSlot0.dataSource}", favoriteDictionaryId="${groupSlot0.favoriteDictionaryId}"`);
         }
 
         // 表示を更新

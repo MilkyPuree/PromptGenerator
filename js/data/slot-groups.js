@@ -60,12 +60,12 @@ class SlotGroupManager {
    */
   async migrateExistingSlots(targetGroup) {
     try {
-      // AppStateから直接データを取得
-      if (AppState?.data?.promptSlots?.slots) {
-        console.log('Migrating existing slots from AppState:', AppState.data.promptSlots.slots);
-        targetGroup.slots = this.cloneSlots(AppState.data.promptSlots.slots);
-        return;
-      }
+      // AppStateから直接データを取得（一時的に無効化 - 古いデータの問題）
+      // if (AppState?.data?.promptSlots?.slots) {
+      //   console.log('Migrating existing slots from AppState:', AppState.data.promptSlots.slots);
+      //   targetGroup.slots = this.cloneSlots(AppState.data.promptSlots.slots);
+      //   return;
+      // }
       
       // ストレージから直接データを取得
       const result = await Storage.get('promptSlots');
@@ -100,6 +100,21 @@ class SlotGroupManager {
     const defaultSlots = [];
     const defaultSlotCount = 3;
     
+    // 現在のshaping設定を取得してデフォルト重みを決定
+    const getDefaultWeight = () => {
+      const shaping = AppState?.userSettings?.optionData?.shaping || 'SD';
+      switch (shaping) {
+        case 'SD':
+          return 1.0;
+        case 'NAI':
+          return 0.0;
+        default:
+          return 1.0;
+      }
+    };
+    
+    const defaultWeight = getDefaultWeight();
+    
     for (let i = 0; i < defaultSlotCount; i++) {
       defaultSlots.push({
         id: i,
@@ -113,8 +128,11 @@ class SlotGroupManager {
         sequentialIndex: 0,
         currentExtraction: null,
         lastExtractionTime: null,
-        absoluteWeight: 1.0,
-        weight: 1.0,
+        absoluteWeight: defaultWeight,
+        weight: defaultWeight,
+        muted: false, // 追加：ミュート状態
+        dataSource: 'dictionary', // 追加：データソース
+        favoriteDictionaryId: '', // 追加：お気に入り辞書ID
       });
     }
     

@@ -1196,7 +1196,11 @@ async function initializeDataManager() {
       loadDebugSettings(),
     ];
 
+    // 他の読み込み完了後にプロンプトスロットを読み込み（上書き防止）
     await Promise.all(loadPromises);
+    
+    // プロンプトスロットは最後に読み込んで上書きを防ぐ
+    await loadPromptSlots();
 
     console.log("Data manager initialized successfully");
     console.log("AppState:", AppState);
@@ -1581,6 +1585,35 @@ async function loadDebugSettings() {
     console.error("Failed to load debug settings:", error);
     // エラーが発生した場合はデフォルト値を使用
     AppState.config.debugMode = false;
+  }
+}
+
+/**
+ * プロンプトスロットデータを読み込み
+ */
+async function loadPromptSlots() {
+  try {
+    const result = await Storage.get('promptSlots');
+    if (result.promptSlots && result.promptSlots.slots) {
+      console.log('[loadPromptSlots] ストレージからスロットデータを読み込み - スロット数:', result.promptSlots.slots.length);
+      
+      // AppStateに設定
+      if (!AppState.data) {
+        AppState.data = {};
+      }
+      AppState.data.promptSlots = result.promptSlots;
+      
+      // promptSlotManagerが存在する場合は更新
+      if (window.promptSlotManager) {
+        window.promptSlotManager.slots = [...result.promptSlots.slots];
+        window.promptSlotManager._nextId = result.promptSlots.nextId || result.promptSlots.slots.length;
+        console.log('[loadPromptSlots] promptSlotManagerを更新 - スロット数:', window.promptSlotManager.slots.length);
+      }
+    } else {
+      console.log('[loadPromptSlots] ストレージにスロットデータなし - デフォルト初期化をスキップ');
+    }
+  } catch (error) {
+    console.error("Failed to load prompt slots:", error);
   }
 }
 

@@ -161,6 +161,32 @@ class SettingsManager {
         dataToImport.promptSlots = importData.data.promptSlots;
       }
       if (importData.data?.slotGroups) {
+        
+        // デフォルトグループの特殊処理（スロット管理モーダルの全インポートと同じ処理）
+        if (importData.data.slotGroups.groups) {
+          // groupsが配列形式の場合（エクスポートデータ）
+          const groupsArray = Array.isArray(importData.data.slotGroups.groups) ? 
+            importData.data.slotGroups.groups : 
+            Array.from(importData.data.slotGroups.groups);
+          
+          
+          // デフォルトグループを探す
+          const defaultGroupData = groupsArray.find(g => g[1]?.isDefault || (Array.isArray(g) && g[1]?.isDefault));
+          
+          if (defaultGroupData && importData.data.promptSlots?.slots) {
+            // デフォルトグループのスロットをpromptSlotsのデータで更新
+            const groupData = Array.isArray(defaultGroupData) ? defaultGroupData[1] : defaultGroupData;
+            groupData.slots = importData.data.promptSlots.slots;
+            
+            // promptSlotsも同じデータで更新（両方同期）
+            dataToImport.promptSlots = {
+              slots: importData.data.promptSlots.slots,
+              nextId: importData.data.promptSlots.nextId || importData.data.promptSlots.slots.length
+            };
+          }
+        }
+        
+        // 更新済みのslotGroupsを保存（元データではなく更新済みデータ）
         dataToImport.slotGroups = importData.data.slotGroups;
       }
 
@@ -256,12 +282,71 @@ class SettingsManager {
    * AppStateをリロード
    */
   async reloadAppState() {
+    // initializeDataManager実行前に、より確実にデータ同期を実行
+    const storageData = await Storage.get(['slotGroups', 'promptSlots']);
+    
+    if (storageData.slotGroups?.groups) {
+      const defaultGroupData = storageData.slotGroups.groups.find(g => g[0] === 'default' || g[1]?.isDefault);
+      
+      if (defaultGroupData && defaultGroupData[1]?.slots) {
+        const correctSlots = defaultGroupData[1].slots;
+        const currentSlots = storageData.promptSlots?.slots || [];
+        
+        console.log('[全データインポート] データ同期チェック:');
+        console.log(`  slotGroups内スロット数: ${correctSlots.length}`);
+        console.log(`  promptSlots内スロット数: ${currentSlots.length}`);
+        
+        // データが異なる場合に強制同期
+        if (correctSlots.length !== currentSlots.length || correctSlots.length > 3) {
+          console.log('[全データインポート] データ不整合検出 - 強制同期実行');
+          
+          const syncedSlotData = {
+            slots: [...correctSlots],
+            nextId: Math.max(...correctSlots.map(s => s.id)) + 1
+          };
+          
+          // AppStateを完全に更新
+          if (!AppState.data) {
+            AppState.data = {};
+          }
+          AppState.data.promptSlots = syncedSlotData;
+          
+          // ストレージも完全に更新
+          await Storage.set({
+            promptSlots: syncedSlotData
+          });
+          
+          // window.promptSlotManagerがあれば事前に更新
+          if (window.promptSlotManager) {
+            window.promptSlotManager.slots = [...correctSlots];
+            window.promptSlotManager._nextId = syncedSlotData.nextId;
+          }
+          
+          console.log('[全データインポート] 強制同期完了 - スロット数:', correctSlots.length);
+        } else {
+          console.log('[全データインポート] データ整合性OK - 同期不要');
+        }
+      }
+    }
+
     await initializeDataManager();
     categoryData.update();
 
     // スロットグループマネージャーを再初期化
     if (window.slotGroupManager) {
       await window.slotGroupManager.initialize();
+      
+      // loadGroupSlotsを呼ぶ前に、デフォルトグループのデータが正しいか再チェック
+      const currentGroup = window.slotGroupManager.getCurrentGroup();
+      if (currentGroup && AppState.data?.promptSlots?.slots) {
+        const correctSlots = AppState.data.promptSlots.slots;
+        if (correctSlots.length > 3 && currentGroup.slots.length <= 3) {
+          console.log('[全データインポート] SlotGroupManagerのデフォルトグループを最新データで更新');
+          currentGroup.slots = [...correctSlots];
+          await window.slotGroupManager.saveToStorage();
+        }
+      }
+      
       // 現在のグループを読み込み
       await window.slotGroupManager.loadGroupSlots(window.slotGroupManager.currentGroupId);
     }
