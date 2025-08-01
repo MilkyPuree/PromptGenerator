@@ -2645,12 +2645,14 @@
       setupCategoryEventListeners() {
         const categoryBigSelect = document.getElementById(DOM_IDS.EDIT.CATEGORY_BIG);
         const categoryMiddleSelect = document.getElementById(DOM_IDS.EDIT.CATEGORY_MIDDLE);
+        const favoritesSelect = document.getElementById(DOM_IDS.EDIT.FAVORITES_SELECT);
         
         if (!categoryBigSelect || !categoryMiddleSelect) {
           if (AppState.config.debugMode) {
             console.log('[EditTab] Category selects not found:', {
               categoryBigSelect: !!categoryBigSelect,
-              categoryMiddleSelect: !!categoryMiddleSelect
+              categoryMiddleSelect: !!categoryMiddleSelect,
+              favoritesSelect: !!favoritesSelect
             });
           }
           return;
@@ -2709,6 +2711,35 @@
             console.log('[EditTab] Middle category changed:', middleCategory);
           }
         });
+        
+        // お気に入り辞書選択時のイベントリスナー（スロットタブと同じ処理）
+        if (favoritesSelect) {
+          favoritesSelect.addEventListener("change", async (e) => {
+            const currentSlot = this.getCurrentSlot();
+            
+            if (currentSlot) {
+              currentSlot.favoriteDictionaryId = e.target.value;
+              
+              // 連続抽出モードの場合はインデックスをリセット（スロットタブと同じ）
+              if (currentSlot.mode === "sequential") {
+                currentSlot.sequentialIndex = 0;
+              }
+              
+              // スロットマネージャーに保存
+              if (window.promptSlotManager) {
+                await window.promptSlotManager.saveToStorage();
+              }
+              
+              if (AppState.config.debugMode) {
+                console.log('[EditTab] Favorite dictionary changed:', {
+                  newValue: e.target.value,
+                  slotId: currentSlot.id,
+                  sequentialIndexReset: currentSlot.mode === "sequential"
+                });
+              }
+            }
+          });
+        }
         
         if (AppState.config.debugMode) {
           console.log('[EditTab] Category event listeners setup completed');
