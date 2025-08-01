@@ -22257,6 +22257,70 @@ let defaultMaster = {
     data: ["テイスト", "作品", "魔界戦記ディスガイア風"]
   },
   {
+    prompt: "traditional media",
+    data: ["テイスト", "作画表現", "アナログっぽい感じ"]
+  },
+  {
+    prompt: "anime",
+    data: ["テイスト", "作画表現", "アニメ"]
+  },
+  {
+    prompt: "illustration",
+    data: ["テイスト", "作画表現", "イラスト"]
+  },
+  {
+    prompt: "ink drawing",
+    data: ["テイスト", "作画表現", "インク画"]
+  },
+  {
+    prompt: "graffiti",
+    data: ["テイスト", "作画表現", "グラフィティ"]
+  },
+  {
+    prompt: "comic",
+    data: ["テイスト", "作画表現", "コミック,漫画"]
+  },
+  {
+    prompt: "contour drawing",
+    data: ["テイスト", "作画表現", "コンター画(輪郭画)"]
+  },
+  {
+    prompt: "simple lineart",
+    data: ["テイスト", "作画表現", "シンプル線画"]
+  },
+  {
+    prompt: "sketch",
+    data: ["テイスト", "作画表現", "スケッチ"]
+  },
+  {
+    prompt: "strokes",
+    data: ["テイスト", "作画表現", "ストローク"]
+  },
+  {
+    prompt: "line art",
+    data: ["テイスト", "作画表現", "ラインアート,線画"]
+  },
+  {
+    prompt: "soft coloring",
+    data: ["テイスト", "作画表現", "塗りが淡い"]
+  },
+  {
+    prompt: "bold coloring",
+    data: ["テイスト", "作画表現", "塗りが濃い"]
+  },
+  {
+    prompt: "outline",
+    data: ["テイスト", "作画表現", "概要"]
+  },
+  {
+    prompt: "manganime",
+    data: ["テイスト", "作画表現", "漫画とアニメ"]
+  },
+  {
+    prompt: "4koma",
+    data: ["テイスト", "作画表現", "４コマ"]
+  },
+  {
     prompt: "character chart",
     data: ["テイスト", "作画資料", "キャラ一覧"]
   },

@@ -2558,7 +2558,7 @@ class PromptListManager {
 
           // wheelHandlerを要素に保存（後でクリーンアップ用）
           inputElement._wheelHandler = wheelHandler;
-          inputElement.addEventListener("wheel", wheelHandler, { passive: true });
+          inputElement.addEventListener("wheel", wheelHandler, { passive: false });
         }
       }
 
