@@ -141,17 +141,22 @@ class SearchHandler {
     const translationPromises = [];
     const results = [];
 
-    // Google翻訳
-    translationPromises.push(
-      this.translateWithService(keyword, "Google", translateGoogle).then(
-        (data) => results.push(data)
-      )
-    );
+    // DeepL翻訳を優先（APIキーがある場合はDeepLのみ使用）
+    // deeplAuth と deeplAuthKey の両方をサポート（互換性のため）
+    const hasDeeplKey = AppState.userSettings.optionData?.deeplAuth ||
+                        AppState.userSettings.optionData?.deeplAuthKey;
 
-    // DeepL翻訳（APIキーがある場合）
-    if (AppState.userSettings.optionData?.deeplAuthKey) {
+    if (hasDeeplKey) {
+      // DeepL翻訳のみ実行
       translationPromises.push(
         this.translateWithService(keyword, "DeepL", translateDeepl).then(
+          (data) => results.push(data)
+        )
+      );
+    } else {
+      // Google翻訳のみ実行
+      translationPromises.push(
+        this.translateWithService(keyword, "Google", translateGoogle).then(
           (data) => results.push(data)
         )
       );

@@ -307,13 +307,15 @@ async function translateDeepl(keyword, translateEvent) {
       throw new Error("DeepL API URL not available");
     }
 
-    if (!optionData.deeplAuthKey) {
+    // deeplAuth と deeplAuthKey の両方をサポート（互換性のため）
+    const apiKey = optionData.deeplAuth || optionData.deeplAuthKey;
+    if (!apiKey) {
       throw new Error("DeepL API key not configured");
     }
 
     const params = new URLSearchParams({
       search: keyword,
-      authKey: optionData.deeplAuthKey,
+      authKey: apiKey,
     });
 
     const url = `${toolInfo.translateDeeplAPI}?${params.toString()}`;

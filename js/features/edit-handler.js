@@ -357,8 +357,16 @@ class EditHandler {
         Value: element.Value
       });
       
-      // Google翻訳APIを呼び出し（検索タブと同じ仕様）
-      await translateGoogle(prompt, (translationResult) => {
+      // 翻訳APIを呼び出し（DeepL優先、フォールバックでGoogle翻訳）
+      // deeplAuth と deeplAuthKey の両方をサポート（互換性のため）
+      const hasDeeplKey = AppState.userSettings.optionData?.deeplAuth ||
+                          AppState.userSettings.optionData?.deeplAuthKey;
+      const translateFunc = hasDeeplKey ? translateDeepl : translateGoogle;
+      const translationService = hasDeeplKey ? 'DeepL' : 'Google';
+
+      console.log(`[EditHandler] Using ${translationService} translation service`);
+
+      await translateFunc(prompt, (translationResult) => {
         console.log(`[EditHandler] Translation result received:`, translationResult);
         
         // Google翻訳の結果は配列で返される

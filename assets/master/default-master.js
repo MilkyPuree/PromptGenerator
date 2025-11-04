@@ -201,7 +201,7 @@ let defaultMaster = {
     data: ["NSFW:シチュ", "シチュ", "拘束,亀甲縛り"]
   },
   {
-    prompt: "sweat, steam, smile, school {{{festival}}}, on stage, bandstand, open air stage, {{idol}}, dancing, singing, holding handheld microphone, in motion, {{blue sky}},  school ground, {{bunting}}, [audience], nsfw, panties, tuck up skirt, {confetti}, looking afar, yellow hair",
+    prompt: "sweat, steam, smile, school {{{festival}}}, on stage, bandstand, open air stage, {{idol}}, dancing, singing, holding handheld microphone, in motion, {{blue sky}}, school ground, {{bunting}}, [audience], nsfw, panties, tuck up skirt, {confetti}, looking afar, yellow hair",
     data: ["NSFW:シチュ", "シチュ", "文化祭ライブパンチラ"]
   },
   {
@@ -285,7 +285,7 @@ let defaultMaster = {
     data: ["NSFW:シチュ", "シチュ", "陰で"]
   },
   {
-    prompt: "nsfw, nude, in shower room, {{full-face blush}}, looking at viewer, {{surprised}}, embarrassed, scared, angry,  steam, sweat,  {{{{covering breasts}}}} by hands, covering crotch",
+    prompt: "nsfw, nude, in shower room, {{full-face blush}}, looking at viewer, {{surprised}}, embarrassed, scared, angry, steam, sweat, {{{{covering breasts}}}} by hands, covering crotch",
     data: ["NSFW:シチュ", "シチュ", "風呂ラッキースケベ"]
   },
   {
@@ -429,7 +429,7 @@ let defaultMaster = {
     data: ["NSFW:テンプレ", "挿入", "輪姦後背位テンプレ"]
   },
   {
-    prompt: "{nsfw}, sex, fuck, {{{{{orgasm}}}}}, missionary, {incoming kiss}, {imminent kiss}, lick, {saliva}, {saliva trail},  face, breasts,  thighs, spread legs, slouching, front, pov, {{looking at viewer}},  {{{reaching out 2arms}}},  {{{{{face focus}}}}}, steam, sweat, {cum}, {aroused}, excited",
+    prompt: "{nsfw}, sex, fuck, {{{{{orgasm}}}}}, missionary, {incoming kiss}, {imminent kiss}, lick, {saliva}, {saliva trail}, face, breasts, thighs, spread legs, slouching, front, pov, {{looking at viewer}}, {{{reaching out 2arms}}}, {{{{{face focus}}}}}, steam, sweat, {cum}, {aroused}, excited",
     data: ["NSFW:テンプレ", "挿入", "顔近正常位POV"]
   },
   {
@@ -481,7 +481,7 @@ let defaultMaster = {
     data: ["NSFW:テンプレ", "露出", "挿入待機"]
   },
   {
-    prompt: "nsfw,1girl,squatting,{{{\"pussy juice drip through clothes\"}}}, {{peeing}}, \"yellow puddle\"",
+    prompt: "nsfw,1girl,squatting,{{{pussy juice drip through clothes}}}, {{peeing}}, yellow puddle",
     data: ["NSFW:テンプレ", "露出", "放尿"]
   },
   {
@@ -489,7 +489,7 @@ let defaultMaster = {
     data: ["NSFW:テンプレ", "露出", "競泳水着で放尿(見上げる視点)"]
   },
   {
-    prompt: "spread legs, two legs up, thighs,  leg open, wide spread legs open one's stance,  two legs up,  {two thighs up}, tuck up skirt, {{{pussy, beautiful detailed vagina,uncensored}}},pussy juice",
+    prompt: "spread legs, two legs up, thighs, leg open, wide spread legs open one's stance, two legs up, {two thighs up}, tuck up skirt, {{{pussy, beautiful detailed vagina,uncensored}}},pussy juice",
     data: ["NSFW:テンプレ", "露出", "脚を広げてマンコを見せる"]
   },
   {
@@ -505,8 +505,96 @@ let defaultMaster = {
     data: ["NSFW:テンプレ", "露出", "露出ピーステンプレ"]
   },
   {
-    prompt: "{{1girl,}}, {{masterpiece}},dramatic angle,{ultra-detailed}, {illustration}, [novel illustration], high resolution,{{an extremely delicate and beautiful}}, accurate describe shapes, thorough and precise, dynamic pose,  dynamic angle, {{photorealistic}}, nsfw,  nipples out, exhibitionism, turn up coat, open coat,  {{{a flu mask}}}, {{{in night}}}, in alley, vending machine, traffic lights, night city,  {{sweat}}, steam",
+    prompt: "{{1girl,}}, {{masterpiece}},dramatic angle,{ultra-detailed}, {illustration}, [novel illustration], high resolution,{{an extremely delicate and beautiful}}, accurate describe shapes, thorough and precise, dynamic pose, dynamic angle, {{photorealistic}}, nsfw, nipples out, exhibitionism, turn up coat, open coat, {{{a flu mask}}}, {{{in night}}}, in alley, vending machine, traffic lights, night city, {{sweat}}, steam",
     data: ["NSFW:テンプレ", "露出", "露出徘徊"]
+  },
+  {
+    prompt: "bunny girl",
+    data: ["NSFW:ファッション", "その他", "バニーガール"]
+  },
+  {
+    prompt: "bunny suits",
+    data: ["NSFW:ファッション", "その他", "バニーガール2"]
+  },
+  {
+    prompt: "playboy bunny",
+    data: ["NSFW:ファッション", "その他", "バニーガール3"]
+  },
+  {
+    prompt: "hostess uniform",
+    data: ["NSFW:ファッション", "その他", "ホステス"]
+  },
+  {
+    prompt: "host uniform",
+    data: ["NSFW:ファッション", "その他", "ホスト"]
+  },
+  {
+    prompt: "bdsm",
+    data: ["NSFW:ファッション", "その他", "ボンテージ"]
+  },
+  {
+    prompt: "bondage",
+    data: ["NSFW:ファッション", "その他", "ボンテージ2"]
+  },
+  {
+    prompt: "sexual bondage",
+    data: ["NSFW:ファッション", "その他", "ボンデージ"]
+  },
+  {
+    prompt: "show off nipples",
+    data: ["NSFW:ファッション", "その他", "乳首が見えている"]
+  },
+  {
+    prompt: "zentai,featureless full face black suit,shinny paraphilia and latex suit",
+    data: ["NSFW:ファッション", "その他", "全体スーツ"]
+  },
+  {
+    prompt: "prostitute",
+    data: ["NSFW:ファッション", "その他", "娼婦"]
+  },
+  {
+    prompt: "breasts out",
+    data: ["NSFW:ファッション", "その他", "胸出し"]
+  },
+  {
+    prompt: "naked bandage",
+    data: ["NSFW:ファッション", "その他", "裸の包帯"]
+  },
+  {
+    prompt: "naked apron",
+    data: ["NSFW:ファッション", "その他", "裸エプロン"]
+  },
+  {
+    prompt: "wearing a bunny suit",
+    data: ["NSFW:ファッション", "アクセサリー", "バニーガール"]
+  },
+  {
+    prompt: "arm covering breasts",
+    data: ["NSFW:ファッション", "アクセサリー", "胸隠し"]
+  },
+  {
+    prompt: "necktie between breasts",
+    data: ["NSFW:ファッション", "アクセサリー", "谷間ネクタイ"]
+  },
+  {
+    prompt: "pants open around anus",
+    data: ["NSFW:ファッション", "ボトムス", "アナル周辺まで開いたズボン"]
+  },
+  {
+    prompt: "saliva,drivel,saliva trail,harem outfit,harem pants,see-through veil,mouth veil,hip vent,see-through pants,see-through sleeves,see-through skirt,micro bikini",
+    data: ["NSFW:ファッション", "ボトムス", "エロダンサー"]
+  },
+  {
+    prompt: "backless dress,halter dress,plunging neckline,short dress,miniskirt, skirt lift,lifted by self",
+    data: ["NSFW:ファッション", "ボトムス", "エロドレス"]
+  },
+  {
+    prompt: "micro bikini, micro shorts, denim shorts, short shorts, cutoffs",
+    data: ["NSFW:ファッション", "ボトムス", "マイクロビキニセット"]
+  },
+  {
+    prompt: "official style,dressed as {mizuki yukikaze (cosplay), taimanin (series)}, very aesthetic, best quality, intricate, overall detail, nsfw, alternate costume, {mizuki yukikaze (cosplay)}, skindentation, black leotard, black gloves, black thighhighs",
+    data: ["NSFW:ファッション", "ワンピース・ドレス", "対魔忍コス"]
   },
   {
     prompt: "thong panties",
@@ -593,6 +681,10 @@ let defaultMaster = {
     data: ["NSFW:ファッション", "下着", "フリル付きブラ"]
   },
   {
+    prompt: "fusion shinny paraphilia and latex corset leotard garter straps long gloves long boots belt collar",
+    data: ["NSFW:ファッション", "下着", "ボンテージスーツ"]
+  },
+  {
     prompt: "panties with ribbon",
     data: ["NSFW:ファッション", "下着", "リボン付きパンティ"]
   },
@@ -621,124 +713,32 @@ let defaultMaster = {
     data: ["NSFW:ファッション", "下着", "小さめのブラ"]
   },
   {
-    prompt: "pants open around anus",
-    data: ["NSFW:ファッション", "服装", "アナル周辺まで開いたズボン"]
-  },
-  {
-    prompt: "saliva,drivel,saliva trail,harem outfit,harem pants,see-through veil,mouth veil,hip vent,see-through pants,see-through sleeves,see-through skirt,micro bikini",
-    data: ["NSFW:ファッション", "服装", "エロダンサー"]
-  },
-  {
-    prompt: "backless dress,halter dress,plunging neckline,short dress,miniskirt, skirt lift,lifted by self",
-    data: ["NSFW:ファッション", "服装", "エロドレス"]
+    prompt: "reverse bunnysuit",
+    data: ["NSFW:ファッション", "服装", "逆バニー"]
   },
   {
     prompt: "see-through leotard",
-    data: ["NSFW:ファッション", "服装", "スケレオダード"]
-  },
-  {
-    prompt: "bunny girl",
-    data: ["NSFW:ファッション", "服装", "バニーガール"]
-  },
-  {
-    prompt: "wearing a bunny suit",
-    data: ["NSFW:ファッション", "服装", "バニーガール"]
-  },
-  {
-    prompt: "bunny suits",
-    data: ["NSFW:ファッション", "服装", "バニーガール2"]
-  },
-  {
-    prompt: "playboy bunny",
-    data: ["NSFW:ファッション", "服装", "バニーガール3"]
+    data: ["NSFW:ファッション", "水着", "スケレオダード"]
   },
   {
     prompt: "side-tie leotard",
-    data: ["NSFW:ファッション", "服装", "バニーガールの服"]
+    data: ["NSFW:ファッション", "水着", "バニーガールの服"]
   },
   {
     prompt: "highleg leotard",
-    data: ["NSFW:ファッション", "服装", "バニーガールの服(紐無し)"]
-  },
-  {
-    prompt: "hostess uniform",
-    data: ["NSFW:ファッション", "服装", "ホステス"]
-  },
-  {
-    prompt: "host uniform",
-    data: ["NSFW:ファッション", "服装", "ホスト"]
-  },
-  {
-    prompt: "bdsm",
-    data: ["NSFW:ファッション", "服装", "ボンテージ"]
-  },
-  {
-    prompt: "bondage",
-    data: ["NSFW:ファッション", "服装", "ボンテージ2"]
-  },
-  {
-    prompt: "fusion shinny paraphilia and latex corset leotard garter straps long gloves long boots belt collar",
-    data: ["NSFW:ファッション", "服装", "ボンテージスーツ"]
-  },
-  {
-    prompt: "sexual bondage",
-    data: ["NSFW:ファッション", "服装", "ボンデージ"]
-  },
-  {
-    prompt: "micro bikini,  micro shorts, denim shorts, short shorts, cutoffs",
-    data: ["NSFW:ファッション", "服装", "マイクロビキニセット"]
-  },
-  {
-    prompt: "show off nipples",
-    data: ["NSFW:ファッション", "服装", "乳首が見えている"]
-  },
-  {
-    prompt: "zentai,featureless full face black suit,shinny paraphilia and latex suit",
-    data: ["NSFW:ファッション", "服装", "全体スーツ"]
-  },
-  {
-    prompt: "prostitute",
-    data: ["NSFW:ファッション", "服装", "娼婦"]
-  },
-  {
-    prompt: "official style,dressed as {mizuki yukikaze (cosplay), taimanin (series)}, very aesthetic, best quality, intricate, overall detail, nsfw, alternate costume, {mizuki yukikaze (cosplay)}, skindentation, black leotard, black gloves, black thighhighs",
-    data: ["NSFW:ファッション", "服装", "対魔忍コス"]
+    data: ["NSFW:ファッション", "水着", "バニーガールの服(紐無し)"]
   },
   {
     prompt: "torn leotard",
-    data: ["NSFW:ファッション", "服装", "破れたレオタード"]
+    data: ["NSFW:ファッション", "水着", "破れたレオタード"]
   },
   {
     prompt: "crotchless leotard",
-    data: ["NSFW:ファッション", "服装", "股間の空いたレオタード"]
-  },
-  {
-    prompt: "breasts out",
-    data: ["NSFW:ファッション", "服装", "胸出し,開いた谷間"]
-  },
-  {
-    prompt: "arm covering breasts",
-    data: ["NSFW:ファッション", "服装", "胸隠し"]
-  },
-  {
-    prompt: "naked bandage",
-    data: ["NSFW:ファッション", "服装", "裸の包帯"]
-  },
-  {
-    prompt: "naked apron",
-    data: ["NSFW:ファッション", "服装", "裸エプロン"]
-  },
-  {
-    prompt: "necktie between breasts",
-    data: ["NSFW:ファッション", "服装", "谷間ネクタイ"]
-  },
-  {
-    prompt: "fishnet bodysuit, reverse bunnysuit,heart pasties,rabbit ears,fake animal ears",
-    data: ["NSFW:ファッション", "服装", "逆バニー1"]
+    data: ["NSFW:ファッション", "水着", "股間の空いたレオタード"]
   },
   {
     prompt: "see-through leotard,playboy bunny,see-through,transpbunny,rabbit ears,fake animal ears",
-    data: ["NSFW:ファッション", "服装", "逆バニー2"]
+    data: ["NSFW:ファッション", "水着", "逆バニー2"]
   },
   {
     prompt: "spanking",
@@ -757,6 +757,30 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "SM", "縛り系"]
   },
   {
+    prompt: "cooperative paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "Wパイズリ,ダブルパイズリ,協力パイズリ"]
+  },
+  {
+    prompt: "handsfree paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "ノーハンドパイズリ"]
+  },
+  {
+    prompt: "paizuri under clothes",
+    data: ["NSFW:プレイ", "パイズリ", "着衣パイズリ"]
+  },
+  {
+    prompt: "perpendicular paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "縦パイズリ"]
+  },
+  {
+    prompt: "reverse paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "逆パイズリ,アナル舐めパイズリ"]
+  },
+  {
+    prompt: "straddling paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "馬乗りパイズリ"]
+  },
+  {
     prompt: "accidentally wetting their pants with pee",
     data: ["NSFW:プレイ", "プレイ", "ズボンにおもらし"]
   },
@@ -771,18 +795,6 @@ let defaultMaster = {
   {
     prompt: "paizuri",
     data: ["NSFW:プレイ", "プレイ", "パイズリ"]
-  },
-  {
-    prompt: "titty fuck",
-    data: ["NSFW:プレイ", "プレイ", "パイズリ1"]
-  },
-  {
-    prompt: "titfuck",
-    data: ["NSFW:プレイ", "プレイ", "パイズリ2"]
-  },
-  {
-    prompt: "tit wank",
-    data: ["NSFW:プレイ", "プレイ", "パイズリ3"]
   },
   {
     prompt: "cum on breasts,bukkake,cum on body,cum",
@@ -1013,16 +1025,8 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "体位", "後背位,バック"]
   },
   {
-    prompt: "doggy style",
-    data: ["NSFW:プレイ", "体位", "後背位,バック2"]
-  },
-  {
     prompt: "missionary position",
     data: ["NSFW:プレイ", "体位", "正常位"]
-  },
-  {
-    prompt: "deep penetration",
-    data: ["NSFW:プレイ", "体位", "深い挿入,深く挿入"]
   },
   {
     prompt: "standing missionary",
@@ -1057,12 +1061,12 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "体位", "Ｈバック"]
   },
   {
-    prompt: "cooperative fellatio,harem",
-    data: ["NSFW:プレイ", "口淫", "Wフェラ"]
+    prompt: "cooperative fellatio",
+    data: ["NSFW:プレイ", "口淫", "Wフェラ,ダブルフェラ,協力フェラ"]
   },
   {
     prompt: ":>=",
-    data: ["NSFW:プレイ", "口淫", "ひょっとこフェラ"]
+    data: ["NSFW:プレイ", "口淫", "ひょっとこフェラ,バキュームフェラ"]
   },
   {
     prompt: "anilingus",
@@ -1083,10 +1087,6 @@ let defaultMaster = {
   {
     prompt: "(|||expression3|||=, vacuum fellatio),hetero,solo focus,1boy,pov crotch,deepthroat,deep penetration,saliva,top-down bottom-up",
     data: ["NSFW:プレイ", "口淫", "バキューム"]
-  },
-  {
-    prompt: "vacuum fellatio",
-    data: ["NSFW:プレイ", "口淫", "バキュームフェラ"]
   },
   {
     prompt: "licking penis",
@@ -1157,6 +1157,10 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "口淫", "玉なめ"]
   },
   {
+    prompt: "reverse fellatio",
+    data: ["NSFW:プレイ", "口淫", "逆さフェラ"]
+  },
+  {
     prompt: "1boy,male,penis,pov,sex",
     data: ["NSFW:プレイ", "性交", "セックス時の男追加(主観)"]
   },
@@ -1195,6 +1199,10 @@ let defaultMaster = {
   {
     prompt: "caressing testicles",
     data: ["NSFW:プレイ", "手淫", "睾丸を愛撫する"]
+  },
+  {
+    prompt: "reach-around",
+    data: ["NSFW:プレイ", "手淫", "背後から手コキ"]
   },
   {
     prompt: "insert vagina",
@@ -1585,10 +1593,6 @@ let defaultMaster = {
     data: ["NSFW:動作", "動作", "おまんこに手"]
   },
   {
-    prompt: "hand grabbing ass",
-    data: ["NSFW:動作", "動作", "お尻を手でつかむ"]
-  },
-  {
     prompt: "leg lock and hug",
     data: ["NSFW:動作", "動作", "だいしゅきホールド"]
   },
@@ -1615,6 +1619,10 @@ let defaultMaster = {
   {
     prompt: "strips",
     data: ["NSFW:動作", "動作", "ストリップ"]
+  },
+  {
+    prompt: "grabbing own breast",
+    data: ["NSFW:動作", "動作", "セルフ乳揉み,乳揉み,胸揉み,胸掴み"]
   },
   {
     prompt: "paizuri invitation",
@@ -1709,12 +1717,12 @@ let defaultMaster = {
     data: ["NSFW:動作", "動作", "第三者が胸を持ち上げる"]
   },
   {
-    prompt: "grabbing own breasts",
-    data: ["NSFW:動作", "動作", "胸を揉む"]
-  },
-  {
     prompt: "breasts envy",
     data: ["NSFW:動作", "動作", "胸囲が欲しい"]
+  },
+  {
+    prompt: "grabbing another's breast",
+    data: ["NSFW:動作", "動作", "胸揉み,胸掴み,乳揉み,乳鷲掴み"]
   },
   {
     prompt: "armpits",
@@ -1727,10 +1735,6 @@ let defaultMaster = {
   {
     prompt: "boy grab her waist",
     data: ["NSFW:動作", "動作", "腰掴み"]
-  },
-  {
-    prompt: "grabbing own breast",
-    data: ["NSFW:動作", "動作", "自分の胸をつかむ"]
   },
   {
     prompt: "come hither",
@@ -1801,15 +1805,7 @@ let defaultMaster = {
     data: ["NSFW:性器", "子宮", "断面イキ"]
   },
   {
-    prompt: "1.5::cross section:: on female body",
-    data: ["NSFW:性器", "子宮", "断面図"]
-  },
-  {
-    prompt: "cross-section of uterus,fertilization,pussy cum",
-    data: ["NSFW:性器", "子宮", "断面図"]
-  },
-  {
-    prompt: "uterus at viewer penis inserted into pussy from cross section looking through,cum in uterus",
+    prompt: "cross-section",
     data: ["NSFW:性器", "子宮", "断面図"]
   },
   {
@@ -1817,8 +1813,8 @@ let defaultMaster = {
     data: ["NSFW:性器", "子宮", "断面図(要体位設定)"]
   },
   {
-    prompt: "1.3::detailed cross section on female body,x-ray view of a large penis inserted into a vagina::",
-    data: ["NSFW:性器", "子宮", "断面図(体表)"]
+    prompt: "internal cumshot",
+    data: ["NSFW:性器", "子宮", "断面図,子宮内射精"]
   },
   {
     prompt: "anal hair",
@@ -2465,6 +2461,18 @@ let defaultMaster = {
     data: ["NSFW:精液", "射精", "ぶっかけ"]
   },
   {
+    prompt: "after ejaculation",
+    data: ["NSFW:精液", "射精", "ズリ事後,パイ射,ザーメンブリッジ"]
+  },
+  {
+    prompt: "ejaculating while penetrated",
+    data: ["NSFW:精液", "射精", "トコロテン,メスイキ"]
+  },
+  {
+    prompt: "handsfree ejaculation",
+    data: ["NSFW:精液", "射精", "ノーハンド射精,トコロテン"]
+  },
+  {
     prompt: "cum in pussy",
     data: ["NSFW:精液", "射精", "中出し"]
   },
@@ -2483,10 +2491,6 @@ let defaultMaster = {
   {
     prompt: "pre-cum",
     data: ["NSFW:精液", "射精", "先走り汁,我慢汁・がまん汁・カウパー"]
-  },
-  {
-    prompt: "forceful ejaculation",
-    data: ["NSFW:精液", "射精", "勢いよく射精している"]
   },
   {
     prompt: "ejaculating in mouth",
@@ -2509,16 +2513,20 @@ let defaultMaster = {
     data: ["NSFW:精液", "射精", "大量射精"]
   },
   {
+    prompt: "projectile cum",
+    data: ["NSFW:精液", "射精", "射精,噴射"]
+  },
+  {
+    prompt: "ejaculation",
+    data: ["NSFW:精液", "射精", "射精,大量射精"]
+  },
+  {
     prompt: "cream shoot",
     data: ["NSFW:精液", "射精", "射精1"]
   },
   {
     prompt: "cumshot",
     data: ["NSFW:精液", "射精", "射精2"]
-  },
-  {
-    prompt: "ejaculation",
-    data: ["NSFW:精液", "射精", "射精3,劇核"]
   },
   {
     prompt: "climax moment",
@@ -4033,8 +4041,8 @@ let defaultMaster = {
     data: ["エフェクト", "シンボル", "宙に舞う羽"]
   },
   {
-    prompt: "sound effect",
-    data: ["エフェクト", "シンボル", "擬音"]
+    prompt: "sound effects",
+    data: ["エフェクト", "シンボル", "擬音,オノマトペ"]
   },
   {
     prompt: "feathers floating in the air",
@@ -23309,12 +23317,112 @@ let defaultMaster = {
     data: ["デザイナー", "透明感系", "史跡ひらめ,志々伎平目"]
   },
   {
+    prompt: "id card",
+    data: ["ファッション", "その他", "IDカード(社員証)"]
+  },
+  {
+    prompt: "scifi hair ornaments",
+    data: ["ファッション", "その他", "SCIFI系髪の装飾品"]
+  },
+  {
+    prompt: "bunny ears",
+    data: ["ファッション", "その他", "うさみみ"]
+  },
+  {
     prompt: "pacifier",
     data: ["ファッション", "その他", "おしゃぶり"]
   },
   {
+    prompt: "fancy hairpin",
+    data: ["ファッション", "その他", "おしゃれなヘアピン"]
+  },
+  {
+    prompt: "covered breasts",
+    data: ["ファッション", "その他", "おっぱい隠す"]
+  },
+  {
+    prompt: "diapers",
+    data: ["ファッション", "その他", "おむつ"]
+  },
+  {
+    prompt: "bleached cloth",
+    data: ["ファッション", "その他", "さらし布"]
+  },
+  {
     prompt: "ninja mask",
     data: ["ファッション", "その他", "その他"]
+  },
+  {
+    prompt: "navel exposed",
+    data: ["ファッション", "その他", "へそ出し"]
+  },
+  {
+    prompt: "wholebloomer",
+    data: ["ファッション", "その他", "まとまったブルマー"]
+  },
+  {
+    prompt: "eyepatch",
+    data: ["ファッション", "その他", "アイパッチ"]
+  },
+  {
+    prompt: "asymmetrical legwear",
+    data: ["ファッション", "その他", "アシンメトリーなレッグウェア"]
+  },
+  {
+    prompt: "blue ascot",
+    data: ["ファッション", "その他", "アスコットタイ"]
+  },
+  {
+    prompt: "anklet",
+    data: ["ファッション", "その他", "アンクレット"]
+  },
+  {
+    prompt: "arm covers",
+    data: ["ファッション", "その他", "アームカバー"]
+  },
+  {
+    prompt: "ear cuff",
+    data: ["ファッション", "その他", "イヤーカフ"]
+  },
+  {
+    prompt: "earmuffs",
+    data: ["ファッション", "その他", "イヤーマフ"]
+  },
+  {
+    prompt: "waist apron",
+    data: ["ファッション", "その他", "ウェイトレスのエプロン"]
+  },
+  {
+    prompt: "bridal gauntlets",
+    data: ["ファッション", "その他", "ウェディンググローブ"]
+  },
+  {
+    prompt: "enameled clothes",
+    data: ["ファッション", "その他", "エナメル服"]
+  },
+  {
+    prompt: "apron",
+    data: ["ファッション", "その他", "エプロン"]
+  },
+  {
+    prompt: "electric guitar",
+    data: ["ファッション", "その他", "エレキギター"]
+  },
+  {
+    prompt: "angel halo",
+    data: ["ファッション", "その他", "エンジェルハロー"]
+  },
+  {
+    prompt: "off shoulder",
+    data: ["ファッション", "その他", "オフショルダー"]
+  },
+  {
+    prompt: "off-shoulder",
+    data: ["ファッション", "その他", "オフショルダー"]
+  },
+  {
+    prompt: "horseshoe shaped hairband",
+    data: ["ファッション", "その他", "カチューシャ"]
   },
   {
     prompt: "gas mask",
@@ -23325,48 +23433,944 @@ let defaultMaster = {
     data: ["ファッション", "その他", "ガスマスク 要強"]
   },
   {
+    prompt: "rattle",
+    data: ["ファッション", "その他", "ガラガラ"]
+  },
+  {
+    prompt: "girly style",
+    data: ["ファッション", "その他", "ガーリースタイル"]
+  },
+  {
+    prompt: "chemise",
+    data: ["ファッション", "その他", "キャミソール"]
+  },
+  {
+    prompt: "ball gag",
+    data: ["ファッション", "その他", "ギャグボール"]
+  },
+  {
+    prompt: "towel gag",
+    data: ["ファッション", "その他", "ギャグボール2"]
+  },
+  {
+    prompt: "kemomimi",
+    data: ["ファッション", "その他", "ケモミミ"]
+  },
+  {
+    prompt: "underbust",
+    data: ["ファッション", "その他", "コルセット"]
+  },
+  {
     prompt: "multiple condoms",
     data: ["ファッション", "その他", "コンドーム散乱"]
+  },
+  {
+    prompt: "suspenders",
+    data: ["ファッション", "その他", "サスペンダー"]
+  },
+  {
+    prompt: "sun visor",
+    data: ["ファッション", "その他", "サンバイザー"]
+  },
+  {
+    prompt: "scrunchie",
+    data: ["ファッション", "その他", "シュシュ"]
+  },
+  {
+    prompt: "silk shawl",
+    data: ["ファッション", "その他", "シルクショール"]
+  },
+  {
+    prompt: "simple hair clip",
+    data: ["ファッション", "その他", "シンプルなヘアクリップ"]
+  },
+  {
+    prompt: "see through",
+    data: ["ファッション", "その他", "シースルー"]
+  },
+  {
+    prompt: "see through sleeves",
+    data: ["ファッション", "その他", "シースルーの袖"]
+  },
+  {
+    prompt: "zipper",
+    data: ["ファッション", "その他", "ジッパー"]
+  },
+  {
+    prompt: "track suits",
+    data: ["ファッション", "その他", "ジャージ"]
+  },
+  {
+    prompt: "baby bib",
+    data: ["ファッション", "その他", "スタイ"]
+  },
+  {
+    prompt: "spats",
+    data: ["ファッション", "その他", "スパッツ"]
+  },
+  {
+    prompt: "safety knickers",
+    data: ["ファッション", "その他", "スパッツみたいな安全半ズボン"]
+  },
+  {
+    prompt: "child smock",
+    data: ["ファッション", "その他", "スモック"]
+  },
+  {
+    prompt: "slingshot",
+    data: ["ファッション", "その他", "スリングショット"]
+  },
+  {
+    prompt: "sleeve",
+    data: ["ファッション", "その他", "スリーブ"]
+  },
+  {
+    prompt: "sailor",
+    data: ["ファッション", "その他", "セーラー"]
+  },
+  {
+    prompt: "sports bibs",
+    data: ["ファッション", "その他", "ゼッケン"]
+  },
+  {
+    prompt: "towel",
+    data: ["ファッション", "その他", "タオル"]
+  },
+  {
+    prompt: "tattoo",
+    data: ["ファッション", "その他", "タトゥー"]
+  },
+  {
+    prompt: "pubic tattoo",
+    data: ["ファッション", "その他", "タトゥー2"]
+  },
+  {
+    prompt: "torn clothes",
+    data: ["ファッション", "その他", "ダメージ服"]
+  },
+  {
+    prompt: "tube top",
+    data: ["ファッション", "その他", "チューブトップ"]
+  },
+  {
+    prompt: "cheek",
+    data: ["ファッション", "その他", "チーク"]
+  },
+  {
+    prompt: "tops",
+    data: ["ファッション", "その他", "トップス"]
+  },
+  {
+    prompt: "top sleeves",
+    data: ["ファッション", "その他", "トップスリーブ"]
+  },
+  {
+    prompt: "topless",
+    data: ["ファッション", "その他", "トップレス"]
+  },
+  {
+    prompt: "dog tags",
+    data: ["ファッション", "その他", "ドッグタグ"]
+  },
+  {
+    prompt: "beanie",
+    data: ["ファッション", "その他", "ニット帽"]
+  },
+  {
+    prompt: "high waist",
+    data: ["ファッション", "その他", "ハイウエスト"]
+  },
+  {
+    prompt: "high heels",
+    data: ["ファッション", "その他", "ハイヒール"]
+  },
+  {
+    prompt: "highleg",
+    data: ["ファッション", "その他", "ハイレグ (別の服装等と併用)"]
+  },
+  {
+    prompt: "bathrobe",
+    data: ["ファッション", "その他", "バスローブ"]
+  },
+  {
+    prompt: "backless outfit",
+    data: ["ファッション", "その他", "バックレス(背中丸見え)"]
+  },
+  {
+    prompt: "bag",
+    data: ["ファッション", "その他", "バッグ"]
+  },
+  {
+    prompt: "handbag",
+    data: ["ファッション", "その他", "バッグ2"]
+  },
+  {
+    prompt: "shoulder bag",
+    data: ["ファッション", "その他", "バッグ4"]
+  },
+  {
+    prompt: "x hair ornament",
+    data: ["ファッション", "その他", "バッテン髪飾り"]
+  },
+  {
+    prompt: "ballet flats",
+    data: ["ファッション", "その他", "バレエシューズ"]
+  },
+  {
+    prompt: "bandana",
+    data: ["ファッション", "その他", "バンダナ"]
+  },
+  {
+    prompt: "bandeau",
+    data: ["ファッション", "その他", "バンドゥビキニ"]
+  },
+  {
+    prompt: "barcode tatoo",
+    data: ["ファッション", "その他", "バーコードタトゥー"]
+  },
+  {
+    prompt: "pajamas",
+    data: ["ファッション", "その他", "パジャマ"]
+  },
+  {
+    prompt: "pumps",
+    data: ["ファッション", "その他", "パンプス"]
+  },
+  {
+    prompt: "flip-flops",
+    data: ["ファッション", "その他", "ビーチサンダル"]
+  },
+  {
+    prompt: "frills",
+    data: ["ファッション", "その他", "フリル"]
+  },
+  {
+    prompt: "bouquet",
+    data: ["ファッション", "その他", "ブーケ"]
+  },
+  {
+    prompt: "hairclip",
+    data: ["ファッション", "その他", "ヘアクリップ"]
+  },
+  {
+    prompt: "hair bobbles",
+    data: ["ファッション", "その他", "ヘアゴム"]
+  },
+  {
+    prompt: "hairband",
+    data: ["ファッション", "その他", "ヘアバンド"]
+  },
+  {
+    prompt: "hairpin",
+    data: ["ファッション", "その他", "ヘアピン"]
+  },
+  {
+    prompt: "hair hoop",
+    data: ["ファッション", "その他", "ヘアフープ"]
+  },
+  {
+    prompt: "hair bow",
+    data: ["ファッション", "その他", "ヘアボウ"]
+  },
+  {
+    prompt: "head gear",
+    data: ["ファッション", "その他", "ヘッドギア"]
+  },
+  {
+    prompt: "headphones",
+    data: ["ファッション", "その他", "ヘッドフォン"]
+  },
+  {
+    prompt: "bell hair ornament",
+    data: ["ファッション", "その他", "ベルや鈴"]
+  },
+  {
+    prompt: "buckle",
+    data: ["ファッション", "その他", "ベルト2"]
+  },
+  {
+    prompt: "veil",
+    data: ["ファッション", "その他", "ベール"]
+  },
+  {
+    prompt: "halterneck",
+    data: ["ファッション", "その他", "ホルターネック"]
+  },
+  {
+    prompt: "double breasted",
+    data: ["ファッション", "その他", "ボタンが2つずつ並んだ服"]
+  },
+  {
+    prompt: "unbuttoned",
+    data: ["ファッション", "その他", "ボタンが外れている"]
+  },
+  {
+    prompt: "button gap",
+    data: ["ファッション", "その他", "ボタンが外れている2"]
+  },
+  {
+    prompt: "ボタンの隙間",
+    data: ["ファッション", "その他", "ボタンの隙間"]
+  },
+  {
+    prompt: "buttons",
+    data: ["ファッション", "その他", "ボタン付きの服"]
+  },
+  {
+    prompt: "body con",
+    data: ["ファッション", "その他", "ボディコン"]
+  },
+  {
+    prompt: "body paint",
+    data: ["ファッション", "その他", "ボディペイント"]
+  },
+  {
+    prompt: "mouth mask",
+    data: ["ファッション", "その他", "マスク"]
+  },
+  {
+    prompt: "ascot",
+    data: ["ファッション", "その他", "ミニ王冠"]
+  },
+  {
+    prompt: "mules",
+    data: ["ファッション", "その他", "ミュール"]
+  },
+  {
+    prompt: "whip",
+    data: ["ファッション", "その他", "ムチ"]
+  },
+  {
+    prompt: "monocle",
+    data: ["ファッション", "その他", "モノクル"]
+  },
+  {
+    prompt: "raglan sleeves",
+    data: ["ファッション", "その他", "ラグランスリーブ(ベースボールシャツ)"]
+  },
+  {
+    prompt: "bow",
+    data: ["ファッション", "その他", "リボン２"]
+  },
+  {
+    prompt: "backpack",
+    data: ["ファッション", "その他", "リュック"]
   },
   {
     prompt: "luchador mask",
     data: ["ファッション", "その他", "レスラーマスク"]
   },
   {
+    prompt: "thigh holster",
+    data: ["ファッション", "その他", "レッグホルスター"]
+  },
+  {
+    prompt: "lace",
+    data: ["ファッション", "その他", "レース"]
+  },
+  {
+    prompt: "lace top",
+    data: ["ファッション", "その他", "レーストップ"]
+  },
+  {
+    prompt: "long straight",
+    data: ["ファッション", "その他", "ロングストレート"]
+  },
+  {
+    prompt: "robe",
+    data: ["ファッション", "その他", "ローブ"]
+  },
+  {
+    prompt: "robes",
+    data: ["ファッション", "その他", "ローブ"]
+  },
+  {
+    prompt: "armlet",
+    data: ["ファッション", "その他", "上腕の装飾"]
+  },
+  {
+    prompt: "bottomless",
+    data: ["ファッション", "その他", "下半身裸"]
+  },
+  {
+    prompt: "impossible clothes",
+    data: ["ファッション", "その他", "乳袋"]
+  },
+  {
+    prompt: "dual wielding",
+    data: ["ファッション", "その他", "二丁拳銃"]
+  },
+  {
+    prompt: "doll",
+    data: ["ファッション", "その他", "人形"]
+  },
+  {
     prompt: "masquerade mask",
     data: ["ファッション", "その他", "仮面舞踏会"]
   },
   {
-    prompt: "suggestive restraint accessory",
-    data: ["ファッション", "その他", "拘束具風アクセ"]
+    prompt: "gemstone of body",
+    data: ["ファッション", "その他", "体の宝石"]
+  },
+  {
+    prompt: "clothes made of silver",
+    data: ["ファッション", "その他", "作られた服"]
+  },
+  {
+    prompt: "injury",
+    data: ["ファッション", "その他", "傷がついてる系"]
+  },
+  {
+    prompt: "scar on face",
+    data: ["ファッション", "その他", "傷がついてる系2"]
+  },
+  {
+    prompt: "bodystocking",
+    data: ["ファッション", "その他", "全身タイツ"]
+  },
+  {
+    prompt: "katana",
+    data: ["ファッション", "その他", "刀"]
+  },
+  {
+    prompt: "pelvic curtain",
+    data: ["ファッション", "その他", "前垂れ,股間の前の布"]
+  },
+  {
+    prompt: "sword",
+    data: ["ファッション", "その他", "剣"]
+  },
+  {
+    prompt: "bandages",
+    data: ["ファッション", "その他", "包帯"]
+  },
+  {
+    prompt: "makeup",
+    data: ["ファッション", "その他", "化粧"]
+  },
+  {
+    prompt: "short sleeve",
+    data: ["ファッション", "その他", "半袖"]
+  },
+  {
+    prompt: "name tag",
+    data: ["ファッション", "その他", "名札"]
+  },
+  {
+    prompt: "oil paper umbrella",
+    data: ["ファッション", "その他", "和傘"]
+  },
+  {
+    prompt: "halo",
+    data: ["ファッション", "その他", "天使の輪"]
+  },
+  {
+    prompt: "bare legs",
+    data: ["ファッション", "その他", "太ももから下が肌"]
+  },
+  {
+    prompt: "thigh strap",
+    data: ["ファッション", "その他", "太ももストラップ"]
+  },
+  {
+    prompt: "skindantation",
+    data: ["ファッション", "その他", "太もも食込"]
+  },
+  {
+    prompt: "classic briefs",
+    data: ["ファッション", "その他", "女性用下着"]
+  },
+  {
+    prompt: "completely nude",
+    data: ["ファッション", "その他", "完全にヌード"]
+  },
+  {
+    prompt: "fully clothed",
+    data: ["ファッション", "その他", "完全に服を着た状態"]
+  },
+  {
+    prompt: "jewel hair ornament",
+    data: ["ファッション", "その他", "宝石付き髪飾り"]
+  },
+  {
+    prompt: "gemological ornaments",
+    data: ["ファッション", "その他", "宝飾品"]
+  },
+  {
+    prompt: "obi",
+    data: ["ファッション", "その他", "帯"]
+  },
+  {
+    prompt: "sash",
+    data: ["ファッション", "その他", "帯2"]
+  },
+  {
+    prompt: "hand fan",
+    data: ["ファッション", "その他", "扇子"]
+  },
+  {
+    prompt: "shackles",
+    data: ["ファッション", "その他", "手枷"]
+  },
+  {
+    prompt: "wrist cuffs",
+    data: ["ファッション", "その他", "手首にカフスだけ付いてるやつ"]
+  },
+  {
+    prompt: "bruise",
+    data: ["ファッション", "その他", "打撲"]
+  },
+  {
+    prompt: "fingerless glove",
+    data: ["ファッション", "その他", "指ぬきグローブ"]
+  },
+  {
+    prompt: "partially fingerless glove",
+    data: ["ファッション", "その他", "指ぬきグローブ2"]
+  },
+  {
+    prompt: "sleeves past fingers",
+    data: ["ファッション", "その他", "指を通り過ぎる袖"]
+  },
+  {
+    prompt: "furisode",
+    data: ["ファッション", "その他", "振袖"]
+  },
+  {
+    prompt: "paper lantern",
+    data: ["ファッション", "その他", "提灯"]
+  },
+  {
+    prompt: "clothes writing",
+    data: ["ファッション", "その他", "文字入り服"]
+  },
+  {
+    prompt: "cross section",
+    data: ["ファッション", "その他", "断面"]
+  },
+  {
+    prompt: "japanese sword",
+    data: ["ファッション", "その他", "日本刀"]
+  },
+  {
+    prompt: "clothes",
+    data: ["ファッション", "その他", "服"]
+  },
+  {
+    prompt: "open clothes",
+    data: ["ファッション", "その他", "服の前を開けている"]
+  },
+  {
+    prompt: "clogs",
+    data: ["ファッション", "その他", "木靴"]
+  },
+  {
+    prompt: "futuristic headgear",
+    data: ["ファッション", "その他", "未来的なヘッドギア"]
+  },
+  {
+    prompt: "staff",
+    data: ["ファッション", "その他", "杖"]
+  },
+  {
+    prompt: "stick",
+    data: ["ファッション", "その他", "杖2"]
+  },
+  {
+    prompt: "cane",
+    data: ["ファッション", "その他", "杖3"]
+  },
+  {
+    prompt: "wand",
+    data: ["ファッション", "その他", "杖4"]
+  },
+  {
+    prompt: "mace",
+    data: ["ファッション", "その他", "杖5"]
+  },
+  {
+    prompt: "crutch",
+    data: ["ファッション", "その他", "杖6"]
+  },
+  {
+    prompt: "printed diapers",
+    data: ["ファッション", "その他", "柄の入ったおむつ"]
+  },
+  {
+    prompt: "mechanical arm armor",
+    data: ["ファッション", "その他", "機械式アームアーマー"]
+  },
+  {
+    prompt: "mechanical body armor",
+    data: ["ファッション", "その他", "機械的なボディアーマー"]
+  },
+  {
+    prompt: "mechanical prosthesis",
+    data: ["ファッション", "その他", "機械的補綴物"]
+  },
+  {
+    prompt: "swimming goggles",
+    data: ["ファッション", "その他", "水中ゴーグル"]
+  },
+  {
+    prompt: "water gun",
+    data: ["ファッション", "その他", "水鉄砲"]
+  },
+  {
+    prompt: "ice adorns hair",
+    data: ["ファッション", "その他", "氷が髪を飾ります"]
+  },
+  {
+    prompt: "injection marks",
+    data: ["ファッション", "その他", "注射痕"]
+  },
+  {
+    prompt: "flowing lace",
+    data: ["ファッション", "その他", "流れるレース"]
   },
   {
     prompt: "innertube",
     data: ["ファッション", "その他", "浮き輪"]
   },
   {
+    prompt: "bib",
+    data: ["ファッション", "その他", "涎掛け"]
+  },
+  {
     prompt: "fox mask",
     data: ["ファッション", "その他", "狐の面"]
+  },
+  {
+    prompt: "fresh flower in hair",
+    data: ["ファッション", "その他", "生花の髪飾り"]
+  },
+  {
+    prompt: "boys briefs",
+    data: ["ファッション", "その他", "男性用ブリーフ"]
+  },
+  {
+    prompt: "birthmark",
+    data: ["ファッション", "その他", "痣"]
+  },
+  {
+    prompt: "blindfold",
+    data: ["ファッション", "その他", "目隠し"]
+  },
+  {
+    prompt: "blackblindfold on head",
+    data: ["ファッション", "その他", "目隠しをおでこに"]
+  },
+  {
+    prompt: "torn clothesup",
+    data: ["ファッション", "その他", "破れた服"]
+  },
+  {
+    prompt: "kanzashi",
+    data: ["ファッション", "その他", "簪"]
+  },
+  {
+    prompt: "strap gap",
+    data: ["ファッション", "その他", "紐伸び"]
+  },
+  {
+    prompt: "tabard",
+    data: ["ファッション", "その他", "紫(東方)の服"]
+  },
+  {
+    prompt: "crystallized clothing",
+    data: ["ファッション", "その他", "結晶化服"]
+  },
+  {
+    prompt: "exquisite cloth",
+    data: ["ファッション", "その他", "絶妙な布"]
+  },
+  {
+    prompt: "zettai ryouiki",
+    data: ["ファッション", "その他", "絶対領域2"]
+  },
+  {
+    prompt: "feather brooch",
+    data: ["ファッション", "その他", "羽のブローチ"]
+  },
+  {
+    prompt: "shoulder tattoo",
+    data: ["ファッション", "その他", "肩のタトゥー"]
+  },
+  {
+    prompt: "epaulettes",
+    data: ["ファッション", "その他", "肩章"]
+  },
+  {
+    prompt: "strap slip",
+    data: ["ファッション", "その他", "肩紐が落ちる"]
+  },
+  {
+    prompt: "strapless",
+    data: ["ファッション", "その他", "肩紐なし"]
+  },
+  {
+    prompt: "detached sleeves",
+    data: ["ファッション", "その他", "肩開きのトップス"]
+  },
+  {
+    prompt: "back jewel decoration",
+    data: ["ファッション", "その他", "背中の宝石飾り"]
+  },
+  {
+    prompt: "breastplate",
+    data: ["ファッション", "その他", "胸当て"]
   },
   {
     prompt: "noh mask",
     data: ["ファッション", "その他", "能面"]
   },
   {
-    prompt: "flower accessory",
-    data: ["ファッション", "その他", "花のアクセサリー"]
+    prompt: "legwear",
+    data: ["ファッション", "その他", "脚衣"]
+  },
+  {
+    prompt: "arm tattoo",
+    data: ["ファッション", "その他", "腕のタトゥー"]
+  },
+  {
+    prompt: "wristwatch",
+    data: ["ファッション", "その他", "腕時計"]
+  },
+  {
+    prompt: "loin cloth",
+    data: ["ファッション", "その他", "腰布"]
+  },
+  {
+    prompt: "knee highs",
+    data: ["ファッション", "その他", "膝の高さ"]
+  },
+  {
+    prompt: "hair flower",
+    data: ["ファッション", "その他", "花の髪飾り"]
+  },
+  {
+    prompt: "head wreath",
+    data: ["ファッション", "その他", "花冠"]
+  },
+  {
+    prompt: "floral decoration",
+    data: ["ファッション", "その他", "花飾り"]
+  },
+  {
+    prompt: "flower hair ornament",
+    data: ["ファッション", "その他", "花飾り"]
+  },
+  {
+    prompt: "zōri",
+    data: ["ファッション", "その他", "草履"]
+  },
+  {
+    prompt: "sleeves past wrists",
+    data: ["ファッション", "その他", "萌え袖"]
+  },
+  {
+    prompt: "bat wings",
+    data: ["ファッション", "その他", "蝙蝠の翼"]
+  },
+  {
+    prompt: "detached collar",
+    data: ["ファッション", "その他", "蝶ネクタイ2"]
+  },
+  {
+    prompt: "sleeves",
+    data: ["ファッション", "その他", "袖あり"]
+  },
+  {
+    prompt: "sleeveless",
+    data: ["ファッション", "その他", "袖なし"]
+  },
+  {
+    prompt: "gear",
+    data: ["ファッション", "その他", "装備"]
+  },
+  {
+    prompt: "naked",
+    data: ["ファッション", "その他", "裸"]
+  },
+  {
+    prompt: "naked waist apron",
+    data: ["ファッション", "その他", "裸エプロン"]
+  },
+  {
+    prompt: "naked towel",
+    data: ["ファッション", "その他", "裸タオル"]
+  },
+  {
+    prompt: "barefoot",
+    data: ["ファッション", "その他", "裸足"]
+  },
+  {
+    prompt: "partially unbuttoned",
+    data: ["ファッション", "その他", "部分的にボタンを外した"]
+  },
+  {
+    prompt: "ornate",
+    data: ["ファッション", "その他", "金の装飾"]
+  },
+  {
+    prompt: "golden hair ornament",
+    data: ["ファッション", "その他", "金の髪飾り"]
+  },
+  {
+    prompt: "hair bell",
+    data: ["ファッション", "その他", "鈴飾り"]
+  },
+  {
+    prompt: "silver hair ornament",
+    data: ["ファッション", "その他", "銀の髪飾り"]
+  },
+  {
+    prompt: "gun",
+    data: ["ファッション", "その他", "銃"]
+  },
+  {
+    prompt: "gunpoint",
+    data: ["ファッション", "その他", "銃を突きつけられる"]
+  },
+  {
+    prompt: "pendant with key",
+    data: ["ファッション", "その他", "鍵のペンダント"]
+  },
+  {
+    prompt: "collar with key",
+    data: ["ファッション", "その他", "鍵付き首輪"]
+  },
+  {
+    prompt: "long top sleeves past fingers",
+    data: ["ファッション", "その他", "長い指の長い袖"]
+  },
+  {
+    prompt: "long sleeves",
+    data: ["ファッション", "その他", "長袖"]
+  },
+  {
+    prompt: "unzipped",
+    data: ["ファッション", "その他", "開放"]
+  },
+  {
+    prompt: "head wings",
+    data: ["ファッション", "その他", "頭の羽"]
+  },
+  {
+    prompt: "headpiece",
+    data: ["ファッション", "その他", "頭飾り"]
+  },
+  {
+    prompt: "facial tattoo",
+    data: ["ファッション", "その他", "顔面タトゥー"]
+  },
+  {
+    prompt: "neckerchief",
+    data: ["ファッション", "その他", "首に巻く布"]
+  },
+  {
+    prompt: "leash",
+    data: ["ファッション", "その他", "首輪"]
+  },
+  {
+    prompt: "collar",
+    data: ["ファッション", "その他", "首輪2"]
+  },
+  {
+    prompt: "hair stick",
+    data: ["ファッション", "その他", "髪のスティック"]
+  },
+  {
+    prompt: "hair tubes",
+    data: ["ファッション", "その他", "髪の房止め"]
+  },
+  {
+    prompt: "hair decoration",
+    data: ["ファッション", "その他", "髪の飾り"]
+  },
+  {
+    prompt: "hair ornament",
+    data: ["ファッション", "その他", "髪飾り"]
+  },
+  {
+    prompt: "japanese hair ornament",
+    data: ["ファッション", "その他", "髪飾り(和風)"]
+  },
+  {
+    prompt: "magical pendant",
+    data: ["ファッション", "その他", "魔法のペンダント"]
+  },
+  {
+    prompt: "nosebleed",
+    data: ["ファッション", "その他", "鼻血"]
+  },
+  {
+    prompt: "show off",
+    data: ["ファッション", "その他", "~が見えている"]
+  },
+  {
+    prompt: "off shoulder jacket",
+    data: ["ファッション", "アウター", "オフショルダージャケット"]
+  },
+  {
+    prompt: "cardigan",
+    data: ["ファッション", "アウター", "カーディガン"]
+  },
+  {
+    prompt: "cape",
+    data: ["ファッション", "アウター", "ケープ"]
+  },
+  {
+    prompt: "cape hood",
+    data: ["ファッション", "アウター", "ケープフード"]
   },
   {
     prompt: "zip-up jacket",
     data: ["ファッション", "アウター", "ジップアップジャケット"]
   },
   {
+    prompt: "jacket",
+    data: ["ファッション", "アウター", "ジャケット"]
+  },
+  {
+    prompt: "open jacket",
+    data: ["ファッション", "アウター", "ジャケットのチャックを開いた状態"]
+  },
+  {
+    prompt: "hoodie",
+    data: ["ファッション", "アウター", "パーカー"]
+  },
+  {
+    prompt: "hooded cape",
+    data: ["ファッション", "アウター", "フード付きケープ"]
+  },
+  {
+    prompt: "cloak",
+    data: ["ファッション", "アウター", "マント"]
+  },
+  {
     prompt: "leather jacket",
     data: ["ファッション", "アウター", "レザージャケット"]
   },
   {
+    prompt: "long coat",
+    data: ["ファッション", "アウター", "ロングコート"]
+  },
+  {
     prompt: "open coat",
     data: ["ファッション", "アウター", "前空きコート"]
+  },
+  {
+    prompt: "capelet",
+    data: ["ファッション", "アウター", "小さなマント"]
+  },
+  {
+    prompt: "happi coat",
+    data: ["ファッション", "アウター", "法被(はっぴ)"]
+  },
+  {
+    prompt: "surcoat",
+    data: ["ファッション", "アウター", "騎士が鎧の上に着る服"]
   },
   {
     prompt: "high collar coat",
@@ -23377,232 +24381,296 @@ let defaultMaster = {
     data: ["ファッション", "アウター", "黒コート"]
   },
   {
-    prompt: "pacifier",
-    data: ["ファッション", "アクセサリー", "おしゃぶり"]
+    prompt: "o ring",
+    data: ["ファッション", "アクセサリー", "O型のリング"]
   },
   {
-    prompt: "angel halo",
-    data: ["ファッション", "アクセサリー", "エンジェルハロー"]
+    prompt: "coke-bottle glasses",
+    data: ["ファッション", "アクセサリー", "ぐるぐる眼鏡"]
   },
   {
-    prompt: "rattle",
-    data: ["ファッション", "アクセサリー", "ガラガラ"]
+    prompt: "elbow gloves",
+    data: ["ファッション", "アクセサリー", "ひじまで長い手袋"]
   },
   {
-    prompt: "silk shawl",
-    data: ["ファッション", "アクセサリー", "シルクショール"]
+    prompt: "belly button piercing",
+    data: ["ファッション", "アクセサリー", "へそピアス"]
   },
   {
-    prompt: "halo",
-    data: ["ファッション", "アクセサリー", "天使の輪"]
+    prompt: "arm ring",
+    data: ["ファッション", "アクセサリー", "アームリング"]
   },
   {
-    prompt: "mechanical body armor",
-    data: ["ファッション", "アクセサリー", "機械的なボディアーマー"]
+    prompt: "earrings",
+    data: ["ファッション", "アクセサリー", "イヤリング,ピアス"]
   },
   {
-    prompt: "navel exposed",
-    data: ["ファッション", "オプション", "へそ出し"]
+    prompt: "cross necklace",
+    data: ["ファッション", "アクセサリー", "クロスネックレス"]
   },
   {
-    prompt: "apron",
-    data: ["ファッション", "オプション", "エプロン,前掛,前掛け"]
+    prompt: "gloves",
+    data: ["ファッション", "アクセサリー", "グローブ"]
   },
   {
-    prompt: "off-shoulder",
-    data: ["ファッション", "オプション", "オフショルダー"]
+    prompt: "sunglasses",
+    data: ["ファッション", "アクセサリー", "サングラス"]
   },
   {
-    prompt: "girly style",
-    data: ["ファッション", "オプション", "ガーリースタイル"]
+    prompt: "jewelry",
+    data: ["ファッション", "アクセサリー", "ジュエリー"]
   },
   {
-    prompt: "(corset skirt:0.4)",
-    data: ["ファッション", "オプション", "コルセットスカート"]
+    prompt: "scarf",
+    data: ["ファッション", "アクセサリー", "スカーフ"]
   },
   {
-    prompt: "shirt tucked in",
-    data: ["ファッション", "オプション", "シャツを入れる"]
+    prompt: "chain ring",
+    data: ["ファッション", "アクセサリー", "チェーンリング"]
   },
   {
-    prompt: "impossible clothes",
-    data: ["ファッション", "オプション", "乳袋"]
+    prompt: "choker",
+    data: ["ファッション", "アクセサリー", "チョーカー"]
   },
   {
-    prompt: "partially unbutoned shirt",
-    data: ["ファッション", "オプション", "制服のボタンを外す"]
+    prompt: "pasties",
+    data: ["ファッション", "アクセサリー", "ニップレス"]
   },
   {
-    prompt: "pelvic curtain",
-    data: ["ファッション", "オプション", "前垂れ"]
+    prompt: "necktie",
+    data: ["ファッション", "アクセサリー", "ネクタイ"]
   },
   {
-    prompt: "fully clothed",
-    data: ["ファッション", "オプション", "完全に服を着た状態"]
+    prompt: "necklace",
+    data: ["ファッション", "アクセサリー", "ネックレス"]
   },
   {
-    prompt: "cross section",
-    data: ["ファッション", "オプション", "断面"]
+    prompt: "heart-shaped choker",
+    data: ["ファッション", "アクセサリー", "ハート型チョーカー"]
   },
   {
-    prompt: "(taut shirt:1.2), shirt tucked in",
-    data: ["ファッション", "オプション", "服のしわ強め"]
+    prompt: "semi rimless eyewear",
+    data: ["ファッション", "アクセサリー", "ハーフフレームメガネ"]
   },
   {
-    prompt: "strap slip",
-    data: ["ファッション", "オプション", "肩紐が落ちる"]
+    prompt: "pearl necklace",
+    data: ["ファッション", "アクセサリー", "パールネックレス"]
   },
   {
-    prompt: "detached collar",
-    data: ["ファッション", "オプション", "蝶ネクタイ2"]
+    prompt: "piercing",
+    data: ["ファッション", "アクセサリー", "ピアス"]
   },
   {
-    prompt: "partially unbuttoned",
-    data: ["ファッション", "オプション", "部分的にボタンを外した"]
+    prompt: "fingerless gloves",
+    data: ["ファッション", "アクセサリー", "フィンガーレスグローブ"]
   },
   {
-    prompt: "show off",
-    data: ["ファッション", "オプション", "~が見えている"]
+    prompt: "frilled gloves",
+    data: ["ファッション", "アクセサリー", "フリルグローブ"]
   },
   {
-    prompt: "asymmetrical skirt",
-    data: ["ファッション", "スカート", "アシンメトリースカート"]
+    prompt: "fringes",
+    data: ["ファッション", "アクセサリー", "フリンジ"]
   },
   {
-    prompt: "royal skirt with edge",
-    data: ["ファッション", "スカート", "エッジのロイヤルブルースカート"]
+    prompt: "hoop earrings",
+    data: ["ファッション", "アクセサリー", "フープイヤリング"]
   },
   {
-    prompt: "gathered skirt",
-    data: ["ファッション", "スカート", "ギャザースカート"]
+    prompt: "booties",
+    data: ["ファッション", "アクセサリー", "ブーティ"]
   },
   {
-    prompt: "side-slit skirt",
-    data: ["ファッション", "スカート", "サイドスリットスカート"]
+    prompt: "hair ribbon",
+    data: ["ファッション", "アクセサリー", "ヘアリボン"]
   },
   {
-    prompt: "slit skirt",
-    data: ["ファッション", "スカート", "スリット入りスカート"]
+    prompt: "belt",
+    data: ["ファッション", "アクセサリー", "ベルト"]
   },
   {
-    prompt: "tight skirt",
-    data: ["ファッション", "スカート", "タイトスカート"]
+    prompt: "belt buckle",
+    data: ["ファッション", "アクセサリー", "ベルト3"]
   },
   {
-    prompt: "plaid skirt",
-    data: ["ファッション", "スカート", "チェック柄スカート"]
+    prompt: "choker with bell",
+    data: ["ファッション", "アクセサリー", "ベル付きチョーカー"]
   },
   {
-    prompt: "tulle skirt",
-    data: ["ファッション", "スカート", "チュールスカート"]
+    prompt: "harness",
+    data: ["ファッション", "アクセサリー", "ボディハーネス"]
   },
   {
-    prompt: "high-waisted skirt",
-    data: ["ファッション", "スカート", "ハイウエストスカート"]
+    prompt: "chest harness",
+    data: ["ファッション", "アクセサリー", "ボディハーネス2"]
   },
   {
-    prompt: "frilled skirt",
-    data: ["ファッション", "スカート", "フリルスカート"]
+    prompt: "eyewear on head",
+    data: ["ファッション", "アクセサリー", "メガネを頭にかける"]
   },
   {
-    prompt: "flared skirt",
-    data: ["ファッション", "スカート", "フレアスカート"]
+    prompt: "ribbon",
+    data: ["ファッション", "アクセサリー", "リボン"]
   },
   {
-    prompt: "princess skirt",
-    data: ["ファッション", "スカート", "プリンセススカート"]
+    prompt: "hat ribbon",
+    data: ["ファッション", "アクセサリー", "リボンの付いた帽子"]
   },
   {
-    prompt: "micro mini skirt",
-    data: ["ファッション", "スカート", "マイクロミニスカート"]
+    prompt: "ribbon choker",
+    data: ["ファッション", "アクセサリー", "リボンチョーカー"]
   },
   {
-    prompt: "mini skirt",
-    data: ["ファッション", "スカート", "ミニスカート"]
+    prompt: "ring",
+    data: ["ファッション", "アクセサリー", "リング,指輪"]
   },
   {
-    prompt: "leather skirt",
-    data: ["ファッション", "スカート", "レザースカート"]
+    prompt: "leather choker",
+    data: ["ファッション", "アクセサリー", "レザーチョーカー"]
   },
   {
-    prompt: "lace skirt",
-    data: ["ファッション", "スカート", "レーススカート"]
+    prompt: "lace gloves",
+    data: ["ファッション", "アクセサリー", "レースグローブ"]
   },
   {
-    prompt: "long skirt",
-    data: ["ファッション", "スカート", "ロングスカート"]
+    prompt: "earrings on both ears",
+    data: ["ファッション", "アクセサリー", "両耳ピアス"]
   },
   {
-    prompt: "translucent fluttering skirt",
-    data: ["ファッション", "スカート", "半透明のフラッタースカート"]
+    prompt: "round eyewear",
+    data: ["ファッション", "アクセサリー", "丸メガネ"]
   },
   {
-    prompt: "summer long skirt",
-    data: ["ファッション", "スカート", "夏の長いスカート"]
+    prompt: "glowing hair accessory",
+    data: ["ファッション", "アクセサリー", "光る髪飾り"]
   },
   {
-    prompt: "wrap skirt",
-    data: ["ファッション", "スカート", "巻きスカート"]
+    prompt: "large hair ribbon",
+    data: ["ファッション", "アクセサリー", "大きなリボン"]
   },
   {
-    prompt: "see-through skirt",
-    data: ["ファッション", "スカート", "透けスカート"]
+    prompt: "large earrings",
+    data: ["ファッション", "アクセサリー", "大ぶりなピアス"]
+  },
+  {
+    prompt: "jewel necklace",
+    data: ["ファッション", "アクセサリー", "宝石のネックレス"]
+  },
+  {
+    prompt: "ribbon trim",
+    data: ["ファッション", "アクセサリー", "布とか髪とか通すリボン"]
+  },
+  {
+    prompt: "suggestive restraint accessory",
+    data: ["ファッション", "アクセサリー", "拘束具風アクセ"]
+  },
+  {
+    prompt: "multiple rings",
+    data: ["ファッション", "アクセサリー", "指輪がたくさん"]
+  },
+  {
+    prompt: "star-shaped hair accessory",
+    data: ["ファッション", "アクセサリー", "星型の飾り"]
+  },
+  {
+    prompt: "wearing only one shoe",
+    data: ["ファッション", "アクセサリー", "片方だけ靴を履いている"]
+  },
+  {
+    prompt: "single earring",
+    data: ["ファッション", "アクセサリー", "片耳ピアス"]
+  },
+  {
+    prompt: "crown-shaped earrings",
+    data: ["ファッション", "アクセサリー", "王冠の形のイヤリング"]
+  },
+  {
+    prompt: "white gloves",
+    data: ["ファッション", "アクセサリー", "白手袋"]
+  },
+  {
+    prompt: "glasses",
+    data: ["ファッション", "アクセサリー", "眼鏡"]
+  },
+  {
+    prompt: "front tie top",
+    data: ["ファッション", "アクセサリー", "紐ビキニ"]
+  },
+  {
+    prompt: "wedding rings",
+    data: ["ファッション", "アクセサリー", "結婚指輪"]
+  },
+  {
+    prompt: "feather hair accessory",
+    data: ["ファッション", "アクセサリー", "羽飾り"]
+  },
+  {
+    prompt: "paw gloves",
+    data: ["ファッション", "アクセサリー", "肉球グローブ"]
+  },
+  {
+    prompt: "flower accessory",
+    data: ["ファッション", "アクセサリー", "花のアクセサリー"]
+  },
+  {
+    prompt: "bowties",
+    data: ["ファッション", "アクセサリー", "蝶ネクタイ"]
+  },
+  {
+    prompt: "jewelry decoration",
+    data: ["ファッション", "アクセサリー", "装飾"]
+  },
+  {
+    prompt: "naked necktie",
+    data: ["ファッション", "アクセサリー", "裸ネクタイ"]
+  },
+  {
+    prompt: "artificial flower hair accessory",
+    data: ["ファッション", "アクセサリー", "造花の髪飾り"]
+  },
+  {
+    prompt: "jewel hair accessory",
+    data: ["ファッション", "アクセサリー", "髪の宝石飾り"]
+  },
+  {
+    prompt: "magical arm accessory",
+    data: ["ファッション", "アクセサリー", "魔法の腕飾り"]
+  },
+  {
+    prompt: "magical hair accessory",
+    data: ["ファッション", "アクセサリー", "魔法の装飾"]
+  },
+  {
+    prompt: "black gloves",
+    data: ["ファッション", "アクセサリー", "黒手袋"]
   },
   {
     prompt: "dress shirt",
-    data: ["ファッション", "トップス", "Yシャツ,ワイシャツ"]
+    data: ["ファッション", "トップス", "Yシャツ"]
   },
   {
     prompt: "crop top",
-    data: ["ファッション", "トップス", "お腹が見える服,上着のチャックを開ける,クロップトップ,クロップドトップ"]
+    data: ["ファッション", "トップス", "お腹が見える服"]
   },
   {
     prompt: "bare white shirt",
     data: ["ファッション", "トップス", "むき出しの白シャツ"]
   },
   {
-    prompt: "waist apron",
-    data: ["ファッション", "トップス", "ウェイトレスのエプロン"]
-  },
-  {
-    prompt: "off shoulder",
-    data: ["ファッション", "トップス", "オフショルダー,肩まで脱いでる上着"]
-  },
-  {
-    prompt: "off shoulder jacket",
-    data: ["ファッション", "トップス", "オフショルダージャケット"]
-  },
-  {
     prompt: "white shirt, shirt formal",
     data: ["ファッション", "トップス", "カッターシャツ"]
-  },
-  {
-    prompt: "cardigan",
-    data: ["ファッション", "トップス", "カーディガン"]
-  },
-  {
-    prompt: "camisole",
-    data: ["ファッション", "トップス", "キャミ,キャミソール"]
-  },
-  {
-    prompt: "underbust",
-    data: ["ファッション", "トップス", "コルセット"]
-  },
-  {
-    prompt: "suspenders",
-    data: ["ファッション", "トップス", "サスペンダー"]
   },
   {
     prompt: "shirt",
     data: ["ファッション", "トップス", "シャツ"]
   },
   {
-    prompt: "jacket",
-    data: ["ファッション", "トップス", "ジャケット"]
+    prompt: "shirt tucked in",
+    data: ["ファッション", "トップス", "シャツを入れる"]
   },
   {
-    prompt: "open jacket",
-    data: ["ファッション", "トップス", "ジャケットのチャックを開いた状態"]
+    prompt: "school shirt",
+    data: ["ファッション", "トップス", "スクールシャツ"]
   },
   {
     prompt: "shirtless shirt",
@@ -23613,8 +24681,8 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "セーター"]
   },
   {
-    prompt: "sports bibs",
-    data: ["ファッション", "トップス", "ゼッケン"]
+    prompt: "sweater dress",
+    data: ["ファッション", "トップス", "セータードレス"]
   },
   {
     prompt: "tank top",
@@ -23629,15 +24697,11 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "タートルネック2"]
   },
   {
-    prompt: "tube top",
-    data: ["ファッション", "トップス", "チューブトップ"]
+    prompt: "turtleneck leotard",
+    data: ["ファッション", "トップス", "タートルネックレオタード"]
   },
   {
     prompt: "tented shirt",
-    data: ["ファッション", "トップス", "トップス"]
-  },
-  {
-    prompt: "tops",
     data: ["ファッション", "トップス", "トップス"]
   },
   {
@@ -23649,20 +24713,12 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "ノースリーブシャツ"]
   },
   {
-    prompt: "backless outfit",
-    data: ["ファッション", "トップス", "バックレス(背中丸見え)"]
-  },
-  {
-    prompt: "hoodie",
-    data: ["ファッション", "トップス", "パーカー"]
+    prompt: "cleavage cutout",
+    data: ["ファッション", "トップス", "パイズリ穴,谷間ホール"]
   },
   {
     prompt: "blouse",
     data: ["ファッション", "トップス", "ブラウス"]
-  },
-  {
-    prompt: "blazer suit",
-    data: ["ファッション", "トップス", "ブレザー"]
   },
   {
     prompt: "vest",
@@ -23673,60 +24729,48 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "ベスト付きシャツ"]
   },
   {
-    prompt: "halterneck",
-    data: ["ファッション", "トップス", "ホルターネック"]
-  },
-  {
     prompt: "button-up shirt",
     data: ["ファッション", "トップス", "ボタンシャツ"]
-  },
-  {
-    prompt: "buttons",
-    data: ["ファッション", "トップス", "ボタン付きの服"]
-  },
-  {
-    prompt: "body con",
-    data: ["ファッション", "トップス", "ボディコン"]
   },
   {
     prompt: "polo shirt",
     data: ["ファッション", "トップス", "ポロシャツ"]
   },
   {
-    prompt: "raglan sleeves",
-    data: ["ファッション", "トップス", "ラグランスリーブ(ベースボールシャツ)"]
-  },
-  {
     prompt: "running shirt",
     data: ["ファッション", "トップス", "ランニングシャツ"]
   },
   {
-    prompt: "lace top",
-    data: ["ファッション", "トップス", "レーストップ"]
-  },
-  {
-    prompt: "long coat",
-    data: ["ファッション", "トップス", "ロングコート"]
+    prompt: "shirt under robe",
+    data: ["ファッション", "トップス", "ローブの下のシャツ"]
   },
   {
     prompt: "shirt overhang",
     data: ["ファッション", "トップス", "乳カーテン"]
   },
   {
-    prompt: "bra open around nipples",
-    data: ["ファッション", "トップス", "乳首周辺まで開いたブラ"]
+    prompt: "breasts out, turn up shirt, open shirt, open clothes",
+    data: ["ファッション", "トップス", "乳見せ(nipples抜き)"]
+  },
+  {
+    prompt: "shirt from gym uniform",
+    data: ["ファッション", "トップス", "体操服の上"]
+  },
+  {
+    prompt: "partially unbutoned shirt",
+    data: ["ファッション", "トップス", "制服のボタンを外す"]
   },
   {
     prompt: "raglan sleeve t-shirts",
     data: ["ファッション", "トップス", "形の縫い目で色が分かれたTシャツ"]
   },
   {
-    prompt: "open clothes",
-    data: ["ファッション", "トップス", "服の前を開けている"]
+    prompt: "(taut shirt:1.2), shirt tucked in",
+    data: ["ファッション", "トップス", "服のしわ強め"]
   },
   {
-    prompt: "happi coat",
-    data: ["ファッション", "トップス", "法被(はっぴ)"]
+    prompt: "see through wet shirt",
+    data: ["ファッション", "トップス", "濡れたシャツ"]
   },
   {
     prompt: "open white shirts",
@@ -23737,208 +24781,28 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "童貞を殺す服"]
   },
   {
-    prompt: "cleavage cutout",
-    data: ["ファッション", "トップス", "童貞を殺す服,胸の谷間が見える衣装"]
-  },
-  {
-    prompt: "strapless",
-    data: ["ファッション", "トップス", "肩紐なし,肌が出てる上着"]
-  },
-  {
-    prompt: "hood down",
-    data: ["ファッション", "トップス", "被らないフード付きの上着"]
-  },
-  {
     prompt: "collared shirt",
-    data: ["ファッション", "トップス", "襟付きのシャツ,ワイシャツ"]
+    data: ["ファッション", "トップス", "襟付きのシャツ"]
   },
   {
     prompt: "open shirt",
     data: ["ファッション", "トップス", "首元が見える服"]
   },
   {
-    prompt: "surcoat",
-    data: ["ファッション", "トップス", "騎士が鎧の上に着る服"]
-  },
-  {
-    prompt: "pinafore dress",
-    data: ["ファッション", "ドレス", "エプロンドレス"]
-  },
-  {
-    prompt: "off shoulder dress",
-    data: ["ファッション", "ドレス", "オフショルダードレス"]
-  },
-  {
-    prompt: "short dress",
-    data: ["ファッション", "ドレス", "ショートドレス"]
-  },
-  {
-    prompt: "strapless dress",
-    data: ["ファッション", "ドレス", "ストラップレスドレス"]
-  },
-  {
-    prompt: "sweater dress",
-    data: ["ファッション", "ドレス", "セータードレス"]
-  },
-  {
-    prompt: "dress",
-    data: ["ファッション", "ドレス", "ドレス"]
-  },
-  {
-    prompt: "wearing a dress",
-    data: ["ファッション", "ドレス", "ドレス"]
-  },
-  {
-    prompt: "revealing dress",
-    data: ["ファッション", "ドレス", "ドレスを明らかにします"]
-  },
-  {
-    prompt: "sleeveless dress",
-    data: ["ファッション", "ドレス", "ノースリーブドレス"]
-  },
-  {
-    prompt: "frilled dress",
-    data: ["ファッション", "ドレス", "フリルの付いたドレス"]
-  },
-  {
-    prompt: "halter dress",
-    data: ["ファッション", "ドレス", "ホルタードレス"]
-  },
-  {
-    prompt: "layered dress",
-    data: ["ファッション", "ドレス", "レイヤードドレス"]
-  },
-  {
-    prompt: "long dress",
-    data: ["ファッション", "ドレス", "ロングドレス"]
-  },
-  {
-    prompt: "robe",
-    data: ["ファッション", "ドレス", "ローブ"]
-  },
-  {
-    prompt: "bunny ear headband",
-    data: ["ファッション", "ヘアアクセサリー", "うさ耳カチューシャ"]
-  },
-  {
-    prompt: "fancy hairpin",
-    data: ["ファッション", "ヘアアクセサリー", "おしゃれなヘアピン"]
-  },
-  {
-    prompt: "headband",
-    data: ["ファッション", "ヘアアクセサリー", "カチューシャ"]
-  },
-  {
-    prompt: "scrunchie",
-    data: ["ファッション", "ヘアアクセサリー", "シュシュ"]
-  },
-  {
-    prompt: "simple hair clip",
-    data: ["ファッション", "ヘアアクセサリー", "シンプルなヘアクリップ"]
-  },
-  {
-    prompt: "hairband",
-    data: ["ファッション", "ヘアアクセサリー", "ヘアバンド"]
-  },
-  {
-    prompt: "hairpin",
-    data: ["ファッション", "ヘアアクセサリー", "ヘアピン"]
-  },
-  {
-    prompt: "hair hoop",
-    data: ["ファッション", "ヘアアクセサリー", "ヘアフープ"]
-  },
-  {
-    prompt: "hair bow",
-    data: ["ファッション", "ヘアアクセサリー", "ヘアボウ"]
-  },
-  {
-    prompt: "hair ribbon",
-    data: ["ファッション", "ヘアアクセサリー", "ヘアリボン"]
-  },
-  {
-    prompt: "bell hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "ベルや鈴"]
-  },
-  {
-    prompt: "veil",
-    data: ["ファッション", "ヘアアクセサリー", "ベール"]
-  },
-  {
-    prompt: "glowing hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "光る髪飾り"]
-  },
-  {
-    prompt: "large hair ribbon",
-    data: ["ファッション", "ヘアアクセサリー", "大きなリボン"]
-  },
-  {
-    prompt: "jewel hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "宝石付き髪飾り"]
-  },
-  {
-    prompt: "star-shaped hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "星型の飾り"]
-  },
-  {
-    prompt: "cat ear headband",
-    data: ["ファッション", "ヘアアクセサリー", "猫耳カチューシャ"]
-  },
-  {
-    prompt: "fresh flower in hair",
-    data: ["ファッション", "ヘアアクセサリー", "生花の髪飾り"]
-  },
-  {
-    prompt: "kanzashi",
-    data: ["ファッション", "ヘアアクセサリー", "簪"]
-  },
-  {
-    prompt: "feather hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "羽飾り"]
-  },
-  {
-    prompt: "flower hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "花飾り"]
-  },
-  {
-    prompt: "artificial flower hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "造花の髪飾り"]
-  },
-  {
-    prompt: "golden hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "金の髪飾り"]
-  },
-  {
-    prompt: "silver hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "銀の髪飾り"]
-  },
-  {
-    prompt: "flower crown",
-    data: ["ファッション", "ヘアアクセサリー", "髪に付けたリース"]
-  },
-  {
-    prompt: "jewel hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "髪の宝石飾り"]
-  },
-  {
-    prompt: "japanese hair ornament",
-    data: ["ファッション", "ヘアアクセサリー", "髪飾り(和風)"]
-  },
-  {
-    prompt: "magical hair accessory",
-    data: ["ファッション", "ヘアアクセサリー", "魔法の装飾"]
-  },
-  {
-    prompt: "diapers",
-    data: ["ファッション", "ボトムス", "おむつ"]
-  },
-  {
     prompt: "wrinkled skirt",
     data: ["ファッション", "ボトムス", "しわのあるスカート"]
   },
   {
-    prompt: "asymmetrical legwear",
-    data: ["ファッション", "ボトムス", "アシンメトリーなレッグウェア"]
+    prompt: "asymmetrical skirt",
+    data: ["ファッション", "ボトムス", "アシンメトリースカート"]
+  },
+  {
+    prompt: "royal skirt with edge",
+    data: ["ファッション", "ボトムス", "エッジのロイヤルブルースカート"]
+  },
+  {
+    prompt: "ophakama",
+    data: ["ファッション", "ボトムス", "オープンハカマ"]
   },
   {
     prompt: "cargo pants",
@@ -23949,8 +24813,20 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "ガーゼスカート"]
   },
   {
+    prompt: "gathered skirt",
+    data: ["ファッション", "ボトムス", "ギャザースカート"]
+  },
+  {
     prompt: "cropped pants",
     data: ["ファッション", "ボトムス", "クロップドパンツ"]
+  },
+  {
+    prompt: "(corset skirt:0.4)",
+    data: ["ファッション", "ボトムス", "コルセットスカート"]
+  },
+  {
+    prompt: "side-slit skirt",
+    data: ["ファッション", "ボトムス", "サイドスリットスカート"]
   },
   {
     prompt: "shorts",
@@ -23973,6 +24849,10 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "スカート"]
   },
   {
+    prompt: "the skirt sways with the wind",
+    data: ["ファッション", "ボトムス", "スカートは風と揺れます"]
+  },
+  {
     prompt: "skinny pants",
     data: ["ファッション", "ボトムス", "スキニーパンツ"]
   },
@@ -23981,16 +24861,12 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "スパッツ"]
   },
   {
-    prompt: "spats",
-    data: ["ファッション", "ボトムス", "スパッツ"]
-  },
-  {
-    prompt: "safety knickers",
-    data: ["ファッション", "ボトムス", "スパッツみたいな安全半ズボン"]
-  },
-  {
     prompt: "sporty shorts",
     data: ["ファッション", "ボトムス", "スポーツショーツ"]
+  },
+  {
+    prompt: "slit skirt",
+    data: ["ファッション", "ボトムス", "スリット入りスカート"]
   },
   {
     prompt: "pants",
@@ -24001,8 +24877,20 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "タイトスカート"]
   },
   {
+    prompt: "tight skirt",
+    data: ["ファッション", "ボトムス", "タイトスカート"]
+  },
+  {
     prompt: "plaid miniskirt",
     data: ["ファッション", "ボトムス", "チェックミニスカート"]
+  },
+  {
+    prompt: "plaid skirt",
+    data: ["ファッション", "ボトムス", "チェック柄スカート"]
+  },
+  {
+    prompt: "tulle skirt",
+    data: ["ファッション", "ボトムス", "チュールスカート"]
   },
   {
     prompt: "denim shorts",
@@ -24013,11 +24901,11 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "デニムパンツ"]
   },
   {
-    prompt: "high waist",
-    data: ["ファッション", "ボトムス", "ハイウエスト"]
+    prompt: "high waist skirt",
+    data: ["ファッション", "ボトムス", "ハイウエストスカート"]
   },
   {
-    prompt: "high waist skirt",
+    prompt: "high-waisted skirt",
     data: ["ファッション", "ボトムス", "ハイウエストスカート"]
   },
   {
@@ -24029,8 +24917,16 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "ヒップボーン・スカート"]
   },
   {
+    prompt: "frilled skirt",
+    data: ["ファッション", "ボトムス", "フリルスカート"]
+  },
+  {
     prompt: "flared skirt",
     data: ["ファッション", "ボトムス", "フレアスカート"]
+  },
+  {
+    prompt: "princess skirt",
+    data: ["ファッション", "ボトムス", "プリンセススカート"]
   },
   {
     prompt: "pleated skirt",
@@ -24049,8 +24945,20 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "マイクロミニスカート"]
   },
   {
+    prompt: "mini skirt",
+    data: ["ファッション", "ボトムス", "ミニスカート"]
+  },
+  {
     prompt: "leggings",
     data: ["ファッション", "ボトムス", "レギンス"]
+  },
+  {
+    prompt: "leather skirt",
+    data: ["ファッション", "ボトムス", "レザースカート"]
+  },
+  {
+    prompt: "lace skirt",
+    data: ["ファッション", "ボトムス", "レーススカート"]
   },
   {
     prompt: "long skirt",
@@ -24061,272 +24969,140 @@ let defaultMaster = {
     data: ["ファッション", "ボトムス", "ワイドパンツ"]
   },
   {
-    prompt: "bare legs",
-    data: ["ファッション", "ボトムス", "太ももから下が肌"]
+    prompt: "school uniform skirt",
+    data: ["ファッション", "ボトムス", "制服スカート"]
   },
   {
-    prompt: "printed diapers",
-    data: ["ファッション", "ボトムス", "柄の入ったおむつ"]
+    prompt: "translucent fluttering skirt",
+    data: ["ファッション", "ボトムス", "半透明のフラッタースカート"]
   },
   {
-    prompt: "zettai ryouiki",
-    data: ["ファッション", "ボトムス", "絶対領域2"]
+    prompt: "summer long skirt",
+    data: ["ファッション", "ボトムス", "夏の長いスカート"]
   },
   {
-    prompt: "fishnet tights",
-    data: ["ファッション", "ボトムス", "網タイツ"]
+    prompt: "wrap skirt",
+    data: ["ファッション", "ボトムス", "巻きスカート"]
   },
   {
-    prompt: "legwear",
-    data: ["ファッション", "ボトムス", "脚衣"]
+    prompt: "skirt that sway",
+    data: ["ファッション", "ボトムス", "揺れるスカート"]
   },
   {
-    prompt: "loin cloth",
-    data: ["ファッション", "ボトムス", "腰布"]
+    prompt: "swim shorts",
+    data: ["ファッション", "ボトムス", "男性用の水着"]
+  },
+  {
+    prompt: "black leggings, torn legwear",
+    data: ["ファッション", "ボトムス", "破れた黒いレギンス"]
   },
   {
     prompt: "tulle chiffon skirt covered by thin translucent skirt",
     data: ["ファッション", "ボトムス", "透けてるスカート"]
   },
   {
-    prompt: "no shoes",
-    data: ["ファッション", "ボトムス", "靴なし靴下などあり"]
+    prompt: "see-through skirt",
+    data: ["ファッション", "ボトムス", "透けスカート"]
   },
   {
-    prompt: "tattoo",
-    data: ["ファッション", "メイク", "タトゥー"]
+    prompt: "pinafore dress",
+    data: ["ファッション", "ワンピース・ドレス", "エプロンドレス"]
   },
   {
-    prompt: "pubic tattoo",
-    data: ["ファッション", "メイク", "タトゥー2"]
-  },
-  {
-    prompt: "cheek",
-    data: ["ファッション", "メイク", "チーク"]
-  },
-  {
-    prompt: "barcode tatoo",
-    data: ["ファッション", "メイク", "バーコードタトゥー"]
-  },
-  {
-    prompt: "body paint",
-    data: ["ファッション", "メイク", "ボディペイント"]
-  },
-  {
-    prompt: "makeup",
-    data: ["ファッション", "メイク", "化粧,メイク"]
-  },
-  {
-    prompt: "shoulder tattoo",
-    data: ["ファッション", "メイク", "肩のタトゥー"]
-  },
-  {
-    prompt: "arm tattoo",
-    data: ["ファッション", "メイク", "腕のタトゥー"]
-  },
-  {
-    prompt: "facial tattoo",
-    data: ["ファッション", "メイク", "顔面タトゥー"]
-  },
-  {
-    prompt: "enameled clothes",
-    data: ["ファッション", "一式", "エナメル服"]
+    prompt: "off shoulder dress",
+    data: ["ファッション", "ワンピース・ドレス", "オフショルダードレス"]
   },
   {
     prompt: "organdie dress",
-    data: ["ファッション", "一式", "オーガンディドレス"]
+    data: ["ファッション", "ワンピース・ドレス", "オーガンディドレス"]
   },
   {
-    prompt: "cape hood",
-    data: ["ファッション", "一式", "ケープフード"]
+    prompt: "short dress",
+    data: ["ファッション", "ワンピース・ドレス", "ショートドレス"]
   },
   {
-    prompt: "track suits",
-    data: ["ファッション", "一式", "ジャージ"]
+    prompt: "strapless dress",
+    data: ["ファッション", "ワンピース・ドレス", "ストラップレスドレス"]
   },
   {
-    prompt: "baby bib",
-    data: ["ファッション", "一式", "スタイ"]
+    prompt: "sailor dress",
+    data: ["ファッション", "ワンピース・ドレス", "セーラードレス"]
   },
   {
-    prompt: "child smock",
-    data: ["ファッション", "一式", "スモック"]
+    prompt: "dress",
+    data: ["ファッション", "ワンピース・ドレス", "ドレス"]
   },
   {
-    prompt: "sailor",
-    data: ["ファッション", "一式", "セーラー"]
+    prompt: "wearing a dress",
+    data: ["ファッション", "ワンピース・ドレス", "ドレス"]
   },
   {
-    prompt: "turtleneck leotard",
-    data: ["ファッション", "一式", "タートルネックレオタード"]
+    prompt: "skull on dress",
+    data: ["ファッション", "ワンピース・ドレス", "ドレスの頭蓋骨"]
   },
   {
-    prompt: "highleg leotard",
-    data: ["ファッション", "一式", "ハイレグ"]
+    prompt: "revealing dress",
+    data: ["ファッション", "ワンピース・ドレス", "ドレスを明らかにします"]
   },
   {
-    prompt: "bathrobe",
-    data: ["ファッション", "一式", "バスローブ"]
+    prompt: "nightgown",
+    data: ["ファッション", "ワンピース・ドレス", "ネグリジェ"]
   },
   {
-    prompt: "pajamas",
-    data: ["ファッション", "一式", "パジャマ"]
+    prompt: "sleeveless dress",
+    data: ["ファッション", "ワンピース・ドレス", "ノースリーブドレス"]
   },
   {
-    prompt: "hooded cape",
-    data: ["ファッション", "一式", "フード付きケープ"]
+    prompt: "frilled dress",
+    data: ["ファッション", "ワンピース・ドレス", "フリルの付いたドレス"]
   },
   {
-    prompt: "double breasted",
-    data: ["ファッション", "一式", "ボタンが2つずつ並んだ服"]
+    prompt: "headdress",
+    data: ["ファッション", "ワンピース・ドレス", "ヘッドドレス"]
   },
   {
-    prompt: "cloak",
-    data: ["ファッション", "一式", "マント"]
+    prompt: "halter dress",
+    data: ["ファッション", "ワンピース・ドレス", "ホルタードレス"]
+  },
+  {
+    prompt: "layered dress",
+    data: ["ファッション", "ワンピース・ドレス", "レイヤードドレス"]
+  },
+  {
+    prompt: "long dress",
+    data: ["ファッション", "ワンピース・ドレス", "ロングドレス"]
   },
   {
     prompt: "rompers",
-    data: ["ファッション", "一式", "ロンパース"]
+    data: ["ファッション", "ワンピース・ドレス", "ロンパース"]
   },
   {
-    prompt: "robes",
-    data: ["ファッション", "一式", "ローブ"]
+    prompt: "torn dress",
+    data: ["ファッション", "ワンピース・ドレス", "破れたドレス"]
   },
   {
-    prompt: "strapless leotard",
-    data: ["ファッション", "一式", "上がないレオタード"]
-  },
-  {
-    prompt: "bodystocking",
-    data: ["ファッション", "一式", "全身タイツ"]
-  },
-  {
-    prompt: "side-tie leotard",
-    data: ["ファッション", "一式", "横に紐が付いているレオタード"]
-  },
-  {
-    prompt: "ornate",
-    data: ["ファッション", "一式", "金の装飾,華やか"]
-  },
-  {
-    prompt: "arm covers",
-    data: ["ファッション", "上半身", "アームカバー"]
-  },
-  {
-    prompt: "cape",
-    data: ["ファッション", "上半身", "ケープ"]
-  },
-  {
-    prompt: "scarf",
-    data: ["ファッション", "上半身", "スカーフ"]
-  },
-  {
-    prompt: "harness",
-    data: ["ファッション", "上半身", "ボディハーネス"]
-  },
-  {
-    prompt: "chest harness",
-    data: ["ファッション", "上半身", "ボディハーネス2"]
-  },
-  {
-    prompt: "backpack",
-    data: ["ファッション", "上半身", "リュック"]
-  },
-  {
-    prompt: "armlet",
-    data: ["ファッション", "上半身", "上腕の装飾"]
-  },
-  {
-    prompt: "name tag",
-    data: ["ファッション", "上半身", "名札"]
-  },
-  {
-    prompt: "capelet",
-    data: ["ファッション", "上半身", "小さなマント"]
-  },
-  {
-    prompt: "feather brooch",
-    data: ["ファッション", "上半身", "羽のブローチ"]
-  },
-  {
-    prompt: "epaulettes",
-    data: ["ファッション", "上半身", "肩章"]
-  },
-  {
-    prompt: "back jewel decoration",
-    data: ["ファッション", "上半身", "背中の宝石飾り"]
-  },
-  {
-    prompt: "breastplate",
-    data: ["ファッション", "上半身", "胸当て"]
-  },
-  {
-    prompt: "bat wings",
-    data: ["ファッション", "上半身", "蝙蝠の翼"]
-  },
-  {
-    prompt: "magical arm accessory",
-    data: ["ファッション", "上半身", "魔法の腕飾り"]
-  },
-  {
-    prompt: "belly button piercing",
-    data: ["ファッション", "下半身", "へそピアス"]
-  },
-  {
-    prompt: "garter belt",
-    data: ["ファッション", "下半身", "ガータベルト"]
-  },
-  {
-    prompt: "belt",
-    data: ["ファッション", "下半身", "ベルト"]
-  },
-  {
-    prompt: "buckle",
-    data: ["ファッション", "下半身", "ベルト2"]
-  },
-  {
-    prompt: "belt buckle",
-    data: ["ファッション", "下半身", "ベルト3"]
-  },
-  {
-    prompt: "thigh holster",
-    data: ["ファッション", "下半身", "レッグホルスター"]
-  },
-  {
-    prompt: "thigh strap",
-    data: ["ファッション", "下半身", "太ももストラップ"]
-  },
-  {
-    prompt: "obi",
-    data: ["ファッション", "下半身", "帯"]
-  },
-  {
-    prompt: "sash",
-    data: ["ファッション", "下半身", "帯2"]
+    prompt: "dress shoes",
+    data: ["ファッション", "ワンピース・ドレス", "革靴"]
   },
   {
     prompt: "g-string",
     data: ["ファッション", "下着", "Tバック"]
   },
   {
-    prompt: "covered breasts",
-    data: ["ファッション", "下着", "おっぱい隠す"]
-  },
-  {
     prompt: "white japanese loincloth",
     data: ["ファッション", "下着", "ふんどし(褌)"]
   },
   {
-    prompt: "wholebloomer",
-    data: ["ファッション", "下着", "まとまったブルマー"]
+    prompt: "garter belt",
+    data: ["ファッション", "下着", "ガータベルト"]
   },
   {
     prompt: "garter straps",
     data: ["ファッション", "下着", "ガーターベルト"]
   },
   {
-    prompt: "chemise",
-    data: ["ファッション", "下着", "キャミソール"]
+    prompt: "camisole",
+    data: ["ファッション", "下着", "キャミ"]
   },
   {
     prompt: "boyshort panties",
@@ -24338,31 +25114,23 @@ let defaultMaster = {
   },
   {
     prompt: "bloomers",
-    data: ["ファッション", "下着", "ドロワーズ,ブルマ"]
-  },
-  {
-    prompt: "pasties",
-    data: ["ファッション", "下着", "ニップレス"]
-  },
-  {
-    prompt: "nightgown",
-    data: ["ファッション", "下着", "ネグリジェ"]
+    data: ["ファッション", "下着", "ドロワーズ"]
   },
   {
     prompt: "negligee",
     data: ["ファッション", "下着", "ネグリジェ2"]
   },
   {
-    prompt: "pantyhose",
-    data: ["ファッション", "下着", "パンスト"]
+    prompt: "no underwear",
+    data: ["ファッション", "下着", "ノーパン"]
   },
   {
     prompt: "panties under pantyhose",
-    data: ["ファッション", "下着", "パンストパンツ,パンスト越しのパンツ"]
+    data: ["ファッション", "下着", "パンストパンツ"]
   },
   {
     prompt: "panties",
-    data: ["ファッション", "下着", "パンティー,パンツ"]
+    data: ["ファッション", "下着", "パンティー"]
   },
   {
     prompt: "leopard print, bra",
@@ -24373,12 +25141,20 @@ let defaultMaster = {
     data: ["ファッション", "下着", "ビスチェ"]
   },
   {
+    prompt: "bead bracelet",
+    data: ["ファッション", "下着", "ビーズブレスレット"]
+  },
+  {
     prompt: "bra",
     data: ["ファッション", "下着", "ブラジャー"]
   },
   {
     prompt: "wearing bloomers",
     data: ["ファッション", "下着", "ブルマ"]
+  },
+  {
+    prompt: "bracelet",
+    data: ["ファッション", "下着", "ブレスレット"]
   },
   {
     prompt: "babydoll",
@@ -24389,12 +25165,16 @@ let defaultMaster = {
     data: ["ファッション", "下着", "マイクロパンツ"]
   },
   {
+    prompt: "lace bracelet",
+    data: ["ファッション", "下着", "レース付き腕輪"]
+  },
+  {
     prompt: "underwear",
     data: ["ファッション", "下着", "下着"]
   },
   {
-    prompt: "classic briefs",
-    data: ["ファッション", "下着", "女性用下着"]
+    prompt: "bra open around nipples",
+    data: ["ファッション", "下着", "乳首周辺まで開いたブラ"]
   },
   {
     prompt: "polka dots cotton panties",
@@ -24405,27 +25185,27 @@ let defaultMaster = {
     data: ["ファッション", "下着", "片足パンツ"]
   },
   {
-    prompt: "boys briefs",
-    data: ["ファッション", "下着", "男性用ブリーフ"]
-  },
-  {
     prompt: "thong",
     data: ["ファッション", "下着", "皮ひも"]
   },
   {
-    prompt: "side tie bikini bottom",
-    data: ["ファッション", "下着", "紐パン"]
+    prompt: "side tie panties",
+    data: ["ファッション", "下着", "紐水着"]
   },
   {
-    prompt: "pelvic curtain",
-    data: ["ファッション", "下着", "股間の前の布"]
+    prompt: "french braid",
+    data: ["ファッション", "下着", "編み込み"]
+  },
+  {
+    prompt: "single braid",
+    data: ["ファッション", "下着", "編み込みが一つ"]
   },
   {
     prompt: "loincloth",
     data: ["ファッション", "下着", "股間の前の布2"]
   },
   {
-    prompt: "green  camouflage bra",
+    prompt: "green camouflage bra",
     data: ["ファッション", "下着", "迷彩柄のブラ"]
   },
   {
@@ -24437,56 +25217,20 @@ let defaultMaster = {
     data: ["ファッション", "下着", "鮮やか"]
   },
   {
-    prompt: "injury",
-    data: ["ファッション", "傷病", "傷がついてる系"]
-  },
-  {
-    prompt: "scar on face",
-    data: ["ファッション", "傷病", "傷がついてる系2"]
-  },
-  {
-    prompt: "bruise",
-    data: ["ファッション", "傷病", "打撲"]
-  },
-  {
-    prompt: "injection marks",
-    data: ["ファッション", "傷病", "注射痕"]
-  },
-  {
-    prompt: "birthmark",
-    data: ["ファッション", "傷病", "痣"]
-  },
-  {
-    prompt: "nosebleed",
-    data: ["ファッション", "傷病", "鼻血"]
-  },
-  {
-    prompt: "school shirt",
-    data: ["ファッション", "制服", "スクールシャツ"]
+    prompt: "obsidian bracelet",
+    data: ["ファッション", "下着", "黒曜石のブレスレット"]
   },
   {
     prompt: "sailor top",
     data: ["ファッション", "制服", "セーラー服の上衣"]
   },
   {
-    prompt: "shirt from gym uniform",
-    data: ["ファッション", "制服", "体操服の上"]
+    prompt: "blazer suit",
+    data: ["ファッション", "制服", "ブレザー"]
   },
   {
-    prompt: "school uniform skirt",
-    data: ["ファッション", "制服", "制服スカート"]
-  },
-  {
-    prompt: "bleached cloth",
-    data: ["ファッション", "和装", "さらし布"]
-  },
-  {
-    prompt: "ophakama",
-    data: ["ファッション", "和装", "オープンハカマ"]
-  },
-  {
-    prompt: "tabard",
-    data: ["ファッション", "和装", "紫(東方)の服"]
+    prompt: "bunny ear headband",
+    data: ["ファッション", "帽子", "うさ耳カチューシャ"]
   },
   {
     prompt: "bunny ear hat",
@@ -24498,7 +25242,7 @@ let defaultMaster = {
   },
   {
     prompt: "bonnet",
-    data: ["ファッション", "帽子", "ふんわりとしたお嬢様っぽい帽子,ボンネット帽"]
+    data: ["ファッション", "帽子", "ふんわりとしたお嬢様っぽい帽子"]
   },
   {
     prompt: "animal-themed hat",
@@ -24513,8 +25257,8 @@ let defaultMaster = {
     data: ["ファッション", "帽子", "カクテルハット"]
   },
   {
-    prompt: "horseshoe shaped hairband",
-    data: ["ファッション", "帽子", "カチューシャ"]
+    prompt: "headband",
+    data: ["ファッション", "帽子", "カチューシャ,鉢巻"]
   },
   {
     prompt: "cabbie hat",
@@ -24522,7 +25266,7 @@ let defaultMaster = {
   },
   {
     prompt: "crown",
-    data: ["ファッション", "帽子", "クラウン,王冠"]
+    data: ["ファッション", "帽子", "クラウン"]
   },
   {
     prompt: "clown hat",
@@ -24531,10 +25275,6 @@ let defaultMaster = {
   {
     prompt: "santa hat",
     data: ["ファッション", "帽子", "サンタ帽"]
-  },
-  {
-    prompt: "sun visor",
-    data: ["ファッション", "帽子", "サンバイザー"]
   },
   {
     prompt: "visor cap",
@@ -24546,11 +25286,11 @@ let defaultMaster = {
   },
   {
     prompt: "straw hat",
-    data: ["ファッション", "帽子", "ストローハット,麦わら帽子"]
+    data: ["ファッション", "帽子", "ストローハット"]
   },
   {
     prompt: "sailor hat",
-    data: ["ファッション", "帽子", "セーラー帽,水兵帽"]
+    data: ["ファッション", "帽子", "セーラー帽"]
   },
   {
     prompt: "tiara",
@@ -24558,15 +25298,11 @@ let defaultMaster = {
   },
   {
     prompt: "nurse cap",
-    data: ["ファッション", "帽子", "ナースカップ,看護師の帽子"]
+    data: ["ファッション", "帽子", "ナースカップ"]
   },
   {
     prompt: "knit hat",
     data: ["ファッション", "帽子", "ニット帽"]
-  },
-  {
-    prompt: "beanie",
-    data: ["ファッション", "帽子", "ニット帽,ビーニー帽"]
   },
   {
     prompt: "knitted hat",
@@ -24581,16 +25317,12 @@ let defaultMaster = {
     data: ["ファッション", "帽子", "バケットハット"]
   },
   {
-    prompt: "bandana",
-    data: ["ファッション", "帽子", "バンダナ"]
+    prompt: "hood up",
+    data: ["ファッション", "帽子", "フード"]
   },
   {
     prompt: "hooded hat",
     data: ["ファッション", "帽子", "フード付き帽子"]
-  },
-  {
-    prompt: "headdress",
-    data: ["ファッション", "帽子", "ヘッドドレス"]
   },
   {
     prompt: "helmet",
@@ -24609,20 +25341,12 @@ let defaultMaster = {
     data: ["ファッション", "帽子", "ミニ帽子"]
   },
   {
-    prompt: "ascot",
-    data: ["ファッション", "帽子", "ミニ王冠"]
-  },
-  {
     prompt: "maid headband",
     data: ["ファッション", "帽子", "メイドカチューシャ"]
   },
   {
     prompt: "mob cap",
     data: ["ファッション", "帽子", "モブキャップ"]
-  },
-  {
-    prompt: "hat ribbon",
-    data: ["ファッション", "帽子", "リボンの付いた帽子"]
   },
   {
     prompt: "medieval hat",
@@ -24661,20 +25385,20 @@ let defaultMaster = {
     data: ["ファッション", "帽子", "帽子の先端にペンダント"]
   },
   {
-    prompt: "futuristic headgear",
-    data: ["ファッション", "帽子", "未来的なヘッドギア"]
+    prompt: "swim cap",
+    data: ["ファッション", "帽子", "水着用の帽子"]
+  },
+  {
+    prompt: "cat ear headband",
+    data: ["ファッション", "帽子", "猫耳カチューシャ"]
   },
   {
     prompt: "princess hat",
     data: ["ファッション", "帽子", "王女の帽子"]
   },
   {
-    prompt: "head wreath",
-    data: ["ファッション", "帽子", "花冠"]
-  },
-  {
-    prompt: "floral decoration",
-    data: ["ファッション", "帽子", "花飾り"]
+    prompt: "hood down",
+    data: ["ファッション", "帽子", "被らないフード付きの上着"]
   },
   {
     prompt: "police cap",
@@ -24693,232 +25417,16 @@ let defaultMaster = {
     data: ["ファッション", "帽子", "軍帽2"]
   },
   {
-    prompt: "headband",
-    data: ["ファッション", "帽子", "鉢巻"]
-  },
-  {
-    prompt: "headpiece",
-    data: ["ファッション", "帽子", "頭飾り"]
-  },
-  {
-    prompt: "hair ornament",
-    data: ["ファッション", "帽子", "髪飾り"]
+    prompt: "flower crown",
+    data: ["ファッション", "帽子", "髪に付けたリース"]
   },
   {
     prompt: "witch hat",
-    data: ["ファッション", "帽子", "魔女の帽子,魔女帽子"]
+    data: ["ファッション", "帽子", "魔女の帽子"]
   },
   {
     prompt: "wizard hat",
     data: ["ファッション", "帽子", "魔法使いの帽子"]
-  },
-  {
-    prompt: "anklet",
-    data: ["ファッション", "手", "アンクレット"]
-  },
-  {
-    prompt: "arm ring",
-    data: ["ファッション", "手", "アームリング"]
-  },
-  {
-    prompt: "scrunchie",
-    data: ["ファッション", "手", "シュシュ"]
-  },
-  {
-    prompt: "chain ring",
-    data: ["ファッション", "手", "チェーンリング"]
-  },
-  {
-    prompt: "bead bracelet",
-    data: ["ファッション", "手", "ビーズブレスレット"]
-  },
-  {
-    prompt: "bracelet",
-    data: ["ファッション", "手", "ブレスレット,腕輪"]
-  },
-  {
-    prompt: "ring",
-    data: ["ファッション", "手", "リング"]
-  },
-  {
-    prompt: "lace bracelet",
-    data: ["ファッション", "手", "レース付き腕輪"]
-  },
-  {
-    prompt: "shackles",
-    data: ["ファッション", "手", "手枷,足枷"]
-  },
-  {
-    prompt: "wrist cuffs",
-    data: ["ファッション", "手", "手首にカフスだけ付いてるやつ"]
-  },
-  {
-    prompt: "multiple rings",
-    data: ["ファッション", "手", "指輪がたくさん"]
-  },
-  {
-    prompt: "mechanical arm armor",
-    data: ["ファッション", "手", "機械式アームアーマー"]
-  },
-  {
-    prompt: "wedding rings",
-    data: ["ファッション", "手", "結婚指輪"]
-  },
-  {
-    prompt: "wristwatch",
-    data: ["ファッション", "手", "腕時計"]
-  },
-  {
-    prompt: "obsidian bracelet",
-    data: ["ファッション", "手", "黒曜石のブレスレット"]
-  },
-  {
-    prompt: "elbow gloves",
-    data: ["ファッション", "手袋", "ひじまで長い手袋"]
-  },
-  {
-    prompt: "bridal gauntlets",
-    data: ["ファッション", "手袋", "ウェディンググローブ"]
-  },
-  {
-    prompt: "gloves",
-    data: ["ファッション", "手袋", "グローブ,手袋"]
-  },
-  {
-    prompt: "fingerless gloves",
-    data: ["ファッション", "手袋", "フィンガーレスグローブ"]
-  },
-  {
-    prompt: "frilled gloves",
-    data: ["ファッション", "手袋", "フリルグローブ"]
-  },
-  {
-    prompt: "lace gloves",
-    data: ["ファッション", "手袋", "レースグローブ"]
-  },
-  {
-    prompt: "fingerless glove",
-    data: ["ファッション", "手袋", "指ぬきグローブ"]
-  },
-  {
-    prompt: "partially fingerless glove",
-    data: ["ファッション", "手袋", "指ぬきグローブ2"]
-  },
-  {
-    prompt: "ring",
-    data: ["ファッション", "手袋", "指輪"]
-  },
-  {
-    prompt: "white gloves",
-    data: ["ファッション", "手袋", "白手袋"]
-  },
-  {
-    prompt: "paw gloves",
-    data: ["ファッション", "手袋", "肉球グローブ"]
-  },
-  {
-    prompt: "black gloves",
-    data: ["ファッション", "手袋", "黒手袋"]
-  },
-  {
-    prompt: "electric guitar",
-    data: ["ファッション", "持つ奴", "エレキギター"]
-  },
-  {
-    prompt: "bag",
-    data: ["ファッション", "持つ奴", "バッグ"]
-  },
-  {
-    prompt: "handbag",
-    data: ["ファッション", "持つ奴", "バッグ2"]
-  },
-  {
-    prompt: "shoulder bag",
-    data: ["ファッション", "持つ奴", "バッグ4"]
-  },
-  {
-    prompt: "oil paper umbrella",
-    data: ["ファッション", "持つ奴", "和傘"]
-  },
-  {
-    prompt: "hand fan",
-    data: ["ファッション", "持つ奴", "扇子"]
-  },
-  {
-    prompt: "paper lantern",
-    data: ["ファッション", "持つ奴", "提灯"]
-  },
-  {
-    prompt: "staff",
-    data: ["ファッション", "持つ奴", "杖"]
-  },
-  {
-    prompt: "stick",
-    data: ["ファッション", "持つ奴", "杖2"]
-  },
-  {
-    prompt: "cane",
-    data: ["ファッション", "持つ奴", "杖3"]
-  },
-  {
-    prompt: "wand",
-    data: ["ファッション", "持つ奴", "杖4"]
-  },
-  {
-    prompt: "mace",
-    data: ["ファッション", "持つ奴", "杖5"]
-  },
-  {
-    prompt: "crutch",
-    data: ["ファッション", "持つ奴", "杖6"]
-  },
-  {
-    prompt: "clothes made of silver",
-    data: ["ファッション", "材質", "作られた服"]
-  },
-  {
-    prompt: "crystallized clothing",
-    data: ["ファッション", "材質", "結晶化服"]
-  },
-  {
-    prompt: "exquisite cloth",
-    data: ["ファッション", "材質", "絶妙な布"]
-  },
-  {
-    prompt: "bouquet",
-    data: ["ファッション", "武器", "ブーケ"]
-  },
-  {
-    prompt: "whip",
-    data: ["ファッション", "武器", "ムチ"]
-  },
-  {
-    prompt: "dual wielding",
-    data: ["ファッション", "武器", "二丁拳銃"]
-  },
-  {
-    prompt: "katana",
-    data: ["ファッション", "武器", "刀"]
-  },
-  {
-    prompt: "sword",
-    data: ["ファッション", "武器", "剣"]
-  },
-  {
-    prompt: "japanese sword",
-    data: ["ファッション", "武器", "日本刀"]
-  },
-  {
-    prompt: "water gun",
-    data: ["ファッション", "武器", "水鉄砲"]
-  },
-  {
-    prompt: "gun",
-    data: ["ファッション", "武器", "銃"]
-  },
-  {
-    prompt: "gunpoint",
-    data: ["ファッション", "武器", "銃を突きつけられる"]
   },
   {
     prompt: "japanese school swimsuit",
@@ -24929,20 +25437,12 @@ let defaultMaster = {
     data: ["ファッション", "水着", "スリリングショット"]
   },
   {
-    prompt: "slingshot",
-    data: ["ファッション", "水着", "スリングショット"]
-  },
-  {
-    prompt: "highleg",
-    data: ["ファッション", "水着", "ハイレグ (別の服装等と併用)"]
+    prompt: "highleg leotard",
+    data: ["ファッション", "水着", "ハイレグ"]
   },
   {
     prompt: "highleg swimsuit",
     data: ["ファッション", "水着", "ハイレグ水着"]
-  },
-  {
-    prompt: "bandeau",
-    data: ["ファッション", "水着", "バンドゥビキニ"]
   },
   {
     prompt: "sarong",
@@ -24981,12 +25481,16 @@ let defaultMaster = {
     data: ["ファッション", "水着", "ワンピース"]
   },
   {
+    prompt: "strapless leotard",
+    data: ["ファッション", "水着", "上がないレオタード"]
+  },
+  {
     prompt: "miniature microbikini",
     data: ["ファッション", "水着", "極小マイクロビキニ"]
   },
   {
-    prompt: "swimming goggles",
-    data: ["ファッション", "水着", "水中ゴーグル"]
+    prompt: "side-tie leotard",
+    data: ["ファッション", "水着", "横に紐が付いているレオタード"]
   },
   {
     prompt: "swimsuit",
@@ -24997,15 +25501,7 @@ let defaultMaster = {
     data: ["ファッション", "水着", "水着"]
   },
   {
-    prompt: "swim cap",
-    data: ["ファッション", "水着", "水着用の帽子"]
-  },
-  {
     prompt: "swim briefs",
-    data: ["ファッション", "水着", "男性用の水着"]
-  },
-  {
-    prompt: "swim shorts",
     data: ["ファッション", "水着", "男性用の水着"]
   },
   {
@@ -25025,16 +25521,12 @@ let defaultMaster = {
     data: ["ファッション", "水着", "競泳水着の上"]
   },
   {
+    prompt: "side tie bikini bottom",
+    data: ["ファッション", "水着", "紐パン"]
+  },
+  {
     prompt: "multi strapped bikini",
     data: ["ファッション", "水着", "紐パンビキニの紐が複数"]
-  },
-  {
-    prompt: "front tie top",
-    data: ["ファッション", "水着", "紐ビキニ,リボンブラ"]
-  },
-  {
-    prompt: "side tie panties",
-    data: ["ファッション", "水着", "紐水着"]
   },
   {
     prompt: "side-tie bikini bottom",
@@ -25057,856 +25549,276 @@ let defaultMaster = {
     data: ["ファッション", "水着", "青い競泳水着"]
   },
   {
-    prompt: "the skirt sways with the wind",
-    data: ["ファッション", "特徴", "スカートは風と揺れます"]
-  },
-  {
-    prompt: "sailor dress",
-    data: ["ファッション", "特徴", "セーラードレス"]
-  },
-  {
-    prompt: "torn clothes",
-    data: ["ファッション", "特徴", "ダメージ服"]
-  },
-  {
-    prompt: "frills",
-    data: ["ファッション", "特徴", "フリル"]
-  },
-  {
-    prompt: "fringes",
-    data: ["ファッション", "特徴", "フリンジ"]
-  },
-  {
-    prompt: "unbuttoned",
-    data: ["ファッション", "特徴", "ボタンが外れている"]
-  },
-  {
-    prompt: "button gap",
-    data: ["ファッション", "特徴", "ボタンが外れている2"]
-  },
-  {
-    prompt: "ボタンの隙間",
-    data: ["ファッション", "特徴", "ボタンの隙間"]
-  },
-  {
-    prompt: "lace",
-    data: ["ファッション", "特徴", "レース"]
-  },
-  {
-    prompt: "long straight",
-    data: ["ファッション", "特徴", "ロングストレート"]
-  },
-  {
-    prompt: "shirt under robe",
-    data: ["ファッション", "特徴", "ローブの下のシャツ"]
-  },
-  {
-    prompt: "breasts out, turn up shirt, open shirt, open clothes",
-    data: ["ファッション", "特徴", "乳見せ(nipples抜き)"]
-  },
-  {
-    prompt: "skirt that sway",
-    data: ["ファッション", "特徴", "揺れるスカート"]
-  },
-  {
-    prompt: "clothes writing",
-    data: ["ファッション", "特徴", "文字入り服"]
-  },
-  {
-    prompt: "clothes",
-    data: ["ファッション", "特徴", "服,衣服"]
-  },
-  {
-    prompt: "see through wet shirt",
-    data: ["ファッション", "特徴", "濡れたシャツ"]
-  },
-  {
-    prompt: "torn dress",
-    data: ["ファッション", "特徴", "破れたドレス"]
-  },
-  {
-    prompt: "torn clothesup",
-    data: ["ファッション", "特徴", "破れた服"]
-  },
-  {
-    prompt: "black leggings, torn legwear",
-    data: ["ファッション", "特徴", "破れた黒いレギンス"]
-  },
-  {
-    prompt: "strap gap",
-    data: ["ファッション", "特徴", "紐伸び"]
-  },
-  {
-    prompt: "detached sleeves",
-    data: ["ファッション", "特徴", "肩開きのトップス"]
-  },
-  {
-    prompt: "unzipped",
-    data: ["ファッション", "特徴", "開放"]
-  },
-  {
-    prompt: "coke-bottle glasses",
-    data: ["ファッション", "眼鏡", "ぐるぐる眼鏡"]
-  },
-  {
-    prompt: "eyepatch",
-    data: ["ファッション", "眼鏡", "アイパッチ,眼帯"]
-  },
-  {
-    prompt: "sunglasses",
-    data: ["ファッション", "眼鏡", "サングラス,グラサン"]
-  },
-  {
-    prompt: "semi rimless eyewear",
-    data: ["ファッション", "眼鏡", "ハーフフレームメガネ"]
-  },
-  {
-    prompt: "eyewear on head",
-    data: ["ファッション", "眼鏡", "メガネを頭にかける"]
-  },
-  {
-    prompt: "monocle",
-    data: ["ファッション", "眼鏡", "モノクル"]
-  },
-  {
-    prompt: "round eyewear",
-    data: ["ファッション", "眼鏡", "丸メガネ"]
-  },
-  {
-    prompt: "glasses",
-    data: ["ファッション", "眼鏡", "眼鏡"]
-  },
-  {
-    prompt: "bunny ears",
-    data: ["ファッション", "耳", "うさみみ"]
-  },
-  {
-    prompt: "earrings",
-    data: ["ファッション", "耳", "イヤリング,ピアス"]
-  },
-  {
-    prompt: "ear cuff",
-    data: ["ファッション", "耳", "イヤーカフ"]
-  },
-  {
-    prompt: "earmuffs",
-    data: ["ファッション", "耳", "イヤーマフ"]
-  },
-  {
-    prompt: "kemomimi",
-    data: ["ファッション", "耳", "ケモミミ"]
-  },
-  {
-    prompt: "hoop earrings",
-    data: ["ファッション", "耳", "フープイヤリング"]
-  },
-  {
-    prompt: "earrings on both ears",
-    data: ["ファッション", "耳", "両耳ピアス"]
-  },
-  {
-    prompt: "large earrings",
-    data: ["ファッション", "耳", "大ぶりなピアス"]
-  },
-  {
-    prompt: "single earring",
-    data: ["ファッション", "耳", "片耳ピアス"]
-  },
-  {
-    prompt: "crown-shaped earrings",
-    data: ["ファッション", "耳", "王冠の形のイヤリング"]
-  },
-  {
-    prompt: "see through",
-    data: ["ファッション", "袖", "シースルー"]
-  },
-  {
-    prompt: "see through sleeves",
-    data: ["ファッション", "袖", "シースルーの袖"]
-  },
-  {
-    prompt: "sleeve",
-    data: ["ファッション", "袖", "スリーブ"]
-  },
-  {
-    prompt: "top sleeves",
-    data: ["ファッション", "袖", "トップスリーブ"]
-  },
-  {
-    prompt: "short sleeve",
-    data: ["ファッション", "袖", "半袖"]
-  },
-  {
-    prompt: "sleeves past fingers",
-    data: ["ファッション", "袖", "指を通り過ぎる袖"]
-  },
-  {
-    prompt: "furisode",
-    data: ["ファッション", "袖", "振袖"]
-  },
-  {
-    prompt: "sleeves past wrists",
-    data: ["ファッション", "袖", "萌え袖,ダボ袖"]
-  },
-  {
-    prompt: "sleeves",
-    data: ["ファッション", "袖", "袖あり"]
-  },
-  {
-    prompt: "sleeveless",
-    data: ["ファッション", "袖", "袖なし"]
-  },
-  {
-    prompt: "long top sleeves past fingers",
-    data: ["ファッション", "袖", "長い指の長い袖"]
-  },
-  {
-    prompt: "long sleeves",
-    data: ["ファッション", "袖", "長袖"]
-  },
-  {
-    prompt: "anklet",
-    data: ["ファッション", "装身具", "アンクレット"]
-  },
-  {
-    prompt: "choker",
-    data: ["ファッション", "装身具", "チョーカー"]
-  },
-  {
-    prompt: "necklace",
-    data: ["ファッション", "装身具", "ネックレス"]
-  },
-  {
-    prompt: "earrings",
-    data: ["ファッション", "装身具", "ピアス"]
-  },
-  {
-    prompt: "bracelet",
-    data: ["ファッション", "装身具", "ブレスレット"]
-  },
-  {
-    prompt: "hairpin",
-    data: ["ファッション", "装身具", "ヘアピン"]
-  },
-  {
-    prompt: "ribbon",
-    data: ["ファッション", "装身具", "リボン"]
-  },
-  {
-    prompt: "ring",
-    data: ["ファッション", "装身具", "指輪"]
-  },
-  {
-    prompt: "bib",
-    data: ["ファッション", "装身具", "涎掛け"]
-  },
-  {
-    prompt: "hair ornament",
-    data: ["ファッション", "装身具", "髪飾り"]
-  },
-  {
-    prompt: "zipper",
-    data: ["ファッション", "装飾", "ジッパー"]
-  },
-  {
-    prompt: "jewelry",
-    data: ["ファッション", "装飾", "ジュエリー"]
-  },
-  {
-    prompt: "towel",
-    data: ["ファッション", "装飾", "タオル"]
-  },
-  {
-    prompt: "skull on dress",
-    data: ["ファッション", "装飾", "ドレスの頭蓋骨"]
-  },
-  {
-    prompt: "piercing",
-    data: ["ファッション", "装飾", "ピアス"]
-  },
-  {
-    prompt: "doll",
-    data: ["ファッション", "装飾", "人形"]
-  },
-  {
-    prompt: "gemstone of body",
-    data: ["ファッション", "装飾", "体の宝石"]
-  },
-  {
-    prompt: "bandages",
-    data: ["ファッション", "装飾", "包帯"]
-  },
-  {
-    prompt: "gemological ornaments",
-    data: ["ファッション", "装飾", "宝飾品"]
-  },
-  {
-    prompt: "mechanical prosthesis",
-    data: ["ファッション", "装飾", "機械的補綴物"]
-  },
-  {
-    prompt: "flowing lace",
-    data: ["ファッション", "装飾", "流れるレース"]
-  },
-  {
-    prompt: "gear",
-    data: ["ファッション", "装飾", "装備"]
-  },
-  {
-    prompt: "jewelry decoration",
-    data: ["ファッション", "装飾", "装飾"]
-  },
-  {
-    prompt: "topless",
-    data: ["ファッション", "裸", "トップレス,上裸"]
-  },
-  {
-    prompt: "no underwear",
-    data: ["ファッション", "裸", "ノーパン"]
-  },
-  {
-    prompt: "bottomless",
-    data: ["ファッション", "裸", "下半身裸"]
-  },
-  {
-    prompt: "completely nude",
-    data: ["ファッション", "裸", "完全にヌード"]
-  },
-  {
-    prompt: "naked",
-    data: ["ファッション", "裸", "裸"]
-  },
-  {
-    prompt: "naked apron",
-    data: ["ファッション", "裸", "裸エプロン"]
-  },
-  {
-    prompt: "naked waist apron",
-    data: ["ファッション", "裸", "裸エプロン"]
-  },
-  {
-    prompt: "naked towel",
-    data: ["ファッション", "裸", "裸タオル"]
-  },
-  {
-    prompt: "naked necktie",
-    data: ["ファッション", "裸", "裸ネクタイ"]
-  },
-  {
-    prompt: "barefoot",
-    data: ["ファッション", "裸", "裸足"]
-  },
-  {
-    prompt: "wedge sole shoes",
-    data: ["ファッション", "靴", "ウエッジソール靴"]
-  },
-  {
-    prompt: "sandals",
-    data: ["ファッション", "靴", "サンダル"]
-  },
-  {
-    prompt: "shoes",
-    data: ["ファッション", "靴", "シューズ"]
-  },
-  {
-    prompt: "short boots",
-    data: ["ファッション", "靴", "ショートブーツ"]
-  },
-  {
-    prompt: "strappy shoes",
-    data: ["ファッション", "靴", "ストラップシューズ"]
-  },
-  {
-    prompt: "sneakers",
-    data: ["ファッション", "靴", "スニーカー"]
-  },
-  {
-    prompt: "knee-high boots",
-    data: ["ファッション", "靴", "ニーハイブーツ"]
-  },
-  {
-    prompt: "high heeled shoes",
-    data: ["ファッション", "靴", "ハイヒール"]
-  },
-  {
-    prompt: "high heels",
-    data: ["ファッション", "靴", "ハイヒール"]
-  },
-  {
-    prompt: "ballet flats",
-    data: ["ファッション", "靴", "バレエシューズ"]
-  },
-  {
-    prompt: "pumps",
-    data: ["ファッション", "靴", "パンプス"]
-  },
-  {
-    prompt: "flip-flops",
-    data: ["ファッション", "靴", "ビーチサンダル"]
-  },
-  {
-    prompt: "boots",
-    data: ["ファッション", "靴", "ブーツ"]
-  },
-  {
-    prompt: "booties",
-    data: ["ファッション", "靴", "ブーティ"]
-  },
-  {
-    prompt: "mules",
-    data: ["ファッション", "靴", "ミュール"]
-  },
-  {
-    prompt: "mary jane shoes",
-    data: ["ファッション", "靴", "メリージェーンシューズ"]
-  },
-  {
-    prompt: "lace-up boots",
-    data: ["ファッション", "靴", "レースアップブーツ"]
-  },
-  {
-    prompt: "geta",
-    data: ["ファッション", "靴", "下駄"]
-  },
-  {
-    prompt: "platform boots",
-    data: ["ファッション", "靴", "厚底ブーツ"]
-  },
-  {
-    prompt: "platform footwear",
-    data: ["ファッション", "靴", "厚底靴"]
-  },
-  {
-    prompt: "platform shoes",
-    data: ["ファッション", "靴", "厚底靴"]
-  },
-  {
-    prompt: "thigh boots",
-    data: ["ファッション", "靴", "太ももブーツ"]
-  },
-  {
-    prompt: "pointed boots",
-    data: ["ファッション", "靴", "尖ったブーツ"]
-  },
-  {
-    prompt: "footwear",
-    data: ["ファッション", "靴", "履物"]
-  },
-  {
-    prompt: "clogs",
-    data: ["ファッション", "靴", "木靴"]
-  },
-  {
-    prompt: "wearing only one shoe",
-    data: ["ファッション", "靴", "片方だけ靴を履いている"]
-  },
-  {
-    prompt: "cross laced footwear",
-    data: ["ファッション", "靴", "編み上げブーツ"]
-  },
-  {
-    prompt: "lace up boots",
-    data: ["ファッション", "靴", "編み上げブーツ2"]
-  },
-  {
-    prompt: "unworn boots",
-    data: ["ファッション", "靴", "脱いだ靴"]
-  },
-  {
-    prompt: "slipping off shoes",
-    data: ["ファッション", "靴", "脱げかけの靴"]
-  },
-  {
-    prompt: "zōri",
-    data: ["ファッション", "靴", "草履"]
-  },
-  {
-    prompt: "barefoot",
-    data: ["ファッション", "靴", "裸足"]
-  },
-  {
-    prompt: "running shoes",
-    data: ["ファッション", "靴", "運動靴"]
-  },
-  {
-    prompt: "dress shoes",
-    data: ["ファッション", "靴", "革靴"]
-  },
-  {
     prompt: "ankle socks",
-    data: ["ファッション", "靴下", "くるぶしソックス"]
+    data: ["ファッション", "靴・靴下", "くるぶしソックス"]
   },
   {
     prompt: "wrinkled pantyhose",
-    data: ["ファッション", "靴下", "しわあり"]
+    data: ["ファッション", "靴・靴下", "しわあり"]
+  },
+  {
+    prompt: "wedge sole shoes",
+    data: ["ファッション", "靴・靴下", "ウエッジソール靴"]
   },
   {
     prompt: "gray pantyhose",
-    data: ["ファッション", "靴下", "グレー"]
+    data: ["ファッション", "靴・靴下", "グレー"]
+  },
+  {
+    prompt: "sandals",
+    data: ["ファッション", "靴・靴下", "サンダル"]
+  },
+  {
+    prompt: "shoes",
+    data: ["ファッション", "靴・靴下", "シューズ"]
+  },
+  {
+    prompt: "short boots",
+    data: ["ファッション", "靴・靴下", "ショートブーツ"]
   },
   {
     prompt: "school uniform socks",
-    data: ["ファッション", "靴下", "スクールソックス"]
+    data: ["ファッション", "靴・靴下", "スクールソックス"]
   },
   {
     prompt: "stockings",
-    data: ["ファッション", "靴下", "ストッキング"]
+    data: ["ファッション", "靴・靴下", "ストッキング"]
   },
   {
     prompt: "striped socks",
-    data: ["ファッション", "靴下", "ストライプ柄ソックス"]
+    data: ["ファッション", "靴・靴下", "ストライプ柄ソックス"]
+  },
+  {
+    prompt: "strappy shoes",
+    data: ["ファッション", "靴・靴下", "ストラップシューズ"]
+  },
+  {
+    prompt: "sneakers",
+    data: ["ファッション", "靴・靴下", "スニーカー"]
   },
   {
     prompt: "tights",
-    data: ["ファッション", "靴下", "タイツ"]
+    data: ["ファッション", "靴・靴下", "タイツ"]
   },
   {
     prompt: "plaid socks",
-    data: ["ファッション", "靴下", "チェック柄ソックス"]
+    data: ["ファッション", "靴・靴下", "チェック柄ソックス"]
   },
   {
     prompt: "thighhighs",
-    data: ["ファッション", "靴下", "ニーソ"]
+    data: ["ファッション", "靴・靴下", "ニーソ"]
   },
   {
     prompt: "over-knee socks",
-    data: ["ファッション", "靴下", "ニーハイソックス"]
+    data: ["ファッション", "靴・靴下", "ニーハイソックス"]
+  },
+  {
+    prompt: "knee-high boots",
+    data: ["ファッション", "靴・靴下", "ニーハイブーツ"]
   },
   {
     prompt: "knee-high socks",
-    data: ["ファッション", "靴下", "ハイソックス"]
+    data: ["ファッション", "靴・靴下", "ハイソックス"]
+  },
+  {
+    prompt: "high heeled shoes",
+    data: ["ファッション", "靴・靴下", "ハイヒール"]
+  },
+  {
+    prompt: "pantyhose",
+    data: ["ファッション", "靴・靴下", "パンスト"]
   },
   {
     prompt: "tight pantyhose",
-    data: ["ファッション", "靴下", "ピタピタ"]
+    data: ["ファッション", "靴・靴下", "ピタピタ"]
   },
   {
     prompt: "frilly socks",
-    data: ["ファッション", "靴下", "フリル付きソックス"]
+    data: ["ファッション", "靴・靴下", "フリル付きソックス"]
+  },
+  {
+    prompt: "boots",
+    data: ["ファッション", "靴・靴下", "ブーツ"]
   },
   {
     prompt: "border knee socks",
-    data: ["ファッション", "靴下", "ボーダーの靴下"]
+    data: ["ファッション", "靴・靴下", "ボーダーの靴下"]
   },
   {
     prompt: "border socks",
-    data: ["ファッション", "靴下", "ボーダーソックス"]
+    data: ["ファッション", "靴・靴下", "ボーダーソックス"]
   },
   {
     prompt: "mat pantyhose",
-    data: ["ファッション", "靴下", "マット"]
+    data: ["ファッション", "靴・靴下", "マット"]
   },
   {
     prompt: "mid-calf socks",
-    data: ["ファッション", "靴下", "ミドルソックス"]
+    data: ["ファッション", "靴・靴下", "ミドルソックス"]
+  },
+  {
+    prompt: "mary jane shoes",
+    data: ["ファッション", "靴・靴下", "メリージェーンシューズ"]
   },
   {
     prompt: "ribbed socks",
-    data: ["ファッション", "靴下", "リブソックス"]
+    data: ["ファッション", "靴・靴下", "リブソックス"]
   },
   {
     prompt: "loose socks",
-    data: ["ファッション", "靴下", "ルーズソックス"]
+    data: ["ファッション", "靴・靴下", "ルーズソックス"]
+  },
+  {
+    prompt: "lace-up boots",
+    data: ["ファッション", "靴・靴下", "レースアップブーツ"]
   },
   {
     prompt: "lace pantyhose",
-    data: ["ファッション", "靴下", "レース付き"]
+    data: ["ファッション", "靴・靴下", "レース付き"]
   },
   {
     prompt: "socks with lace",
-    data: ["ファッション", "靴下", "レース付きソックス"]
+    data: ["ファッション", "靴・靴下", "レース付きソックス"]
+  },
+  {
+    prompt: "geta",
+    data: ["ファッション", "靴・靴下", "下駄"]
   },
   {
     prompt: "toe socks",
-    data: ["ファッション", "靴下", "五本指ソックス"]
+    data: ["ファッション", "靴・靴下", "五本指ソックス"]
   },
   {
     prompt: "laddered pantyhose",
-    data: ["ファッション", "靴下", "伝線"]
+    data: ["ファッション", "靴・靴下", "伝線"]
   },
   {
     prompt: "glossy pantyhose",
-    data: ["ファッション", "靴下", "光沢"]
+    data: ["ファッション", "靴・靴下", "光沢"]
   },
   {
     prompt: "glossy socks",
-    data: ["ファッション", "靴下", "光沢のあるソックス"]
+    data: ["ファッション", "靴・靴下", "光沢のあるソックス"]
   },
   {
     prompt: "animal print socks",
-    data: ["ファッション", "靴下", "動物柄ソックス"]
+    data: ["ファッション", "靴・靴下", "動物柄ソックス"]
+  },
+  {
+    prompt: "platform boots",
+    data: ["ファッション", "靴・靴下", "厚底ブーツ"]
+  },
+  {
+    prompt: "platform footwear",
+    data: ["ファッション", "靴・靴下", "厚底靴"]
+  },
+  {
+    prompt: "platform shoes",
+    data: ["ファッション", "靴・靴下", "厚底靴"]
   },
   {
     prompt: "thick pantyhose",
-    data: ["ファッション", "靴下", "厚手"]
+    data: ["ファッション", "靴・靴下", "厚手"]
   },
   {
-    prompt: "skindantation",
-    data: ["ファッション", "靴下", "太もも食込"]
+    prompt: "thigh boots",
+    data: ["ファッション", "靴・靴下", "太ももブーツ"]
+  },
+  {
+    prompt: "pointed boots",
+    data: ["ファッション", "靴・靴下", "尖ったブーツ"]
+  },
+  {
+    prompt: "footwear",
+    data: ["ファッション", "靴・靴下", "履物"]
   },
   {
     prompt: "mismatched socks",
-    data: ["ファッション", "靴下", "左右色違いのソックス"]
+    data: ["ファッション", "靴・靴下", "左右色違いのソックス"]
   },
   {
     prompt: "patterned pantyhose",
-    data: ["ファッション", "靴下", "柄入り"]
+    data: ["ファッション", "靴・靴下", "柄入り"]
   },
   {
     prompt: "polka dot socks",
-    data: ["ファッション", "靴下", "水玉模様のソックス"]
+    data: ["ファッション", "靴・靴下", "水玉模様のソックス"]
   },
   {
     prompt: "white pantyhose",
-    data: ["ファッション", "靴下", "白"]
+    data: ["ファッション", "靴・靴下", "白"]
   },
   {
     prompt: "white socks",
-    data: ["ファッション", "靴下", "白い靴下"]
+    data: ["ファッション", "靴・靴下", "白い靴下"]
   },
   {
     prompt: "ripped pantyhose",
-    data: ["ファッション", "靴下", "破れ"]
+    data: ["ファッション", "靴・靴下", "破れ"]
   },
   {
     prompt: "net socks",
-    data: ["ファッション", "靴下", "網ソックス"]
+    data: ["ファッション", "靴・靴下", "網ソックス"]
   },
   {
     prompt: "fishnet tights",
-    data: ["ファッション", "靴下", "網タイツ"]
+    data: ["ファッション", "靴・靴下", "網タイツ"]
+  },
+  {
+    prompt: "cross laced footwear",
+    data: ["ファッション", "靴・靴下", "編み上げブーツ"]
+  },
+  {
+    prompt: "lace up boots",
+    data: ["ファッション", "靴・靴下", "編み上げブーツ2"]
   },
   {
     prompt: "nude pantyhose",
-    data: ["ファッション", "靴下", "肌色"]
+    data: ["ファッション", "靴・靴下", "肌色"]
   },
   {
-    prompt: "knee highs",
-    data: ["ファッション", "靴下", "膝の高さ"]
+    prompt: "unworn boots",
+    data: ["ファッション", "靴・靴下", "脱いだ靴"]
+  },
+  {
+    prompt: "slipping off shoes",
+    data: ["ファッション", "靴・靴下", "脱げかけの靴"]
   },
   {
     prompt: "brown pantyhose",
-    data: ["ファッション", "靴下", "茶色"]
+    data: ["ファッション", "靴・靴下", "茶色"]
   },
   {
     prompt: "thin pantyhose",
-    data: ["ファッション", "靴下", "薄手"]
+    data: ["ファッション", "靴・靴下", "薄手"]
   },
   {
     prompt: "toeless pantyhose",
-    data: ["ファッション", "靴下", "足先なし"]
+    data: ["ファッション", "靴・靴下", "足先なし"]
   },
   {
     prompt: "tabi-style socks",
-    data: ["ファッション", "靴下", "足袋風ソックス"]
+    data: ["ファッション", "靴・靴下", "足袋風ソックス"]
   },
   {
     prompt: "see-through pantyhose",
-    data: ["ファッション", "靴下", "透け"]
+    data: ["ファッション", "靴・靴下", "透け"]
   },
   {
     prompt: "see-through socks",
-    data: ["ファッション", "靴下", "透けソックス"]
+    data: ["ファッション", "靴・靴下", "透けソックス"]
+  },
+  {
+    prompt: "running shoes",
+    data: ["ファッション", "靴・靴下", "運動靴"]
+  },
+  {
+    prompt: "no shoes",
+    data: ["ファッション", "靴・靴下", "靴なし靴下などあり"]
   },
   {
     prompt: "socks",
-    data: ["ファッション", "靴下", "靴下"]
-  },
-  {
-    prompt: "scifi hair ornaments",
-    data: ["ファッション", "頭部", "SCIFI系髪の装飾品"]
-  },
-  {
-    prompt: "ball gag",
-    data: ["ファッション", "頭部", "ギャグボール"]
-  },
-  {
-    prompt: "towel gag",
-    data: ["ファッション", "頭部", "ギャグボール2"]
-  },
-  {
-    prompt: "tiara",
-    data: ["ファッション", "頭部", "ティアラ"]
-  },
-  {
-    prompt: "x hair ornament",
-    data: ["ファッション", "頭部", "バッテン髪飾り"]
-  },
-  {
-    prompt: "hood up",
-    data: ["ファッション", "頭部", "フード"]
-  },
-  {
-    prompt: "hairclip",
-    data: ["ファッション", "頭部", "ヘアクリップ"]
-  },
-  {
-    prompt: "hair bobbles",
-    data: ["ファッション", "頭部", "ヘアゴム"]
-  },
-  {
-    prompt: "hairpin",
-    data: ["ファッション", "頭部", "ヘアピン"]
-  },
-  {
-    prompt: "head gear",
-    data: ["ファッション", "頭部", "ヘッドギア"]
-  },
-  {
-    prompt: "headdress",
-    data: ["ファッション", "頭部", "ヘッドドレス"]
-  },
-  {
-    prompt: "headphones",
-    data: ["ファッション", "頭部", "ヘッドフォン"]
-  },
-  {
-    prompt: "helmet",
-    data: ["ファッション", "頭部", "ヘルメット"]
-  },
-  {
-    prompt: "mouth mask",
-    data: ["ファッション", "頭部", "マスク"]
-  },
-  {
-    prompt: "ribbon trim",
-    data: ["ファッション", "頭部", "布とか髪とか通すリボン"]
-  },
-  {
-    prompt: "blindfold",
-    data: ["ファッション", "頭部", "目隠し"]
-  },
-  {
-    prompt: "blackblindfold  on head",
-    data: ["ファッション", "頭部", "目隠しをおでこに"]
-  },
-  {
-    prompt: "french braid",
-    data: ["ファッション", "頭部", "編み込み"]
-  },
-  {
-    prompt: "single braid",
-    data: ["ファッション", "頭部", "編み込みが一つ"]
-  },
-  {
-    prompt: "hair flower",
-    data: ["ファッション", "頭部", "花の髪飾り"]
-  },
-  {
-    prompt: "hair bell",
-    data: ["ファッション", "頭部", "鈴飾り"]
-  },
-  {
-    prompt: "head wings",
-    data: ["ファッション", "頭部", "頭の羽"]
-  },
-  {
-    prompt: "hair tubes",
-    data: ["ファッション", "頭部", "髪の房止め,霊夢の頭のあれ"]
-  },
-  {
-    prompt: "id card",
-    data: ["ファッション", "首", "IDカード(社員証)"]
-  },
-  {
-    prompt: "o ring",
-    data: ["ファッション", "首", "O型のリング"]
-  },
-  {
-    prompt: "blue ascot",
-    data: ["ファッション", "首", "アスコットタイ"]
-  },
-  {
-    prompt: "cross necklace",
-    data: ["ファッション", "首", "クロスネックレス,十字架ネックレス"]
-  },
-  {
-    prompt: "choker",
-    data: ["ファッション", "首", "チョーカー,首輪"]
-  },
-  {
-    prompt: "dog tags",
-    data: ["ファッション", "首", "ドッグタグ"]
-  },
-  {
-    prompt: "necktie",
-    data: ["ファッション", "首", "ネクタイ"]
-  },
-  {
-    prompt: "necklace",
-    data: ["ファッション", "首", "ネックレス"]
-  },
-  {
-    prompt: "heart-shaped choker",
-    data: ["ファッション", "首", "ハート型チョーカー"]
-  },
-  {
-    prompt: "pearl necklace",
-    data: ["ファッション", "首", "パールネックレス"]
-  },
-  {
-    prompt: "choker with bell",
-    data: ["ファッション", "首", "ベル付きチョーカー"]
-  },
-  {
-    prompt: "ribbon",
-    data: ["ファッション", "首", "リボン"]
-  },
-  {
-    prompt: "ribbon choker",
-    data: ["ファッション", "首", "リボンチョーカー"]
-  },
-  {
-    prompt: "bow",
-    data: ["ファッション", "首", "リボン２"]
-  },
-  {
-    prompt: "leather choker",
-    data: ["ファッション", "首", "レザーチョーカー"]
-  },
-  {
-    prompt: "jewel necklace",
-    data: ["ファッション", "首", "宝石のネックレス"]
-  },
-  {
-    prompt: "bowties",
-    data: ["ファッション", "首", "蝶ネクタイ"]
-  },
-  {
-    prompt: "pendant with key",
-    data: ["ファッション", "首", "鍵のペンダント"]
-  },
-  {
-    prompt: "collar with key",
-    data: ["ファッション", "首", "鍵付き首輪"]
-  },
-  {
-    prompt: "neckerchief",
-    data: ["ファッション", "首", "首に巻く布"]
-  },
-  {
-    prompt: "leash",
-    data: ["ファッション", "首", "首輪"]
-  },
-  {
-    prompt: "collar",
-    data: ["ファッション", "首", "首輪2"]
-  },
-  {
-    prompt: "magical pendant",
-    data: ["ファッション", "首", "魔法のペンダント"]
-  },
-  {
-    prompt: "ice adorns hair",
-    data: ["ファッション", "髪飾", "氷が髪を飾ります"]
-  },
-  {
-    prompt: "hair stick",
-    data: ["ファッション", "髪飾", "髪のスティック"]
-  },
-  {
-    prompt: "hair decoration",
-    data: ["ファッション", "髪飾", "髪の飾り"]
+    data: ["ファッション", "靴・靴下", "靴下"]
   },
   {
     prompt: "blurry background",
@@ -26329,6 +26241,10 @@ let defaultMaster = {
     data: ["人間", "亜人", "サキュバス"]
   },
   {
+    prompt: "skeleton girl",
+    data: ["人間", "亜人", "スケルトンガール"]
+  },
+  {
     prompt: "slime",
     data: ["人間", "亜人", "スライム"]
   },
@@ -26369,6 +26285,10 @@ let defaultMaster = {
     data: ["人間", "亜人", "メカ娘"]
   },
   {
+    prompt: "furry female",
+    data: ["人間", "亜人", "メスケモ"]
+  },
+  {
     prompt: "monster girl",
     data: ["人間", "亜人", "モンスター娘"]
   },
@@ -26407,6 +26327,10 @@ let defaultMaster = {
   {
     prompt: "angel boy",
     data: ["人間", "亜人", "天使(男)"]
+  },
+  {
+    prompt: "goddess",
+    data: ["人間", "亜人", "女神"]
   },
   {
     prompt: "fairy",
@@ -26625,19 +26549,11 @@ let defaultMaster = {
     data: ["人間", "女性", "キャラクターガール"]
   },
   {
-    prompt: "skeleton girl",
-    data: ["人間", "女性", "スケルトンガール"]
-  },
-  {
     prompt: "style girl",
     data: ["人間", "女性", "スタイルガール"]
   },
   {
-    prompt: "furry female",
-    data: ["人間", "女性", "メスケモ"]
-  },
-  {
-    prompt: "one girl",
+    prompt: "1girl",
     data: ["人間", "女性", "一人の女の子"]
   },
   {
@@ -26663,10 +26579,6 @@ let defaultMaster = {
   {
     prompt: "female",
     data: ["人間", "女性", "女性"]
-  },
-  {
-    prompt: "goddess",
-    data: ["人間", "女性", "女神"]
   },
   {
     prompt: "women",
@@ -27821,8 +27733,8 @@ let defaultMaster = {
     data: ["動作", "相互作用", "脱衣"]
   },
   {
-    prompt: "grab your arm",
-    data: ["動作", "相互作用", "腕をつかむ,腕を掴む"]
+    prompt: "grabbing another's arm",
+    data: ["動作", "相互作用", "腕掴み"]
   },
   {
     prompt: "hugging own arm",
@@ -28461,7 +28373,7 @@ let defaultMaster = {
     data: ["動作", "顔・頭の動作", "髪をいじっている"]
   },
   {
-    prompt: "own grabbing  hair",
+    prompt: "own grabbing hair",
     data: ["動作", "顔・頭の動作", "髪を掴む"]
   },
   {
@@ -31253,10 +31165,6 @@ let defaultMaster = {
     data: ["場所", "音楽・エンターテイメント", "ライブ会場2"]
   },
   {
-    prompt: "prompt",
-    data: ["大項目", "中項目", "小項目"]
-  },
-  {
     prompt: "in the late morning",
     data: ["天候と時間帯", "一日の時間", "午前中"]
   },
@@ -33209,28 +33117,12 @@ let defaultMaster = {
     data: ["生物", "動物", "カイジュウ"]
   },
   {
-    prompt: "crab",
-    data: ["生物", "動物", "ガニ"]
-  },
-  {
-    prompt: "whales",
-    data: ["生物", "動物", "クジラ"]
-  },
-  {
     prompt: "bear",
     data: ["生物", "動物", "クマ"]
   },
   {
     prompt: "deer furry",
     data: ["生物", "動物", "シカ"]
-  },
-  {
-    prompt: "octopus",
-    data: ["生物", "動物", "タコ,たこ,蛸"]
-  },
-  {
-    prompt: "tyrannosaurus",
-    data: ["生物", "動物", "ティラノサウルス"]
   },
   {
     prompt: "tiger furry",
@@ -33245,16 +33137,8 @@ let defaultMaster = {
     data: ["生物", "動物", "ヒツジ"]
   },
   {
-    prompt: "starfish",
-    data: ["生物", "動物", "ヒトデ"]
-  },
-  {
     prompt: "leopard furry",
     data: ["生物", "動物", "ヒョウ"]
-  },
-  {
-    prompt: "firefly",
-    data: ["生物", "動物", "ホタル"]
   },
   {
     prompt: "goat furry",
@@ -33265,24 +33149,12 @@ let defaultMaster = {
     data: ["生物", "動物", "ライオン"]
   },
   {
-    prompt: "giant insect",
-    data: ["生物", "動物", "人間大の昆虫"]
-  },
-  {
     prompt: "rabit",
     data: ["生物", "動物", "兎,うさぎ"]
   },
   {
     prompt: "pony",
     data: ["生物", "動物", "子馬"]
-  },
-  {
-    prompt: "dinosaur",
-    data: ["生物", "動物", "恐竜"]
-  },
-  {
-    prompt: "insect",
-    data: ["生物", "動物", "昆虫"]
   },
   {
     prompt: "dog",
@@ -33293,12 +33165,72 @@ let defaultMaster = {
     data: ["生物", "動物", "猫"]
   },
   {
+    prompt: "allosaurus",
+    data: ["生物", "恐竜", "アロサウルス"]
+  },
+  {
+    prompt: "ankylosaurus",
+    data: ["生物", "恐竜", "アンキロサウルス"]
+  },
+  {
+    prompt: "spinosaurus",
+    data: ["生物", "恐竜", "スピノサウルス"]
+  },
+  {
+    prompt: "tyrannosaurus",
+    data: ["生物", "恐竜", "ティラノサウルス"]
+  },
+  {
+    prompt: "triceratops",
+    data: ["生物", "恐竜", "トリケラトプス"]
+  },
+  {
+    prompt: "plesiosaurus",
+    data: ["生物", "恐竜", "プレシオサウルス"]
+  },
+  {
+    prompt: "dinosaur",
+    data: ["生物", "恐竜", "恐竜"]
+  },
+  {
+    prompt: "firefly",
+    data: ["生物", "昆虫", "ホタル"]
+  },
+  {
+    prompt: "giant insect",
+    data: ["生物", "昆虫", "人間大の昆虫"]
+  },
+  {
+    prompt: "insect",
+    data: ["生物", "昆虫", "昆虫"]
+  },
+  {
+    prompt: "crab",
+    data: ["生物", "海洋", "カニ"]
+  },
+  {
+    prompt: "whales",
+    data: ["生物", "海洋", "クジラ"]
+  },
+  {
+    prompt: "octopus",
+    data: ["生物", "海洋", "タコ,たこ,蛸"]
+  },
+  {
+    prompt: "starfish",
+    data: ["生物", "海洋", "ヒトデ"]
+  },
+  {
     prompt: "fish",
-    data: ["生物", "動物", "魚,魚類"]
+    data: ["生物", "海洋", "魚,魚類"]
   },
   {
     prompt: "fishes",
-    data: ["生物", "動物", "魚類"]
+    data: ["生物", "海洋", "魚類"]
+  },
+  {
+    prompt: "crow",
+    data: ["生物", "鳥", "カラス"]
   },
   {
     prompt: "dove of peace",
@@ -33315,10 +33247,6 @@ let defaultMaster = {
   {
     prompt: "birds",
     data: ["生物", "鳥", "鳥"]
-  },
-  {
-    prompt: "crow",
-    data: ["生物", "鳥類", "カラス"]
   },
   {
     prompt: "gasping",
