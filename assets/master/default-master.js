@@ -765,6 +765,14 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "パイズリ", "ノーハンドパイズリ"]
   },
   {
+    prompt: "paizuri",
+    data: ["NSFW:プレイ", "パイズリ", "パイズリ"]
+  },
+  {
+    prompt: "cum on breasts,bukkake,cum on body,cum",
+    data: ["NSFW:プレイ", "パイズリ", "パイズリ射精"]
+  },
+  {
     prompt: "paizuri under clothes",
     data: ["NSFW:プレイ", "パイズリ", "着衣パイズリ"]
   },
@@ -791,14 +799,6 @@ let defaultMaster = {
   {
     prompt: "intercourse with a man",
     data: ["NSFW:プレイ", "プレイ", "セックス(男性との)"]
-  },
-  {
-    prompt: "paizuri",
-    data: ["NSFW:プレイ", "プレイ", "パイズリ"]
-  },
-  {
-    prompt: "cum on breasts,bukkake,cum on body,cum",
-    data: ["NSFW:プレイ", "プレイ", "パイズリ射精"]
   },
   {
     prompt: "accidentally wetting her panties with pee",
@@ -1029,6 +1029,10 @@ let defaultMaster = {
     data: ["NSFW:プレイ", "体位", "正常位"]
   },
   {
+    prompt: "sex from behind",
+    data: ["NSFW:プレイ", "体位", "立ちバック,後背位"]
+  },
+  {
     prompt: "standing missionary",
     data: ["NSFW:プレイ", "体位", "立位"]
   },
@@ -1055,10 +1059,6 @@ let defaultMaster = {
   {
     prompt: "cowgirl position",
     data: ["NSFW:プレイ", "体位", "騎乗位"]
-  },
-  {
-    prompt: "sex from behind",
-    data: ["NSFW:プレイ", "体位", "Ｈバック"]
   },
   {
     prompt: "cooperative fellatio",
@@ -1401,12 +1401,12 @@ let defaultMaster = {
     data: ["NSFW:ポーズ", "ポーズ", "ジャックオーチャレンジ"]
   },
   {
-    prompt: "lift up one's skirt",
+    prompt: "upskirt",
     data: ["NSFW:ポーズ", "ポーズ", "スカートたくし上げ"]
   },
   {
-    prompt: "upskirt",
-    data: ["NSFW:ポーズ", "ポーズ", "スカートたくし上げ2"]
+    prompt: "skirt lift",
+    data: ["NSFW:ポーズ", "ポーズ", "スカートたくし上げ,スカートめくり"]
   },
   {
     prompt: "sweater lift",
@@ -1415,6 +1415,10 @@ let defaultMaster = {
   {
     prompt: "squat toilet",
     data: ["NSFW:ポーズ", "ポーズ", "トイレに跨る"]
+  },
+  {
+    prompt: "panty lift",
+    data: ["NSFW:ポーズ", "ポーズ", "パンツたくし上げ"]
   },
   {
     prompt: "fellatio gesture",
@@ -1629,10 +1633,6 @@ let defaultMaster = {
     data: ["NSFW:動作", "動作", "パイズリを誘う"]
   },
   {
-    prompt: "skirt lift,panties",
-    data: ["NSFW:動作", "動作", "パンツたくし上げ"]
-  },
-  {
     prompt: "presenting removed panties",
     data: ["NSFW:動作", "動作", "パンツをプレゼント"]
   },
@@ -1755,6 +1755,38 @@ let defaultMaster = {
   {
     prompt: "restrained",
     data: ["NSFW:動作", "動作", "頭の上で手を拘束"]
+  },
+  {
+    prompt: "shirt pull",
+    data: ["NSFW:動作", "脱がし", "シャツ下ろし"]
+  },
+  {
+    prompt: "shorts pull",
+    data: ["NSFW:動作", "脱がし", "ショーツ下ろし"]
+  },
+  {
+    prompt: "skirt pull",
+    data: ["NSFW:動作", "脱がし", "スカート下ろし"]
+  },
+  {
+    prompt: "pants pull",
+    data: ["NSFW:動作", "脱がし", "ズボン下ろし"]
+  },
+  {
+    prompt: "panty pull",
+    data: ["NSFW:動作", "脱がし", "パンツ下ろし,パンツめくり,パンツずらし"]
+  },
+  {
+    prompt: "bra lift",
+    data: ["NSFW:動作", "脱がし", "ブラ上げ,上ズレ"]
+  },
+  {
+    prompt: "bra pull",
+    data: ["NSFW:動作", "脱がし", "ブラ下ろし,下ズレ"]
+  },
+  {
+    prompt: "pantyhose pull",
+    data: ["NSFW:動作", "脱がし", "裾上げタイツ脱ぎ,パンスト脱ぎ"]
   },
   {
     prompt: "messy room,too many dildos,condoms,vibrators,sex toys",
@@ -3145,6 +3177,10 @@ let defaultMaster = {
     data: ["NSFW:表情・感情", "表情", "満足しきった表情"]
   },
   {
+    prompt: "heavy breathing",
+    data: ["NSFW:表情・感情", "表情", "激しい呼吸,喘ぎ"]
+  },
+  {
     prompt: "vulnerable expression",
     data: ["NSFW:表情・感情", "表情", "無防備で感じ入っている表情"]
   },
@@ -4293,24 +4329,24 @@ let defaultMaster = {
     data: ["エフェクト", "水系", "飛ぶスプラッシュ"]
   },
   {
-    prompt: "everything flowing melt",
-    data: ["エフェクト", "液体", "すべてが流れて溶けます"]
-  },
-  {
     prompt: "spatter",
     data: ["エフェクト", "液体", "スパッタ"]
+  },
+  {
+    prompt: "everything flowing melt",
+    data: ["エフェクト", "液体", "主観,手,一人称視点,自身の手あり"]
   },
   {
     prompt: "saliva trail",
     data: ["エフェクト", "液体", "唾液腺,唾液ブリッジ"]
   },
   {
-    prompt: "many sweat",
-    data: ["エフェクト", "液体", "多くの汗"]
-  },
-  {
     prompt: "sweat",
     data: ["エフェクト", "液体", "汗"]
+  },
+  {
+    prompt: "very sweaty",
+    data: ["エフェクト", "液体", "汗だく"]
   },
   {
     prompt: "sweat see-through",
@@ -4431,6 +4467,10 @@ let defaultMaster = {
   {
     prompt: "steam",
     data: ["エフェクト", "煙", "蒸気"]
+  },
+  {
+    prompt: "speed lines",
+    data: ["エフェクト", "画面効果", "スピードライン"]
   },
   {
     prompt: "optical illusion",
@@ -4741,6 +4781,10 @@ let defaultMaster = {
     data: ["カメラ技法", "構図", "後ろから"]
   },
   {
+    prompt: "facing away",
+    data: ["カメラ技法", "構図", "後ろ姿"]
+  },
+  {
     prompt: "railing",
     data: ["カメラ技法", "構図", "手すりがある構図"]
   },
@@ -4865,6 +4909,10 @@ let defaultMaster = {
     data: ["カメラ技法", "視点", "主観(両手あり)"]
   },
   {
+    prompt: "pov crotch",
+    data: ["カメラ技法", "視点", "主観,股間"]
+  },
+  {
     prompt: "straight-on",
     data: ["カメラ技法", "視点", "前を向く"]
   },
@@ -4973,12 +5021,12 @@ let defaultMaster = {
     data: ["カメラ技法", "身体部位", "(i)ドアップ"]
   },
   {
-    prompt: "anal focus",
-    data: ["カメラ技法", "身体部位", "おしりにフォーカス"]
-  },
-  {
     prompt: "navel focus",
     data: ["カメラ技法", "身体部位", "おへそにフォーカス"]
+  },
+  {
+    prompt: "anal focus",
+    data: ["カメラ技法", "身体部位", "お尻にフォーカス,おしり"]
   },
   {
     prompt: "lower body",
@@ -13733,6 +13781,10 @@ let defaultMaster = {
     data: ["コスチューム", "セット", "医者"]
   },
   {
+    prompt: "jirai kei",
+    data: ["コスチューム", "セット", "地雷系"]
+  },
+  {
     prompt: "straw sun hat or sunglasses, lightweight short-sleeve shirt or tank top, colorful swimwear or board shorts, waterproof wristband, beach tote bag, flip-flops or barefoot",
     data: ["コスチューム", "セット", "夏の人"]
   },
@@ -14911,6 +14963,14 @@ let defaultMaster = {
   {
     prompt: "wasteland, barren earth, dead trees, polluted environment, desolation",
     data: ["シチュエーション", "終末", "荒廃した大地"]
+  },
+  {
+    prompt: "onee-shota",
+    data: ["シチュエーション", "組み合わせ", "おねショタ"]
+  },
+  {
+    prompt: "onee-loli",
+    data: ["シチュエーション", "組み合わせ", "おねロリ"]
   },
   {
     prompt: "tickled, {laughing}, loud, [tears]",
@@ -28175,10 +28235,6 @@ let defaultMaster = {
   {
     prompt: "unzipping",
     data: ["動作", "身体ポーズ", "ジッパーを動かしている状態"]
-  },
-  {
-    prompt: "skirt lift",
-    data: ["動作", "身体ポーズ", "スカート持ち上げ"]
   },
   {
     prompt: "stretch",
