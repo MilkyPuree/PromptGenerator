@@ -1107,3 +1107,49 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-sm);
 }
+
+/* スロット上下移動ボタン */
+.slot-move-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: absolute;
+  left: 32px;
+  top: 8px;
+}
+
+.slot-move-up-btn,
+.slot-move-down-btn {
+  width: 24px;
+  height: 20px;
+  padding: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-move-up-btn:hover:not(:disabled),
+.slot-move-down-btn:hover:not(:disabled) {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border-color: var(--accent-primary);
+  transform: scale(1.05);
+}
+
+.slot-move-up-btn:active:not(:disabled),
+.slot-move-down-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.slot-move-up-btn:disabled,
+.slot-move-down-btn:disabled {
+  display: none; /* 無効なボタンは非表示にしてレイアウト崩れを防ぐ */
+}

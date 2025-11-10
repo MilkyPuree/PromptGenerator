@@ -316,6 +316,10 @@
 
         card.innerHTML = `
     <div class="slot-drag-handle">☰</div>
+    <div class="slot-move-buttons">
+      <button class="slot-move-up-btn" data-slot-id="${info.id}" title="このスロットを上に移動">↑</button>
+      <button class="slot-move-down-btn" data-slot-id="${info.id}" title="このスロットを下に移動">↓</button>
+    </div>
 
     <div class="slot-header">
       <div class="slot-header-left">
@@ -490,6 +494,9 @@
           this.setupWeightInputControls(weightInput);
         }
 
+        // 上下移動ボタンの設定
+        this.setupMoveButtons(card, info);
+
         return card;
       }
 
@@ -634,6 +641,94 @@
           // 変更イベントを発火
           sequentialInput.dispatchEvent(new Event('change', { bubbles: true }));
         });
+      }
+
+      /**
+       * 上下移動ボタンの設定
+       */
+      setupMoveButtons(card, info) {
+        const moveUpBtn = card.querySelector('.slot-move-up-btn');
+        const moveDownBtn = card.querySelector('.slot-move-down-btn');
+
+        if (!moveUpBtn || !moveDownBtn) return;
+
+        const slotIndex = this.slotManager.slots.findIndex(s => s.id === info.id);
+        const totalSlots = this.slotManager.slots.length;
+
+        // 最初のスロットは上移動不可
+        if (slotIndex === 0) {
+          moveUpBtn.disabled = true;
+        } else {
+          moveUpBtn.addEventListener('click', () => this.moveSlot(info.id, 'up'));
+        }
+
+        // 最後のスロットは下移動不可
+        if (slotIndex === totalSlots - 1) {
+          moveDownBtn.disabled = true;
+        } else {
+          moveDownBtn.addEventListener('click', () => this.moveSlot(info.id, 'down'));
+        }
+      }
+
+      /**
+       * スロットを上下に移動
+       */
+      async moveSlot(slotId, direction) {
+        const slotIndex = this.slotManager.slots.findIndex(s => s.id === slotId);
+        if (slotIndex === -1) return;
+
+        const targetIndex = direction === 'up' ? slotIndex - 1 : slotIndex + 1;
+
+        // 範囲外チェック
+        if (targetIndex < 0 || targetIndex >= this.slotManager.slots.length) return;
+
+        // 現在のプロンプトエディタの内容を保存
+        const currentSlotIdBeforeReorder = this.slotManager.slots[this.slotManager.currentSlot]?.id;
+        if (currentSlotIdBeforeReorder !== undefined && window.promptEditor) {
+          const currentSlotBeforeReorder = this.slotManager.slots[this.slotManager.currentSlot];
+          if (currentSlotBeforeReorder) {
+            currentSlotBeforeReorder.prompt = promptEditor.prompt || "";
+            currentSlotBeforeReorder.elements = [...promptEditor.elements];
+            currentSlotBeforeReorder.isUsed = currentSlotBeforeReorder.prompt.length > 0;
+            currentSlotBeforeReorder.lastModified = currentSlotBeforeReorder.isUsed ? Date.now() : null;
+          }
+        }
+
+        // スロットを入れ替え
+        [this.slotManager.slots[slotIndex], this.slotManager.slots[targetIndex]] =
+        [this.slotManager.slots[targetIndex], this.slotManager.slots[slotIndex]];
+
+        // 重要: currentSlotインデックスを更新
+        // 移動したスロットが現在のスロットの場合、インデックスも移動先に更新する
+        if (this.slotManager.currentSlot === slotIndex) {
+          this.slotManager.currentSlot = targetIndex;
+        } else if (this.slotManager.currentSlot === targetIndex) {
+          this.slotManager.currentSlot = slotIndex;
+        }
+
+        // ヘッダー部分のプルダウンを更新
+        this.slotManager.updateUI();
+
+        // ストレージに保存
+        await this.slotManager.saveToStorage();
+
+        // GeneratePromptを現在のスロットの内容で更新
+        const currentSlot = this.slotManager.slots[this.slotManager.currentSlot];
+        if (currentSlot) {
+          const generatePrompt = document.getElementById("generatePrompt");
+          if (generatePrompt) {
+            if (currentSlot.prompt) {
+              const weightedPrompt = this.slotManager.applyWeightToPrompt(currentSlot.prompt, currentSlot.weight);
+              generatePrompt.value = weightedPrompt;
+            } else {
+              generatePrompt.value = currentSlot.mode === "random" || currentSlot.mode === "sequential" ?
+                "[抽出待機中 - Generateボタンを押して抽出]" : "";
+            }
+          }
+        }
+
+        // 表示を更新
+        this.updateDisplay();
       }
 
       /**
