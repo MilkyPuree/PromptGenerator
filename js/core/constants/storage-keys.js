@@ -33,6 +33,7 @@ const STORAGE_KEYS = {
     TOOL_INFO: "toolInfo", // ツール情報
     CUSTOM_SITES: "customSites", // カスタムサイト設定
     AUTO_GENERATE: "autoGenerateSettings", // 自動生成設定
+    DUPLICATE_CHECK_DISMISSED: "duplicateCheckDismissed", // 重複チェック非表示フラグ
   },
 
   // セレクター関連

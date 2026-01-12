@@ -1716,6 +1716,62 @@ async function ensureLocalPromptIntegrity(saveAfterUpdate = true) {
   }
 }
 
+// ========================================
+// 重複チェック機能
+// ========================================
+
+/**
+ * ローカル辞書とマスター辞書の重複をチェック
+ * @returns {Array} 重複項目の配列 [{index, item, masterMatch}]
+ */
+function findDuplicatesWithMaster() {
+  const localList = AppState.data.localPromptList || [];
+  const masterList = getMasterPrompts();
+
+  // マスターデータをMapに変換（高速検索用）
+  const masterMap = new Map();
+  masterList.forEach((item) => {
+    const key = `${item.data[0]}|${item.data[1]}|${item.data[2]}|${item.prompt}`;
+    masterMap.set(key, item);
+  });
+
+  // ローカルデータとの重複チェック
+  const duplicates = [];
+  localList.forEach((item, index) => {
+    const key = `${item.data[0]}|${item.data[1]}|${item.data[2]}|${item.prompt}`;
+    if (masterMap.has(key)) {
+      duplicates.push({
+        index,
+        item,
+        masterMatch: masterMap.get(key),
+      });
+    }
+  });
+
+  return duplicates;
+}
+
+/**
+ * 重複チェック非表示フラグを保存
+ * @param {boolean} dismissed - 非表示にするかどうか
+ */
+async function saveDuplicateCheckDismissed(dismissed) {
+  await Storage.set({
+    [STORAGE_KEYS.SETTINGS.DUPLICATE_CHECK_DISMISSED]: dismissed,
+  });
+}
+
+/**
+ * 重複チェック非表示フラグを読み込み
+ * @returns {Promise<boolean>} 非表示フラグ
+ */
+async function loadDuplicateCheckDismissed() {
+  const result = await Storage.get(
+    STORAGE_KEYS.SETTINGS.DUPLICATE_CHECK_DISMISSED
+  );
+  return result[STORAGE_KEYS.SETTINGS.DUPLICATE_CHECK_DISMISSED] || false;
+}
+
 // デバッグ設定関数をグローバルに公開
 window.saveDebugSettings = saveDebugSettings;
 window.loadDebugSettings = loadDebugSettings;
@@ -1723,3 +1779,8 @@ window.loadDebugSettings = loadDebugSettings;
 // 辞書ID整合性確保関数をグローバルに公開
 window.ensureDictionaryElementIds = ensureDictionaryElementIds;
 window.ensureLocalPromptIntegrity = ensureLocalPromptIntegrity;
+
+// 重複チェック関数をグローバルに公開
+window.findDuplicatesWithMaster = findDuplicatesWithMaster;
+window.saveDuplicateCheckDismissed = saveDuplicateCheckDismissed;
+window.loadDuplicateCheckDismissed = loadDuplicateCheckDismissed;

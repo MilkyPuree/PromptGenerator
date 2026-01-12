@@ -9,6 +9,58 @@ let defaultMaster = {
     data: ["NSFW", "!必須タグ", "エロ画像"]
   },
   {
+    prompt: "netorare",
+    data: ["NSFW:シチュ", "シチュ", "寝取られ風"]
+  },
+  {
+    prompt: "source#",
+    data: ["NSFW:動作", "動作", "動作主体"]
+  },
+  {
+    prompt: "target#",
+    data: ["NSFW:動作", "動作", "動作対象"]
+  },
+  {
+    prompt: "licking testicle,",
+    data: ["NSFW:動作", "動作", "睾丸舐め"]
+  },
+  {
+    prompt: "asymmetrical docking",
+    data: ["NSFW:動作", "動作", "胸合わせ"]
+  },
+  {
+    prompt: "messy room",
+    data: ["NSFW:場所", "場所", "ちらかった部屋"]
+  },
+  {
+    prompt: "internal cumshot",
+    data: ["NSFW:構図", "構図", "子宮内断面図"]
+  },
+  {
+    prompt: "lipstick mark",
+    data: ["NSFW:特徴・詳細", "オプション", "キスマーク"]
+  },
+  {
+    prompt: "panty pull",
+    data: ["NSFW:特徴・詳細", "オプション", "パンツ下し"]
+  },
+  {
+    prompt: "unworn clothes,wrinkled clothes",
+    data: ["NSFW:特徴・詳細", "オプション", "脱ぎ散らかされた衣服"]
+  },
+  {
+    prompt: "demon girl,blue skin,black sclera,blue tongue,",
+    data: ["NSFW:特徴・詳細", "属性", "悪魔娘"]
+  },
+  {
+    prompt: "corruption",
+    data: ["NSFW:表情・感情", "表情", "快楽堕ち"]
+  },
+  {
+    prompt: "excitement",
+    data: ["NSFW:表情・感情", "表情", "興奮"]
+  },
+  {
     prompt: "artificial vagina",
     data: ["NSFW:アイテム", "アイテム", "オナホール"]
   },
@@ -835,6 +887,10 @@ let defaultMaster = {
   {
     prompt: "breast grab",
     data: ["NSFW:プレイ", "プレイ", "他人が胸を掴む"]
+  },
+  {
+    prompt: "femdom",
+    data: ["NSFW:プレイ", "プレイ", "女性上位,女性支配"]
   },
   {
     prompt: "against glass,butt press",
@@ -5621,6 +5677,22 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "アビゲイル"]
   },
   {
+    prompt: "artoria pendragon (lancer) (fate)",
+    data: ["キャラクター(女性)", "Fate", "アルトリア(槍)"]
+  },
+  {
+    prompt: "artoria caster (fate)",
+    data: ["キャラクター(女性)", "Fate", "アルトリア(術),キャストリア"]
+  },
+  {
+    prompt: "artoria pendragon (lancer alter) (fate)",
+    data: ["キャラクター(女性)", "Fate", "アルトリア(黒槍)"]
+  },
+  {
+    prompt: "andromeda (fate)",
+    data: ["キャラクター(女性)", "Fate", "アンドロメダ"]
+  },
+  {
     prompt: "ishtar (fate)",
     data: ["キャラクター(女性)", "Fate", "イシュタル"]
   },
@@ -5637,12 +5709,28 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "エレシュキガル"]
   },
   {
-    prompt: "artoria caster (fate)",
-    data: ["キャラクター(女性)", "Fate", "キャストリア"]
+    prompt: "olga marie animusphere (fate)",
+    data: ["キャラクター(女性)", "Fate", "オルガマリー"]
+  },
+  {
+    prompt: "caenis (fate)",
+    data: ["キャラクター(女性)", "Fate", "カイニス"]
   },
   {
     prompt: "koyanskaya (fate)",
     data: ["キャラクター(女性)", "Fate", "コヤンスカヤ"]
+  },
+  {
+    prompt: "koyanskaya (foreigner) (first ascension) (fate)",
+    data: ["キャラクター(女性)", "Fate", "コヤンスカヤ"]
+  },
+  {
+    prompt: "scheherazade (fate)",
+    data: ["キャラクター(女性)", "Fate", "シェヘラザード"]
+  },
+  {
+    prompt: "jack the ripper (fate/apocrypha)",
+    data: ["キャラクター(女性)", "Fate", "ジャック"]
   },
   {
     prompt: "jeanne d'arc (fate)",
@@ -5677,8 +5765,28 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "ネロ・クラウディウス"]
   },
   {
+    prompt: "artoria pendragon (swimsuit ruler) (fate)",
+    data: ["キャラクター(女性)", "Fate", "バニ上"]
+  },
+  {
+    prompt: "barghest (fate)",
+    data: ["キャラクター(女性)", "Fate", "バーゲスト"]
+  },
+  {
+    prompt: "baobhan sith (fate)",
+    data: ["キャラクター(女性)", "Fate", "バーヴァンシー"]
+  },
+  {
+    prompt: "mysterious heroine x alter (fate)",
+    data: ["キャラクター(女性)", "Fate", "ヒロインXオルタ"]
+  },
+  {
     prompt: "bradamante (fate)",
     data: ["キャラクター(女性)", "Fate", "ブラダマンテ"]
+  },
+  {
+    prompt: "boudica (fate)",
+    data: ["キャラクター(女性)", "Fate", "ブーディカ"]
   },
   {
     prompt: "merlin prototype (fate)",
@@ -5689,12 +5797,20 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "マシュ・キリエライト"]
   },
   {
+    prompt: "melusine (fate)",
+    data: ["キャラクター(女性)", "Fate", "メリュジーヌ"]
+  },
+  {
     prompt: "meltryllis (fate)",
     data: ["キャラクター(女性)", "Fate", "メルトリリス"]
   },
   {
     prompt: "morgan le fay (fate)",
     data: ["キャラクター(女性)", "Fate", "モルガン"]
+  },
+  {
+    prompt: "mordred (fate)",
+    data: ["キャラクター(女性)", "Fate", "モードレッド"]
   },
   {
     prompt: "lavinia whateley (fgo)",
@@ -5709,6 +5825,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "三蔵法師"]
   },
   {
+    prompt: "ushi gozen (fate)",
+    data: ["キャラクター(女性)", "Fate", "丑午前"]
+  },
+  {
     prompt: "osakabe-hime (fate)",
     data: ["キャラクター(女性)", "Fate", "刑部姫"]
   },
@@ -5719,6 +5839,10 @@ let defaultMaster = {
   {
     prompt: "tomoe gozen (fate)",
     data: ["キャラクター(女性)", "Fate", "巴御前"]
+  },
+  {
+    prompt: "taira no kagekiyo (fate)",
+    data: ["キャラクター(女性)", "Fate", "平景清"]
   },
   {
     prompt: "yang guifei (fate)",
@@ -5741,12 +5865,28 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "Fate", "源頼光"]
   },
   {
+    prompt: "ushiwakamaru (fate)",
+    data: ["キャラクター(女性)", "Fate", "牛若丸"]
+  },
+  {
+    prompt: "murasaki shikibu (fate)",
+    data: ["キャラクター(女性)", "Fate", "紫式部"]
+  },
+  {
     prompt: "ibaraki douji (fate)",
     data: ["キャラクター(女性)", "Fate", "茨城童子"]
   },
   {
     prompt: "katsushika hokusai (fate)",
     data: ["キャラクター(女性)", "Fate", "葛飾北斎"]
+  },
+  {
+    prompt: "fujimura taiga",
+    data: ["キャラクター(女性)", "Fate", "藤村大河"]
+  },
+  {
+    prompt: "mysterious heroine xx (fate)",
+    data: ["キャラクター(女性)", "Fate", "謎のヒロインX"]
   },
   {
     prompt: "tohsaka rin (fate)",
@@ -6113,12 +6253,28 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "NARUTO", "アンコ"]
   },
   {
+    prompt: "samui (naruto)",
+    data: ["キャラクター(女性)", "NARUTO", "サムイ"]
+  },
+  {
+    prompt: "shizune (naruto)",
+    data: ["キャラクター(女性)", "NARUTO", "シズネ"]
+  },
+  {
+    prompt: "tayuya (naruto)",
+    data: ["キャラクター(女性)", "NARUTO", "タユヤ"]
+  },
+  {
     prompt: "temari (naruto)",
     data: ["キャラクター(女性)", "NARUTO", "テマリ"]
   },
   {
     prompt: "tenten (naruto)",
     data: ["キャラクター(女性)", "NARUTO", "テンテン"]
+  },
+  {
+    prompt: "konan (naruto)",
+    data: ["キャラクター(女性)", "NARUTO", "小南"]
   },
   {
     prompt: "yamanaka ino (naruto)",
@@ -6273,6 +6429,18 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "SHIROBAKO", "藤堂美沙"]
   },
   {
+    prompt: "sylvia sherwood",
+    data: ["キャラクター(女性)", "SPY×FAMILY(スパイファミリー)", "シルヴィア"]
+  },
+  {
+    prompt: "fiona frost",
+    data: ["キャラクター(女性)", "SPY×FAMILY(スパイファミリー)", "フィオナ"]
+  },
+  {
+    prompt: "becky blackbell",
+    data: ["キャラクター(女性)", "SPY×FAMILY(スパイファミリー)", "ベッキー"]
+  },
+  {
     prompt: "anya (spy x family)",
     data: ["キャラクター(女性)", "SPY×FAMILY(スパイファミリー)", "アーニャ・フォージャー"]
   },
@@ -6315,6 +6483,10 @@ let defaultMaster = {
   {
     prompt: "tenjouin saki (to love-ru)",
     data: ["キャラクター(女性)", "To LOVEる -とらぶる", "天条院沙姫"]
+  },
+  {
+    prompt: "mikado ryouko",
+    data: ["キャラクター(女性)", "To LOVEる -とらぶる", "御門涼子"]
   },
   {
     prompt: "murasame shizuka (to love-ru)",
@@ -6421,8 +6593,16 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "VTuber", "ミライアカリ"]
   },
   {
+    prompt: "tsukudani norio (vtuber)",
+    data: ["キャラクター(女性)", "VTuber", "佃煮のりお"]
+  },
+  {
     prompt: "fuji aoi (vtuber)",
     data: ["キャラクター(女性)", "VTuber", "富士葵"]
+  },
+  {
+    prompt: "komori met a character from vspo!. komori met",
+    data: ["キャラクター(女性)", "VTuber", "小森めと"]
   },
   {
     prompt: "inuyama tamaki (vtuber)",
@@ -6733,6 +6913,18 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "けものフレンズ", "フェネック"]
   },
   {
+    prompt: "asato ai (kochikame)",
+    data: ["キャラクター(女性)", "こち亀", "マリア"]
+  },
+  {
+    prompt: "giboshi matoi",
+    data: ["キャラクター(女性)", "こち亀", "擬宝珠纏"]
+  },
+  {
+    prompt: "akimoto katherine reiko",
+    data: ["キャラクター(女性)", "こち亀", "秋本麗子"]
+  },
+  {
     prompt: "komekko (konosuba)",
     data: ["キャラクター(女性)", "この素晴らしい世界に祝福を", "こめっこ"]
   },
@@ -6817,6 +7009,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "とあるシリーズ", "インデックス"]
   },
   {
+    prompt: "frenda seivelun (toaru)",
+    data: ["キャラクター(女性)", "とあるシリーズ", "フレンダ"]
+  },
+  {
     prompt: "last order (toaru series)",
     data: ["キャラクター(女性)", "とあるシリーズ", "ラストオーダー,打ち止め"]
   },
@@ -6829,8 +7025,24 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "とあるシリーズ", "初春飾利"]
   },
   {
+    prompt: "kongou mitsuko",
+    data: ["キャラクター(女性)", "とあるシリーズ", "婚后光子"]
+  },
+  {
     prompt: "misaka mikoto (toaru series)",
     data: ["キャラクター(女性)", "とあるシリーズ", "御坂美琴"]
+  },
+  {
+    prompt: "awatsuki maaya (toaru)",
+    data: ["キャラクター(女性)", "とあるシリーズ", "泡浮万彬"]
+  },
+  {
+    prompt: "wannai kinuho (toaru)",
+    data: ["キャラクター(女性)", "とあるシリーズ", "湾内絹保"]
+  },
+  {
+    prompt: "takitsubo rikou (toaru)",
+    data: ["キャラクター(女性)", "とあるシリーズ", "滝壺理后"]
   },
   {
     prompt: "shirai kuroko (toaru series)",
@@ -6841,8 +7053,24 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "とあるシリーズ", "食蜂操祈"]
   },
   {
+    prompt: "mugino shizuri (toaru)",
+    data: ["キャラクター(女性)", "とあるシリーズ", "麦野沈理"]
+  },
+  {
+    prompt: "isabelle (animal crossing)",
+    data: ["キャラクター(女性)", "どうぶつの森", "しずえ"]
+  },
+  {
+    prompt: "ankha (animal crossing)",
+    data: ["キャラクター(女性)", "どうぶつの森", "ナイル"]
+  },
+  {
     prompt: "ange katrina (nijisanji)",
     data: ["キャラクター(女性)", "にじさんじ", "アンジュ・カトリーナ"]
+  },
+  {
+    prompt: "cool mita (miside) cool mita a character from miside.",
+    data: ["キャラクター(女性)", "にじさんじ", "キャッピー"]
   },
   {
     prompt: "hyakumantenbara salome (nijisanji)",
@@ -6851,6 +7079,10 @@ let defaultMaster = {
   {
     prompt: "lize helesta (nijisanji)",
     data: ["キャラクター(女性)", "にじさんじ", "リゼ・ヘルエスタ"]
+  },
+  {
+    prompt: "lain paterson, a character from nijisanji.",
+    data: ["キャラクター(女性)", "にじさんじ", "レイン・パターソン"]
   },
   {
     prompt: "yuuki chihiro (nijisanji)",
@@ -7283,6 +7515,14 @@ let defaultMaster = {
   {
     prompt: "kiriya aoi (aikatsu!)",
     data: ["キャラクター(女性)", "アイカツ!", "霧矢あおい"]
+  },
+  {
+    prompt: "anezaki mamori",
+    data: ["キャラクター(女性)", "アイシールド21", "姉崎まもり"]
+  },
+  {
+    prompt: "taki suzuna",
+    data: ["キャラクター(女性)", "アイシールド21", "瀧 鈴音"]
   },
   {
     prompt: "miura azusa (idolmaster)",
@@ -8033,8 +8273,16 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ウマ娘", "テイエムオペラオー"]
   },
   {
+    prompt: "dictus striker (umamusume)",
+    data: ["キャラクター(女性)", "ウマ娘", "ディクタストライカ(ウマ娘)"]
+  },
+  {
     prompt: "tokai teio (umamusume)",
     data: ["キャラクター(女性)", "ウマ娘", "トウカイテイオー,トウカイテイオー"]
+  },
+  {
+    prompt: "transcend (umamusume)",
+    data: ["キャラクター(女性)", "ウマ娘", "トランセンド"]
   },
   {
     prompt: "tosen jordan (umamusume)",
@@ -8321,6 +8569,82 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ガブリールドロップアウト", "ヴィーネット・エイプリル"]
   },
   {
+    prompt: "cagalli yula athha",
+    data: ["キャラクター(女性)", "ガンダムseed", "カガリ"]
+  },
+  {
+    prompt: "stellar loussier",
+    data: ["キャラクター(女性)", "ガンダムseed", "ステラ"]
+  },
+  {
+    prompt: "talia gladys",
+    data: ["キャラクター(女性)", "ガンダムseed", "タリア"]
+  },
+  {
+    prompt: "natarle badgiruel",
+    data: ["キャラクター(女性)", "ガンダムseed", "ナタル"]
+  },
+  {
+    prompt: "murrue ramius",
+    data: ["キャラクター(女性)", "ガンダムseed", "マリュー"]
+  },
+  {
+    prompt: "meer campbell",
+    data: ["キャラクター(女性)", "ガンダムseed", "ミーア"]
+  },
+  {
+    prompt: "meyrin hawke",
+    data: ["キャラクター(女性)", "ガンダムseed", "メイリン"]
+  },
+  {
+    prompt: "lacus clyne",
+    data: ["キャラクター(女性)", "ガンダムseed", "ラクス"]
+  },
+  {
+    prompt: "lunamaria hawke",
+    data: ["キャラクター(女性)", "ガンダムseed", "ルナマリア"]
+  },
+  {
+    prompt: "anchovy (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "アンチョビ"]
+  },
+  {
+    prompt: "itsumi erika",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "エリカ"]
+  },
+  {
+    prompt: "darjeeling (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "ダージリン"]
+  },
+  {
+    prompt: "nonna (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "ノンナ"]
+  },
+  {
+    prompt: "pepperoni (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "ペパロニ"]
+  },
+  {
+    prompt: "isuzu hana",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "五十鈴華"]
+  },
+  {
+    prompt: "reizei mako",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "冷泉麻子"]
+  },
+  {
+    prompt: "koyama yuzu (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "小山 柚子"]
+  },
+  {
+    prompt: "kawashima momo (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "河嶋桃"]
+  },
+  {
+    prompt: "chouno ami (girls und panzer)",
+    data: ["キャラクター(女性)", "ガールズ&パンツァー", "蝶野亜美"]
+  },
+  {
     prompt: "katyusha (girls und panzer)",
     data: ["キャラクター(女性)", "ガールズ&パンツァー", "カチューシャ"]
   },
@@ -8497,8 +8821,20 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "グランブルーファンタジー", "カタリナ"]
   },
   {
+    prompt: "cagliostro (granblue fantasy)",
+    data: ["キャラクター(女性)", "グランブルーファンタジー", "カリオストロ"]
+  },
+  {
+    prompt: "clarisse (granblue fantasy)",
+    data: ["キャラクター(女性)", "グランブルーファンタジー", "クラリス"]
+  },
+  {
     prompt: "threo (granblue fantasy)",
     data: ["キャラクター(女性)", "グランブルーファンタジー", "サラーサ"]
+  },
+  {
+    prompt: "charlotta (granblue fantasy)",
+    data: ["キャラクター(女性)", "グランブルーファンタジー", "シャルロッテ"]
   },
   {
     prompt: "djeeta (granblue fantasy)",
@@ -8547,6 +8883,38 @@ let defaultMaster = {
   {
     prompt: "c.c. (code geass)",
     data: ["キャラクター(女性)", "コードギアス", "C.C."]
+  },
+  {
+    prompt: "anya alstreim",
+    data: ["キャラクター(女性)", "コードギアス", "アーニャ"]
+  },
+  {
+    prompt: "sumeragi kaguya",
+    data: ["キャラクター(女性)", "コードギアス", "カグヤ"]
+  },
+  {
+    prompt: "cornelia li britannia",
+    data: ["キャラクター(女性)", "コードギアス", "コーネリア"]
+  },
+  {
+    prompt: "cecile croomy",
+    data: ["キャラクター(女性)", "コードギアス", "セシル"]
+  },
+  {
+    prompt: "nunnally vi britannia",
+    data: ["キャラクター(女性)", "コードギアス", "ナナリー"]
+  },
+  {
+    prompt: "milly ashford",
+    data: ["キャラクター(女性)", "コードギアス", "ミレイ"]
+  },
+  {
+    prompt: "euphemia li britannia",
+    data: ["キャラクター(女性)", "コードギアス", "ユフィ"]
+  },
+  {
+    prompt: "villetta nu",
+    data: ["キャラクター(女性)", "コードギアス", "ヴィレッタ"]
   },
   {
     prompt: "kallen stadtfeld (code geass)",
@@ -8653,6 +9021,42 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "シュタインズゲート", "阿万音鈴羽"]
   },
   {
+    prompt: "elfnein",
+    data: ["キャラクター(女性)", "シンフォギア", "エルフィン"]
+  },
+  {
+    prompt: "carol malus dienheim",
+    data: ["キャラクター(女性)", "シンフォギア", "キャロル"]
+  },
+  {
+    prompt: "maria cadenzavna eve",
+    data: ["キャラクター(女性)", "シンフォギア", "マリア・カデンツァヴィナ"]
+  },
+  {
+    prompt: "kohinata miku",
+    data: ["キャラクター(女性)", "シンフォギア", "小日向美玖"]
+  },
+  {
+    prompt: "akatsuki kirika",
+    data: ["キャラクター(女性)", "シンフォギア", "暁キリカ"]
+  },
+  {
+    prompt: "tsukuyomi shirabe",
+    data: ["キャラクター(女性)", "シンフォギア", "月読調"]
+  },
+  {
+    prompt: "tachibana hibiki (symphogear)",
+    data: ["キャラクター(女性)", "シンフォギア", "立花響"]
+  },
+  {
+    prompt: "yukine chris",
+    data: ["キャラクター(女性)", "シンフォギア", "雪音クリス"]
+  },
+  {
+    prompt: "kazanari tsubasa",
+    data: ["キャラクター(女性)", "シンフォギア", "風鳴翼"]
+  },
+  {
     prompt: "saru wa (jahy-sama)",
     data: ["キャラクター(女性)", "ジャヒー様はくじけない!", "サルワ"]
   },
@@ -8737,8 +9141,96 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "スター☆トゥインクルプリキュア", "羽衣ララ"]
   },
   {
+    prompt: "eila ilmatar juutilainen",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "エイラ"]
+  },
+  {
+    prompt: "erica hartmann",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "エーリカ"]
+  },
+  {
+    prompt: "gertrud barkhorn",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "ゲルトルート"]
+  },
+  {
+    prompt: "sanya v. litvyak",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "サーニャ"]
+  },
+  {
+    prompt: "charlotte e. yeager",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "シャーリー"]
+  },
+  {
+    prompt: "perrine h. clostermann",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "ペリーニ"]
+  },
+  {
+    prompt: "minna-dietlinde wilcke",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "ミーナ"]
+  },
+  {
+    prompt: "lynette bishop",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "リネット"]
+  },
+  {
+    prompt: "francesca lucchini",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "ルッキーニ"]
+  },
+  {
+    prompt: "sakamoto mio",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "坂本美緒"]
+  },
+  {
+    prompt: "miyafuji yoshika",
+    data: ["キャラクター(女性)", "ストライクウィッチーズ", "宮藤芳佳"]
+  },
+  {
+    prompt: "ibuki (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "イブキ"]
+  },
+  {
+    prompt: "elena (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "エレナ"]
+  },
+  {
+    prompt: "kanzuki karin (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "カリン"]
+  },
+  {
+    prompt: "cammy white",
+    data: ["キャラクター(女性)", "ストリートファイター", "キャミィ"]
+  },
+  {
+    prompt: "kasugano sakura",
+    data: ["キャラクター(女性)", "ストリートファイター", "サクラ"]
+  },
+  {
+    prompt: "han juri",
+    data: ["キャラクター(女性)", "ストリートファイター", "ジュリ"]
+  },
+  {
+    prompt: "makoto (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "マコト"]
+  },
+  {
+    prompt: "rainbow mika (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "ミカ"]
+  },
+  {
+    prompt: "chun-li (street fighter)",
+    data: ["キャラクター(女性)", "ストリートファイター", "春麗"]
+  },
+  {
     prompt: "inkling girl (splatoon)",
     data: ["キャラクター(女性)", "スプラトゥーン", "インクリング"]
+  },
+  {
+    prompt: "frye (splatoon)",
+    data: ["キャラクター(女性)", "スプラトゥーン", "ウツホ"]
+  },
+  {
+    prompt: "shiver (splatoon)",
+    data: ["キャラクター(女性)", "スプラトゥーン", "フウカ"]
   },
   {
     prompt: "cure sunny (precure)",
@@ -8879,6 +9371,14 @@ let defaultMaster = {
   {
     prompt: "daruk (the legend of zelda)",
     data: ["キャラクター(女性)", "ゼルダの伝説シリーズ", "ダルク"]
+  },
+  {
+    prompt: "paya (zelda)",
+    data: ["キャラクター(女性)", "ゼルダの伝説シリーズ", "パーヤ"]
+  },
+  {
+    prompt: "purah",
+    data: ["キャラクター(女性)", "ゼルダの伝説シリーズ", "プルア"]
   },
   {
     prompt: "mipha (the legend of zelda)",
@@ -9245,6 +9745,34 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ドキドキ! プリキュア", "菱川六花"]
   },
   {
+    prompt: "jessica albert",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "ゼシカ"]
+  },
+  {
+    prompt: "deborah (dq5)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "デボラ"]
+  },
+  {
+    prompt: "bianca (dq5)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "ビアンカ"]
+  },
+  {
+    prompt: "flora (dq5)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "フローラ"]
+  },
+  {
+    prompt: "maribel (dq7)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "マリベル"]
+  },
+  {
+    prompt: "martina (dq11)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "マルティナ"]
+  },
+  {
+    prompt: "medea (dq8)",
+    data: ["キャラクター(女性)", "ドラゴンクエスト", "ミーティア"]
+  },
+  {
     prompt: "amazon (dragon's dogma)",
     data: ["キャラクター(女性)", "ドラゴンズドグマ", "アマゾン"]
   },
@@ -9255,6 +9783,22 @@ let defaultMaster = {
   {
     prompt: "sorceress (dragon's dogma)",
     data: ["キャラクター(女性)", "ドラゴンズドグマ", "ソーサレス"]
+  },
+  {
+    prompt: "android 18",
+    data: ["キャラクター(女性)", "ドラゴンボール", "18号"]
+  },
+  {
+    prompt: "chi-chi (dragon ball)",
+    data: ["キャラクター(女性)", "ドラゴンボール", "チチ"]
+  },
+  {
+    prompt: "videl (dragon ball)",
+    data: ["キャラクター(女性)", "ドラゴンボール", "ビーデル"]
+  },
+  {
+    prompt: "bulma (dragon ball)",
+    data: ["キャラクター(女性)", "ドラゴンボール", "ブルマ"]
   },
   {
     prompt: "nakahara komugi (nurse witch komugi-chani)",
@@ -9725,16 +10269,32 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ブルーアーカイブ", "プラナ"]
   },
   {
+    prompt: "beatrice (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "ベアトリーチェ"]
+  },
+  {
     prompt: "yuuka (blue archive)",
     data: ["キャラクター(女性)", "ブルーアーカイブ", "ユウカ,早瀬ユウカ"]
+  },
+  {
+    prompt: "reijo (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "レイジョ"]
   },
   {
     prompt: "koharu (blue archive)",
     data: ["キャラクター(女性)", "ブルーアーカイブ", "下江コハル"]
   },
   {
+    prompt: "ichika (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "仲正イチカ"]
+  },
+  {
     prompt: "mari (blue archive)",
     data: ["キャラクター(女性)", "ブルーアーカイブ", "伊落マリー"]
+  },
+  {
+    prompt: "tsurugi (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "剣先ツルギ"]
   },
   {
     prompt: "kaede (blue archive)",
@@ -9757,8 +10317,20 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ブルーアーカイブ", "尾刃カンナ"]
   },
   {
+    prompt: "nagisa (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "桐藤ナギサ"]
+  },
+  {
+    prompt: "justice task force member (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "正実モブ"]
+  },
+  {
     prompt: "noa (blue archive)",
     data: ["キャラクター(女性)", "ブルーアーカイブ", "生塩ノア"]
+  },
+  {
+    prompt: "seia (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "百合園セイア"]
   },
   {
     prompt: "shiroko (blue archive)",
@@ -9771,6 +10343,10 @@ let defaultMaster = {
   {
     prompt: "kisaki (blue archive)",
     data: ["キャラクター(女性)", "ブルーアーカイブ", "竜華キサキ"]
+  },
+  {
+    prompt: "hasumi (blue archive)",
+    data: ["キャラクター(女性)", "ブルーアーカイブ", "羽川ハスミ"]
   },
   {
     prompt: "mika (blue archive)",
@@ -10073,12 +10649,20 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ポケモン", "セレナ"]
   },
   {
+    prompt: "carmine (pokemon)",
+    data: ["キャラクター(女性)", "ポケモン", "ゼイユ"]
+  },
+  {
     prompt: "sonia (pokemon)",
     data: ["キャラクター(女性)", "ポケモン", "ソニア"]
   },
   {
     prompt: "hilda (pokemon)",
     data: ["キャラクター(女性)", "ポケモン", "トウコ"]
+  },
+  {
+    prompt: "drasna (pokemon)",
+    data: ["キャラクター(女性)", "ポケモン", "ドラセナ"]
   },
   {
     prompt: "sabrina (pokemon)",
@@ -10135,6 +10719,10 @@ let defaultMaster = {
   {
     prompt: "lass (pokemon rg)",
     data: ["キャラクター(女性)", "ポケモン", "ミニスカート(RG)"]
+  },
+  {
+    prompt: "jessie (pokemon)",
+    data: ["キャラクター(女性)", "ポケモン", "ムサシ"]
   },
   {
     prompt: "rosa (pokemon)",
@@ -10457,6 +11045,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "ワンピース", "ニコ・ロビン"]
   },
   {
+    prompt: "perona",
+    data: ["キャラクター(女性)", "ワンピース", "ペローナ"]
+  },
+  {
     prompt: "boa hancock (one piece)",
     data: ["キャラクター(女性)", "ワンピース", "ボア・ハンコック"]
   },
@@ -10565,12 +11157,28 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "俺ガイル", "一色いろは"]
   },
   {
+    prompt: "kawasaki saki",
+    data: ["キャラクター(女性)", "俺ガイル", "川崎咲"]
+  },
+  {
     prompt: "hiratsuka shizuka (oregairu)",
     data: ["キャラクター(女性)", "俺ガイル", "平塚静"]
   },
   {
+    prompt: "hikigaya komachi",
+    data: ["キャラクター(女性)", "俺ガイル", "比企谷小町"]
+  },
+  {
+    prompt: "yuigahama yui's mother",
+    data: ["キャラクター(女性)", "俺ガイル", "由比ヶ浜ママ"]
+  },
+  {
     prompt: "yuigahama yui (oregairu)",
     data: ["キャラクター(女性)", "俺ガイル", "由比ヶ浜結衣"]
+  },
+  {
+    prompt: "yukinoshita haruno",
+    data: ["キャラクター(女性)", "俺ガイル", "雪ノ下春野"]
   },
   {
     prompt: "yukinoshita yukino (oregairu)",
@@ -10797,6 +11405,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "呪術廻戦", "禪院真希"]
   },
   {
+    prompt: "zen'in mai",
+    data: ["キャラクター(女性)", "呪術廻戦", "禪院麻衣"]
+  },
+  {
     prompt: "kugisaki nobara (jujutsu kaisen)",
     data: ["キャラクター(女性)", "呪術廻戦", "釘崎野薔薇"]
   },
@@ -10993,6 +11605,54 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "怪談", "八尺様風"]
   },
   {
+    prompt: "ryuubi (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "劉備"]
+  },
+  {
+    prompt: "shuuyu (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "周瑜"]
+  },
+  {
+    prompt: "kakouen (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "夏侯淵"]
+  },
+  {
+    prompt: "kakouton (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "夏候惇"]
+  },
+  {
+    prompt: "sonken (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "孫権"]
+  },
+  {
+    prompt: "sonsaku (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "孫策"]
+  },
+  {
+    prompt: "sousou (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "曹操"]
+  },
+  {
+    prompt: "chouun (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "趙雲"]
+  },
+  {
+    prompt: "kan'u (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "関羽"]
+  },
+  {
+    prompt: "bachou (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "馬超"]
+  },
+  {
+    prompt: "kouchuu (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "黄忠"]
+  },
+  {
+    prompt: "kougai (koihime musou)",
+    data: ["キャラクター(女性)", "恋姫無双", "黄蓋"]
+  },
+  {
     prompt: "hoshino ai (oshi no ko)",
     data: ["キャラクター(女性)", "推しの子", "星野アイ"]
   },
@@ -11011,6 +11671,10 @@ let defaultMaster = {
   {
     prompt: "souryuu asuka langley",
     data: ["キャラクター(女性)", "新世紀エヴァンゲリオン", "アスカ"]
+  },
+  {
+    prompt: "ibuki maya",
+    data: ["キャラクター(女性)", "新世紀エヴァンゲリオン", "伊吹マヤ"]
   },
   {
     prompt: "makinami mari illustrious",
@@ -11501,6 +12165,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "艦隊これくしょん", "z3 マックス・シュルツ"]
   },
   {
+    prompt: "akitsu maru (kancolle)",
+    data: ["キャラクター(女性)", "艦隊これくしょん", "あきつ丸"]
+  },
+  {
     prompt: "gangut (kancolle)",
     data: ["キャラクター(女性)", "艦隊これくしょん", "ガングート"]
   },
@@ -11529,6 +12197,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "艦隊これくしょん", "加賀"]
   },
   {
+    prompt: "kitakami (kancolle)",
+    data: ["キャラクター(女性)", "艦隊これくしょん", "北上"]
+  },
+  {
     prompt: "northern ocean princess (kancolle)",
     data: ["キャラクター(女性)", "艦隊これくしょん", "北方棲姫"]
   },
@@ -11553,6 +12225,10 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "艦隊これくしょん", "夕雲"]
   },
   {
+    prompt: "ooi (kancolle)",
+    data: ["キャラクター(女性)", "艦隊これくしょん", "大井"]
+  },
+  {
     prompt: "yamato (kancolle)",
     data: ["キャラクター(女性)", "艦隊これくしょん", "大和"]
   },
@@ -11563,6 +12239,10 @@ let defaultMaster = {
   {
     prompt: "amatsukaze (kancolle)",
     data: ["キャラクター(女性)", "艦隊これくしょん", "天津風"]
+  },
+  {
+    prompt: "tenryuu (kancolle)",
+    data: ["キャラクター(女性)", "艦隊これくしょん", "天龍"]
   },
   {
     prompt: "myoukou kai2 (kancolle)",
@@ -11667,6 +12347,10 @@ let defaultMaster = {
   {
     prompt: "kashima (kancolle)",
     data: ["キャラクター(女性)", "艦隊これくしょん", "鹿島"]
+  },
+  {
+    prompt: "tatsuta (kancolle)",
+    data: ["キャラクター(女性)", "艦隊これくしょん", "龍田"]
   },
   {
     prompt: "ryuujou (kancolle)",
@@ -11873,6 +12557,18 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "遊戯王", "ヴァルキリア"]
   },
   {
+    prompt: "izayoi aki",
+    data: ["キャラクター(女性)", "遊戯王", "十六夜アキ"]
+  },
+  {
+    prompt: "kujaku mai",
+    data: ["キャラクター(女性)", "遊戯王", "孔雀舞"]
+  },
+  {
+    prompt: "mazaki anzu",
+    data: ["キャラクター(女性)", "遊戯王", "杏子"]
+  },
+  {
     prompt: "forest sacred beast (yu-gi-oh!)",
     data: ["キャラクター(女性)", "遊戯王", "森の聖獣"]
   },
@@ -12073,6 +12769,50 @@ let defaultMaster = {
     data: ["キャラクター(女性)", "魔法少女まどか☆マギカ", "鹿目まどか"]
   },
   {
+    prompt: "signum (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "シグナム"]
+  },
+  {
+    prompt: "shamal (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "シャマル"]
+  },
+  {
+    prompt: "subaru nakajima (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "スバル・ナカジマ"]
+  },
+  {
+    prompt: "teana lanster (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "ティアナ・ランスター"]
+  },
+  {
+    prompt: "fate testarossa (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "フェイト・テスタロッサ"]
+  },
+  {
+    prompt: "presea testarossa (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "プレシア・テスタロッサ"]
+  },
+  {
+    prompt: "lindy harlaown (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "リンディ・ハラオウン"]
+  },
+  {
+    prompt: "vivio (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "ヴィヴィオ"]
+  },
+  {
+    prompt: "vita (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "ヴィータ"]
+  },
+  {
+    prompt: "yagami hayate (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "八神はやて"]
+  },
+  {
+    prompt: "takamachi nanoha (nanoha)",
+    data: ["キャラクター(女性)", "魔法少女リリカルなのは", "高町なのは"]
+  },
+  {
     prompt: "furukawa akio (clannad)",
     data: ["キャラクター(男性)", "CLANNAD", "古河秋生"]
   },
@@ -12133,8 +12873,36 @@ let defaultMaster = {
     data: ["キャラクター(男性)", "Fate", "マーリン"]
   },
   {
+    prompt: "yamato takeru (fate)",
+    data: ["キャラクター(男性)", "Fate", "ヤマトタケル"]
+  },
+  {
+    prompt: "rama (fate)",
+    data: ["キャラクター(男性)", "Fate", "ラーマ"]
+  },
+  {
+    prompt: "yan qing (fate)",
+    data: ["キャラクター(男性)", "Fate", "新宿のアサシン"]
+  },
+  {
+    prompt: "fujimaru ritsuka (female)",
+    data: ["キャラクター(男性)", "Fate", "藤丸立香"]
+  },
+  {
+    prompt: "fujimaru ritsuka (male),",
+    data: ["キャラクター(男性)", "Fate", "藤丸立香"]
+  },
+  {
     prompt: "emiya shirou (fate)",
     data: ["キャラクター(男性)", "Fate", "衛宮士郎"]
+  },
+  {
+    prompt: "matou shinji",
+    data: ["キャラクター(男性)", "Fate", "間桐慎二"]
+  },
+  {
+    prompt: "fuuma kotarou (fate)",
+    data: ["キャラクター(男性)", "Fate", "風馬小太郎"]
   },
   {
     prompt: "trevor philips bald hair (gta)",
@@ -12945,12 +13713,32 @@ let defaultMaster = {
     data: ["キャラクター(男性)", "ペルソナ5", "雨宮蓮"]
   },
   {
+    prompt: "allister (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "オニオン"]
+  },
+  {
     prompt: "professor oak (pokemon)",
     data: ["キャラクター(男性)", "ポケモン", "オーキド博士"]
   },
   {
+    prompt: "calem (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "カルム(XY主人公)"]
+  },
+  {
+    prompt: "james (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "コジロウ"]
+  },
+  {
     prompt: "ash ketchum (pokemon)",
     data: ["キャラクター(男性)", "ポケモン", "サトシ"]
+  },
+  {
+    prompt: "gary oak",
+    data: ["キャラクター(男性)", "ポケモン", "シゲル"]
+  },
+  {
+    prompt: "kieran (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "スグリ"]
   },
   {
     prompt: "brock (pokemon)",
@@ -12959,6 +13747,18 @@ let defaultMaster = {
   {
     prompt: "cheren (pokemon)",
     data: ["キャラクター(男性)", "ポケモン", "チェレン"]
+  },
+  {
+    prompt: "florian (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "ハルト(SV主人公)"]
+  },
+  {
+    prompt: "max (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "マサト"]
+  },
+  {
+    prompt: "victor (pokemon)",
+    data: ["キャラクター(男性)", "ポケモン", "マサル(swsh主人公)"]
   },
   {
     prompt: "bowser",
@@ -13007,6 +13807,10 @@ let defaultMaster = {
   {
     prompt: "totsuka saika (oregairu)",
     data: ["キャラクター(男性)", "俺ガイル", "戸塚彩加"]
+  },
+  {
+    prompt: "hayama hayato (oregairu)",
+    data: ["キャラクター(男性)", "俺ガイル", "葉山隼人"]
   },
   {
     prompt: "all might (boku no hero academia)",
@@ -13082,7 +13886,7 @@ let defaultMaster = {
   },
   {
     prompt: "venti (genshin impact)",
-    data: ["キャラクター(男性)", "原神", "ウェンティ"]
+    data: ["キャラクター(男性)", "原神", "ウェンティ,ウェンティ"]
   },
   {
     prompt: "kamisato ayato (genshin impact)",
@@ -13357,6 +14161,10 @@ let defaultMaster = {
     data: ["キャラクター(男性)", "白猫プロジェクト", "主人公"]
   },
   {
+    prompt: "admiral (kancolle)",
+    data: ["キャラクター(男性)", "艦これ", "提督"]
+  },
+  {
     prompt: "eisen (sousou no frieren)",
     data: ["キャラクター(男性)", "葬送のフリーレン", "アイゼン"]
   },
@@ -13411,6 +14219,10 @@ let defaultMaster = {
   {
     prompt: "jaden yuki (yu-gi-oh!)",
     data: ["キャラクター(男性)", "遊戯王", "十代"]
+  },
+  {
+    prompt: "sakaki",
+    data: ["キャラクター(男性)", "遊戯王", "榊遊矢"]
   },
   {
     prompt: "yugi mutou",
@@ -13579,6 +14391,26 @@ let defaultMaster = {
   {
     prompt: "judge uniform",
     data: ["コスチューム", "オフィス・事務", "裁判官"]
+  },
+  {
+    prompt: "dress armor",
+    data: ["コスチューム", "コスプレ", "ドレスアーマー"]
+  },
+  {
+    prompt: "armor, bikini armor,",
+    data: ["コスチューム", "コスプレ", "ビキニアーマー"]
+  },
+  {
+    prompt: "pelvic curtain",
+    data: ["コスチューム", "コスプレ", "前垂れ衣装"]
+  },
+  {
+    prompt: "naked hoodie",
+    data: ["コスチューム", "コスプレ", "裸パーカー"]
+  },
+  {
+    prompt: "black cat costume",
+    data: ["コスチューム", "コスプレ", "黒猫コス"]
   },
   {
     prompt: "tied blouse,open blouse,cleavage,wearing school girl,bare navel,microskirt,white blouse",
@@ -14001,6 +14833,14 @@ let defaultMaster = {
     data: ["コスチューム", "ファンタジー", "龍騎士"]
   },
   {
+    prompt: "slingshot dress",
+    data: ["コスチューム", "ユニフォーム", "スリングショットドレス"]
+  },
+  {
+    prompt: "marching band uniform",
+    data: ["コスチューム", "ユニフォーム", "マーチングバンドの制服"]
+  },
+  {
     prompt: "chinese dress",
     data: ["コスチューム", "中華・アジア", "チャイナドレス"]
   },
@@ -14187,6 +15027,10 @@ let defaultMaster = {
   {
     prompt: "doctor uniform",
     data: ["コスチューム", "医療・ケア", "医師"]
+  },
+  {
+    prompt: "fishnet top",
+    data: ["コスチューム", "和装", "網シャツ"]
   },
   {
     prompt: "kunoichi (ninja girl)",
@@ -14461,6 +15305,10 @@ let defaultMaster = {
     data: ["コスチューム", "接客・サービス", "受付娘"]
   },
   {
+    prompt: "ballgown",
+    data: ["コスチューム", "東洋", "お嬢様ドレス"]
+  },
+  {
     prompt: "wearing an arabian costume",
     data: ["コスチューム", "民族・地域", "アラビアン衣装"]
   },
@@ -14571,6 +15419,46 @@ let defaultMaster = {
   {
     prompt: "crown, jeweled headpiece, fur-lined cape, embroidered robe, royal sash, golden necklace, ornate belt, jeweled rings, decorative gloves, silk trousers, adorned boots",
     data: ["コスチューム", "王族", "王様"]
+  },
+  {
+    prompt: "gyaru , tied blouse ,open blouse , cleavage , wearing school girl",
+    data: ["コスチューム", "現代", "アメスク"]
+  },
+  {
+    prompt: "gothic lolita",
+    data: ["コスチューム", "現代", "ゴシックロリータ"]
+  },
+  {
+    prompt: "bare top mini dress, tube top,",
+    data: ["コスチューム", "現代", "チューブトップ"]
+  },
+  {
+    prompt: "party dress,cocktail dress",
+    data: ["コスチューム", "現代", "パーティドレス"]
+  },
+  {
+    prompt: "bare top mini dress",
+    data: ["コスチューム", "現代", "ボディコン"]
+  },
+  {
+    prompt: "ball gown",
+    data: ["コスチューム", "現代", "ボール・ガウン"]
+  },
+  {
+    prompt: "mini body con",
+    data: ["コスチューム", "現代", "ミニボディコン"]
+  },
+  {
+    prompt: "racing suit",
+    data: ["コスチューム", "現代", "レーシングスーツ"]
+  },
+  {
+    prompt: "school uniform",
+    data: ["コスチューム", "現代", "制服"]
+  },
+  {
+    prompt: "revealing dress",
+    data: ["コスチューム", "西洋", "露出度の高いドレス"]
   },
   {
     prompt: "cowgirl outfit",
@@ -14747,6 +15635,14 @@ let defaultMaster = {
   {
     prompt: "injured, wounded, bandages, bruises, pain",
     data: ["シチュエーション", "グロテスク", "負傷した状態"]
+  },
+  {
+    prompt: "sensual lighting",
+    data: ["シチュエーション", "シチュ", "エロい証明"]
+  },
+  {
+    prompt: "unzipped",
+    data: ["シチュエーション", "シチュ", "チャックを下す"]
   },
   {
     prompt: "gymnasium",
@@ -22745,6 +23641,10 @@ let defaultMaster = {
     data: ["デザイナー", "ギャルゲ調", "ほろすけ"]
   },
   {
+    prompt: "rouka (akatyann) (year 2025)",
+    data: ["デザイナー", "ギャルゲ調", "ろうか"]
+  },
+  {
     prompt: "hungry clicker",
     data: ["デザイナー", "ギャルゲ調", "ハンガークリッカー"]
   },
@@ -22949,6 +23849,10 @@ let defaultMaster = {
     data: ["デザイナー", "フェチ系", "あらと安里"]
   },
   {
+    prompt: "iwao178",
+    data: ["デザイナー", "フェチ系", "いわお"]
+  },
+  {
     prompt: "konoshige (ryuun)",
     data: ["デザイナー", "フェチ系", "このしげ"]
   },
@@ -22965,6 +23869,10 @@ let defaultMaster = {
     data: ["デザイナー", "フェチ系", "もつあき"]
   },
   {
+    prompt: "ishigaki takashi",
+    data: ["デザイナー", "フェチ系", "イシガキタカシ"]
+  },
+  {
     prompt: "umigarasu (kitsune1963)",
     data: ["デザイナー", "フェチ系", "ウミガラス"]
   },
@@ -22979,6 +23887,10 @@ let defaultMaster = {
   {
     prompt: "neocoill",
     data: ["デザイナー", "フェチ系", "ネオコイル"]
+  },
+  {
+    prompt: "pija (pianiishimo)",
+    data: ["デザイナー", "フェチ系", "ピジャ"]
   },
   {
     prompt: "metal man10",
@@ -23015,6 +23927,10 @@ let defaultMaster = {
   {
     prompt: "ginhaha",
     data: ["デザイナー", "フェチ系", "銀ハハ"]
+  },
+  {
+    prompt: "tsukuru (seki sabato)",
+    data: ["デザイナー", "フェチ系", "関サバト"]
   },
   {
     prompt: "amazon (taitaitaira)",
@@ -24777,6 +25693,10 @@ let defaultMaster = {
     data: ["ファッション", "トップス", "パイズリ穴,谷間ホール"]
   },
   {
+    prompt: "frilled shirt",
+    data: ["ファッション", "トップス", "フリルシャツ"]
+  },
+  {
     prompt: "blouse",
     data: ["ファッション", "トップス", "ブラウス"]
   },
@@ -24827,6 +25747,10 @@ let defaultMaster = {
   {
     prompt: "(taut shirt:1.2), shirt tucked in",
     data: ["ファッション", "トップス", "服のしわ強め"]
+  },
+  {
+    prompt: "sweaty clothes",
+    data: ["ファッション", "トップス", "汗で透けた服"]
   },
   {
     prompt: "see through wet shirt",
@@ -26601,10 +27525,6 @@ let defaultMaster = {
     data: ["人間", "女性", "おばあさん"]
   },
   {
-    prompt: "assertive female",
-    data: ["人間", "女性", "お姉さん"]
-  },
-  {
     prompt: "charactergirl",
     data: ["人間", "女性", "キャラクターガール"]
   },
@@ -26639,6 +27559,10 @@ let defaultMaster = {
   {
     prompt: "female",
     data: ["人間", "女性", "女性"]
+  },
+  {
+    prompt: "assertive female",
+    data: ["人間", "女性", "女性上位,女性優位"]
   },
   {
     prompt: "women",
@@ -26981,6 +27905,22 @@ let defaultMaster = {
     data: ["人間", "男性", "黒人男性"]
   },
   {
+    prompt: "bent over",
+    data: ["動作", "ポーズ", "かがむ"]
+  },
+  {
+    prompt: "{{raise both arms}}, {{arched back}},",
+    data: ["動作", "ポーズ", "わき上げ"]
+  },
+  {
+    prompt: "gravure pose",
+    data: ["動作", "ポーズ", "グラビアポーズ"]
+  },
+  {
+    prompt: "loose necktie, collarbone",
+    data: ["動作", "ポーズ", "胸元が見える"]
+  },
+  {
     prompt: "yawning",
     data: ["動作", "仕草", "あくび"]
   },
@@ -27119,6 +28059,10 @@ let defaultMaster = {
   {
     prompt: "touching hair",
     data: ["動作", "仕草", "髪を触っている"]
+  },
+  {
+    prompt: "adjusting swimsuit",
+    data: ["動作", "動作", "水着の調整"]
   },
   {
     prompt: "flat on your back",
@@ -27989,6 +28933,10 @@ let defaultMaster = {
     data: ["動作", "脚の動作", "片膝立ち"]
   },
   {
+    prompt: "contrapposto",
+    data: ["動作", "脚の動作", "片足に重心を預ける"]
+  },
+  {
     prompt: "leg up",
     data: ["動作", "脚の動作", "片足を上げます"]
   },
@@ -28097,6 +29045,10 @@ let defaultMaster = {
     data: ["動作", "腕の動作", "手を後ろに組んでいる"]
   },
   {
+    prompt: "a-pose",
+    data: ["動作", "腕の動作", "手を横に"]
+  },
+  {
     prompt: "one arm raised",
     data: ["動作", "腕の動作", "片腕を上げている"]
   },
@@ -28163,6 +29115,10 @@ let defaultMaster = {
   {
     prompt: "reaching towards viewer",
     data: ["動作", "腕の動作", "視聴者に手を伸ばす"]
+  },
+  {
+    prompt: "scratching cheek",
+    data: ["動作", "腕の動作", "頬をかく"]
   },
   {
     prompt: "arms behind head",
@@ -30003,6 +30959,10 @@ let defaultMaster = {
   {
     prompt: "shower room, bathroom",
     data: ["場所", "住宅・居住空間", "シャワールーム"]
+  },
+  {
+    prompt: "on couch",
+    data: ["場所", "住宅・居住空間", "ソファーの上"]
   },
   {
     prompt: "on bed",
@@ -35105,6 +36065,10 @@ let defaultMaster = {
     data: ["身体", "下半身", "陰毛"]
   },
   {
+    prompt: "groin",
+    data: ["身体", "下半身", "鼠径部"]
+  },
+  {
     prompt: "art by shikuta maru, art by momofuki rio, art by tedain, art by ikuchan kaoru, uncensored",
     data: ["身体", "体型", "かわいいむちむち"]
   },
@@ -35163,6 +36127,10 @@ let defaultMaster = {
   {
     prompt: "{{gleaming skin}},{big breasts},sagging breasts,{wide hips},huge ass,puffy nipple,large areolae,thick thighs",
     data: ["身体", "体型", "ムチムチボディ"]
+  },
+  {
+    prompt: "3::curvy,voluptuous::",
+    data: ["身体", "体型", "ムチムチ２"]
   },
   {
     prompt: "model-like figure",
@@ -35469,6 +36437,14 @@ let defaultMaster = {
     data: ["身体", "状態", "日焼け跡"]
   },
   {
+    prompt: "sweaty breasts",
+    data: ["身体", "状態", "汗ばんだ胸"]
+  },
+  {
+    prompt: "sweaty armpits",
+    data: ["身体", "状態", "汗ばんだ脇,脇汗"]
+  },
+  {
     prompt: "wet cloth",
     data: ["身体", "状態", "濡れた布"]
   },
@@ -35649,6 +36625,10 @@ let defaultMaster = {
     data: ["身体", "胸", "ロリ巨乳,不釣り合いな胸"]
   },
   {
+    prompt: "upper cleavage",
+    data: ["身体", "胸", "上乳"]
+  },
+  {
     prompt: "underboob",
     data: ["身体", "胸", "下乳,へそ出しルック"]
   },
@@ -35695,6 +36675,10 @@ let defaultMaster = {
   {
     prompt: "big breasts",
     data: ["身体", "胸", "大きな胸2"]
+  },
+  {
+    prompt: "button gap",
+    data: ["身体", "胸", "天使の小窓"]
   },
   {
     prompt: "small breast",
@@ -36793,6 +37777,10 @@ let defaultMaster = {
     data: ["顔", "目の形", "丸い目"]
   },
   {
+    prompt: "narrowed eyes",
+    data: ["顔", "目の形", "元々細い目"]
+  },
+  {
     prompt: "half-closed eyes",
     data: ["顔", "目の形", "半分閉じた目"]
   },
@@ -36881,6 +37869,10 @@ let defaultMaster = {
     data: ["顔", "目の形", "目の虹彩"]
   },
   {
+    prompt: "wide-eyed",
+    data: ["顔", "目の形", "目を大きく開く,驚いた目"]
+  },
+  {
     prompt: "narrow eyes",
     data: ["顔", "目の形", "目を細める"]
   },
@@ -36895,6 +37887,10 @@ let defaultMaster = {
   {
     prompt: "shine eyes",
     data: ["顔", "目の形", "目を輝かせます"]
+  },
+  {
+    prompt: "averting eyes",
+    data: ["顔", "目の形", "目を逸らす(恥)"]
   },
   {
     prompt: "close eyes",
@@ -36978,10 +37974,6 @@ let defaultMaster = {
   },
   {
     prompt: "wide open eyes",
-    data: ["顔", "目の形", "驚いた目"]
-  },
-  {
-    prompt: "wide-eyed",
     data: ["顔", "目の形", "驚いた目"]
   },
   {
@@ -37113,6 +38105,10 @@ let defaultMaster = {
     data: ["顔", "眉", "勝気な,ドヤ顔眉毛,キリッ眉"]
   },
   {
+    prompt: "raised inner eyebrows",
+    data: ["顔", "眉", "困り眉"]
+  },
+  {
     prompt: "thick eyebrows",
     data: ["顔", "眉", "太眉"]
   },
@@ -37126,7 +38122,11 @@ let defaultMaster = {
   },
   {
     prompt: "raised eyebrows",
-    data: ["顔", "眉", "眉を上げる"]
+    data: ["顔", "眉", "眉を上げる,眉毛が上に上がった"]
+  },
+  {
+    prompt: "furrowed brow",
+    data: ["顔", "眉", "眉間にシワ寄せ"]
   },
   {
     prompt: "short eyebrows",

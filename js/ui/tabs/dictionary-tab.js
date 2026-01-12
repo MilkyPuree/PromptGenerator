@@ -101,6 +101,9 @@
         // インポートボタンの設定
         this.setupImportButtons();
 
+        // 重複チェックボタンの設定
+        this.setupDuplicateCheckButton();
+
         // お気に入り追加ボタンの設定
         this.setupFavoriteAddButton();
 
@@ -1826,6 +1829,9 @@
           }
         }
 
+        // 重複チェックボタンの表示状態を更新
+        this.updateDuplicateCheckButtonVisibility();
+
         console.log("Dictionary stats updated:", stats);
       }
 
@@ -2224,7 +2230,9 @@
        * CSV内容をパース
        */
       parseCSVContent(content, delimiter = ",") {
-        const lines = content.split("\n").filter((line) => line.trim());
+        // BOM（Byte Order Mark）を除去
+        const cleanContent = content.replace(/^\uFEFF/, "");
+        const lines = cleanContent.split("\n").filter((line) => line.trim());
         const result = [];
 
         for (let i = 0; i < lines.length; i++) {
@@ -2418,9 +2426,22 @@
           // 要素辞書として処理（大項目、中項目、小項目、プロンプト）
           for (let i = 0; i < csvData.length; i++) {
             const row = csvData[i];
+
+            // ヘッダー行をスキップ（BOM対応、カンマ/タブ混在対応）
+            if (i === 0) {
+              const firstCell = (row[0] || "").replace(/^\uFEFF/, ""); // BOM除去
+              if (
+                (firstCell === "大項目" && row[1] === "中項目") ||
+                firstCell.includes("大項目") && firstCell.includes("中項目")
+              ) {
+                continue;
+              }
+            }
+
             if (row.length >= 4) {
               const item = {
-                data: [row[0] || "", row[1] || "", row[2] || "", row[3] || ""],
+                data: [row[0] || "", row[1] || "", row[2] || ""],
+                prompt: row[3] || "",
               };
               try {
                 if (registerDictionary(item, true)) {
@@ -3470,6 +3491,227 @@
         // 表示を戻す
         displayElement.style.display = "inline";
         editElement.style.display = "none";
+      }
+
+      // ========================================
+      // 重複チェック機能
+      // ========================================
+
+      /**
+       * 重複チェックボタンのセットアップ
+       */
+      setupDuplicateCheckButton() {
+        const btn = this.getElement(
+          DOM_SELECTORS.BY_ID.DICTIONARY_LOCAL_DUPLICATE_CHECK
+        );
+        if (btn) {
+          this.addEventListener(btn, "click", () => {
+            this.showDuplicateCheckModal();
+          });
+          // 初期表示状態を設定
+          this.updateDuplicateCheckButtonVisibility();
+        }
+      }
+
+      /**
+       * 重複チェックボタンの表示/非表示を更新
+       */
+      updateDuplicateCheckButtonVisibility() {
+        const btn = this.getElement(
+          DOM_SELECTORS.BY_ID.DICTIONARY_LOCAL_DUPLICATE_CHECK
+        );
+        if (!btn) return;
+
+        const duplicates = window.findDuplicatesWithMaster
+          ? window.findDuplicatesWithMaster()
+          : [];
+
+        if (duplicates.length > 0) {
+          btn.style.display = "";
+          btn.title = `マスター辞書と重複している項目をチェック（${duplicates.length}件）`;
+        } else {
+          btn.style.display = "none";
+        }
+      }
+
+      /**
+       * 重複チェックモーダルを表示
+       * @param {boolean} isStartup - 起動時の自動表示かどうか
+       */
+      async showDuplicateCheckModal(isStartup = false) {
+        const duplicates = window.findDuplicatesWithMaster
+          ? window.findDuplicatesWithMaster()
+          : [];
+
+        if (duplicates.length === 0) {
+          if (!isStartup) {
+            alert("重複している項目はありません");
+          }
+          return;
+        }
+
+        // モーダル初期化（初回のみ）
+        if (!this.duplicateCheckModal) {
+          this.createDuplicateCheckModal();
+        }
+
+        // リスト表示
+        await this.renderDuplicateList(duplicates);
+        this.duplicateCheckModal.show();
+      }
+
+      /**
+       * 重複チェックモーダルを作成
+       */
+      createDuplicateCheckModal() {
+        this.duplicateCheckModal = BaseModal.create(
+          "duplicate-check-modal",
+          "マスター辞書と重複している項目",
+          `
+          <div class="duplicate-check-content">
+            <p class="duplicate-check-description">
+              以下の項目はマスター辞書に採用されています。削除しても問題ありません。
+            </p>
+            <div id="duplicate-check-list" class="duplicate-check-list"></div>
+          </div>
+          `,
+          {
+            closeOnBackdrop: true,
+            closeOnEsc: true,
+            showCloseButton: true,
+            showHeader: true,
+            showFooter: true,
+            footerActions: [
+              {
+                text: "一括削除",
+                className: "danger",
+                action: "bulk-delete",
+              },
+              {
+                text: "閉じる",
+                action: "close",
+              },
+              {
+                text: "以降表示しない",
+                action: "dismiss",
+              },
+            ],
+          }
+        );
+
+        // フッターのイベントリスナーを設定
+        const modal = document.getElementById("duplicate-check-modal");
+        if (modal) {
+          const footer = modal.querySelector(".modal-footer");
+          if (footer) {
+            // 左側にノートを追加
+            const note = document.createElement("span");
+            note.className = "duplicate-check-footer-note";
+            note.textContent = "※ 辞書タブの「重複チェック」ボタンからいつでも確認できます";
+            footer.insertBefore(note, footer.firstChild);
+
+            // ボタンのイベントリスナーを設定
+            const bulkDeleteBtn = footer.querySelector('[data-action="bulk-delete"]');
+            const closeBtn = footer.querySelector('[data-action="close"]');
+            const dismissBtn = footer.querySelector('[data-action="dismiss"]');
+
+            if (bulkDeleteBtn) {
+              bulkDeleteBtn.addEventListener("click", async () => {
+                const duplicates = window.findDuplicatesWithMaster
+                  ? window.findDuplicatesWithMaster()
+                  : [];
+                if (duplicates.length === 0) return;
+
+                const confirmed = confirm(
+                  `重複している${duplicates.length}件の項目を全て削除しますか？\nこの操作は取り消せません。`
+                );
+                if (!confirmed) return;
+
+                // 重複項目を全て削除（後ろから削除してインデックスずれを防ぐ）
+                const indicesToDelete = duplicates
+                  .map((d) => d.index)
+                  .sort((a, b) => b - a);
+                for (const index of indicesToDelete) {
+                  AppState.data.localPromptList.splice(index, 1);
+                }
+
+                if (window.saveLocalList) {
+                  await window.saveLocalList();
+                }
+                this.updateStats();
+                this.duplicateCheckModal.hide();
+                alert(`${duplicates.length}件の重複項目を削除しました`);
+              });
+            }
+
+            if (closeBtn) {
+              closeBtn.addEventListener("click", () => {
+                this.duplicateCheckModal.hide();
+              });
+            }
+
+            if (dismissBtn) {
+              dismissBtn.addEventListener("click", async () => {
+                if (window.saveDuplicateCheckDismissed) {
+                  await window.saveDuplicateCheckDismissed(true);
+                }
+                this.duplicateCheckModal.hide();
+              });
+            }
+          }
+        }
+      }
+
+      /**
+       * 重複リストを描画
+       * @param {Array} duplicates - 重複項目の配列
+       */
+      async renderDuplicateList(duplicates) {
+        const container = document.getElementById("duplicate-check-list");
+        if (!container) return;
+
+        // FlexibleListで表示（DELETEボタンのみ）
+        await this.app.listManager.createFlexibleList(
+          duplicates.map((d) => d.item),
+          "#duplicate-check-list",
+          {
+            fields: STANDARD_CATEGORY_FIELDS,
+            buttons: [{ type: "delete" }],
+            sortable: false,
+            listType: "duplicate-check",
+            header: FLEXIBLE_LIST_HEADERS.DICTIONARY.ELEMENT,
+            onDelete: async (index, item) => {
+              // ローカル辞書から削除
+              const localIndex = AppState.data.localPromptList.findIndex(
+                (local) =>
+                  local.prompt === item.prompt &&
+                  local.data[0] === item.data[0] &&
+                  local.data[1] === item.data[1] &&
+                  local.data[2] === item.data[2]
+              );
+              if (localIndex !== -1) {
+                AppState.data.localPromptList.splice(localIndex, 1);
+                if (window.saveLocalList) {
+                  await window.saveLocalList();
+                }
+                // 統計更新（重複チェックボタン表示も更新される）
+                this.updateStats();
+              }
+
+              // リスト再表示
+              const newDuplicates = window.findDuplicatesWithMaster
+                ? window.findDuplicatesWithMaster()
+                : [];
+              if (newDuplicates.length === 0) {
+                this.duplicateCheckModal.hide();
+                alert("すべての重複項目を削除しました");
+              } else {
+                await this.renderDuplicateList(newDuplicates);
+              }
+              return false; // ListManagerの標準削除処理をスキップ
+            },
+          }
+        );
       }
 
       /**

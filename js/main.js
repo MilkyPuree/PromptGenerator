@@ -144,6 +144,9 @@ class PromptGeneratorApp {
         await this.tabs.other.init();
       }
 
+      // 起動時の重複チェック
+      await this.checkDuplicatesOnStartup();
+
       // 終了時の処理を設定
       this.setupCloseHandlers();
 
@@ -1557,6 +1560,41 @@ class PromptGeneratorApp {
     }
 
     // 通知設定は設定モーダルに移動済み
+  }
+
+  // ============================================
+  // 起動時の重複チェック
+  // ============================================
+  async checkDuplicatesOnStartup() {
+    try {
+      // 非表示フラグを確認
+      const dismissed = window.loadDuplicateCheckDismissed
+        ? await window.loadDuplicateCheckDismissed()
+        : false;
+
+      if (dismissed) {
+        console.log("[MAIN] Duplicate check dismissed by user");
+        return;
+      }
+
+      // 重複チェック実行
+      const duplicates = window.findDuplicatesWithMaster
+        ? window.findDuplicatesWithMaster()
+        : [];
+
+      if (duplicates.length > 0) {
+        console.log(
+          `[MAIN] Found ${duplicates.length} duplicate items with master dictionary`
+        );
+
+        // DictionaryTabのモーダルを表示
+        if (this.tabs.dictionary && this.tabs.dictionary.showDuplicateCheckModal) {
+          await this.tabs.dictionary.showDuplicateCheckModal(true);
+        }
+      }
+    } catch (error) {
+      console.error("[MAIN] Failed to check duplicates on startup:", error);
+    }
   }
 
   // ============================================

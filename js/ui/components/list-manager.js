@@ -4188,6 +4188,9 @@ class PromptListManager {
 
     // 初期状態で個別ボタン設定を適用
     this.applyIndividualButtonSettings(listId, cleanListId);
+
+    // 初期状態で列設定を適用
+    this.applyColumnSettings(listId, cleanListId);
   }
 
   /**
@@ -4263,6 +4266,101 @@ class PromptListManager {
       // 全てのボタン種類が非表示になったかチェック
       this.checkAllButtonTypesHidden(flexibleContainer);
     }
+  }
+
+  /**
+   * リスト内の列の表示/非表示を制御
+   * @param {string} listId - リストID
+   * @param {boolean} isVisible - 表示するかどうか
+   * @param {string} columnType - 列種類（'category.0', 'category.1', 'category.2', 'prompt'）
+   */
+  setColumnVisibility(listId, isVisible, columnType) {
+    const container = document.querySelector(listId);
+    if (!container) return;
+
+    // flexible-list-containerを取得
+    const flexibleContainer =
+      container.closest(".flexible-list-container") ||
+      (container.classList.contains("flexible-list-container")
+        ? container
+        : null);
+
+    if (!flexibleContainer) {
+      console.warn(
+        `[ColumnVisibility] flexible-list-container not found for ${listId}`
+      );
+      return;
+    }
+
+    // 列タイプに応じたCSSクラス名を生成
+    // category.0 → hide-column-category-0
+    const hideClass = `hide-column-${columnType.replace(".", "-")}`;
+
+    if (isVisible) {
+      flexibleContainer.classList.remove(hideClass);
+    } else {
+      flexibleContainer.classList.add(hideClass);
+    }
+
+    console.log(
+      `[ColumnVisibility] ${columnType} column ${isVisible ? "shown" : "hidden"} for ${listId}`
+    );
+  }
+
+  /**
+   * 個別列設定を適用
+   * @param {string} listId - リストID
+   * @param {string} cleanListId - クリーンなリストID
+   */
+  applyColumnSettings(listId, cleanListId) {
+    const container = document.querySelector(listId);
+    if (!container) return;
+
+    if (typeof COLUMN_TYPES === "undefined") return;
+
+    // 利用可能な列を検出（data-field属性ベースで正確に検出）
+    const availableColumns = this.detectAvailableColumns(container);
+
+    // 各列の設定を適用
+    availableColumns.forEach((columnType) => {
+      const storageKey = `columnVisible_${cleanListId}_${columnType}`;
+      const isVisible = localStorage.getItem(storageKey) !== "false"; // デフォルトtrue
+
+      if (!isVisible) {
+        this.setColumnVisibility(listId, false, columnType);
+      }
+    });
+
+    console.log(
+      `[ColumnSettings] Applied column settings for ${cleanListId}:`,
+      availableColumns
+    );
+  }
+
+  /**
+   * コンテナ内の利用可能な列を検出
+   * @param {Element} container - リストコンテナ
+   * @returns {string[]} 利用可能な列タイプの配列
+   */
+  detectAvailableColumns(container) {
+    const availableColumns = [];
+
+    // data-field属性ベースで列を検出（より正確）
+    const dataFieldMappings = {
+      "data.0": "category.0",
+      "data.1": "category.1",
+      "data.2": "category.2",
+      "prompt": "prompt"
+    };
+
+    Object.entries(dataFieldMappings).forEach(([dataField, columnType]) => {
+      const inputs = container.querySelectorAll(`[data-field="${dataField}"]`);
+      if (inputs.length > 0 && COLUMN_TYPES[columnType]) {
+        availableColumns.push(columnType);
+      }
+    });
+
+    return availableColumns;
   }
 
   /**
@@ -4542,15 +4640,57 @@ class PromptListManager {
       return;
     }
 
+    // 利用可能な列を検出（data-field属性ベースで正確に検出）
+    const availableColumns = new Set();
+    if (container && typeof COLUMN_TYPES !== "undefined") {
+      const detectedColumns = this.detectAvailableColumns(container);
+      detectedColumns.forEach(col => availableColumns.add(col));
+    }
+
+    console.log(
+      `[ButtonSettings] Available columns for ${cleanListId}:`,
+      Array.from(availableColumns)
+    );
+
+    // 列設定セクションHTML生成
+    const columnSettingsHTML = availableColumns.size > 0 ? `
+      <div class="column-settings-section">
+        <div class="column-settings-section-title">列表示</div>
+        ${Array.from(availableColumns)
+          .map((columnType) => {
+            const columnInfo = COLUMN_TYPES[columnType];
+            const storageKey = `columnVisible_${cleanListId}_${columnType}`;
+            const isVisible = localStorage.getItem(storageKey) !== "false";
+
+            return `
+            <div class="button-setting-item">
+              <div class="button-setting-label">
+                <span>${columnInfo.icon}</span>
+                <span>${columnInfo.label}</span>
+              </div>
+              <div class="button-setting-toggle column-toggle ${
+                isVisible ? "active" : ""
+              }"
+                   data-column-type="${columnType}"
+                   data-list-id="${cleanListId}">
+              </div>
+            </div>
+          `;
+          })
+          .join("")}
+      </div>
+    ` : "";
+
     // モーダルHTML生成
     const modalHTML = `
       <div class="button-settings-modal">
         <div class="button-settings-content">
           <div class="button-settings-header">
-            <span class="button-settings-title">ボタン表示設定</span>
+            <span class="button-settings-title">表示設定</span>
             <button class="button-settings-close">×</button>
           </div>
           <div class="button-settings-list">
+            <div class="column-settings-section-title">ボタン表示</div>
             ${Array.from(availableButtons)
               .map((buttonType) => {
                 const buttonInfo = BUTTON_TYPES[buttonType];
@@ -4573,6 +4713,7 @@ class PromptListManager {
               `;
               })
               .join("")}
+            ${columnSettingsHTML}
           </div>
         </div>
       </div>
@@ -4584,7 +4725,8 @@ class PromptListManager {
 
     // イベントリスナー設定
     const closeBtn = modal.querySelector(".button-settings-close");
-    const toggles = modal.querySelectorAll(".button-setting-toggle");
+    const buttonToggles = modal.querySelectorAll(".button-setting-toggle:not(.column-toggle)");
+    const columnToggles = modal.querySelectorAll(".button-setting-toggle.column-toggle");
 
     // 閉じるボタン
     closeBtn.addEventListener("click", () => {
@@ -4598,8 +4740,8 @@ class PromptListManager {
       }
     });
 
-    // トグルボタン
-    toggles.forEach((toggle) => {
+    // ボタントグル
+    buttonToggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
         const buttonType = toggle.getAttribute("data-button-type");
         const currentActive = toggle.classList.contains("active");
@@ -4615,6 +4757,29 @@ class PromptListManager {
 
         console.log(
           `[ButtonSettings] ${buttonType} button ${
+            newActive ? "shown" : "hidden"
+          } for ${cleanListId}`
+        );
+      });
+    });
+
+    // 列トグル
+    columnToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const columnType = toggle.getAttribute("data-column-type");
+        const currentActive = toggle.classList.contains("active");
+        const newActive = !currentActive;
+
+        // 状態を保存
+        const storageKey = `columnVisible_${cleanListId}_${columnType}`;
+        localStorage.setItem(storageKey, newActive.toString());
+
+        // 表示を更新
+        toggle.classList.toggle("active", newActive);
+        this.setColumnVisibility(listId, newActive, columnType);
+
+        console.log(
+          `[ColumnSettings] ${columnType} column ${
             newActive ? "shown" : "hidden"
           } for ${cleanListId}`
         );

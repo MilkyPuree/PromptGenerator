@@ -408,3 +408,30 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* ============================================
+ * 重複チェックモーダル
+ * ============================================ */
+
+.duplicate-check-content {
+  padding: var(--spacing-md);
+}
+
+.duplicate-check-description {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.duplicate-check-list {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-md);
+  /* スクロールは親の.modal-contentに任せる（二重スクロール防止） */
+}
+
+.duplicate-check-footer-note {
+  flex: 1;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}

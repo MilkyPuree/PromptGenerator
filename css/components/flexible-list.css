@@ -601,6 +601,50 @@ button.flex-col-button {
 }
 
 /* =================================
+   列表示制御
+   ================================= */
+
+/* 大項目列非表示（data-field属性で正確に指定） */
+.flexible-list-container.hide-column-category-0 [data-field="data.0"],
+.flexible-list-container.hide-column-category-0 .prompt-list-header .flex-col-category:nth-child(1) {
+  display: none !important;
+}
+
+/* 中項目列非表示 */
+.flexible-list-container.hide-column-category-1 [data-field="data.1"],
+.flexible-list-container.hide-column-category-1 .prompt-list-header .flex-col-category:nth-child(2) {
+  display: none !important;
+}
+
+/* 小項目列非表示 */
+.flexible-list-container.hide-column-category-2 [data-field="data.2"],
+.flexible-list-container.hide-column-category-2 .prompt-list-header .flex-col-category:nth-child(3) {
+  display: none !important;
+}
+
+/* プロンプト列非表示 */
+.flexible-list-container.hide-column-prompt [data-field="prompt"],
+.flexible-list-container.hide-column-prompt .prompt-list-header .flex-col-prompt {
+  display: none !important;
+}
+
+/* 列セクション区切り用スタイル */
+.column-settings-section {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-muted);
+}
+
+.column-settings-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =================================
    個別ボタン設定モーダル
    ================================= */
 

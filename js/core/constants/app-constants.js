@@ -158,7 +158,6 @@ const APP_INFO = {
   VERSION: "8.5", // アプリケーションバージョン
   MANIFEST_VERSION: 3, // Chrome Extension Manifest バージョン
   MIN_CHROME_VERSION: 88, // サポート最小Chromeバージョン
-  SETTINGS_VERSION: "1.1.0", // 設定ファイルバージョン
 };
 
 // ============================================

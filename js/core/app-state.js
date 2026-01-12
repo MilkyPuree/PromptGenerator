@@ -5,7 +5,7 @@
 const AppState = {
   // アプリケーション設定
   config: {
-    toolVersion: 11,
+    toolVersion: 12,
     debugMode: false, // デバッグモード：trueの場合のみデバッグログを出力
   },
 

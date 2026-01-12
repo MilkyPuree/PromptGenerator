@@ -172,6 +172,38 @@ const BUTTON_TYPES = {
   generate: { label: "生成", icon: "⚡", description: "このプロンプトでテスト生成" },
 };
 
+// 列種類の定義と表示情報
+const COLUMN_TYPES = {
+  "category.0": {
+    label: "大項目",
+    icon: "📁",
+    description: "大カテゴリ列",
+    cssClass: "flex-col-category",
+    nthChild: 1,
+  },
+  "category.1": {
+    label: "中項目",
+    icon: "📂",
+    description: "中カテゴリ列",
+    cssClass: "flex-col-category",
+    nthChild: 2,
+  },
+  "category.2": {
+    label: "小項目",
+    icon: "📄",
+    description: "小カテゴリ列",
+    cssClass: "flex-col-category",
+    nthChild: 3,
+  },
+  prompt: {
+    label: "プロンプト",
+    icon: "✏️",
+    description: "プロンプト列",
+    cssClass: "flex-col-prompt",
+    nthChild: null,
+  },
+};
+
 // FlexibleList 設定オプション
 const FLEXIBLE_LIST_CONFIGS = {
   // 基本設定
@@ -333,6 +365,7 @@ window.FLEXIBLE_LIST_CONFIGS = FLEXIBLE_LIST_CONFIGS;
 window.FLEXIBLE_LIST_TYPES = FLEXIBLE_LIST_TYPES;
 window.CATEGORY_CHAIN_CONFIG = CATEGORY_CHAIN_CONFIG;
 window.BUTTON_TYPES = BUTTON_TYPES;
+window.COLUMN_TYPES = COLUMN_TYPES;
 window.MESSAGE_LEVELS = MESSAGE_LEVELS;
 window.DICTIONARY_TYPES = DICTIONARY_TYPES;
 window.EDIT_MODES = EDIT_MODES;

@@ -508,10 +508,17 @@ const DOM_SELECTORS = {
     DICTIONARY_LIST: "#dictionary-list",
     DICTIONARY_MANAGEMENT_MODAL: "#dictionary-management-modal",
     DICTIONARY_NEW_NAME: "#new-dictionary-name",
+    // 重複チェック関連
+    DICTIONARY_LOCAL_DUPLICATE_CHECK: "#localDictDuplicateCheck",
+    DUPLICATE_CHECK_MODAL: "#duplicate-check-modal",
+    DUPLICATE_CHECK_LIST: "#duplicate-check-list",
+    DUPLICATE_CHECK_CLOSE: "#duplicate-check-close",
+    DUPLICATE_CHECK_DISMISS: "#duplicate-check-dismiss",
     // モーダル関連（統一セレクター）
     SLOT_GROUP_MANAGEMENT_MODAL: "#slot-group-management-modal",
     GENERATE_HISTORY_MODAL: "#generate-history-modal",
     COMBINE_PREVIEW_MODAL: "#combine-preview-modal",
+    DUPLICATE_CHECK_MODAL_REF: "#duplicate-check-modal",
   },
   // 属性セレクター
   BY_ATTRIBUTE: {
