@@ -576,6 +576,14 @@ button.flex-col-button {
   display: none !important;
 }
 
+.flexible-list-container.hide-moveUp-buttons button[data-action="moveUp"] {
+  display: none !important;
+}
+
+.flexible-list-container.hide-moveDown-buttons button[data-action="moveDown"] {
+  display: none !important;
+}
+
 /* ヘッダー行の動的制御用クラス（既存のCSSより優先度を高くする） */
 .prompt-list-header .header-column-hidden,
 .flexible-list-container .prompt-list-header .header-column-hidden {

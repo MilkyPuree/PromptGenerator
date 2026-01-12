@@ -1069,6 +1069,9 @@ class PromptListManager {
 
       const finalConfig = { ...defaults, ...config };
 
+      // 上下移動ボタン用にデータ総数を設定
+      finalConfig._totalItems = data.length;
+
       // 設定を保存（リフレッシュ用）
       this.saveListConfig(listId, finalConfig);
 
@@ -3060,6 +3063,41 @@ class PromptListManager {
                   { prompt: item.prompt, index, enabled: isEnabled }
                 );
               },
+        });
+
+      case "moveUp":
+        // 最初のアイテムは上移動不可
+        const isFirstItem = index === 0;
+        return UIFactory.createButton({
+          text: buttonDef.text || "↑",
+          title: isFirstItem
+            ? "これ以上上に移動できません"
+            : (buttonDef.title || "上に移動"),
+          dataAction: "moveUp",
+          enabled: !isFirstItem,
+          onClick: isFirstItem ? null : async () => {
+            if (config.onMove) {
+              await config.onMove(index, 'up', item);
+            }
+          },
+        });
+
+      case "moveDown":
+        // 最後のアイテムは下移動不可（dataの長さはconfigから取得）
+        const totalItems = config._totalItems || 0;
+        const isLastItem = index === totalItems - 1;
+        return UIFactory.createButton({
+          text: buttonDef.text || "↓",
+          title: isLastItem
+            ? "これ以上下に移動できません"
+            : (buttonDef.title || "下に移動"),
+          dataAction: "moveDown",
+          enabled: !isLastItem,
+          onClick: isLastItem ? null : async () => {
+            if (config.onMove) {
+              await config.onMove(index, 'down', item);
+            }
+          },
         });
 
       default:

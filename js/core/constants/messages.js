@@ -170,6 +170,8 @@ const BUTTON_TYPES = {
   delete: { label: "削除", icon: "🗑️", description: "項目を削除" },
   register: { label: "登録", icon: "💾", description: "辞書に登録" },
   generate: { label: "生成", icon: "⚡", description: "このプロンプトでテスト生成" },
+  moveUp: { label: "上移動", icon: "↑", description: "項目を上に移動" },
+  moveDown: { label: "下移動", icon: "↓", description: "項目を下に移動" },
 };
 
 // 列種類の定義と表示情報

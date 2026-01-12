@@ -576,6 +576,9 @@
             onSort: async (sortedIds) => {
               this.handleEditSort(sortedIds);
             },
+            onMove: async (index, direction, item) => {
+              await this.handleEditMove(index, direction, item);
+            },
             onRegistration: async (item, index) => {
               this.handleRegistration(item, index);
             },
@@ -1199,9 +1202,13 @@
           });
         }
         
+        // 上下移動ボタン
+        baseButtons.push({ type: "moveUp" });
+        baseButtons.push({ type: "moveDown" });
+
         // 削除ボタン
         baseButtons.push({ type: "delete" });
-        
+
         return baseButtons;
       }
 
@@ -1369,32 +1376,50 @@
        * ソートハンドラー
        */
       handleEditSort(sortedIds) {
-        console.log('[EditTab] handleEditSort called with sortedIds:', sortedIds);
-        console.log('[EditTab] Current editPrompt.elements before sort:', editPrompt.elements?.map(el => ({ id: el.id, Value: el.Value, sort: el.sort })));
-        
         this.app.listManager.handleSortCommon(sortedIds, editPrompt.elements, () => {
-          console.log('[EditTab] Sort callback executed - regenerating prompt');
-          console.log('[EditTab] editPrompt.elements after sort:', editPrompt.elements?.map(el => ({ id: el.id, Value: el.Value, sort: el.sort })));
-          
-          // プロンプト再生成前の状態
-          const beforeGenerate = document.getElementById('generatePrompt')?.value;
-          console.log('[EditTab] GeneratePrompt before generate():', beforeGenerate);
-          
           editPrompt.generate();
-          
-          // プロンプト再生成後の状態
-          const afterGenerate = document.getElementById('generatePrompt')?.value;
-          console.log('[EditTab] GeneratePrompt after generate():', afterGenerate);
-          
           window.app.updatePromptDisplay();
-          
-          // 最終的な状態
-          const finalState = document.getElementById('generatePrompt')?.value;
-          console.log('[EditTab] GeneratePrompt final state:', finalState);
-          
-          // ソート後は自動的にDOM順序が更新されるため、追加のリフレッシュは不要
-          console.log('[EditTab] Sort completed - DOM order already updated by handleSortCommon');
         }, 'EDIT_TAB');
+      }
+
+      /**
+       * 上下移動ハンドラー
+       * @param {number} index - 移動する要素のインデックス
+       * @param {string} direction - 移動方向 ('up' | 'down')
+       * @param {Object} item - 移動する要素
+       */
+      async handleEditMove(index, direction, item) {
+        const elements = editPrompt.elements;
+        if (!elements || elements.length < 2) {
+          console.warn('[EditTab] handleEditMove: Not enough elements', { length: elements?.length });
+          return;
+        }
+
+        // 移動先インデックスを計算
+        const targetIndex = direction === 'up' ? index - 1 : index + 1;
+
+        // 範囲チェック
+        if (targetIndex < 0 || targetIndex >= elements.length) {
+          console.warn('[EditTab] Move out of range:', { index, direction, targetIndex });
+          return;
+        }
+
+        // sortプロパティを入れ替え（表示順序を決定するため）
+        const tempSort = elements[index].sort;
+        elements[index].sort = elements[targetIndex].sort;
+        elements[targetIndex].sort = tempSort;
+
+        // 要素自体も入れ替え（配列内の位置）
+        const temp = elements[index];
+        elements[index] = elements[targetIndex];
+        elements[targetIndex] = temp;
+
+        // プロンプト再生成
+        editPrompt.generate();
+        window.app.updatePromptDisplay();
+
+        // リストをリフレッシュ（スクロール位置を保持）
+        await this.refreshEditList();
       }
 
       /**
