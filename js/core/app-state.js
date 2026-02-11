@@ -1,22 +1,15 @@
-/**
- * アプリケーション全体の状態を管理する名前空間
- * グローバル変数を一元管理し、モジュール間で共有
- */
 const AppState = {
-  // アプリケーション設定
   config: {
     toolVersion: 12,
     debugMode: false, // デバッグモード：trueの場合のみデバッグログを出力
   },
 
-  // データ
   data: {
     localPromptList: [],
     searchCategory: {},
     toolInfo: {},
     generateHistory: [], // Generate履歴
 
-    // 複数お気に入りリストシステム
     promptDictionaries: {
       main: {
         name: UI_LABELS.MAIN_DICTIONARY,
@@ -26,19 +19,16 @@ const AppState = {
     currentPromptDictionary: "main",
   },
 
-  // ユーザー設定
   userSettings: {
     optionData: null,
   },
 
-  // UI状態
   ui: {
     currentTab: 0,
     isSearching: false,
     mouseCursorValue: "",
   },
 
-  // 一時的なデータ
   temp: {
     translateQueue: [],
     searchResults: [],
@@ -48,7 +38,6 @@ const AppState = {
     positiveSelector: null,
     generateSelector: null,
 
-    // サービスごとのセレクターセット（組み込み）
     serviceSets: {
       novelai: {
         name: "NovelAI",
@@ -87,8 +76,7 @@ const AppState = {
       claude: {
         name: "Claude (Anthropic)",
         url: "https://claude.ai",
-        positiveSelector:
-          "[contenteditable='true'][data-testid='composer-input']",
+        positiveSelector: "[contenteditable='true'][data-testid='composer-input']",
         generateSelector: "[aria-label='Send Message']",
         inputDelay: 1500,
         isBuiltIn: true,
@@ -103,16 +91,11 @@ const AppState = {
       },
     },
 
-    // カスタムサイト（ユーザーが追加したサイト）
     customSites: {},
 
-    // 現在のサービス
     currentService: null,
   },
 
-  /**
-   * 状態を初期化
-   */
   reset() {
     this.data.localPromptList = [];
     this.data.searchCategory = {};
@@ -131,32 +114,15 @@ const AppState = {
     this.selector.generateSelector = "";
     this.selector.customSites = {};
   },
-
-  /**
-   * デバッグ用：現在の状態をコンソールに出力
-   */
-  debug() {
-    console.log("AppState:", {
-      config: this.config,
-      data: this.data,
-      userSettings: this.userSettings,
-      ui: this.ui,
-    });
-  },
 };
 
-// グローバルスコープでアクセス可能にする（移行期間中）
 window.AppState = AppState;
 
-// 開発者向けデバッグモード切り替え関数
 window.toggleDebugMode = function (enable) {
   if (typeof enable === "boolean") {
     AppState.config.debugMode = enable;
   } else {
     AppState.config.debugMode = !AppState.config.debugMode;
   }
-  console.log(
-    `🐛 Debug mode: ${AppState.config.debugMode ? "ENABLED" : "DISABLED"}`
-  );
   return AppState.config.debugMode;
 };

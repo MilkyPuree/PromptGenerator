@@ -32,15 +32,9 @@
   // ビジュアルセレクターを初期化
   function initializeVisualSelector() {
     // 既存のビジュアルセレクター要素を全て削除
-    document
-      .querySelectorAll("#prompt-generator-visual-selector-panel")
-      .forEach((el) => el.remove());
-    document
-      .querySelectorAll(".prompt-generator-visual-selector-overlay")
-      .forEach((el) => el.remove());
-    document
-      .querySelectorAll(".prompt-generator-visual-selector-tooltip")
-      .forEach((el) => el.remove());
+    document.querySelectorAll("#prompt-generator-visual-selector-panel").forEach((el) => el.remove());
+    document.querySelectorAll(".prompt-generator-visual-selector-overlay").forEach((el) => el.remove());
+    document.querySelectorAll(".prompt-generator-visual-selector-tooltip").forEach((el) => el.remove());
 
     // 既存のUI要素があれば削除
     cleanup();
@@ -66,8 +60,7 @@
 
     // ハイライトオーバーレイ
     VisualSelector.highlightOverlay = document.createElement("div");
-    VisualSelector.highlightOverlay.className =
-      "prompt-generator-visual-selector-overlay";
+    VisualSelector.highlightOverlay.className = "prompt-generator-visual-selector-overlay";
     VisualSelector.highlightOverlay.style.cssText = `
       position: fixed;
       background: rgba(88, 166, 255, 0.2);
@@ -82,8 +75,7 @@
 
     // ツールチップ
     VisualSelector.tooltip = document.createElement("div");
-    VisualSelector.tooltip.className =
-      "prompt-generator-visual-selector-tooltip";
+    VisualSelector.tooltip.className = "prompt-generator-visual-selector-tooltip";
     VisualSelector.tooltip.style.cssText = `
       position: fixed;
       background: #0d1117;
@@ -137,14 +129,8 @@
     document.body.appendChild(VisualSelector.candidatePanel);
 
     // マウスオーバーイベントを追加
-    VisualSelector.candidatePanel.addEventListener(
-      "mouseenter",
-      handlePanelMouseEnter
-    );
-    VisualSelector.candidatePanel.addEventListener(
-      "mouseleave",
-      handlePanelMouseLeave
-    );
+    VisualSelector.candidatePanel.addEventListener("mouseenter", handlePanelMouseEnter);
+    VisualSelector.candidatePanel.addEventListener("mouseleave", handlePanelMouseLeave);
   }
 
   // パネルにマウスが入った時の処理
@@ -247,11 +233,7 @@
 
   // ツールチップの位置を更新
   function updateTooltipPosition(x, y) {
-    if (
-      !VisualSelector.tooltip ||
-      VisualSelector.tooltip.style.display === "none"
-    )
-      return;
+    if (!VisualSelector.tooltip || VisualSelector.tooltip.style.display === "none") return;
 
     const tooltip = VisualSelector.tooltip;
     const tooltipRect = tooltip.getBoundingClientRect();
@@ -271,14 +253,8 @@
     }
 
     // 最小マージンを確保
-    left = Math.max(
-      margin,
-      Math.min(left, window.innerWidth - tooltipRect.width - margin)
-    );
-    top = Math.max(
-      margin,
-      Math.min(top, window.innerHeight - tooltipRect.height - margin)
-    );
+    left = Math.max(margin, Math.min(left, window.innerWidth - tooltipRect.width - margin));
+    top = Math.max(margin, Math.min(top, window.innerHeight - tooltipRect.height - margin));
 
     tooltip.style.left = `${left}px`;
     tooltip.style.top = `${top}px`;
@@ -386,9 +362,7 @@
   function updateTooltip(element, x, y, isExcluded = false) {
     const tagInfo = `<${element.tagName.toLowerCase()}>`;
     const classInfo =
-      element.className && typeof element.className === "string"
-        ? `.${element.className.split(" ").join(".")}`
-        : "";
+      element.className && typeof element.className === "string" ? `.${element.className.split(" ").join(".")}` : "";
     const idInfo = element.id ? `#${element.id}` : "";
 
     let content = `${tagInfo}${idInfo}${classInfo}`;
@@ -406,10 +380,7 @@
 
   // オーバーレイの位置を更新
   function updateOverlayPosition() {
-    if (
-      VisualSelector.currentElement &&
-      VisualSelector.highlightOverlay.style.display !== "none"
-    ) {
+    if (VisualSelector.currentElement && VisualSelector.highlightOverlay.style.display !== "none") {
       updateHighlight(VisualSelector.currentElement);
     }
   }
@@ -426,9 +397,7 @@
       ${selectors
         .map(
           (item, index) => `
-        <div class="selector-candidate" data-selector="${escapeHtml(
-          item.selector
-        )}"
+        <div class="selector-candidate" data-selector="${escapeHtml(item.selector)}"
              style="margin-bottom: 8px; padding: 8px; border: 1px solid #30363d;
                     border-radius: 4px; cursor: pointer; transition: all 0.2s;
                     background: ${index === 0 ? "#21262d" : "#161b22"};
@@ -446,21 +415,18 @@
     `;
 
     // ホバー効果
-    candidatesContainer
-      .querySelectorAll(".selector-candidate")
-      .forEach((el) => {
-        el.addEventListener("mouseenter", function () {
-          this.style.background = "#30363d";
-          this.style.borderColor = "#8b949e";
-        });
-
-        el.addEventListener("mouseleave", function () {
-          const isFirst =
-            this === candidatesContainer.querySelector(".selector-candidate");
-          this.style.background = isFirst ? "#21262d" : "#161b22";
-          this.style.borderColor = isFirst ? "#58a6ff" : "#30363d";
-        });
+    candidatesContainer.querySelectorAll(".selector-candidate").forEach((el) => {
+      el.addEventListener("mouseenter", function () {
+        this.style.background = "#30363d";
+        this.style.borderColor = "#8b949e";
       });
+
+      el.addEventListener("mouseleave", function () {
+        const isFirst = this === candidatesContainer.querySelector(".selector-candidate");
+        this.style.background = isFirst ? "#21262d" : "#161b22";
+        this.style.borderColor = isFirst ? "#58a6ff" : "#30363d";
+      });
+    });
   }
 
   // セレクターを生成（改善版）
@@ -518,9 +484,7 @@
       const classes = element.className.trim().split(/\s+/);
       if (classes.length > 0) {
         // 全クラスを使用
-        const fullClassSelector = classes
-          .map((c) => `.${CSS.escape(c)}`)
-          .join("");
+        const fullClassSelector = classes.map((c) => `.${CSS.escape(c)}`).join("");
         const fullCount = document.querySelectorAll(fullClassSelector).length;
 
         if (fullCount === 1) {
@@ -532,13 +496,10 @@
           });
         } else if (fullCount < 5) {
           // 親要素と組み合わせて一意性を高める
-          const parentTag = element.parentElement
-            ? element.parentElement.tagName.toLowerCase()
-            : null;
+          const parentTag = element.parentElement ? element.parentElement.tagName.toLowerCase() : null;
           if (parentTag) {
             const parentClassSelector = `${parentTag} > ${fullClassSelector}`;
-            const parentCount =
-              document.querySelectorAll(parentClassSelector).length;
+            const parentCount = document.querySelectorAll(parentClassSelector).length;
             selectors.push({
               selector: parentClassSelector,
               type: "Parent + Classes",
@@ -552,8 +513,7 @@
         const primaryClass = getPrimaryClass(classes);
         if (primaryClass) {
           const primarySelector = `.${CSS.escape(primaryClass)}`;
-          const primaryCount =
-            document.querySelectorAll(primarySelector).length;
+          const primaryCount = document.querySelectorAll(primarySelector).length;
           if (primaryCount < 10) {
             selectors.push({
               selector: primarySelector,
@@ -610,9 +570,7 @@
       // 同じタグの兄弟要素の中での位置を特定
       if (current.parentElement) {
         const siblings = Array.from(current.parentElement.children);
-        const sameTagSiblings = siblings.filter(
-          (s) => s.tagName === current.tagName
-        );
+        const sameTagSiblings = siblings.filter((s) => s.tagName === current.tagName);
 
         if (sameTagSiblings.length > 1) {
           const index = sameTagSiblings.indexOf(current) + 1;
@@ -636,11 +594,7 @@
       let selector = current.tagName.toLowerCase();
 
       // IDがある場合は使用
-      if (
-        current.id &&
-        !current.id.match(/^[0-9]/) &&
-        !current.id.includes(":")
-      ) {
+      if (current.id && !current.id.match(/^[0-9]/) && !current.id.includes(":")) {
         selector = `#${CSS.escape(current.id)}`;
         path.unshift(selector);
         break; // IDは一意なのでここで終了
@@ -649,9 +603,7 @@
       // クラスがある場合は追加
       if (current.className && typeof current.className === "string") {
         const classes = current.className.trim().split(/\s+/);
-        const validClasses = classes.filter(
-          (c) => c && !c.match(/^[0-9]/) && !c.includes(":")
-        );
+        const validClasses = classes.filter((c) => c && !c.match(/^[0-9]/) && !c.includes(":"));
         if (validClasses.length > 0) {
           // 最も特徴的なクラスを選択
           const primaryClass = getPrimaryClass(validClasses);
@@ -662,12 +614,8 @@
       }
 
       // 兄弟要素の中での位置を特定
-      const siblings = current.parentElement
-        ? Array.from(current.parentElement.children)
-        : [];
-      const sameTagSiblings = siblings.filter(
-        (s) => s.tagName === current.tagName
-      );
+      const siblings = current.parentElement ? Array.from(current.parentElement.children) : [];
+      const sameTagSiblings = siblings.filter((s) => s.tagName === current.tagName);
 
       if (sameTagSiblings.length > 1) {
         const index = sameTagSiblings.indexOf(current) + 1;
@@ -689,25 +637,17 @@
 
     // 親要素を遡って、IDまたは特徴的なクラスを持つ要素を探す
     while (current && depth < 5) {
-      if (
-        current.id &&
-        !current.id.match(/^[0-9]/) &&
-        !current.id.includes(":")
-      ) {
+      if (current.id && !current.id.match(/^[0-9]/) && !current.id.includes(":")) {
         contextSelector = `#${CSS.escape(current.id)} ${contextSelector}`;
         break;
       }
 
       if (current.className && typeof current.className === "string") {
         const classes = current.className.trim().split(/\s+/);
-        const meaningfulClass = classes.find(
-          (c) => c && !c.match(/^(sc-|css-|js-|_)/) && c.length > 3
-        );
+        const meaningfulClass = classes.find((c) => c && !c.match(/^(sc-|css-|js-|_)/) && c.length > 3);
 
         if (meaningfulClass) {
-          contextSelector = `.${CSS.escape(
-            meaningfulClass
-          )} ${contextSelector}`;
+          contextSelector = `.${CSS.escape(meaningfulClass)} ${contextSelector}`;
           break;
         }
       }
@@ -734,15 +674,11 @@
   // データ属性を使用したセレクターを生成
   function getDataAttributeSelector(element) {
     const dataAttrs = Array.from(element.attributes)
-      .filter(
-        (attr) => attr.name.startsWith("data-") || attr.name.startsWith("aria-")
-      )
+      .filter((attr) => attr.name.startsWith("data-") || attr.name.startsWith("aria-"))
       .filter((attr) => attr.value && attr.value.length < 50);
 
     if (dataAttrs.length > 0) {
-      const primaryAttr = dataAttrs.find(
-        (attr) => !attr.value.match(/^[0-9]+$/) && !attr.value.includes("{")
-      );
+      const primaryAttr = dataAttrs.find((attr) => !attr.value.match(/^[0-9]+$/) && !attr.value.includes("{"));
 
       if (primaryAttr) {
         return `[${primaryAttr.name}="${CSS.escape(primaryAttr.value)}"]`;
@@ -764,10 +700,7 @@
     let parentSelector = "";
     if (element.parentElement.id && !element.parentElement.id.match(/^[0-9]/)) {
       parentSelector = `#${CSS.escape(element.parentElement.id)} > `;
-    } else if (
-      element.parentElement.className &&
-      typeof element.parentElement.className === "string"
-    ) {
+    } else if (element.parentElement.className && typeof element.parentElement.className === "string") {
       const parentClasses = element.parentElement.className.trim().split(/\s+/);
       const primaryParentClass = getPrimaryClass(parentClasses);
       if (primaryParentClass) {
@@ -777,9 +710,7 @@
 
     // nth-childとnth-of-typeの両方を試す
     const nthChildSelector = `${parentSelector}${tagName}:nth-child(${index})`;
-    const sameTagSiblings = siblings.filter(
-      (s) => s.tagName === element.tagName
-    );
+    const sameTagSiblings = siblings.filter((s) => s.tagName === element.tagName);
 
     if (sameTagSiblings.length > 1) {
       const typeIndex = sameTagSiblings.indexOf(element) + 1;
@@ -797,9 +728,7 @@
     // 3. ハイフンを含むクラス名
 
     const meaningful = classes.find((c) =>
-      /^(btn|button|prompt|input|generate|submit|text|field|box|panel|settings)/.test(
-        c.toLowerCase()
-      )
+      /^(btn|button|prompt|input|generate|submit|text|field|box|panel|settings)/.test(c.toLowerCase())
     );
     if (meaningful) return meaningful;
 
@@ -1070,12 +999,10 @@
       navigator.clipboard
         .writeText(message.text)
         .then(() => {
-          console.log("Copied to clipboard:", message.text);
           showCopyToast("プロンプトをコピーしました");
           sendResponse({ success: true });
         })
         .catch((error) => {
-          console.error("Failed to copy:", error);
           sendResponse({ success: false, error: error.message });
         });
       return true;
@@ -1139,10 +1066,7 @@
         const element = document.querySelector(message.selector);
         if (element) {
           // プロンプトを入力
-          if (
-            element.tagName === "TEXTAREA" ||
-            element.tagName === "INPUT"
-          ) {
+          if (element.tagName === "TEXTAREA" || element.tagName === "INPUT") {
             element.value = message.prompt;
             element.dispatchEvent(new Event("input", { bubbles: true }));
             element.dispatchEvent(new Event("change", { bubbles: true }));
@@ -1181,6 +1105,5 @@
   // 初期化チェック
   if (!window.__contentScriptInitialized) {
     window.__contentScriptInitialized = true;
-    console.log("Prompt Generator content script initialized");
   }
 })();

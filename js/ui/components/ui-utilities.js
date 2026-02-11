@@ -35,12 +35,12 @@ const UIUtilities = {
           if (previewElement) {
             previewElement.textContent = `${value.data[0]}:${value.data[1]}:${value.data[2]}`;
           }
-          
+
           const previewPrompt = document.querySelector(DOM_SELECTORS.BY_ID.PREVIEW_PROMPT);
           if (previewPrompt) {
             previewPrompt.value = value.prompt;
           }
-          
+
           const popup = document.querySelector(DOM_SELECTORS.BY_ID.POPUP);
           if (popup) {
             popup.style.display = "flex";
@@ -50,9 +50,7 @@ const UIUtilities = {
         reader.readAsDataURL(blob);
       })
       .catch((error) => {
-        console.log("Preview image not available:", value.url);
-
-        // デフォルト画像を表示するか、プレビューなしで表示
+        // プレビュー画像取得失敗時はデフォルト画像を表示
         // jQuery → Vanilla JS 置換 (Phase 8)
         const popupImage = document.querySelector(DOM_SELECTORS.BY_ID.POPUP_IMAGE);
         if (popupImage) {
@@ -66,12 +64,12 @@ const UIUtilities = {
         if (previewElement) {
           previewElement.textContent = `${value.data[0]}:${value.data[1]}:${value.data[2]} (画像なし)`;
         }
-        
+
         const previewPrompt = document.querySelector(DOM_SELECTORS.BY_ID.PREVIEW_PROMPT);
         if (previewPrompt) {
           previewPrompt.value = value.prompt;
         }
-        
+
         const popup = document.querySelector(DOM_SELECTORS.BY_ID.POPUP);
         if (popup) {
           popup.style.display = "flex";
@@ -86,36 +84,33 @@ const UIUtilities = {
    */
   createPngInfo(data) {
     // jQuery → Vanilla JS 置換 (Phase 8)
-    const div = document.createElement('div');
-    div.className = 'item';
+    const div = document.createElement("div");
+    div.className = "item";
 
     Object.entries(data).forEach(([key, value]) => {
       // jQuery → Vanilla JS 置換 (Phase 8)
-      const label = document.createElement('label');
+      const label = document.createElement("label");
       label.textContent = `${key}: `;
-      label.className = 'png-info-label';
-      
-      const span = document.createElement('span');
+      label.className = "png-info-label";
+
+      const span = document.createElement("span");
       span.textContent = value;
-      
-      const wrapper = document.createElement('div');
+
+      const wrapper = document.createElement("div");
       wrapper.appendChild(label);
       wrapper.appendChild(span);
-      
+
       div.appendChild(wrapper);
-      label.className = 'png-info-label';
-      const $input = $("<input>")
-        .attr("type", "text")
-        .val(value)
-        .addClass("png-info-input");
+      label.className = "png-info-label";
+      const $input = $("<input>").attr("type", "text").val(value).addClass("png-info-input");
 
       $div.append($label, $input, "<br>");
     });
 
     // jQuery → Vanilla JS 置換 (Phase 8)
-    const pngInfo = document.getElementById('pngInfo');
+    const pngInfo = document.getElementById("pngInfo");
     if (pngInfo) {
-      pngInfo.innerHTML = '';
+      pngInfo.innerHTML = "";
       pngInfo.appendChild(div);
     }
   },
@@ -185,27 +180,14 @@ const UIUtilities = {
     let chunkOffset = 33;
 
     while (chunkOffset < arrayBuffer.byteLength) {
-      const chunkLength = new DataView(arrayBuffer, chunkOffset, 4).getUint32(
-        0,
-        false
-      );
-      const chunkType = new TextDecoder().decode(
-        new Uint8Array(arrayBuffer, chunkOffset + 4, 4)
-      );
+      const chunkLength = new DataView(arrayBuffer, chunkOffset, 4).getUint32(0, false);
+      const chunkType = new TextDecoder().decode(new Uint8Array(arrayBuffer, chunkOffset + 4, 4));
 
       if (chunkType === "tEXt") {
-        const keywordEnd = new Uint8Array(arrayBuffer, chunkOffset + 8).indexOf(
-          0
-        );
-        const keyword = new TextDecoder().decode(
-          new Uint8Array(arrayBuffer, chunkOffset + 8, keywordEnd)
-        );
+        const keywordEnd = new Uint8Array(arrayBuffer, chunkOffset + 8).indexOf(0);
+        const keyword = new TextDecoder().decode(new Uint8Array(arrayBuffer, chunkOffset + 8, keywordEnd));
         const textData = new TextDecoder().decode(
-          new Uint8Array(
-            arrayBuffer,
-            chunkOffset + 8 + keywordEnd + 1,
-            chunkLength - (keywordEnd + 1)
-          )
+          new Uint8Array(arrayBuffer, chunkOffset + 8 + keywordEnd + 1, chunkLength - (keywordEnd + 1))
         );
 
         if (keyword === "Comment") {
@@ -234,9 +216,7 @@ const UIUtilities = {
     // Extract steps and other parameters
     let matches = text.match(/(.*)(steps:.*)/i);
     if (matches) {
-      const paramsMatch = [
-        ...matches[0].matchAll(/([A-Za-z\s]+):\s*([^,\n]*)/g),
-      ];
+      const paramsMatch = [...matches[0].matchAll(/([A-Za-z\s]+):\s*([^,\n]*)/g)];
       for (const match of paramsMatch) {
         const key = match[1].trim();
         const value = match[2].trim();
@@ -248,9 +228,7 @@ const UIUtilities = {
     }
 
     // Extract prompt and negative prompt
-    const allMatches = [
-      ...text.matchAll(/([A-Za-z\s]+):\s*((?:[^,\n]+,)*[^,\n]+)/g),
-    ];
+    const allMatches = [...text.matchAll(/([A-Za-z\s]+):\s*((?:[^,\n]+,)*[^,\n]+)/g)];
     for (const match of allMatches) {
       const key = match[1].trim();
       const value = match[2].trim();

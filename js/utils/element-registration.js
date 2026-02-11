@@ -11,7 +11,7 @@ const ElementRegistration = {
    * 要素を登録して後処理を実行（ListRefreshManager使用）
    * @param {Object} data - 登録データ
    * @param {string} data.big - 大項目
-   * @param {string} data.middle - 中項目  
+   * @param {string} data.middle - 中項目
    * @param {string} data.small - 小項目
    * @param {string} data.prompt - プロンプト
    * @param {Object} options - オプション
@@ -28,20 +28,20 @@ const ElementRegistration = {
       sourceList: null,
       onSuccess: null,
       onError: null,
-      ...options
+      ...options,
     };
 
     try {
       // 登録実行
       const success = register(data.big, data.middle, data.small, data.prompt);
-      
+
       if (success) {
         // ListRefreshManagerを使用してリフレッシュ
         await ListRefreshManager.executeAction(opts.action, {
           sourceList: opts.sourceList,
           context: { registeredData: data },
           delay: ADDITIONAL_DELAYS.STANDARD_REFRESH,
-          showNotification: true
+          showNotification: true,
         });
 
         // 成功時のコールバック
@@ -66,8 +66,6 @@ const ElementRegistration = {
         return false;
       }
     } catch (error) {
-      console.error("ElementRegistration error:", error);
-      
       // エラー通知
       ErrorHandler.notify("要素の追加中にエラーが発生しました", {
         type: ErrorHandler.NotificationType.TOAST,
@@ -83,7 +81,6 @@ const ElementRegistration = {
       return false;
     }
   },
-
 
   /**
    * 検索タブの要素追加フォーム専用の登録処理
@@ -139,7 +136,7 @@ const ElementRegistration = {
         if (data.big || data.middle) {
           this.restoreCategoryDropdowns(categoryState);
         }
-      }
+      },
     });
 
     return success;
@@ -155,10 +152,10 @@ const ElementRegistration = {
     setTimeout(() => {
       const searchCat0 = document.querySelector(DOM_SELECTORS.BY_ID.SEARCH_CAT0);
       const searchCat1 = document.querySelector(DOM_SELECTORS.BY_ID.SEARCH_CAT1);
-      
+
       if (searchCat0 && categoryState.savedCat0Value) {
         searchCat0.value = categoryState.savedCat0Value;
-        
+
         // 中項目も復元
         if (categoryState.savedCat0Value && categoryState.savedCat1Value) {
           // SearchTabのupdateCategoryDropdownメソッドを呼び出し
@@ -183,20 +180,14 @@ const ElementRegistration = {
   async registerFromTranslation(item) {
     // 翻訳結果の安全性チェック
     let safePrompt = item.prompt || "";
-    if (typeof safePrompt !== 'string') {
-      console.warn('[ElementRegistration] Translation prompt is not a string:', {
-        type: typeof safePrompt,
-        value: safePrompt,
-        item: item
-      });
-      
+    if (typeof safePrompt !== "string") {
       // オブジェクトの場合、適切なプロパティから文字列を抽出
-      if (typeof safePrompt === 'object' && safePrompt !== null) {
+      if (typeof safePrompt === "object" && safePrompt !== null) {
         if (safePrompt.text) {
           safePrompt = String(safePrompt.text);
         } else if (safePrompt.value) {
           safePrompt = String(safePrompt.value);
-        } else if (safePrompt.toString && typeof safePrompt.toString === 'function') {
+        } else if (safePrompt.toString && typeof safePrompt.toString === "function") {
           safePrompt = safePrompt.toString();
         } else {
           safePrompt = String(safePrompt);
@@ -204,25 +195,23 @@ const ElementRegistration = {
       } else {
         safePrompt = String(safePrompt);
       }
-      
-      console.log(`[ElementRegistration] Converted translation prompt to string: "${safePrompt}"`);
     }
-    
+
     const data = {
       big: item.data[0] || "",
       middle: item.data[1] || "",
       small: item.data[2] || "",
-      prompt: safePrompt
+      prompt: safePrompt,
     };
 
     // 翻訳結果登録アクションを実行
     const success = await this.registerElement(data, {
       action: ListRefreshManager.ACTIONS.TRANSLATION_REG,
-      sourceList: ListRefreshManager.LISTS.SEARCH_RESULTS // 翻訳結果は検索結果から来るので除外
+      sourceList: ListRefreshManager.LISTS.SEARCH_RESULTS, // 翻訳結果は検索結果から来るので除外
     });
 
     return success;
-  }
+  },
 };
 
 // グローバルに公開

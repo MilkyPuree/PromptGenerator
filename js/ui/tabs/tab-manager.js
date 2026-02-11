@@ -21,8 +21,6 @@ class TabManager {
    * @returns {Promise<void>}
    */
   async init() {
-    console.log(`Initializing ${this.constructor.name}...`);
-
     try {
       // 基本的なDOM要素の確認
       this.validateElements();
@@ -31,7 +29,6 @@ class TabManager {
       await this.onInit();
 
       this.initialized = true;
-      console.log(`${this.constructor.name} initialized successfully`);
     } catch (error) {
       ErrorHandler.log(`Failed to initialize ${this.constructor.name}`, error);
       throw error;
@@ -59,7 +56,6 @@ class TabManager {
    * タブが表示される時の処理
    */
   async show() {
-    console.log(`Showing ${this.constructor.name}`);
     this.isActive = true;
 
     // 初回表示時の初期化
@@ -75,7 +71,6 @@ class TabManager {
    * タブが非表示になる時の処理
    */
   async hide() {
-    console.log(`Hiding ${this.constructor.name}`);
     this.isActive = false;
 
     // 派生クラスの非表示処理
@@ -88,7 +83,6 @@ class TabManager {
   async refresh() {
     if (!this.initialized) return;
 
-    console.log(`Refreshing ${this.constructor.name}`);
     await this.onRefresh();
   }
 
@@ -96,8 +90,6 @@ class TabManager {
    * クリーンアップ処理
    */
   destroy() {
-    console.log(`Destroying ${this.constructor.name}`);
-
     // 登録されたイベントリスナーを削除
     this._eventListeners.forEach(({ element, event, handler }) => {
       element.removeEventListener(event, handler);
@@ -166,10 +158,7 @@ class TabManager {
    */
   addEventListeners(listeners) {
     listeners.forEach(({ selector, event, handler }) => {
-      const element =
-        typeof selector === "string"
-          ? document.querySelector(selector)
-          : selector;
+      const element = typeof selector === "string" ? document.querySelector(selector) : selector;
 
       if (element) {
         this.addEventListener(element, event, handler);
@@ -203,16 +192,7 @@ class TabManager {
   /**
    * デバッグ情報を出力
    */
-  debug() {
-    console.group(`${this.constructor.name} Debug Info`);
-    console.log("Tab ID:", this.tabId);
-    console.log("Tab Button ID:", this.tabButtonId);
-    console.log("Tab Index:", this.tabIndex);
-    console.log("Initialized:", this.initialized);
-    console.log("Active:", this.isActive);
-    console.log("Event Listeners:", this._eventListeners.length);
-    console.groupEnd();
-  }
+  debug() {}
 }
 
 // グローバルに公開（クラス定義の直後に移動）

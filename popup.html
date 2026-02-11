@@ -39,6 +39,12 @@
           <span class="toggle-status">OFF</span>
         </button>
 
+        <!-- LoRA素材連続生成ボタン -->
+        <button id="loraGenerate" class="lora-generate-toggle-btn" title="LoRA素材連続生成モード（トレーニング用プロンプトを順番に生成）">
+          <span class="toggle-text">LoRA</span>
+          <span class="toggle-status">OFF</span>
+        </button>
+
         <!-- Generate設定ボタン -->
         <button id="show-generate-history" class="help-button-inline" title="Generate設定を表示">📝</button>
 
@@ -743,6 +749,7 @@
     <script src="js/core/constants/messages.js"></script>
     <script src="js/core/constants/dom-constants.js"></script>
     <script src="js/core/constants/storage-keys.js"></script>
+    <script src="js/core/constants/button-definitions.js"></script>
 
     <!-- ライブラリ -->
     <script src="lib/jquery-3.5.1.js"></script>
@@ -764,10 +771,11 @@
     <script src="js/utils/weight-converter.js"></script>
     <script src="js/utils/list-refresh-manager.js"></script>
     <script src="js/utils/element-registration.js"></script>
-    <script src="js/utilities/file-utilities.js"></script>
+    <script src="js/utils/file-utilities.js"></script>
     <script src="js/external/api-client.js"></script>
     <script src="js/data/category-manager.js"></script>
-    <script src="js/data/prompt-editor.js"></script>
+    <!-- TODO: PromptEditor削除 - 新しいシンプルな設計に置き換え予定 -->
+    <!-- <script src="js/data/prompt-editor.js"></script> -->
     <script src="js/data/data-manager.js"></script>
     <script src="js/data/prompt-slots.js"></script>
     <script src="js/data/slot-groups.js"></script>
@@ -775,6 +783,9 @@
     <script src="js/ui/components/ui-utilities.js"></script>
     <script src="js/ui/components/virtual-list.js"></script>
     <script src="js/ui/components/list-manager.js"></script>
+    <script src="js/ui/components/list-sort-handler.js"></script>
+    <script src="js/ui/components/list-button-settings.js"></script>
+    <script src="js/ui/components/list-scroll-manager.js"></script>
     <script src="js/ui/components/category-ui-manager.js"></script>
     <script src="js/ui/components/custom-dropdown.js"></script>
     <script src="js/ui/components/base-modal.js"></script>
@@ -784,7 +795,9 @@
     <script src="js/features/file-handler.js"></script>
     <script src="js/features/csv-handler.js"></script>
     <script src="js/features/shortcut-manager.js"></script>
+    <script src="assets/master/lora-training-master.js"></script>
     <script src="js/features/auto-generate-handler.js"></script>
+    <script src="js/features/lora-generate-handler.js"></script>
     <script src="js/features/generate-history-manager.js"></script>
     <script src="js/ui/tabs/tab-manager.js"></script>
     <script src="js/ui/tabs/search-tab.js"></script>

@@ -1,13 +1,4 @@
-/**
- * dom-constants.js - DOM要素のID、クラス名、セレクターの定数
- *
- * 全てのDOM要素識別子を一元管理
- * HTMLと密接に連携するため、変更時は必ずHTML側も確認すること
- */
-
-// DOM要素ID
 const DOM_IDS = {
-  // 検索タブ関連
   SEARCH: {
     INPUT: "search",
     BUTTON: "searchButton",
@@ -18,14 +9,12 @@ const DOM_IDS = {
     RESULT_AREA: "isSearch",
   },
 
-  // プロンプト入力関連
   PROMPT: {
     INPUT: "promptInput",
     GENERATE: "generatePrompt",
     LIST: "promptList",
   },
 
-  // カテゴリー入力関連
   CATEGORY: {
     BIG: "big",
     MIDDLE: "middle",
@@ -34,7 +23,6 @@ const DOM_IDS = {
     CATEGORY: "category",
   },
 
-  // 編集タブ関連
   EDIT: {
     TAB_BODY: "editTabBody",
     LIST: "editList",
@@ -48,7 +36,6 @@ const DOM_IDS = {
     SLOT_MUTE_ICON: "edit-slot-mute-icon",
   },
 
-  // 辞書タブ関連
   DICTIONARY: {
     TAB_BODY: "addTabBody",
     ADD_PROMPT_LIST: "addPromptList",
@@ -57,11 +44,9 @@ const DOM_IDS = {
     PROMPT_CONTAINER: "promptDicContainer",
     ELEMENT_CONTAINER: "elementDicContainer",
     MASTER_CONTAINER: "masterDicContainer",
-    // 統計カウント
     FAVORITE_COUNT: "archive-count",
     LOCAL_COUNT: "local-count",
     MASTER_COUNT: "master-count",
-    // インポート・エクスポート
     PROMPT_DOWNLOAD: "PromptDownload",
     LOCAL_DIC_DOWNLOAD: "localDicDownload",
     MASTER_DOWNLOAD: "MasterDownload",
@@ -69,18 +54,15 @@ const DOM_IDS = {
     PROMPT_DICT_IMPORT: "promptDictImport",
     LOCAL_DICT_IMPORT_BTN: "localDictImportBtn",
     LOCAL_DICT_IMPORT: "localDictImport",
-    // 複数辞書管理
     PROMPT_DICTIONARY_SELECTOR: "promptDictionarySelector",
     ADD_DICTIONARY: "addDictionary",
     MANAGE_DICTIONARIES: "manageDictionaries",
     MANAGEMENT_MODAL: "dictionary-management-modal",
     NEW_DICTIONARY_NAME: "new-dictionary-name",
-    // 辞書テキスト
     MASTER_DIC_TEXT: "masterDicText",
     ELEMENT_DIC_TEXT: "elementDicText",
   },
 
-  // スロットタブ関連
   SLOT: {
     TAB_BODY: "slotTabBody",
     TAB: "slotTab",
@@ -97,7 +79,6 @@ const DOM_IDS = {
     COMBINED_CHAR_COUNT: "combined-char-count",
     USED_SLOTS_COUNT_PREVIEW: "used-slots-count-preview",
     INFO_TABLE: "slot-info-table",
-    // グループ管理
     GROUP_SELECTOR: "slot-group-selector",
     GROUP_DESCRIPTION: "slot-group-description",
     GROUP_CREATE_BTN: "slot-group-create-btn",
@@ -106,12 +87,10 @@ const DOM_IDS = {
     GROUP_DELETE_BTN: "slot-group-delete-btn",
     EXPORT_GROUP: "export-group",
     IMPORT_GROUP: "import-group",
-    // 抽出データソース関連
     DATA_SOURCE_SELECT: "data-source-select",
     FAVORITES_SELECT: "favorites-select",
   },
 
-  // その他タブ関連
   OTHER: {
     TAB_BODY: "othersTabBody",
     INCLUDED_TEXT: "incluedText",
@@ -123,43 +102,33 @@ const DOM_IDS = {
     EXPORT_SETTINGS: "exportSettings",
     IMPORT_SETTINGS: "importSettings",
     IMPORT_MERGE_MODE: "importMergeMode",
-    // 通知設定
     SHOW_SUCCESS_TOAST: "showSuccessToast",
     SHOW_INFO_TOAST: "showInfoToast",
     SHOW_WARNING_TOAST: "showWarningToast",
     SHOW_ERROR_TOAST: "showErrorToast",
-    // 自動生成関連
     AUTO_GENERATE: "autoGenerate",
     AUTO_GENERATE_PROGRESS: "autoGenerateProgress",
+    LORA_GENERATE: "loraGenerate",
     GENERATE_COUNT: "generateCount",
-    // API関連
     NOTICE: "notice",
-    // サイト設定関連
     ADD_SITE_URL: "add-site-url",
     ADD_SITE_POSITIVE: "add-site-positive",
     ADD_SITE_NAME: "add-site-name",
     ADD_SITE_GENERATE: "add-site-generate",
     ADD_SITE_DELAY: "add-site-delay",
-    // セレクター関連
     SELECTOR_SERVICE: "selector-service",
     SELECTOR_CANDIDATES: "selector-candidates",
-    // プレビュー関連
     PREVIEW_PROMPT: "preview-prompt",
     PREVIEW_ELEMENT: "preview-element",
-    // タブ関連
     ADD_TAB: "addTab",
     EDIT_TAB: "editTab",
     NOTICE_TAB: "noticeTab",
-    // 検索関連
-    IS_SEARCH: "isSearch",
-    // その他
     INCLUDED: "inclued",
     NEGATIVE_PROMPT: "negative-prompt",
     AUTO_GENERATE_OPTION: "autoGenerateOption",
     GENERATE_INTERVAL: "generateInterval",
   },
 
-  // メインボタン関連
   BUTTONS: {
     GENERATE: "GeneratoButton",
     COPY: "copyButton",
@@ -184,7 +153,6 @@ const DOM_IDS = {
     MASTER_DICT_DOWNLOAD: "masterDictDownload",
   },
 
-  // パネル・モーダル関連
   PANELS: {
     SHOW_PANEL: "show-panel",
     OPTION_PANEL: "optionPanel",
@@ -195,66 +163,31 @@ const DOM_IDS = {
     CLOSE_PREVIEW: "close-preview",
   },
 
-  // モーダル関連（統一管理）
-  MODALS: {
-    DICTIONARY_MANAGEMENT: "dictionary-management-modal",
-    SLOT_GROUP_MANAGEMENT: "slot-group-management-modal",
-    GENERATE_HISTORY: "generate-history-modal",
-    COMBINE_PREVIEW: "combine-preview-modal",
-    // 閉じるボタン
-    CLOSE_DICTIONARY_MANAGEMENT: "close-dictionary-management",
-    CLOSE_SLOT_GROUP_MANAGEMENT: "close-slot-group-management",
-    CLOSE_GENERATE_HISTORY: "close-generate-history",
-  },
-
-  // リスト関連
   LISTS: {
     ADD_LIST: "addList",
     DICTIONARY_LIST: "dictionary-list",
     SITE_LIST: "siteList",
   },
 
-  // 共通要素
   COMMON: {
     ERROR_TOAST_CONTAINER: "error-toast-container",
     LOADING_OVERLAY: "loading-overlay",
   },
 };
 
-// DOM ID配列（よく使用されるグループ）
 const DOM_ID_ARRAYS = {
-  // フォーム入力の順番（ナビゲーション用）- getElementById用
-  FORM_INPUT_ORDER: [
-    DOM_IDS.CATEGORY.BIG,
-    DOM_IDS.CATEGORY.MIDDLE,
-    DOM_IDS.CATEGORY.SMALL,
-    DOM_IDS.CATEGORY.PROMPT,
-  ],
+  FORM_INPUT_ORDER: [DOM_IDS.CATEGORY.BIG, DOM_IDS.CATEGORY.MIDDLE, DOM_IDS.CATEGORY.SMALL, DOM_IDS.CATEGORY.PROMPT],
 
-  // カテゴリフィールド（大中小項目のみ）- getElementById用
-  CATEGORY_FIELDS: [
-    DOM_IDS.CATEGORY.BIG,
-    DOM_IDS.CATEGORY.MIDDLE,
-    DOM_IDS.CATEGORY.SMALL,
-  ],
+  CATEGORY_FIELDS: [DOM_IDS.CATEGORY.BIG, DOM_IDS.CATEGORY.MIDDLE, DOM_IDS.CATEGORY.SMALL],
 
-  // 統計カウント要素 - getElementById用
-  STATS_COUNTERS: [
-    DOM_IDS.DICTIONARY.FAVORITE_COUNT,
-    DOM_IDS.DICTIONARY.LOCAL_COUNT,
-    DOM_IDS.DICTIONARY.MASTER_COUNT,
-  ],
+  STATS_COUNTERS: [DOM_IDS.DICTIONARY.FAVORITE_COUNT, DOM_IDS.DICTIONARY.LOCAL_COUNT, DOM_IDS.DICTIONARY.MASTER_COUNT],
 
-  // セレクター配列（jQueryやquerySelectorAll用）
   SELECTORS: {
-    // フォーム入力（セレクター記号付き）
     FORM_INPUTS: ["#big", "#middle", "#small", "#prompt"],
   },
 };
 
-// CSSクラス名
 const CSS_CLASSES = {
-  // ボタン関連
   BUTTON: {
     DISABLED: "button-disabled",
     PRIMARY: "button-primary",
@@ -262,7 +195,6 @@ const CSS_CLASSES = {
     DANGER: "button-danger",
   },
 
-  // リスト関連
   LIST: {
     SORTABLE_HANDLE: "ui-sortable-handle",
     HEADER: "prompt-list-header",
@@ -274,7 +206,6 @@ const CSS_CLASSES = {
     PROMPT_DATA: "promptData",
   },
 
-  // フレキシブルリストカラム
   FLEX_COL: {
     CATEGORY: "flex-col-category",
     PROMPT: "flex-col-prompt",
@@ -282,28 +213,24 @@ const CSS_CLASSES = {
     BUTTON: "flex-col-button",
   },
 
-  // ドラッグハンドル
   DRAG: {
     HANDLE: "drag-handle",
     HANDLE_SPACER: "drag-handle-spacer",
     DRAGGING: "dragging",
   },
 
-  // 仮想スクロール
   VIRTUAL_SCROLL: {
     VIEWPORT: "virtual-list-viewport",
     CONTAINER: "virtual-list-container",
     ITEM: "virtual-item",
   },
 
-  // エラー・通知関連
   ERROR: {
     MESSAGE: "error-message",
     HIGHLIGHT: "error-highlight",
     TOAST: "error-toast",
   },
 
-  // トースト通知
   TOAST: {
     SUCCESS: "toast-success",
     ERROR: "toast-error",
@@ -312,7 +239,6 @@ const CSS_CLASSES = {
     CONTAINER: "toast-container",
   },
 
-  // 辞書関連
   DICTIONARY: {
     CLICKABLE_HEADER: "dictionary-clickable-header",
     TOGGLE_ICON: "dictionary-toggle-icon",
@@ -322,7 +248,6 @@ const CSS_CLASSES = {
     EXPANDED: "expanded",
   },
 
-  // タブ関連
   TAB: {
     ACTIVE: "active-tab",
     INACTIVE: "inactive-tab",
@@ -331,7 +256,6 @@ const CSS_CLASSES = {
     IS_SHOW: "is-show",
   },
 
-  // フォーム関連
   FORM: {
     GROUP: "form-group",
     CONTROL: "form-control",
@@ -339,7 +263,6 @@ const CSS_CLASSES = {
     INVALID: "invalid",
   },
 
-  // ユーティリティ
   UTIL: {
     HIDDEN: "hidden",
     VISIBLE: "visible",
@@ -348,16 +271,14 @@ const CSS_CLASSES = {
     HIGHLIGHT: "highlight",
   },
 
-  // スロット抽出関連
   EXTRACTION: {
-    DATA_SOURCE_ITEM: "data-source-item", 
+    DATA_SOURCE_ITEM: "data-source-item",
     CATEGORY_FILTER_ITEM: "category-filter-item",
     EXTRACTION_CONTROLS: "extraction-controls",
     EXTRACTION_ROW: "extraction-row",
   },
 };
 
-// 属性名
 const ATTRIBUTES = {
   DATA: {
     ID: "data-id",
@@ -375,9 +296,7 @@ const ATTRIBUTES = {
   },
 };
 
-// イベント名
 const DOM_EVENTS = {
-  // マウスイベント
   CLICK: "click",
   DOUBLE_CLICK: "dblclick",
   MOUSE_ENTER: "mouseenter",
@@ -385,40 +304,33 @@ const DOM_EVENTS = {
   MOUSE_DOWN: "mousedown",
   MOUSE_UP: "mouseup",
 
-  // フォームイベント
   CHANGE: "change",
   INPUT: "input",
   BLUR: "blur",
   FOCUS: "focus",
   SUBMIT: "submit",
 
-  // キーボードイベント
   KEY_PRESS: "keypress",
   KEY_DOWN: "keydown",
   KEY_UP: "keyup",
 
-  // ドラッグイベント
   DRAG_START: "dragstart",
   DRAG_END: "dragend",
   DRAG_OVER: "dragover",
   DRAG_LEAVE: "dragleave",
   DROP: "drop",
 
-  // ウィンドウイベント
   LOAD: "load",
   UNLOAD: "unload",
   RESIZE: "resize",
   SCROLL: "scroll",
 
-  // グローバルイベント
   ERROR: "error",
   UNHANDLED_REJECTION: "unhandledrejection",
   DOM_CONTENT_LOADED: "DOMContentLoaded",
 };
 
-// DOM セレクター（jQuery/querySelector用）
 const DOM_SELECTORS = {
-  // IDセレクター
   BY_ID: {
     BIG: "#big",
     MIDDLE: "#middle",
@@ -429,10 +341,8 @@ const DOM_SELECTORS = {
     EDIT_LIST: "#editList",
     SEARCH: "#search",
     SEARCH_BUTTON: "#searchButton",
-    // 検索カテゴリ
     SEARCH_CAT0: "#search-cat0",
     SEARCH_CAT1: "#search-cat1",
-    // 辞書関連
     ADD_PROMPT_LIST: "#addPromptList",
     PROMPT_DIC_CONTAINER: "#promptDicContainer",
     PROMPT_DIC_TEXT: "#promptDicText",
@@ -442,25 +352,19 @@ const DOM_SELECTORS = {
     FAVORITE_LIST: "#archiveList",
     MASTER_DIC_TEXT: "#masterDicText",
     ELEMENT_DIC_TEXT: "#elementDicText",
-    // スロット関連
     SLOT_CONTAINER: "#slot-container",
-    // その他
     INCLUDED_TEXT: "#incluedText",
     POPUP: "#popup",
     POPUP_IMAGE: "#popup-image",
     PREVIEW_PROMPT: "#preview-prompt",
     PREVIEW_ELEMENT: "#preview-element",
     SELECTOR_CANDIDATES: "#selector-candidates",
-    // セレクター関連
     SELECTOR_SERVICE: "#selector-service",
     SELECTOR_POSITIVE: "#selector-positive",
     SELECTOR_GENERATE: "#selector-generate",
-    // その他設定（main.js、data-manager.jsで使用中）
     DELETE_CHECK: "#isDeleteCheck",
     DEEPL_AUTH: "#DeeplAuth",
-    // スロット関連
     SLOT_TAB: "#slotTab",
-    SLOT_CONTAINER: "#slot-container",
     SLOT_ADD_BTN: "#add-slot-btn",
     SLOT_PREVIEW_BTN: "#combine-preview-btn",
     SLOT_CLEAR_ALL_BTN: "#clear-all-slots-tab",
@@ -470,7 +374,6 @@ const DOM_SELECTORS = {
     SLOT_INFO_TABLE: "#slot-info-table",
     SLOT_PREVIEW_RESULT: "#combine-preview-result",
     SLOT_CHAR_COUNT: "#combined-char-count",
-    // グループ管理
     SLOT_GROUP_SELECTOR: "#slot-group-selector",
     SLOT_GROUP_DESCRIPTION: "#slot-group-description",
     SLOT_GROUP_CREATE_BTN: "#slot-group-create-btn",
@@ -479,7 +382,6 @@ const DOM_SELECTORS = {
     SLOT_GROUP_DELETE_BTN: "#slot-group-delete-btn",
     SLOT_EXPORT_GROUP: "#export-group",
     SLOT_IMPORT_GROUP: "#import-group",
-    // 辞書関連
     DICTIONARY_FAVORITE_COUNT: "#archive-count",
     DICTIONARY_LOCAL_COUNT: "#local-count",
     DICTIONARY_MASTER_COUNT: "#master-count",
@@ -508,34 +410,27 @@ const DOM_SELECTORS = {
     DICTIONARY_LIST: "#dictionary-list",
     DICTIONARY_MANAGEMENT_MODAL: "#dictionary-management-modal",
     DICTIONARY_NEW_NAME: "#new-dictionary-name",
-    // 重複チェック関連
     DICTIONARY_LOCAL_DUPLICATE_CHECK: "#localDictDuplicateCheck",
     DUPLICATE_CHECK_MODAL: "#duplicate-check-modal",
     DUPLICATE_CHECK_LIST: "#duplicate-check-list",
     DUPLICATE_CHECK_CLOSE: "#duplicate-check-close",
     DUPLICATE_CHECK_DISMISS: "#duplicate-check-dismiss",
-    // モーダル関連（統一セレクター）
     SLOT_GROUP_MANAGEMENT_MODAL: "#slot-group-management-modal",
     GENERATE_HISTORY_MODAL: "#generate-history-modal",
-    COMBINE_PREVIEW_MODAL: "#combine-preview-modal",
-    DUPLICATE_CHECK_MODAL_REF: "#duplicate-check-modal",
   },
-  // 属性セレクター
   BY_ATTRIBUTE: {
     UI_TYPE_RADIOS: '[name="UIType"]',
-    EDIT_TYPE_SELECT: '#EditType',
+    EDIT_TYPE_SELECT: "#EditType",
     INPUT_PASSWORD: 'input[type="password"]',
     INPUT_EMAIL: 'input[type="email"]',
     INPUT_TEL: 'input[type="tel"]',
   },
-  // クラスセレクター
   BY_CLASS: {
     VIRTUAL_VIEWPORT: ".virtual-list-viewport",
     PROMPT_LIST_HEADER: ".prompt-list-header",
     DICTIONARY_HEADER: ".dictionary-clickable-header",
     FLEX_COL_WEIGHT: ".flex-col-weight",
     VISUAL_SELECTOR_OVERLAY: ".prompt-generator-visual-selector-overlay",
-    // モーダル関連クラス
     MODAL_BASE: ".modal-base",
     MODAL_CONTAINER: ".modal-container",
     MODAL_HEADER: ".modal-header",
@@ -549,7 +444,6 @@ const DOM_SELECTORS = {
   },
 };
 
-// カスタムイベント（将来の実装用）
 const CUSTOM_EVENTS = {
   TAB: {
     SHOW: "tab:show",
@@ -568,19 +462,13 @@ const CUSTOM_EVENTS = {
   },
 };
 
-// ============================================
-// 辞書関連定数（DOM専用）
-// ============================================
-
-// 辞書セレクター定数
 const DICTIONARY_SELECTORS = {
-  CLICKABLE_HEADER: ".dictionary-clickable-header",
-  TOGGLE_ICON: ".dictionary-toggle-icon",
-  RESULTS_SECTION: ".search-results-section",
-  STAT_ITEM: ".stat-item",
+  CLICKABLE_HEADER: "." + CSS_CLASSES.DICTIONARY.CLICKABLE_HEADER,
+  TOGGLE_ICON: "." + CSS_CLASSES.DICTIONARY.TOGGLE_ICON,
+  RESULTS_SECTION: "." + CSS_CLASSES.DICTIONARY.SEARCH_RESULTS,
+  STAT_ITEM: "." + CSS_CLASSES.DICTIONARY.STAT_ITEM,
 };
 
-// グローバルにエクスポート
 window.DOM_IDS = DOM_IDS;
 window.DOM_ID_ARRAYS = DOM_ID_ARRAYS;
 window.CSS_CLASSES = CSS_CLASSES;

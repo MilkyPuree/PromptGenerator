@@ -1,120 +1,86 @@
-class AutoGenerateHandler {
+class LoraGenerateHandler {
   constructor() {
     this.isRunning = false;
-    this.currentCount = 0;
-    this.targetCount = AUTO_GENERATE.DEFAULT_COUNT;
+    this.currentIndex = 0;
     this.checkInterval = null;
-    this.generateInterval = AUTO_GENERATE.DEFAULT_INTERVAL; // 生成間隔（ミリ秒）
     this.lastGenerateTime = null;
     this.waitingForComplete = false;
-    this.isInfiniteMode = false;
-    this.isInternalClick = false; // 内部クリックフラグ
-    this.historyPrompt = null; // 履歴プロンプト（連続実行用）
+    this.isInternalClick = false;
+    this.currentPrompt = null;
 
+    this.generateInterval = AUTO_GENERATE.DEFAULT_INTERVAL;
     this.progressInterval = null;
     this.waitStartTime = null;
     this.waitDuration = 0;
 
-    // デバウンス処理用（根本修正により不要だが、安全のため残す）
     this.lastClickTime = 0;
-    this.clickDebounceDelay = 200; // 200msに短縮（誤クリック防止のみ）
+    this.clickDebounceDelay = 200;
+  }
+
+  get data() {
+    return window.loraTrainingMasterData || [];
   }
 
   async init() {
     const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-
-    if (!generateButton) {
-      return;
-    }
+    if (!generateButton) return;
 
     await this.loadSettings();
-
-    this.setupProgressUI();
-
     this.attachEventListeners();
   }
 
-  setupProgressUI() {
-    if (document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS)) {
-      return;
-    }
-
-    const generateHistoryButton = document.getElementById("show-generate-history");
-    if (!generateHistoryButton) {
-      return;
-    }
-
-    const progress = document.createElement("span");
-    progress.id = "autoGenerateProgress";
-    progress.style.cssText = `
-      display: none;
-      margin-left: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: normal;
-      vertical-align: middle;
-    `;
-
-    generateHistoryButton.parentNode.insertBefore(progress, generateHistoryButton.nextSibling);
-  }
-
   attachEventListeners() {
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle) {
-      if (this.boundClickHandler) {
-        autoGenerateToggle.removeEventListener("click", this.boundClickHandler);
-      }
+    const loraButton = document.getElementById(DOM_IDS.OTHER.LORA_GENERATE);
+    if (!loraButton) return;
 
-      this.boundClickHandler = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        const currentTime = Date.now();
-        if (currentTime - this.lastClickTime < this.clickDebounceDelay) {
-          return;
-        }
-        this.lastClickTime = currentTime;
-
-        const isActive = autoGenerateToggle.classList.contains("active");
-
-        if (isActive) {
-          this.stop();
-        } else {
-          try {
-            await this.start();
-            this.updateToggleButtonState(true);
-          } catch (error) {
-            this.updateToggleButtonState(false);
-          }
-        }
-
-        setTimeout(() => {
-          if (!this.isRunning) {
-            return;
-          }
-
-          const finalButtonState = autoGenerateToggle.classList.contains("active");
-          const finalRunningState = this.isRunning;
-
-          if (finalButtonState !== finalRunningState && finalRunningState) {
-            this.updateToggleButtonState(finalRunningState);
-          }
-        }, 100);
-      };
-
-      autoGenerateToggle.addEventListener("click", this.boundClickHandler);
+    if (this.boundClickHandler) {
+      loraButton.removeEventListener("click", this.boundClickHandler);
     }
+
+    this.boundClickHandler = async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      const currentTime = Date.now();
+      if (currentTime - this.lastClickTime < this.clickDebounceDelay) return;
+      this.lastClickTime = currentTime;
+
+      const isActive = loraButton.classList.contains("active");
+
+      if (isActive) {
+        this.stop();
+      } else {
+        try {
+          if (window.autoGenerateHandler?.isRunning) {
+            window.autoGenerateHandler.stop();
+          }
+          await this.start();
+          this.updateButtonState(true);
+        } catch (error) {
+          this.updateButtonState(false);
+        }
+      }
+    };
+
+    loraButton.addEventListener("click", this.boundClickHandler);
   }
 
   async start() {
-    if (this.isRunning) {
-      return;
+    if (this.isRunning) return;
+
+    if (this.data.length === 0) {
+      ErrorHandler.notify("LoRAトレーニングデータが見つかりません", {
+        type: ErrorHandler.NotificationType.TOAST,
+        messageType: "warning",
+        duration: NOTIFICATION_DURATION.LONG,
+      });
+      throw new Error("LoRA training data not found");
     }
 
     const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
     if (!generateButton) {
-      ErrorHandler.notify("Generateボタンが見つかりません。", {
+      ErrorHandler.notify("Generateボタンが見つかりません", {
         type: ErrorHandler.NotificationType.TOAST,
         messageType: "warning",
         duration: NOTIFICATION_DURATION.LONG,
@@ -127,12 +93,17 @@ class AutoGenerateHandler {
     generateButton.classList.add("auto-generating");
 
     this.isRunning = true;
-    this.currentCount = 0;
+    this.currentIndex = 0;
     this.waitingForComplete = false;
 
-    // Generate設定モーダル経由で操作するため、DOM要素は参照しない
     this.showProgress();
     this.updateProgress();
+
+    ErrorHandler.notify(`LoRA素材生成を開始します（全${this.data.length}枚）`, {
+      type: ErrorHandler.NotificationType.TOAST,
+      messageType: "info",
+      duration: NOTIFICATION_DURATION.MEDIUM,
+    });
 
     await this.generate();
 
@@ -142,34 +113,29 @@ class AutoGenerateHandler {
   }
 
   stop() {
-    if (!this.isRunning) {
-      return;
-    }
+    if (!this.isRunning) return;
 
     this.isRunning = false;
     this.waitingForComplete = false;
+    this.currentPrompt = null;
 
     if (this.checkInterval) {
       clearInterval(this.checkInterval);
       this.checkInterval = null;
     }
 
-    this.historyPrompt = null;
-
     this.stopWaitProgress();
-
     this.hideProgress();
-    this.updateToggleButtonState(false);
+    this.updateButtonState(false);
 
-    const message = this.isInfiniteMode
-      ? `自動生成を停止しました（${this.currentCount}回生成）`
-      : `自動生成を停止しました（${this.currentCount}/${this.targetCount}回完了）`;
-
-    ErrorHandler.notify(message, {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "info",
-      duration: NOTIFICATION_DURATION.MEDIUM,
-    });
+    ErrorHandler.notify(
+      `LoRA生成を停止しました（${this.currentIndex}/${this.data.length}枚完了）`,
+      {
+        type: ErrorHandler.NotificationType.TOAST,
+        messageType: "info",
+        duration: NOTIFICATION_DURATION.MEDIUM,
+      }
+    );
 
     const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
     if (generateButton) {
@@ -179,13 +145,12 @@ class AutoGenerateHandler {
 
   async generate() {
     const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
+    const item = this.data[this.currentIndex];
 
-    const displayCount = this.isInfiniteMode
-      ? `${this.currentCount + 1}回目`
-      : `${this.currentCount + 1}/${this.targetCount}`;
+    this.currentPrompt = item.prompt;
+    const label = item.data ? item.data.join(" > ") : "";
 
-    this.updateProgress(`生成中... ${displayCount}`);
-
+    this.updateProgress(`生成中... ${this.currentIndex + 1}/${this.data.length} [${label}]`);
     this.stopWaitProgress();
 
     try {
@@ -193,7 +158,7 @@ class AutoGenerateHandler {
 
       const delay = this.getCurrentSiteDelay();
       if (delay > 0) {
-        this.updateProgress(`プロンプト入力後待機中... (${delay}ms)`);
+        this.updateProgress(`入力待機中... (${delay}ms)`);
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
 
@@ -218,9 +183,7 @@ class AutoGenerateHandler {
 
   async executePromptInput() {
     const positiveSelector = AppState.selector.positiveSelector;
-    if (!positiveSelector) {
-      return;
-    }
+    if (!positiveSelector) return;
 
     try {
       const [tab] = await chrome.tabs.query({
@@ -236,17 +199,11 @@ class AutoGenerateHandler {
         });
       } catch (injectError) {}
 
-      const currentPrompt =
-        this.historyPrompt ||
-        window.app?.generateInput?.val?.() ||
-        document.getElementById(DOM_IDS.PROMPT.GENERATE)?.value ||
-        "";
-
-      if (currentPrompt) {
+      if (this.currentPrompt) {
         await chrome.tabs.sendMessage(tab.id, {
           action: "inputPrompt",
           selector: positiveSelector,
-          prompt: currentPrompt,
+          prompt: this.currentPrompt,
         });
       }
     } catch (error) {}
@@ -272,9 +229,7 @@ class AutoGenerateHandler {
   }
 
   checkGenerateStatus() {
-    if (!this.isRunning || !this.waitingForComplete) {
-      return;
-    }
+    if (!this.isRunning || !this.waitingForComplete) return;
 
     const elapsed = Date.now() - this.lastGenerateTime;
 
@@ -293,18 +248,17 @@ class AutoGenerateHandler {
     if (!this.waitingForComplete) return;
 
     this.waitingForComplete = false;
-    this.currentCount++;
+    this.currentIndex++;
 
-    if (!this.isInfiniteMode && this.currentCount >= this.targetCount) {
+    if (this.currentIndex >= this.data.length) {
       this.complete();
       return;
     }
 
-    const nextCount = this.isInfiniteMode
-      ? `${this.currentCount + 1}回目`
-      : `${this.currentCount + 1}/${this.targetCount}`;
+    const nextItem = this.data[this.currentIndex];
+    const nextLabel = nextItem.data ? nextItem.data.join(" > ") : "";
 
-    this.updateProgress(`待機中... (次: ${nextCount})`);
+    this.updateProgress(`待機中... (次: ${this.currentIndex + 1}/${this.data.length} [${nextLabel}])`);
 
     this.startWaitProgress();
 
@@ -350,8 +304,7 @@ class AutoGenerateHandler {
     const progressFill = progressBar ? progressBar.querySelector(".progress-fill") : null;
 
     if (progressBar && progressFill) {
-      const progressPercent = `${progress * 100}%`;
-      progressFill.style.width = progressPercent;
+      progressFill.style.width = `${progress * 100}%`;
 
       if (progress > 0) {
         progressBar.classList.add("active");
@@ -365,12 +318,7 @@ class AutoGenerateHandler {
     const progressElement = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS);
     if (!progressElement) return;
 
-    let text = "";
-    if (this.isInfiniteMode) {
-      text = `自動生成中: ${this.currentCount}回`;
-    } else {
-      text = `自動生成中: ${this.currentCount}/${this.targetCount}`;
-    }
+    let text = `LoRA生成中: ${this.currentIndex}/${this.data.length}`;
 
     if (status) {
       text = status;
@@ -396,23 +344,22 @@ class AutoGenerateHandler {
   complete() {
     this.isRunning = false;
     this.waitingForComplete = false;
+    this.currentPrompt = null;
+
     if (this.checkInterval) {
       clearInterval(this.checkInterval);
       this.checkInterval = null;
     }
 
-    this.historyPrompt = null;
-
     this.stopWaitProgress();
-
-    this.updateToggleButtonState(false);
-    this.updateProgress("完了しました！");
+    this.updateButtonState(false);
+    this.updateProgress("LoRA生成完了！");
 
     setTimeout(() => {
       this.hideProgress();
     }, NOTIFICATION_DURATION.STANDARD);
 
-    ErrorHandler.notify(`自動生成が完了しました（${this.currentCount}回）`, {
+    ErrorHandler.notify(`LoRA素材生成が完了しました（全${this.data.length}枚）`, {
       type: ErrorHandler.NotificationType.TOAST,
       messageType: "success",
       duration: NOTIFICATION_DURATION.LONG,
@@ -446,19 +393,6 @@ class AutoGenerateHandler {
     } catch (error) {}
   }
 
-  async saveSettings() {
-    try {
-      const settings = {
-        generateCount: this.targetCount,
-        generateInterval: Math.floor(this.generateInterval / 1000),
-      };
-
-      await new Promise((resolve) => {
-        chrome.storage.local.set({ autoGenerateSettings: settings }, resolve);
-      });
-    } catch (error) {}
-  }
-
   async loadSettings() {
     try {
       const result = await new Promise((resolve) => {
@@ -466,24 +400,21 @@ class AutoGenerateHandler {
       });
 
       const settings = result.autoGenerateSettings;
-
       if (settings) {
-        this.targetCount = settings.generateCount ?? AUTO_GENERATE.DEFAULT_COUNT;
-        this.isInfiniteMode = this.targetCount === 0;
         this.generateInterval = (settings.generateInterval || AUTO_GENERATE.DEFAULT_INTERVAL / 1000) * 1000;
       }
     } catch (error) {}
   }
 
-  updateToggleButtonState(isActive) {
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle) {
+  updateButtonState(isActive) {
+    const loraButton = document.getElementById(DOM_IDS.OTHER.LORA_GENERATE);
+    if (loraButton) {
       if (isActive) {
-        autoGenerateToggle.classList.add("active");
-        autoGenerateToggle.querySelector(".toggle-status").textContent = "ON";
+        loraButton.classList.add("active");
+        loraButton.querySelector(".toggle-status").textContent = "ON";
       } else {
-        autoGenerateToggle.classList.remove("active");
-        autoGenerateToggle.querySelector(".toggle-status").textContent = "OFF";
+        loraButton.classList.remove("active");
+        loraButton.querySelector(".toggle-status").textContent = "OFF";
       }
     }
   }
@@ -491,19 +422,19 @@ class AutoGenerateHandler {
   cleanup() {
     this.stop();
 
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle && this.boundClickHandler) {
-      autoGenerateToggle.removeEventListener("click", this.boundClickHandler);
+    const loraButton = document.getElementById(DOM_IDS.OTHER.LORA_GENERATE);
+    if (loraButton && this.boundClickHandler) {
+      loraButton.removeEventListener("click", this.boundClickHandler);
       this.boundClickHandler = null;
     }
   }
 }
 
-window.AutoGenerateHandler = AutoGenerateHandler;
-window.autoGenerateHandler = new AutoGenerateHandler();
+window.LoraGenerateHandler = LoraGenerateHandler;
+window.loraGenerateHandler = new LoraGenerateHandler();
 
 window.addEventListener("beforeunload", () => {
-  if (window.autoGenerateHandler) {
-    autoGenerateHandler.cleanup();
+  if (window.loraGenerateHandler) {
+    window.loraGenerateHandler.cleanup();
   }
 });

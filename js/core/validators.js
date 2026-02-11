@@ -1,46 +1,21 @@
-/**
- * バリデーションモジュール
- * 高性能で拡張可能なバリデーションシステム
- */
 const Validators = {
-  /**
-   * バリデーション結果のキャッシュ（パフォーマンス最適化）
-   */
   _cache: new Map(),
 
-  /**
-   * キャッシュをクリア
-   */
   clearCache() {
     this._cache.clear();
   },
 
-  /**
-   * 空文字チェック
-   * @param {string} value - 検証する値
-   * @param {string} [fieldName] - フィールド名
-   * @returns {Object} 検証結果
-   */
   required(value, fieldName = VALIDATION_MESSAGES.DEFAULT_FIELD) {
     const trimmedValue = value ? value.trim() : "";
     const isValid = trimmedValue.length > 0;
 
     return {
       isValid,
-      message: isValid
-        ? ""
-        : VALIDATION_MESSAGES.REQUIRED.replace("{fieldName}", fieldName),
+      message: isValid ? "" : VALIDATION_MESSAGES.REQUIRED.replace("{fieldName}", fieldName),
       value: trimmedValue, // トリムした値を返す
     };
   },
 
-  /**
-   * 最小長チェック
-   * @param {string} value - 検証する値
-   * @param {number} minLength - 最小長
-   * @param {string} [fieldName] - フィールド名
-   * @returns {Object} 検証結果
-   */
   minLength(value, minLength, fieldName = VALIDATION_MESSAGES.DEFAULT_FIELD) {
     const length = value ? value.length : 0;
     const isValid = length >= minLength;
@@ -55,65 +30,36 @@ const Validators = {
     };
   },
 
-  /**
-   * 最大長チェック
-   * @param {string} value - 検証する値
-   * @param {number} maxLength - 最大長
-   * @param {string} [fieldName] - フィールド名
-   * @returns {Object} 検証結果
-   */
   maxLength(value, maxLength, fieldName = "フィールド") {
     const length = value ? value.length : 0;
     const isValid = length <= maxLength;
 
     return {
       isValid,
-      message: isValid
-        ? ""
-        : `${fieldName}は${maxLength}文字以内で入力してください（現在${length}文字）`,
+      message: isValid ? "" : `${fieldName}は${maxLength}文字以内で入力してください（現在${length}文字）`,
     };
   },
 
-  /**
-   * 範囲チェック
-   * @param {string} value - 検証する値
-   * @param {number} min - 最小値
-   * @param {number} max - 最大値
-   * @param {string} [fieldName] - フィールド名
-   * @returns {Object} 検証結果
-   */
   range(value, min, max, fieldName = "値") {
     const numValue = parseFloat(value);
     const isValid = !isNaN(numValue) && numValue >= min && numValue <= max;
 
     return {
       isValid,
-      message: isValid
-        ? ""
-        : `${fieldName}は${min}から${max}の範囲で入力してください`,
+      message: isValid ? "" : `${fieldName}は${min}から${max}の範囲で入力してください`,
       numericValue: isValid ? numValue : null,
     };
   },
 
-  /**
-   * パターンマッチング
-   * @param {string} value - 検証する値
-   * @param {RegExp|string} pattern - 正規表現パターン
-   * @param {string} [message] - エラーメッセージ
-   * @returns {Object} 検証結果
-   */
   pattern(value, pattern, message = "入力形式が正しくありません") {
     if (!value) {
       return { isValid: true, message: "" };
     }
 
-    // パターンをRegExpオブジェクトに変換
     const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern);
 
-    // キャッシュキーを生成
     const cacheKey = `pattern_${value}_${regex.toString()}`;
 
-    // キャッシュをチェック
     if (this._cache.has(cacheKey)) {
       return this._cache.get(cacheKey);
     }
@@ -125,58 +71,33 @@ const Validators = {
       matches: isValid ? value.match(regex) : null,
     };
 
-    // 結果をキャッシュ
     this._cache.set(cacheKey, result);
 
     return result;
   },
 
-  /**
-   * プロンプトの重複チェック
-   * @param {Object} newItem - 新しいアイテム
-   * @param {Array} existingList - 既存のリスト
-   * @returns {Object} 検証結果
-   */
   checkDuplicatePrompt(newItem, existingList) {
     if (!newItem || !existingList || existingList.length === 0) {
       return { isValid: true, message: "" };
     }
 
-    // 比較用のキーを生成（パフォーマンス最適化）
     const newKey = this._generatePromptKey(newItem);
 
-    // Set を使用して高速検索
-    const existingKeys = new Set(
-      existingList.map((item) => this._generatePromptKey(item))
-    );
+    const existingKeys = new Set(existingList.map((item) => this._generatePromptKey(item)));
 
     const isDuplicate = existingKeys.has(newKey);
 
     return {
       isValid: !isDuplicate,
       message: isDuplicate ? "既に同じ要素が追加されています" : "",
-      duplicate: isDuplicate
-        ? existingList.find((item) => this._generatePromptKey(item) === newKey)
-        : null,
+      duplicate: isDuplicate ? existingList.find((item) => this._generatePromptKey(item) === newKey) : null,
     };
   },
 
-  /**
-   * プロンプトキーを生成（内部使用）
-   * @private
-   */
   _generatePromptKey(item) {
-    return `${item.prompt || ""}${item.data?.[0] || ""}${item.data?.[1] || ""}${
-      item.data?.[2] || ""
-    }`;
+    return `${item.prompt || ""}${item.data?.[0] || ""}${item.data?.[1] || ""}${item.data?.[2] || ""}`;
   },
 
-  /**
-   * プロンプト辞書の重複チェック
-   * @param {string} prompt - プロンプト
-   * @param {Array} promptList - プロンプトリスト
-   * @returns {Object} 検証結果
-   */
   checkDuplicateFavorite(prompt, promptList) {
     if (!prompt || !promptList || promptList.length === 0) {
       return { isValid: true, message: "" };
@@ -186,23 +107,15 @@ const Validators = {
 
     return {
       isValid: !duplicate,
-      message: duplicate
-        ? `既に同じプロンプトが追加されています。名前：${duplicate.title}`
-        : "",
+      message: duplicate ? `既に同じプロンプトが追加されています。名前：${duplicate.title}` : "",
       duplicate,
     };
   },
 
-  /**
-   * カテゴリー入力の検証
-   * @param {Object} categories - { big, middle, small }
-   * @returns {Object} 検証結果
-   */
   validateCategories(categories) {
     const errors = [];
     const maxLength = 50;
 
-    // カテゴリー名の配列
     const categoryNames = ["大カテゴリー", "中カテゴリー", "小カテゴリー"];
     const categoryKeys = ["big", "middle", "small"];
 
@@ -210,7 +123,6 @@ const Validators = {
       const value = categories[key];
 
       if (value) {
-        // 長さチェック
         if (value.length > maxLength) {
           errors.push({
             field: key,
@@ -218,7 +130,6 @@ const Validators = {
           });
         }
 
-        // 不正な文字チェック
         if (this._containsInvalidChars(value)) {
           errors.push({
             field: key,
@@ -234,15 +145,9 @@ const Validators = {
     };
   },
 
-  /**
-   * プロンプト文字列の検証
-   * @param {string} prompt - プロンプト
-   * @returns {Object} 検証結果
-   */
   validatePrompt(prompt) {
     const errors = [];
 
-    // 必須チェック
     const requiredCheck = this.required(prompt, "プロンプト");
     if (!requiredCheck.isValid) {
       errors.push({
@@ -252,7 +157,6 @@ const Validators = {
       return { isValid: false, errors };
     }
 
-    // 長さチェック
     const maxLengthCheck = this.maxLength(prompt, 500, "プロンプト");
     if (!maxLengthCheck.isValid) {
       errors.push({
@@ -261,7 +165,6 @@ const Validators = {
       });
     }
 
-    // 不正な文字のチェック
     if (this._containsInvalidChars(prompt)) {
       errors.push({
         field: "prompt",
@@ -269,7 +172,6 @@ const Validators = {
       });
     }
 
-    // 特殊な構文チェック
     const syntaxCheck = this._validatePromptSyntax(prompt);
     if (!syntaxCheck.isValid) {
       errors.push({
@@ -285,10 +187,6 @@ const Validators = {
     };
   },
 
-  /**
-   * プロンプトの構文チェック
-   * @private
-   */
   _validatePromptSyntax(prompt) {
     const warnings = [];
     let isValid = true;
@@ -306,9 +204,7 @@ const Validators = {
       if (brackets[char]) {
         stack.push(char);
       } else if (Object.values(brackets).includes(char)) {
-        const expectedOpening = Object.keys(brackets).find(
-          (key) => brackets[key] === char
-        );
+        const expectedOpening = Object.keys(brackets).find((key) => brackets[key] === char);
         const lastOpening = stack.pop();
 
         if (lastOpening !== expectedOpening) {
@@ -324,7 +220,6 @@ const Validators = {
       message = "閉じられていない括弧があります";
     }
 
-    // 推奨事項のチェック
     if (prompt.includes("  ")) {
       warnings.push("連続したスペースが含まれています");
     }
@@ -336,22 +231,11 @@ const Validators = {
     return { isValid, message, warnings };
   },
 
-  /**
-   * 不正な文字のチェック
-   * @private
-   */
   _containsInvalidChars(str) {
-    // 制御文字をチェック
     const invalidChars = /[\x00-\x1F\x7F]/;
     return invalidChars.test(str);
   },
 
-  /**
-   * 重み値の検証
-   * @param {string} weight - 重み値
-   * @param {string} [mode='SD'] - モード（SD/NAI）
-   * @returns {Object} 検証結果
-   */
   validateWeight(weight, mode = "SD") {
     if (!weight) {
       return { isValid: true, numericValue: mode === "SD" ? 1 : 0 };
@@ -366,7 +250,6 @@ const Validators = {
       };
     }
 
-    // モード別の範囲チェック
     const ranges = {
       SD: { min: 0.1, max: 10 },
       NAI: { min: -10, max: 10 },
@@ -388,20 +271,13 @@ const Validators = {
     };
   },
 
-  /**
-   * APIキーの検証
-   * @param {string} apiKey - APIキー
-   * @param {string} [keyType='API'] - キーの種類
-   * @returns {Object} 検証結果
-   */
   validateApiKey(apiKey, keyType = "API") {
     if (!apiKey) {
       return { isValid: true }; // 任意項目
     }
 
     const patterns = {
-      DeepL:
-        /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?::[a-z]{2})?$/i,
+      DeepL: /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?::[a-z]{2})?$/i,
       OpenAI: /^sk-[a-zA-Z0-9]{48}$/,
       Generic: /^[a-zA-Z0-9_-]{10,}$/,
     };
@@ -418,31 +294,15 @@ const Validators = {
     return { isValid: true };
   },
 
-  /**
-   * ファイルタイプの検証
-   * @param {File} file - ファイルオブジェクト
-   * @param {string[]} allowedTypes - 許可するMIMEタイプ
-   * @returns {Object} 検証結果
-   */
   validateFileType(file, allowedTypes) {
     const isValid = allowedTypes.includes(file.type);
     return {
       isValid,
-      message: isValid
-        ? ""
-        : `対応していないファイル形式です。対応形式: ${allowedTypes.join(
-            ", "
-          )}`,
+      message: isValid ? "" : `対応していないファイル形式です。対応形式: ${allowedTypes.join(", ")}`,
       detectedType: file.type,
     };
   },
 
-  /**
-   * ファイルサイズの検証
-   * @param {File} file - ファイルオブジェクト
-   * @param {number} maxSizeMB - 最大サイズ（MB）
-   * @returns {Object} 検証結果
-   */
   validateFileSize(file, maxSizeMB) {
     const maxSizeBytes = maxSizeMB * 1024 * 1024;
     const isValid = file.size <= maxSizeBytes;
@@ -450,26 +310,17 @@ const Validators = {
 
     return {
       isValid,
-      message: isValid
-        ? ""
-        : `ファイルサイズは${maxSizeMB}MB以下にしてください（現在${fileSizeMB}MB）`,
+      message: isValid ? "" : `ファイルサイズは${maxSizeMB}MB以下にしてください（現在${fileSizeMB}MB）`,
       size: file.size,
       sizeMB: parseFloat(fileSizeMB),
     };
   },
 
-  /**
-   * 複合検証の実行
-   * @param {Object} data - 検証データ
-   * @param {Object} rules - 検証ルール
-   * @returns {Object} 検証結果
-   */
   validate(data, rules) {
     const errors = [];
     const warnings = [];
     const validatedData = {};
 
-    // 並列処理可能な検証を特定
     const validationPromises = [];
 
     Object.entries(rules).forEach(([field, fieldRules]) => {
@@ -491,12 +342,7 @@ const Validators = {
               result = this.maxLength(value, rule.max, rule.fieldName || field);
               break;
             case "range":
-              result = this.range(
-                value,
-                rule.min,
-                rule.max,
-                rule.fieldName || field
-              );
+              result = this.range(value, rule.min, rule.max, rule.fieldName || field);
               break;
             case "pattern":
               result = this.pattern(value, rule.pattern, rule.message);
@@ -508,7 +354,6 @@ const Validators = {
               result = { isValid: true };
           }
 
-          // 検証後の値を保存
           if (result.value !== undefined) {
             validatedData[field] = result.value;
           } else if (result.numericValue !== undefined) {
@@ -533,7 +378,6 @@ const Validators = {
           }
         };
 
-        // 非同期検証の場合
         if (rule.async) {
           validationPromises.push(Promise.resolve().then(validationTask));
         } else {
@@ -542,7 +386,6 @@ const Validators = {
       });
     });
 
-    // 非同期検証を待つ
     if (validationPromises.length > 0) {
       return Promise.all(validationPromises).then(() => ({
         isValid: errors.length === 0,
@@ -560,11 +403,6 @@ const Validators = {
     };
   },
 
-  /**
-   * エラーメッセージをフォーマット
-   * @param {Array} errors - エラー配列
-   * @returns {string} フォーマットされたメッセージ
-   */
   formatErrors(errors) {
     if (!errors || errors.length === 0) {
       return "";
@@ -574,11 +412,7 @@ const Validators = {
   },
 };
 
-// 便利な検証ルールのプリセット
 Validators.Rules = {
-  /**
-   * プロンプト要素の検証ルール
-   */
   promptElement: {
     prompt: [
       { type: "required", fieldName: "プロンプト" },
@@ -593,9 +427,6 @@ Validators.Rules = {
     ],
   },
 
-  /**
-   * プロンプト辞書の検証ルール
-   */
   favorite: {
     title: [
       { type: "maxLength", max: 100, fieldName: "タイトル" },
@@ -611,9 +442,6 @@ Validators.Rules = {
     ],
   },
 
-  /**
-   * 設定の検証ルール
-   */
   settings: {
     deeplAuthKey: [
       {
@@ -623,9 +451,6 @@ Validators.Rules = {
     ],
   },
 
-  /**
-   * カテゴリーの検証ルール
-   */
   category: {
     big: [{ type: "maxLength", max: 50, fieldName: "大カテゴリー" }],
     middle: [{ type: "maxLength", max: 50, fieldName: "中カテゴリー" }],
@@ -633,63 +458,29 @@ Validators.Rules = {
   },
 };
 
-// 簡単なバリデーションヘルパー（よく使われるパターン）
 Validators.Quick = {
-  /**
-   * プロンプトの空チェック（最頻出パターン）
-   * @param {string} prompt - プロンプト文字列
-   * @returns {boolean} 有効かどうか
-   */
   isValidPrompt(prompt) {
     return !!(prompt && prompt.trim());
   },
 
-  /**
-   * 複数値の必須チェック（辞書タブでよく使用）
-   * @param {...string} values - チェックする値
-   * @returns {boolean} すべて有効かどうか
-   */
   allRequired(...values) {
     return values.every((value) => !!(value && value.toString().trim()));
   },
 
-  /**
-   * 値の存在チェック（リスト管理でよく使用）
-   * @param {any} value - チェックする値
-   * @returns {boolean} 有効かどうか
-   */
   hasValue(value) {
     return !!(value && value.toString().trim());
   },
 
-  /**
-   * 名前のチェック（作成処理でよく使用）
-   * @param {string} name - 名前
-   * @returns {boolean} 有効かどうか
-   */
   isValidName(name) {
     return !!(name && name.trim());
   },
 
-  /**
-   * カテゴリと組み合わせのチェック
-   * @param {string} category - カテゴリ
-   * @param {string} prompt - プロンプト
-   * @returns {boolean} 有効な組み合わせかどうか
-   */
   isValidCategoryPromptPair(category, prompt) {
     return !category && prompt && prompt.trim();
   },
 };
 
-// バリデーション結果付きヘルパー（エラーメッセージも返す）
 Validators.Checked = {
-  /**
-   * プロンプトの検証（結果付き）
-   * @param {string} prompt - プロンプト文字列
-   * @param {string} [fieldName='プロンプト'] - フィールド名
-   * @returns {Object} {isValid, message, value}
-   */
   prompt(prompt, fieldName = "プロンプト") {
     if (!prompt || !prompt.trim()) {
       return {
@@ -705,11 +496,6 @@ Validators.Checked = {
     };
   },
 
-  /**
-   * 複数値の必須検証（結果付き）
-   * @param {Object} values - {fieldName: value} の形式
-   * @returns {Object} {isValid, errors, validatedData}
-   */
   multipleRequired(values) {
     const errors = [];
     const validatedData = {};
@@ -733,12 +519,6 @@ Validators.Checked = {
     };
   },
 
-  /**
-   * 名前の検証（結果付き）
-   * @param {string} name - 名前
-   * @param {string} [fieldName='名前'] - フィールド名
-   * @returns {Object} {isValid, message, value}
-   */
   name(name, fieldName = "名前") {
     if (!name || !name.trim()) {
       return {
@@ -765,28 +545,16 @@ Validators.Checked = {
   },
 };
 
-// 便利なバリデーションヘルパー
 Validators.Helpers = {
-  /**
-   * 日本語入力のサニタイズ
-   * @param {string} input - 入力文字列
-   * @returns {string} サニタイズ済み文字列
-   */
   sanitizeJapanese(input) {
     return input
       .replace(/[！-／：-＠［-｀｛-～]/g, (match) => {
-        // 全角記号を半角に変換
         const code = match.charCodeAt(0);
         return String.fromCharCode(code - 0xfee0);
       })
       .trim();
   },
 
-  /**
-   * プロンプトの正規化
-   * @param {string} prompt - プロンプト文字列
-   * @returns {string} 正規化済みプロンプト
-   */
   normalizePrompt(prompt) {
     return prompt
       .replace(/\s+/g, " ") // 連続スペースを単一スペースに
@@ -797,7 +565,6 @@ Validators.Helpers = {
   },
 };
 
-// グローバルに公開
 if (typeof window !== "undefined") {
   window.Validators = Validators;
 }

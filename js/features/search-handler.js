@@ -22,8 +22,7 @@ class SearchHandler {
     await saveCategory();
 
     // ローディング表示の制御（翻訳が必要な場合のみ表示）
-    const needsTranslation =
-      keyword && Search(keyword, categories).length === 0;
+    const needsTranslation = keyword && Search(keyword, categories).length === 0;
     const showLoading = options.showLoading !== false && needsTranslation;
 
     if (showLoading) {
@@ -52,17 +51,17 @@ class SearchHandler {
    */
   async doSearch(keyword, categories) {
     ListBuilder.clearList(DOM_SELECTORS.BY_ID.PROMPT_LIST);
-    
+
     // カテゴリと検索ワードが両方とも未入力の場合
     const hasKeyword = keyword && keyword.trim().length > 0;
     const hasCategory = categories && (categories[0] || categories[1]);
-    
+
     if (!hasKeyword && !hasCategory) {
       // 入力促進メッセージを表示
       this.showSearchPrompt();
       return;
     }
-    
+
     const results = Search(keyword, categories);
 
     if (results.length > 0) {
@@ -82,19 +81,18 @@ class SearchHandler {
    * 検索入力を促すメッセージを表示
    */
   showSearchPrompt() {
-    const searchContainer = document.querySelector('#searchResultsSection');
+    const searchContainer = document.querySelector("#searchResultsSection");
     if (!searchContainer) {
-      console.warn('[SearchHandler] Search results container not found');
       return;
     }
 
     // 既存のコンテンツをクリア
-    searchContainer.innerHTML = '';
+    searchContainer.innerHTML = "";
 
     // empty-state-contentを使用したメッセージを作成
-    const emptyStateDiv = document.createElement('div');
-    emptyStateDiv.className = 'empty-state-message';
-    
+    const emptyStateDiv = document.createElement("div");
+    emptyStateDiv.className = "empty-state-message";
+
     emptyStateDiv.innerHTML = `
       <div class="empty-state-content">
         <div class="empty-state-icon">🔍</div>
@@ -118,7 +116,7 @@ class SearchHandler {
     `;
 
     searchContainer.appendChild(emptyStateDiv);
-    
+
     // 検索フィールドにフォーカス
     const searchInput = document.getElementById(DOM_IDS.SEARCH.INPUT);
     if (searchInput) {
@@ -141,40 +139,21 @@ class SearchHandler {
     const translationPromises = [];
     const results = [];
 
-    // DeepL翻訳を優先（APIキーがある場合はDeepLのみ使用）
-    // deeplAuth と deeplAuthKey の両方をサポート（互換性のため）
-    const hasDeeplKey = AppState.userSettings.optionData?.deeplAuth ||
-                        AppState.userSettings.optionData?.deeplAuthKey;
+    const hasDeeplKey = AppState.userSettings.optionData?.deeplAuth || AppState.userSettings.optionData?.deeplAuthKey;
 
     if (hasDeeplKey) {
       // DeepL翻訳のみ実行
       translationPromises.push(
-        this.translateWithService(keyword, "DeepL", translateDeepl).then(
-          (data) => results.push(data)
-        )
+        this.translateWithService(keyword, "DeepL", translateDeepl).then((data) => results.push(data))
       );
     } else {
       // Google翻訳のみ実行
       translationPromises.push(
-        this.translateWithService(keyword, "Google", translateGoogle).then(
-          (data) => results.push(data)
-        )
+        this.translateWithService(keyword, "Google", translateGoogle).then((data) => results.push(data))
       );
     }
 
     await Promise.all(translationPromises);
-
-    // 翻訳結果のログ出力
-    console.log('Translation results:', results);
-    results.forEach((result, index) => {
-      console.log(`Result ${index}:`, {
-        prompt: result.prompt,
-        promptType: typeof result.prompt,
-        data: result.data,
-        dataType: typeof result.data,
-        isDataArray: Array.isArray(result.data)
-      });
-    });
 
     // タブ側に翻訳結果表示を依頼
     await this.app.tabs.search.displayTranslationResults(results);
@@ -190,16 +169,10 @@ class SearchHandler {
   async translateWithService(keyword, serviceName, translateFunc) {
     // キーワードの安全性チェック
     let safeKeyword = keyword;
-    if (typeof keyword !== 'string') {
-      console.warn(`[SearchHandler] Translation keyword is not a string:`, {
-        type: typeof keyword,
-        value: keyword,
-        serviceName: serviceName
-      });
-      
+    if (typeof keyword !== "string") {
       if (Array.isArray(keyword) && keyword.length > 0) {
-        safeKeyword = String(keyword[0] || '');
-      } else if (typeof keyword === 'object' && keyword !== null) {
+        safeKeyword = String(keyword[0] || "");
+      } else if (typeof keyword === "object" && keyword !== null) {
         if (keyword.text) {
           safeKeyword = String(keyword.text);
         } else if (keyword.value) {
@@ -208,57 +181,48 @@ class SearchHandler {
           safeKeyword = String(keyword);
         }
       } else {
-        safeKeyword = String(keyword || '');
+        safeKeyword = String(keyword || "");
       }
-      
-      console.log(`[SearchHandler] Converted keyword to string: "${safeKeyword}"`);
     }
-    
+
     return new Promise((resolve) => {
       translateFunc(safeKeyword, (translatedText) => {
         // 翻訳結果が文字列でない場合の安全性チェック
         let safeTranslatedText;
-        if (typeof translatedText === 'string') {
+        if (typeof translatedText === "string") {
           safeTranslatedText = translatedText;
         } else if (Array.isArray(translatedText) && translatedText.length > 0) {
           // Google翻訳APIは配列で返すことがある
-          safeTranslatedText = String(translatedText[0] || '');
-        } else if (typeof translatedText === 'object' && translatedText !== null) {
+          safeTranslatedText = String(translatedText[0] || "");
+        } else if (typeof translatedText === "object" && translatedText !== null) {
           // オブジェクトの場合、適切なプロパティから文字列を抽出
           if (translatedText.text) {
             safeTranslatedText = String(translatedText.text);
           } else if (translatedText.value) {
             safeTranslatedText = String(translatedText.value);
-          } else if (translatedText.toString && typeof translatedText.toString === 'function') {
+          } else if (translatedText.toString && typeof translatedText.toString === "function") {
             safeTranslatedText = translatedText.toString();
           } else {
             safeTranslatedText = String(translatedText);
           }
         } else {
-          safeTranslatedText = String(translatedText || '');
+          safeTranslatedText = String(translatedText || "");
         }
-        
-        console.log(`[SearchHandler] Translation result for "${keyword}":`, {
-          originalType: typeof translatedText,
-          originalValue: translatedText,
-          safeValue: safeTranslatedText,
-          serviceName: serviceName
-        });
-        
+
         const isAlphanumeric = /^[a-zA-Z0-9\s:]+$/.test(safeKeyword);
-        
+
         // data配列の各要素も文字列であることを保証
         const ensureString = (value) => {
-          if (typeof value === 'string') return value;
-          if (Array.isArray(value) && value.length > 0) return String(value[0] || '');
-          if (typeof value === 'object' && value !== null) {
+          if (typeof value === "string") return value;
+          if (Array.isArray(value) && value.length > 0) return String(value[0] || "");
+          if (typeof value === "object" && value !== null) {
             if (value.text) return String(value.text);
             if (value.value) return String(value.value);
             return String(value);
           }
-          return String(value || '');
+          return String(value || "");
         };
-        
+
         const data = isAlphanumeric
           ? {
               id: `translate-${serviceName}-${Date.now()}`,
@@ -311,9 +275,7 @@ class SearchHandler {
    */
   updateCategoryDropdown(targetId, categoryLevel, parentValue) {
     // targetIdがセレクタ形式（#で始まる）の場合は、IDのみを抽出
-    const elementId = targetId.startsWith("#")
-      ? targetId.substring(1)
-      : targetId;
+    const elementId = targetId.startsWith("#") ? targetId.substring(1) : targetId;
     const selectElement = document.getElementById(elementId);
 
     if (!selectElement) return;
@@ -321,9 +283,7 @@ class SearchHandler {
     // 既存のオプションをクリア
     selectElement.innerHTML = "";
 
-    const categoryItems = categoryData.data[categoryLevel].filter(
-      (item) => item.parent === parentValue
-    );
+    const categoryItems = categoryData.data[categoryLevel].filter((item) => item.parent === parentValue);
 
     categoryItems.forEach((item) => {
       const option = document.createElement("option");

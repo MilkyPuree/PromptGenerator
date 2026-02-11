@@ -1,27 +1,27 @@
 /**
  * テーマ管理クラス
- * 
+ *
  * ダークテーマ・ライトテーマの切り替え機能を提供します
  * 設定の保存・読み込み・適用を統合管理します
  */
 class ThemeManager {
   constructor() {
     this.themes = {
-      dark: 'dark',
-      light: 'light',
-      novelai: 'novelai',
-      stablediffusion: 'stablediffusion',
-      'automatic1111-dark': 'automatic1111-dark',
-      comfyui: 'comfyui',
-      'spring-sakura': 'spring-sakura',
-      'summer-ocean': 'summer-ocean',
-      'autumn-leaves': 'autumn-leaves',
-      'winter-snow': 'winter-snow'
+      dark: "dark",
+      light: "light",
+      novelai: "novelai",
+      stablediffusion: "stablediffusion",
+      "automatic1111-dark": "automatic1111-dark",
+      comfyui: "comfyui",
+      "spring-sakura": "spring-sakura",
+      "summer-ocean": "summer-ocean",
+      "autumn-leaves": "autumn-leaves",
+      "winter-snow": "winter-snow",
     };
-    this.defaultTheme = 'dark';
+    this.defaultTheme = "dark";
     this.currentTheme = this.defaultTheme;
-    this.storageKey = 'theme';
-    
+    this.storageKey = "theme";
+
     this.init();
   }
 
@@ -32,13 +32,10 @@ class ThemeManager {
     try {
       // 保存されたテーマ設定を読み込み
       await this.loadTheme();
-      
+
       // 初期テーマを適用
       this.applyTheme(this.currentTheme);
-      
-      console.log(`[ThemeManager] 初期化完了: ${this.currentTheme}テーマ`);
     } catch (error) {
-      console.error('[ThemeManager] 初期化エラー:', error);
       // エラー時はデフォルトテーマを適用
       this.applyTheme(this.defaultTheme);
     }
@@ -50,23 +47,20 @@ class ThemeManager {
    */
   applyTheme(theme) {
     if (!this.isValidTheme(theme)) {
-      console.warn(`[ThemeManager] 無効なテーマ: ${theme}, デフォルトテーマを使用`);
       theme = this.defaultTheme;
     }
 
     try {
       // HTMLのdata-theme属性を設定
-      document.documentElement.setAttribute('data-theme', theme);
-      
+      document.documentElement.setAttribute("data-theme", theme);
+
       // 現在のテーマを更新
       this.currentTheme = theme;
-      
+
       // テーマ変更イベントを発火
       this.dispatchThemeChangeEvent(theme);
-      
-      console.log(`[ThemeManager] テーマ適用完了: ${theme}`);
     } catch (error) {
-      console.error('[ThemeManager] テーマ適用エラー:', error);
+      // テーマ適用エラー
     }
   }
 
@@ -76,21 +70,18 @@ class ThemeManager {
    */
   async switchTheme(theme) {
     if (!this.isValidTheme(theme)) {
-      console.warn(`[ThemeManager] 無効なテーマ: ${theme}`);
       return false;
     }
 
     try {
       // テーマを適用
       this.applyTheme(theme);
-      
+
       // 設定を保存
       await this.saveTheme(theme);
-      
-      console.log(`[ThemeManager] テーマ切り替え完了: ${theme}`);
+
       return true;
     } catch (error) {
-      console.error('[ThemeManager] テーマ切り替えエラー:', error);
       return false;
     }
   }
@@ -109,16 +100,16 @@ class ThemeManager {
    */
   getAvailableThemes() {
     return {
-      dark: 'ダークテーマ',
-      light: 'ライトテーマ',
-      novelai: 'NovelAIテーマ',
-      stablediffusion: 'AUTOMATIC1111 (ライト)',
-      'automatic1111-dark': 'AUTOMATIC1111 (ダーク)',
-      comfyui: 'ComfyUI (ダーク)',
-      'spring-sakura': '🌸 春の桜',
-      'summer-ocean': '🌊 夏の海',
-      'autumn-leaves': '🍁 秋の紅葉',
-      'winter-snow': '❄️ 冬の雪原'
+      dark: "ダークテーマ",
+      light: "ライトテーマ",
+      novelai: "NovelAIテーマ",
+      stablediffusion: "AUTOMATIC1111 (ライト)",
+      "automatic1111-dark": "AUTOMATIC1111 (ダーク)",
+      comfyui: "ComfyUI (ダーク)",
+      "spring-sakura": "🌸 春の桜",
+      "summer-ocean": "🌊 夏の海",
+      "autumn-leaves": "🍁 秋の紅葉",
+      "winter-snow": "❄️ 冬の雪原",
     };
   }
 
@@ -135,7 +126,18 @@ class ThemeManager {
    * テーマをトグル（ダーク⇔ライト⇔NovelAI）
    */
   async toggleTheme() {
-    const themeOrder = ['dark', 'light', 'novelai', 'stablediffusion', 'automatic1111-dark', 'comfyui', 'spring-sakura', 'summer-ocean', 'autumn-leaves', 'winter-snow'];
+    const themeOrder = [
+      "dark",
+      "light",
+      "novelai",
+      "stablediffusion",
+      "automatic1111-dark",
+      "comfyui",
+      "spring-sakura",
+      "summer-ocean",
+      "autumn-leaves",
+      "winter-snow",
+    ];
     const currentIndex = themeOrder.indexOf(this.currentTheme);
     const nextIndex = (currentIndex + 1) % themeOrder.length;
     const newTheme = themeOrder[nextIndex];
@@ -149,19 +151,17 @@ class ThemeManager {
   async saveTheme(theme) {
     try {
       // AppStateのoptionDataに保存
-      if (typeof AppState !== 'undefined' && AppState.userSettings) {
+      if (typeof AppState !== "undefined" && AppState.userSettings) {
         AppState.userSettings.optionData = AppState.userSettings.optionData || {};
         AppState.userSettings.optionData.theme = theme;
-        
+
         // Chrome Storage APIに保存
-        if (typeof saveOptionData === 'function') {
+        if (typeof saveOptionData === "function") {
           await saveOptionData();
         }
       }
-      
-      console.log(`[ThemeManager] テーマ保存完了: ${theme}`);
     } catch (error) {
-      console.error('[ThemeManager] テーマ保存エラー:', error);
+      // テーマ保存エラー
     }
   }
 
@@ -171,18 +171,15 @@ class ThemeManager {
   async loadTheme() {
     try {
       // AppStateから読み込み
-      if (typeof AppState !== 'undefined' && AppState.userSettings) {
+      if (typeof AppState !== "undefined" && AppState.userSettings) {
         const savedTheme = AppState.userSettings.optionData?.theme;
-        
+
         if (savedTheme && this.isValidTheme(savedTheme)) {
           this.currentTheme = savedTheme;
-          console.log(`[ThemeManager] テーマ読み込み完了: ${savedTheme}`);
-        } else {
-          console.log(`[ThemeManager] 保存されたテーマなし、デフォルトテーマを使用: ${this.defaultTheme}`);
         }
       }
     } catch (error) {
-      console.error('[ThemeManager] テーマ読み込みエラー:', error);
+      // テーマ読み込みエラー
     }
   }
 
@@ -192,12 +189,12 @@ class ThemeManager {
    */
   dispatchThemeChangeEvent(theme) {
     try {
-      const event = new CustomEvent('theme-changed', {
-        detail: { theme }
+      const event = new CustomEvent("theme-changed", {
+        detail: { theme },
       });
       document.dispatchEvent(event);
     } catch (error) {
-      console.error('[ThemeManager] イベント発火エラー:', error);
+      // イベント発火エラー
     }
   }
 
@@ -206,7 +203,7 @@ class ThemeManager {
    * @param {Function} callback - コールバック関数
    */
   onThemeChange(callback) {
-    document.addEventListener('theme-changed', (event) => {
+    document.addEventListener("theme-changed", (event) => {
       callback(event.detail.theme);
     });
   }
@@ -220,7 +217,7 @@ class ThemeManager {
       currentTheme: this.currentTheme,
       defaultTheme: this.defaultTheme,
       availableThemes: this.getAvailableThemes(),
-      htmlAttribute: document.documentElement.getAttribute('data-theme')
+      htmlAttribute: document.documentElement.getAttribute("data-theme"),
     };
   }
 }

@@ -109,6 +109,56 @@
   opacity: 1;
 }
 
+/* LoRA素材生成トグルボタン */
+.lora-generate-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 2px solid var(--accent-info, var(--border-default));
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.lora-generate-toggle-btn:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-tertiary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lora-generate-toggle-btn.active {
+  border-color: var(--accent-warning);
+  background: var(--accent-warning);
+  color: var(--bg-primary);
+}
+
+.lora-generate-toggle-btn.active:hover {
+  border-color: var(--accent-danger, #e74c3c);
+  background: var(--accent-danger, #e74c3c);
+}
+
+.lora-generate-toggle-btn .toggle-text {
+  font-weight: 600;
+}
+
+.lora-generate-toggle-btn .toggle-status {
+  font-size: 10px;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.lora-generate-toggle-btn.active .toggle-status {
+  opacity: 1;
+}
+
 /* 自動Generate設定（インライン版） */
 .auto-generate-inline {
   display: none; /* デフォルトは非表示、JSで制御 */

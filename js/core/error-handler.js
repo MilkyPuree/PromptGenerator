@@ -1,16 +1,6 @@
-/**
- * エラーハンドリングモジュール
- * jQuery依存を削除し、より洗練された通知システムを実装
- */
 const ErrorHandler = {
-  /**
-   * エラーレベルの定義
-   */
   Level: MESSAGE_LEVELS,
 
-  /**
-   * ユーザーへの通知方法
-   */
   NotificationType: {
     NONE: "none",
     CONSOLE: "console",
@@ -19,29 +9,19 @@ const ErrorHandler = {
     INLINE: "inline",
   },
 
-  /**
-   * トースト通知のコンテナ
-   */
   toastContainer: null,
 
-  /**
-   * 初期化
-   */
   init() {
     try {
-      // 既存のコンテナを使用
       this.toastContainer = document.getElementById(DOM_IDS.COMMON.ERROR_TOAST_CONTAINER);
 
       if (!this.toastContainer) {
-        // フォールバック：コンテナが見つからない場合は作成
-        console.warn("Error toast container not found in HTML, creating one");
         this.toastContainer = document.createElement("div");
         this.toastContainer.id = DOM_IDS.COMMON.ERROR_TOAST_CONTAINER;
         this.toastContainer.className = CSS_CLASSES.TOAST.CONTAINER;
         document.body.appendChild(this.toastContainer);
       }
 
-      // エラーハンドラーを設定
       window.addEventListener(DOM_EVENTS.ERROR, (event) => {
         this.log(event.error || event.message, "JavaScript Error", this.Level.ERROR);
       });
@@ -50,40 +30,24 @@ const ErrorHandler = {
         this.log(event.reason, "Unhandled Promise Rejection", this.Level.ERROR);
       });
 
-      // Chrome拡張機能のエラーハンドラー
       if (chrome?.runtime?.onError) {
         chrome.runtime.onError.addListener((error) => {
           this.log(error, "Extension Error", this.Level.ERROR);
         });
       }
-
-      console.log("ErrorHandler initialized successfully");
-    } catch (error) {
-      console.error("Failed to initialize ErrorHandler:", error);
-    }
+    } catch (error) {}
   },
 
-  /**
-   * グローバルエラーハンドラーの設定
-   */
   setupGlobalHandlers() {
-    // 未処理のPromiseエラー
     window.addEventListener(DOM_EVENTS.UNHANDLED_REJECTION, (event) => {
       this.log("Unhandled promise rejection", event.reason, this.Level.ERROR);
     });
 
-    // 通常のエラー
     window.addEventListener(DOM_EVENTS.ERROR, (event) => {
       this.log("Global error", event.error, this.Level.ERROR);
     });
   },
 
-  /**
-   * エラーをログに記録
-   * @param {string} message - エラーメッセージ
-   * @param {Error} [error] - エラーオブジェクト
-   * @param {string} [level] - エラーレベル
-   */
   log(message, error = null, level = this.Level.ERROR) {
     const timestamp = new Date().toISOString();
     const logEntry = {
@@ -98,58 +62,31 @@ const ErrorHandler = {
         : null,
     };
 
-    // コンソールへの出力（カラー付き）
-    const logStyles = {
-      [this.Level.INFO]: "color: #2196F3; font-weight: bold;",
-      [this.Level.WARNING]: "color: #FF9800; font-weight: bold;",
-      [this.Level.ERROR]: "color: #f44336; font-weight: bold;",
-      [this.Level.CRITICAL]:
-        "color: #d32f2f; font-weight: bold; font-size: 1.1em;",
-    };
-
-    console.log(
-      `%c[${timestamp}] ${level.toUpperCase()}: ${message}`,
-      logStyles[level] || "",
-      error
-    );
-
-    // ローカルストレージに保存
     this.saveToLocalStorage(logEntry);
   },
 
-  /**
-   * エラーログをローカルストレージに保存
-   * @param {Object} logEntry - ログエントリ
-   */
   saveToLocalStorage(logEntry) {
     try {
       const logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY.ERROR_LOGS) || "[]");
       logs.push(logEntry);
 
-      // 最新100件のみ保持
       if (logs.length > 100) {
         logs.splice(0, logs.length - 100);
       }
 
       localStorage.setItem(STORAGE_KEYS.HISTORY.ERROR_LOGS, JSON.stringify(logs));
     } catch (e) {
-      // ストレージが満杯の場合は古いログを削除
       localStorage.removeItem(STORAGE_KEYS.HISTORY.ERROR_LOGS);
     }
   },
 
-  /**
-   * 通知設定を確認
-   * @param {string} messageType - メッセージタイプ ("success", "info", "warning", "error")
-   * @returns {boolean} 通知を表示するかどうか
-   */
   shouldShowNotification(messageType) {
     if (!window.AppState?.userSettings?.optionData) {
       return true; // 設定が読み込まれていない場合はデフォルトで表示
     }
 
     const settings = window.AppState.userSettings.optionData;
-    
+
     switch (messageType) {
       case "success":
         return settings.showSuccessToast !== false;
@@ -164,11 +101,6 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * ユーザーにエラーを通知
-   * @param {string} message - ユーザー向けメッセージ
-   * @param {Object} [options] - 通知オプション
-   */
   notify(message, options = {}) {
     const {
       type = this.NotificationType.ALERT,
@@ -178,7 +110,6 @@ const ErrorHandler = {
       position = "bottom-right",
     } = options;
 
-    // トースト通知の場合、設定を確認
     if (type === this.NotificationType.TOAST) {
       if (!this.shouldShowNotification(messageType)) {
         return; // 設定で無効化されている場合はスキップ
@@ -201,38 +132,26 @@ const ErrorHandler = {
         break;
 
       case this.NotificationType.CONSOLE:
-        console.log("User notification:", message);
         break;
     }
   },
 
-  /**
-   * トースト通知を表示
-   * @param {string} message - メッセージ
-   * @param {number} duration - 表示時間（ミリ秒）
-   * @param {string} [type='error'] - メッセージタイプ
-   * @param {string} [position='bottom-right'] - 表示位置
-   */
   showToast(message, duration, type = "error", position = "bottom-right") {
-    // 初期化チェック
     if (!this.toastContainer) {
       this.init();
     }
 
-    // ドロップダウン保護モードを有効化
     if (window.dropdownManager) {
       window.dropdownManager.setToastProtection(true);
     }
 
-    // トースト要素を作成
     const toast = document.createElement("div");
     toast.className = `${CSS_CLASSES.ERROR.TOAST} ${CSS_CLASSES.TOAST[type.toUpperCase()]}`;
-    
-    // フォーカス競合を防ぐためtabindex=-1を設定
-    toast.setAttribute('tabindex', '-1');
-    toast.style.outline = 'none';
 
-    // アイコンを追加
+    // フォーカス競合を防ぐためtabindex=-1を設定
+    toast.setAttribute("tabindex", "-1");
+    toast.style.outline = "none";
+
     const icons = {
       success: "✓",
       error: "✕",
@@ -240,7 +159,6 @@ const ErrorHandler = {
       warning: "⚠",
     };
 
-    // スタイルを設定
     const colors = {
       success: "#4CAF50",
       error: "#f44336",
@@ -250,41 +168,32 @@ const ErrorHandler = {
 
     toast.className = `error-toast toast-${type}`;
 
-    // コンテンツを設定
     toast.innerHTML = `
-      <span style="font-size: 20px; margin-right: 10px;">${
-        icons[type] || icons.error
-      }</span>
+      <span style="font-size: 20px; margin-right: 10px;">${icons[type] || icons.error}</span>
       <span style="flex: 1;">${this.escapeHtml(message)}</span>
     `;
 
-    // クリックで閉じる（ドロップダウンへの影響を最小化）
     toast.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
       this.dismissToast(toast);
     });
 
-    // コンテナに追加
     this.toastContainer.appendChild(toast);
 
-    // アニメーション開始
     requestAnimationFrame(() => {
       toast.style.transform = "translateX(0)";
     });
 
-    // 自動削除タイマー
     const timer = setTimeout(() => {
       this.dismissToast(toast);
     }, duration);
 
-    // ホバー時はタイマーを停止
     toast.addEventListener("mouseenter", () => clearTimeout(timer));
     toast.addEventListener("mouseleave", () => {
       setTimeout(() => this.dismissToast(toast), 1000);
     });
 
-    // 保護モードを少し遅れて解除（トーストアニメーション完了後）
     setTimeout(() => {
       if (window.dropdownManager) {
         window.dropdownManager.setToastProtection(false);
@@ -292,40 +201,28 @@ const ErrorHandler = {
     }, 500); // トーストアニメーション完了後に解除
   },
 
-  /**
-   * トーストを削除
-   * @param {HTMLElement} toast - トースト要素
-   */
   dismissToast(toast) {
     toast.style.transform = "translateX(400px)";
     setTimeout(() => {
       if (toast.parentNode) {
         toast.parentNode.removeChild(toast);
       }
-      
-      // トースト削除時に保護モードを解除
+
       if (window.dropdownManager) {
         window.dropdownManager.setToastProtection(false);
       }
     }, 300);
   },
 
-  /**
-   * インラインエラーを表示
-   * @param {string} elementId - 要素のID
-   * @param {string} message - エラーメッセージ
-   */
   showInlineError(elementId, message) {
     const element = document.querySelector(elementId);
     if (!element) return;
 
-    // 既存のエラーメッセージを削除
     const existingError = element.parentNode.querySelector(".error-message");
     if (existingError) {
       existingError.remove();
     }
 
-    // エラーメッセージを作成
     const errorDiv = document.createElement("div");
     errorDiv.className = "error-message";
     errorDiv.textContent = message;
@@ -336,34 +233,20 @@ const ErrorHandler = {
       animation: fadeIn 0.3s ease-in;
     `;
 
-    // 要素の後に挿入
     element.parentNode.insertBefore(errorDiv, element.nextSibling);
 
-    // 一定時間後に自動削除
     setTimeout(() => {
       errorDiv.style.animation = "fadeOut 0.3s ease-out";
       setTimeout(() => errorDiv.remove(), 300);
     }, 5000);
   },
 
-  /**
-   * HTMLエスケープ
-   * @param {string} text - エスケープするテキスト
-   * @returns {string}
-   */
   escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   },
 
-  /**
-   * 非同期処理のエラーハンドリングラッパー
-   * @param {Function} asyncFunc - 非同期関数
-   * @param {string} context - エラーコンテキスト
-   * @param {Object} [options] - オプション
-   * @returns {Promise}
-   */
   async handleAsync(asyncFunc, context, options = {}) {
     const {
       showLoading = false,
@@ -405,48 +288,28 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * ユーザーフレンドリーなエラーメッセージを生成
-   * @param {Error} error - エラーオブジェクト
-   * @param {string} context - エラーコンテキスト
-   * @returns {string}
-   */
   getUserFriendlyMessage(error, context) {
-    // エラーメッセージのマッピング
     const messageMap = {
-      "chrome.runtime.lastError":
-        "拡張機能との通信でエラーが発生しました。ページを再読み込みしてください。",
-      fetch:
-        "ネットワークエラーが発生しました。インターネット接続を確認してください。",
+      "chrome.runtime.lastError": "拡張機能との通信でエラーが発生しました。ページを再読み込みしてください。",
+      fetch: "ネットワークエラーが発生しました。インターネット接続を確認してください。",
       storage: "データの保存中にエラーが発生しました。",
       load: "データの読み込み中にエラーが発生しました。",
       permission: "必要な権限がありません。",
       timeout: "処理がタイムアウトしました。",
     };
 
-    // エラーメッセージから適切なメッセージを検索
     for (const [key, message] of Object.entries(messageMap)) {
       if (error.message?.includes(key) || context.includes(key)) {
         return message;
       }
     }
 
-    // デフォルトメッセージ
     return `処理中にエラーが発生しました: ${context}`;
   },
 
-  /**
-   * ローディング表示の制御
-   * @param {boolean} show - 表示/非表示
-   * @param {string} [message] - ローディングメッセージ
-   * @param {HTMLElement} [existingElement] - 既存のローディング要素
-   * @returns {HTMLElement|null}
-   */
   showLoading(show, message = "読み込み中...", existingElement = null) {
     if (show) {
-      // 既存の要素があれば再利用
-      let overlay =
-        existingElement || document.getElementById("loading-overlay");
+      let overlay = existingElement || document.getElementById(DOM_IDS.COMMON.LOADING_OVERLAY);
 
       if (!overlay) {
         overlay = document.createElement("div");
@@ -478,7 +341,6 @@ const ErrorHandler = {
           gap: 15px;
         `;
 
-        // スピナーアニメーション
         spinner.innerHTML = `
           <div class="spinner" style="
             width: 24px;
@@ -494,7 +356,6 @@ const ErrorHandler = {
         overlay.appendChild(spinner);
         document.body.appendChild(overlay);
 
-        // CSSアニメーション
         const style = document.createElement("style");
         style.textContent = `
           @keyframes spin {
@@ -511,7 +372,6 @@ const ErrorHandler = {
         `;
         document.head.appendChild(style);
 
-        // フェードイン
         requestAnimationFrame(() => {
           overlay.style.opacity = "1";
         });
@@ -519,8 +379,7 @@ const ErrorHandler = {
 
       return overlay;
     } else {
-      const overlay =
-        existingElement || document.getElementById("loading-overlay");
+      const overlay = existingElement || document.getElementById(DOM_IDS.COMMON.LOADING_OVERLAY);
       if (overlay) {
         overlay.style.opacity = "0";
         setTimeout(() => {
@@ -533,13 +392,7 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * 入力検証エラーのハンドリング
-   * @param {Object} validationResult - 検証結果
-   * @param {Object} fieldMapping - フィールドとIDのマッピング
-   */
   handleValidationErrors(validationResult, fieldMapping) {
-    // 既存のエラーをクリア
     document.querySelectorAll(".error-message").forEach((el) => el.remove());
     document.querySelectorAll(".error-highlight").forEach((el) => {
       el.classList.remove("error-highlight");
@@ -561,10 +414,6 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * デバッグモードの設定
-   * @param {boolean} enabled - デバッグモードの有効/無効
-   */
   setDebugMode(enabled) {
     this.debugMode = enabled;
     if (enabled) {
@@ -576,10 +425,6 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * エラーログをエクスポート
-   * @returns {string} エラーログのJSON文字列
-   */
   exportLogs() {
     try {
       const logs = localStorage.getItem("errorLogs") || "[]";
@@ -589,9 +434,6 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * エラーログをクリア
-   */
   clearLogs() {
     localStorage.removeItem("errorLogs");
     this.notify("エラーログをクリアしました", {
@@ -601,10 +443,6 @@ const ErrorHandler = {
     });
   },
 
-  /**
-   * エラー統計を取得
-   * @returns {Object} エラー統計
-   */
   getErrorStats() {
     try {
       const logs = JSON.parse(localStorage.getItem("errorLogs") || "[]");
@@ -614,7 +452,6 @@ const ErrorHandler = {
         recent: logs.slice(-10),
       };
 
-      // レベル別集計
       logs.forEach((log) => {
         stats.byLevel[log.level] = (stats.byLevel[log.level] || 0) + 1;
       });
@@ -625,172 +462,89 @@ const ErrorHandler = {
     }
   },
 
-  /**
-   * 共通化されたtry-catch処理のヘルパーメソッド
-   */
-
-  /**
-   * ファイル操作エラーの共通処理
-   * @param {Error} error - エラーオブジェクト
-   * @param {string} operation - 操作名（'read', 'write', 'import', 'export'）
-   * @param {string} [fileName] - ファイル名
-   * @param {Object} [options] - 追加オプション
-   */
-  handleFileError(error, operation, fileName = '', options = {}) {
+  handleFileError(error, operation, fileName = "", options = {}) {
     const operationNames = {
-      read: '読み込み',
-      write: '書き込み', 
-      import: 'インポート',
-      export: 'エクスポート'
+      read: "読み込み",
+      write: "書き込み",
+      import: "インポート",
+      export: "エクスポート",
     };
-    
+
     const operationName = operationNames[operation] || operation;
-    const fileInfo = fileName ? `ファイル「${fileName}」の` : 'ファイル';
+    const fileInfo = fileName ? `ファイル「${fileName}」の` : "ファイル";
     const message = `${fileInfo}${operationName}に失敗しました`;
-    
+
     this.log(`File ${operation} failed`, error, this.Level.ERROR);
     this.showToast(`${message}: ${error.message}`, 5000, "error");
-    
-    if (options.debugMode) {
-      console.error(`[FILE_ERROR] ${operation} operation failed:`, {
-        fileName,
-        error: error.message,
-        stack: error.stack
-      });
-    }
   },
 
-  /**
-   * ネットワークエラーの共通処理
-   * @param {Error} error - エラーオブジェクト
-   * @param {string} operation - 操作名
-   * @param {Object} [options] - 追加オプション
-   */
   handleNetworkError(error, operation, options = {}) {
     const message = `ネットワーク${operation}に失敗しました`;
-    
+
     this.log(`Network ${operation} failed`, error, this.Level.ERROR);
     this.showToast(`${message}: ${error.message}`, 5000, "error");
-    
-    if (options.debugMode) {
-      console.error(`[NETWORK_ERROR] ${operation} failed:`, error);
-    }
   },
 
-  /**
-   * データ処理エラーの共通処理
-   * @param {Error} error - エラーオブジェクト
-   * @param {string} operation - 操作名
-   * @param {Object} [options] - 追加オプション
-   */
   handleDataError(error, operation, options = {}) {
     const message = `データ${operation}処理でエラーが発生しました`;
-    
+
     this.log(`Data ${operation} failed`, error, this.Level.ERROR);
     this.showToast(`${message}: ${error.message}`, 4000, "error");
-    
-    if (options.debugMode) {
-      console.error(`[DATA_ERROR] ${operation} failed:`, error);
-    }
   },
 
-  /**
-   * ストレージエラーの共通処理
-   * @param {Error} error - エラーオブジェクト
-   * @param {string} operation - 操作名（'save', 'load', 'delete'）
-   * @param {Object} [options] - 追加オプション
-   */
   handleStorageError(error, operation, options = {}) {
     const operationNames = {
-      save: '保存',
-      load: '読み込み',
-      delete: '削除'
+      save: "保存",
+      load: "読み込み",
+      delete: "削除",
     };
-    
+
     const operationName = operationNames[operation] || operation;
     const message = `データの${operationName}に失敗しました`;
-    
+
     this.log(`Storage ${operation} failed`, error, this.Level.ERROR);
     this.showToast(`${message}: ${error.message}`, 4000, "error");
-    
-    if (options.debugMode) {
-      console.error(`[STORAGE_ERROR] ${operation} failed:`, error);
-    }
   },
 
-  /**
-   * 汎用的なtry-catchラッパー
-   * @param {Function} asyncFunction - 実行する非同期関数
-   * @param {string} errorContext - エラーコンテキスト
-   * @param {Object} [options] - オプション
-   * @returns {Promise<any>} 実行結果またはundefined（エラー時）
-   */
   async wrapAsync(asyncFunction, errorContext, options = {}) {
     try {
       return await asyncFunction();
     } catch (error) {
-      const {
-        showToast = true,
-        toastDuration = 4000,
-        logLevel = this.Level.ERROR,
-        debugMode = false
-      } = options;
+      const { showToast = true, toastDuration = 4000, logLevel = this.Level.ERROR, debugMode = false } = options;
 
       this.log(`${errorContext} failed`, error, logLevel);
-      
+
       if (showToast) {
         this.showToast(`${errorContext}でエラーが発生しました: ${error.message}`, toastDuration, "error");
       }
-      
-      if (debugMode) {
-        console.error(`[WRAP_ERROR] ${errorContext}:`, error);
-      }
-      
+
       return undefined;
     }
   },
 
-  /**
-   * 同期関数用のtry-catchラッパー
-   * @param {Function} syncFunction - 実行する同期関数
-   * @param {string} errorContext - エラーコンテキスト
-   * @param {Object} [options] - オプション
-   * @returns {any} 実行結果またはundefined（エラー時）
-   */
   wrapSync(syncFunction, errorContext, options = {}) {
     try {
       return syncFunction();
     } catch (error) {
-      const {
-        showToast = true,
-        toastDuration = 4000,
-        logLevel = this.Level.ERROR,
-        debugMode = false
-      } = options;
+      const { showToast = true, toastDuration = 4000, logLevel = this.Level.ERROR, debugMode = false } = options;
 
       this.log(`${errorContext} failed`, error, logLevel);
-      
+
       if (showToast) {
         this.showToast(`${errorContext}でエラーが発生しました: ${error.message}`, toastDuration, "error");
       }
-      
-      if (debugMode) {
-        console.error(`[WRAP_ERROR] ${errorContext}:`, error);
-      }
-      
+
       return undefined;
     }
   },
 };
 
-// 初期化
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => ErrorHandler.init());
 } else {
   ErrorHandler.init();
 }
 
-// グローバルに公開
 if (typeof window !== "undefined") {
   window.ErrorHandler = ErrorHandler;
 }
