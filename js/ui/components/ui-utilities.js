@@ -43,7 +43,8 @@ const UIUtilities = {
 
           const popup = document.querySelector(DOM_SELECTORS.BY_ID.POPUP);
           if (popup) {
-            popup.style.display = "flex";
+            popup.classList.remove("hidden");
+            popup.classList.add("show-flex");
             popup.style.visibility = "visible";
           }
         };
@@ -72,7 +73,8 @@ const UIUtilities = {
 
         const popup = document.querySelector(DOM_SELECTORS.BY_ID.POPUP);
         if (popup) {
-          popup.style.display = "flex";
+          popup.classList.remove("hidden");
+          popup.classList.add("show-flex");
           popup.style.visibility = "visible";
         }
       });
@@ -240,9 +242,14 @@ const UIUtilities = {
 
     return data;
   },
+  destroyDropdown(input) {
+    if (input?.customDropdown) {
+      input.customDropdown.destroy();
+      input.customDropdown = null;
+    }
+  },
 };
 
-// ui-utilities.js に追加
 const CategoryAutocomplete = {
   // 入力補完の改善
   enhanceInput(inputElement, categoryLevel) {

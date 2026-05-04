@@ -593,6 +593,12 @@
   box-shadow: 0 0 0 2px var(--accent-primary-20);
 }
 
+/* セレクト要素のフォーカス強調（JSからのクラス付与用） */
+.select-focus-highlight {
+  box-shadow: 0 0 10px var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
 .slot-mode-select:hover {
   border-color: var(--accent-primary);
 }
@@ -1099,7 +1105,10 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .slot-import-export-container .action-btn {

@@ -289,7 +289,7 @@ class SettingsManager {
       const filename = FileUtilities.generateTimestampedFilename(EXPORT_FILE_NAMES.SETTINGS, "json");
       await FileUtilities.downloadJSON(exportData, filename);
     } catch (error) {
-      ErrorHandler.showToast("エクスポートに失敗しました", UI_DELAYS.LONG, "error");
+      UIHelpers.notifyError("エクスポートに失敗しました", UI_DELAYS.LONG);
     }
   }
 
@@ -304,7 +304,7 @@ class SettingsManager {
       const input = document.createElement("input");
       input.type = "file";
       input.accept = ".json";
-      input.style.display = "none"; // 非表示にして確実にユーザーの意図したタイミングで表示
+      input.classList.add("hidden"); // 非表示にして確実にユーザーの意図したタイミングで表示
 
       const handleFileSelect = async (e) => {
         const file = e.target.files[0];
@@ -324,18 +324,11 @@ class SettingsManager {
 
           const result = await this.importSettings(importData, options);
 
-          ErrorHandler.notify(`設定をインポートしました (${result.itemCount}件)`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
+          UIHelpers.notifySuccess(`設定をインポートしました (${result.itemCount}件)`, NOTIFICATION_DURATION.MEDIUM);
 
           await this.performSafeReinitialization();
         } catch (error) {
-          ErrorHandler.notify(`インポートに失敗しました: ${error.message}`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError(`インポートに失敗しました: ${error.message}`);
         } finally {
           this._isImporting = false;
           if (document.body.contains(input)) {
@@ -366,10 +359,7 @@ class SettingsManager {
       }, 10);
     } catch (error) {
       this._isImporting = false;
-      ErrorHandler.notify("ファイル選択の準備に失敗しました", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-      });
+      UIHelpers.notifyError("ファイル選択の準備に失敗しました");
     }
   }
 
@@ -383,11 +373,7 @@ class SettingsManager {
 
   async closeExtensionSafely() {
     try {
-      ErrorHandler.notify("設定インポート完了。拡張機能を再起動します", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "info",
-        duration: 2000,
-      });
+      UIHelpers.notifyInfo("設定インポート完了。拡張機能を再起動します", 2000);
 
       setTimeout(() => {
         if (window.close) {

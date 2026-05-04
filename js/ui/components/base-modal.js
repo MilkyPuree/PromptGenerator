@@ -147,11 +147,12 @@ class BaseModal {
     if (!this.modal || this.isVisible) return;
 
     this.isVisible = true;
-    this.modal.style.display = "flex";
+    this.modal.classList.remove("hidden");
+    this.modal.classList.add("show-flex");
 
-    // アニメーション対応
+    // アニメーション対応（.modal-base.show で opacity: 1 が定義済み）
     requestAnimationFrame(() => {
-      this.modal.style.opacity = "1";
+      this.modal.classList.add("show");
     });
 
     this.showCallbacks.forEach((callback) => {
@@ -171,11 +172,12 @@ class BaseModal {
     if (!this.modal || !this.isVisible) return;
 
     this.isVisible = false;
-    this.modal.style.opacity = "0";
+    this.modal.classList.remove("show");
 
     setTimeout(() => {
       if (!this.isVisible) {
-        this.modal.style.display = "none";
+        this.modal.classList.remove("show-flex");
+        this.modal.classList.add("hidden");
       }
     }, 150);
 
@@ -273,7 +275,7 @@ class BaseModal {
     const modal = document.createElement("div");
     modal.id = this.modalId;
     modal.className = this.options.cssClass;
-    modal.style.display = "none";
+    modal.classList.add("hidden");
 
     const headerHTML = this.options.showHeader
       ? `

@@ -18,7 +18,8 @@
         this.slotManager = null;
         this.groupManager = null;
 
-        this.groupManagementModal = null;
+        this.cardBuilder = new SlotTabCardBuilder(this);
+        this.slotTabGroupManager = new SlotTabGroupManager(this);
 
         this.isGroupEditing = false;
 
@@ -63,7 +64,7 @@
 
         this.cacheElements();
 
-        this.initModal();
+        this.slotTabGroupManager.initModal();
 
         this.setupEventListeners();
 
@@ -173,7 +174,7 @@
         const container = this.elements.container;
         if (!container) return;
 
-        this.addSlotImportExportButtons();
+        this.slotTabGroupManager.addSlotImportExportButtons();
 
         container.innerHTML = "";
 
@@ -187,7 +188,7 @@
         this.slotManager.slots.forEach((slot, index) => {
           const info = this.slotManager.getSlotInfo(slot.id);
           info.displayNumber = index + 1;
-          const slotCard = this.createSlotCard(info);
+          const slotCard = this.cardBuilder.createSlotCard(info);
           container.appendChild(slotCard);
         });
 
@@ -199,321 +200,6 @@
         setTimeout(() => {
           this.updateWeightInputFields();
         }, 10);
-      }
-
-      createSlotCard(info) {
-        const card = UIFactory.createDiv();
-        card.dataset.slotId = info.id;
-
-        const slot = this.slotManager.slots.find((s) => s.id === info.id);
-        const isExtractionMode = slot?.mode === "random" || slot?.mode === "sequential";
-
-        card.className = `slot-card ${
-          info.isCurrent ? "slot-card-current" : ""
-        } ${isExtractionMode ? "slot-card-extraction" : ""} ${
-          info.isUsed ? "slot-card-used" : ""
-        } ${slot.muted ? "slot-card-muted" : ""}`;
-
-        const canDelete = this.slotManager.slots.length > this.slotManager.minSlots && !info.isCurrent;
-
-        const weightConfig = WeightConverter.getWeightConfig(this.getCurrentShaping());
-
-        card.innerHTML = `
-    <div class="slot-drag-handle">☰</div>
-    <div class="slot-move-buttons">
-      <button class="slot-move-up-btn" data-slot-id="${info.id}" title="このスロットを上に移動">↑</button>
-      <button class="slot-move-down-btn" data-slot-id="${info.id}" title="このスロットを下に移動">↓</button>
-    </div>
-
-    <div class="slot-header">
-      <div class="slot-header-left">
-        <span class="slot-number ${info.isCurrent ? "slot-number-current" : ""}">
-          ${info.displayNumber}
-        </span>
-        <input type="text"
-               class="slot-name-edit"
-               data-slot-id="${info.id}"
-               value="${info.name || ""}"
-               placeholder="スロット名を入力"
-               title="スロットの識別用名前（空の場合は番号表示）">
-      </div>
-      <div class="slot-actions">
-        <button class="slot-mute-btn" data-slot-id="${info.id}" 
-                title="${slot.muted ? "ミュート解除" : "ミュート"}">
-          ${slot.muted ? "🔇" : "🔊"}
-        </button>
-        <button class="slot-clear-btn" data-slot-id="${info.id}" title="このスロットの内容をクリア">クリア</button>
-        <button class="slot-delete-btn" data-slot-id="${info.id}"
-                ${!canDelete ? "disabled" : ""}
-                title="${!canDelete ? "現在のスロットまたは最小数未満のため削除不可" : "このスロットを削除"}">削除</button>
-      </div>
-    </div>
-
-    <!-- モード選択ドロップダウンと重み表示 -->
-    <div class="slot-mode-container">
-      <div class="slot-control-group">
-        <label class="slot-control-label">モード</label>
-        <select class="slot-mode-select" data-slot-id="${info.id}"
-                title="スロットの動作モード&#10;・複数要素: 固定プロンプト&#10;・単一要素: スペース区切りテキスト&#10;・ランダム抽出: 辞書からランダム選択&#10;・連続抽出: 辞書から順次選択">
-          <option value="normal" ${!slot?.mode || slot.mode === "normal" ? "selected" : ""}>複数要素</option>
-          <option value="single" ${slot?.mode === "single" ? "selected" : ""}>単一要素</option>
-          <option value="random" ${slot?.mode === "random" ? "selected" : ""}>ランダム抽出</option>
-          <option value="sequential" ${slot?.mode === "sequential" ? "selected" : ""}>連続抽出</option>
-        </select>
-      </div>
-      <div class="slot-control-group">
-        <label class="slot-control-label">重み</label>
-        <input type="number" 
-               class="slot-weight-input" 
-               data-slot-id="${info.id}"
-               value="${slot?.weight !== undefined ? slot.weight : this.slotManager.getDefaultWeight()}"
-               min="${weightConfig.min}" 
-               max="${weightConfig.max}" 
-               step="${weightConfig.delta}"
-               title="${this.getWeightTooltip()}"
-               placeholder="重み">
-      </div>
-    </div>
-
-    <!-- 通常モード用テキストエリア -->
-    <div class="normal-mode-content" style="display: ${!isExtractionMode ? "block" : "none"};">
-      <div class="slot-prompt-container">
-        <textarea class="slot-prompt-edit"
-                  data-slot-id="${info.id}"
-                  placeholder="${info.isUsed ? "プロンプト内容" : "このスロットは空です"}"
-                  title="${info.isUsed ? "スロットのプロンプト内容（複数行入力可能）" : "空のスロットです（クリアで有効化）"}"
-                  ${!info.isUsed ? "disabled" : ""}>${
-                    info.isUsed
-                      ? this.slotManager.getSlotDisplayValue(this.slotManager.slots.find((s) => s.id === info.id)) || ""
-                      : ""
-                  }</textarea>
-        ${
-          info.isUsed
-            ? `<div class="slot-char-count">${
-                this.slotManager.slots.find((s) => s.id === info.id)?.prompt?.length || 0
-              } 文字</div>`
-            : ""
-        }
-      </div>
-    </div>
-
-    <!-- 抽出モード用カテゴリー選択 -->
-    <div class="extraction-mode-content" style="display: ${isExtractionMode ? "block" : "none"};">
-      <div class="extraction-controls">
-        <!-- 抽出元設定（スロット専用2行形式） -->
-        <div class="slot-extraction-table">
-          <!-- ヘッダー行 -->
-          <div class="slot-extraction-header">
-            <div class="slot-header-cell datasource">データソース</div>
-            <div class="slot-header-cell category ${(slot?.dataSource || "dictionary") === "favorites" ? "hidden" : ""}">大項目</div>
-            <div class="slot-header-cell category ${(slot?.dataSource || "dictionary") === "favorites" ? "hidden" : ""}">中項目</div>
-            <div class="slot-header-cell category ${(slot?.dataSource || "dictionary") === "dictionary" ? "hidden" : ""}">お気に入り</div>
-          </div>
-          
-          <!-- データ行 -->
-          <div class="slot-extraction-data">
-            <div class="slot-data-cell datasource">
-              <select class="data-source-select" data-slot-id="${info.id}" title="抽出元のデータソースを選択">
-                <option value="dictionary">${UI_LABELS.EXTRACTION_SOURCE_DICTIONARY}</option>
-                <option value="favorites">${UI_LABELS.EXTRACTION_SOURCE_FAVORITES}</option>
-              </select>
-            </div>
-            <div class="slot-data-cell category ${(slot?.dataSource || "dictionary") === "favorites" ? "hidden" : ""}">
-              <select class="category-big-select" data-slot-id="${info.id}" title="抽出する大カテゴリを選択（空白ですべて）">
-                <option value="">すべて</option>
-              </select>
-            </div>
-            <div class="slot-data-cell category ${(slot?.dataSource || "dictionary") === "favorites" ? "hidden" : ""}">
-              <select class="category-middle-select" data-slot-id="${info.id}"
-                      ${!slot?.category?.big ? "disabled" : ""}>
-                <option value="">すべて</option>
-              </select>
-            </div>
-            <div class="slot-data-cell category ${(slot?.dataSource || "dictionary") === "dictionary" ? "hidden" : ""}">
-              <select class="favorites-select" data-slot-id="${info.id}">
-              </select>
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-      ${
-        slot?.mode === "sequential"
-          ? `<div class="sequential-info">
-              <label class="sequential-label">現在のインデックス:</label>
-              <input type="number" class="sequential-index-input" 
-                     data-slot-id="${info.id}"
-                     value="${slot.sequentialIndex || 0}" 
-                     min="0"
-                     step="1">
-              <span class="sequential-help">（0から開始）</span>
-            </div>`
-          : ""
-      }
-      <div class="current-extraction-display">
-        ${
-          slot?.currentExtraction
-            ? `<div class="extraction-display-content">
-                <strong>現在:</strong> ${slot.currentExtraction}
-                ${slot.currentExtractionSmall ? `<br><small class="extraction-small-item">小項目: ${slot.currentExtractionSmall}</small>` : ""}
-                <span class="extraction-timestamp">${
-                  slot.lastExtractionTime ? new Date(slot.lastExtractionTime).toLocaleTimeString() : ""
-                }</span>
-              </div>`
-            : ""
-        }
-      </div>
-    </div>
-  `;
-
-        if (isExtractionMode) {
-          this.setupDataSourceSelector(card, slot);
-          this.setupCategorySelectors(card, slot);
-        }
-
-        if (slot?.mode === "sequential") {
-          const sequentialInput = card.querySelector(".sequential-index-input");
-          if (sequentialInput) {
-            this.setupSequentialIndexControls(sequentialInput, slot);
-          }
-        }
-
-        const weightInput = card.querySelector(".slot-weight-input");
-        if (weightInput) {
-          this.setupWeightInputControls(weightInput);
-        }
-
-        this.setupMoveButtons(card, info);
-
-        return card;
-      }
-
-      setupWeightInputControls(weightInput) {
-        const currentShaping = this.getCurrentShaping();
-        const weightConfig = WeightConverter.getWeightConfig(currentShaping);
-
-        weightInput.min = weightConfig.min;
-        weightInput.max = weightConfig.max;
-        weightInput.step = weightConfig.delta;
-
-        weightInput.addEventListener("wheel", (e) => {
-          e.preventDefault(); // ページスクロールを防ぐ
-
-          const rawValue = weightInput.value;
-          const parsedValue = parseFloat(rawValue);
-          const currentValue = parsedValue || 0;
-          let delta = weightConfig.delta;
-
-          if (e.shiftKey) {
-            delta *= WEIGHT_CONFIG.SHIFT_MULTIPLIER;
-          } else if (e.ctrlKey) {
-            delta *= WEIGHT_CONFIG.CTRL_MULTIPLIER;
-          }
-
-          const direction = e.deltaY > 0 ? -1 : 1;
-          const newValue = currentValue + direction * delta;
-
-          // 範囲内に制限
-          const clampedValue = Math.max(weightConfig.min, Math.min(weightConfig.max, newValue));
-
-          weightInput.value = Math.round(clampedValue * 100) / 100;
-
-          weightInput.dispatchEvent(new Event("input", { bubbles: true }));
-        });
-
-        weightInput.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-            e.preventDefault();
-
-            const currentValue = parseFloat(weightInput.value) || 0;
-            let delta = weightConfig.delta;
-
-            if (e.shiftKey) {
-              delta *= WEIGHT_CONFIG.SHIFT_MULTIPLIER;
-            } else if (e.ctrlKey) {
-              delta *= WEIGHT_CONFIG.CTRL_MULTIPLIER;
-            }
-
-            const direction = e.key === "ArrowUp" ? 1 : -1;
-            const newValue = currentValue + delta * direction;
-
-            // 範囲内に制限
-            const clampedValue = Math.max(weightConfig.min, Math.min(weightConfig.max, newValue));
-
-            weightInput.value = Math.round(clampedValue * 100) / 100;
-
-            weightInput.dispatchEvent(new Event("input", { bubbles: true }));
-          }
-        });
-      }
-
-      setupSequentialIndexControls(sequentialInput, slot) {
-        sequentialInput.addEventListener("change", (e) => {
-          const newIndex = parseInt(e.target.value, 10);
-
-          if (isNaN(newIndex) || newIndex < 0) {
-            e.target.value = slot.sequentialIndex || 0;
-            return;
-          }
-
-          slot.sequentialIndex = newIndex;
-
-          this.saveSlotData();
-        });
-
-        sequentialInput.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-            e.preventDefault();
-
-            const currentValue = parseInt(sequentialInput.value, 10) || 0;
-            const direction = e.key === "ArrowUp" ? 1 : -1;
-            let newValue = currentValue + direction;
-
-            // 最小値制限
-            newValue = Math.max(0, newValue);
-
-            sequentialInput.value = newValue;
-
-            sequentialInput.dispatchEvent(new Event("change", { bubbles: true }));
-          }
-        });
-
-        sequentialInput.addEventListener("wheel", (e) => {
-          e.preventDefault();
-
-          const currentValue = parseInt(sequentialInput.value, 10) || 0;
-          const direction = e.deltaY > 0 ? -1 : 1;
-          let newValue = currentValue + direction;
-
-          // 最小値制限
-          newValue = Math.max(0, newValue);
-
-          sequentialInput.value = newValue;
-
-          sequentialInput.dispatchEvent(new Event("change", { bubbles: true }));
-        });
-      }
-
-      setupMoveButtons(card, info) {
-        const moveUpBtn = card.querySelector(".slot-move-up-btn");
-        const moveDownBtn = card.querySelector(".slot-move-down-btn");
-
-        if (!moveUpBtn || !moveDownBtn) return;
-
-        const slotIndex = this.slotManager.slots.findIndex((s) => s.id === info.id);
-        const totalSlots = this.slotManager.slots.length;
-
-        if (slotIndex === 0) {
-          moveUpBtn.disabled = true;
-        } else {
-          moveUpBtn.addEventListener("click", () => this.moveSlot(info.id, "up"));
-        }
-
-        if (slotIndex === totalSlots - 1) {
-          moveDownBtn.disabled = true;
-        } else {
-          moveDownBtn.addEventListener("click", () => this.moveSlot(info.id, "down"));
-        }
       }
 
       async moveSlot(slotId, direction) {
@@ -531,7 +217,6 @@
             const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
             const currentPrompt = generatePrompt?.value || "";
             currentSlotBeforeReorder.prompt = currentPrompt;
-            // elements は現在のスロットの既存値を維持（入力フィールドからは取得不可）
             currentSlotBeforeReorder.isUsed = currentPrompt.length > 0;
             currentSlotBeforeReorder.lastModified = currentSlotBeforeReorder.isUsed ? Date.now() : null;
           }
@@ -542,7 +227,6 @@
           this.slotManager.slots[slotIndex],
         ];
 
-        // 重要: currentSlotインデックスを更新
         if (this.slotManager.currentSlot === slotIndex) {
           this.slotManager.currentSlot = targetIndex;
         } else if (this.slotManager.currentSlot === targetIndex) {
@@ -618,12 +302,8 @@
 
         this.updateWeightInputFields();
 
-        if (window.ErrorHandler) {
-          window.ErrorHandler.notify(`重み記法を${newShaping}形式に変更しました`, {
-            type: window.ErrorHandler.NotificationType.TOAST,
-            messageType: "info",
-            duration: 2000,
-          });
+        if (typeof UIHelpers !== "undefined") {
+          UIHelpers.notifyInfo(`重み記法を${newShaping}形式に変更しました`, 2000);
         }
       }
 
@@ -636,119 +316,6 @@
           input.min = weightConfig.min;
           input.max = weightConfig.max;
         });
-      }
-
-      setupDataSourceSelector(card, slot) {
-        const dataSourceSelect = card.querySelector(".data-source-select");
-        const favoritesSelect = card.querySelector(".favorites-select");
-        const dictionarySelection = card.querySelector(".dictionary-selection");
-        const favoritesSelection = card.querySelector(".favorites-selection");
-
-        if (!dataSourceSelect) return;
-
-        dataSourceSelect.value = slot.dataSource || "dictionary";
-
-        this.populateFavoritesOptions(favoritesSelect);
-
-        if (favoritesSelect && slot.favoriteDictionaryId) {
-          favoritesSelect.value = slot.favoriteDictionaryId;
-        }
-
-        this.toggleDataSourceUI(card, slot.dataSource || "dictionary");
-
-        dataSourceSelect.addEventListener("change", async (e) => {
-          const newDataSource = e.target.value;
-          slot.dataSource = newDataSource;
-
-          this.toggleDataSourceUI(card, newDataSource);
-
-          if (newDataSource === "favorites") {
-            const allDictionaries = AppState.data.promptDictionaries || {};
-            const firstDictionaryId = Object.keys(allDictionaries)[0] || "";
-
-            slot.favoriteDictionaryId = firstDictionaryId;
-            if (favoritesSelect) {
-              favoritesSelect.value = firstDictionaryId;
-            }
-          } else {
-            slot.category = { big: "", middle: "" };
-            const bigSelect = card.querySelector(".category-big-select");
-            const middleSelect = card.querySelector(".category-middle-select");
-            if (bigSelect) bigSelect.value = "";
-            if (middleSelect) middleSelect.value = "";
-          }
-
-          if (slot.mode === "sequential") {
-            slot.sequentialIndex = 0;
-            const indexSpan = card.querySelector(".sequential-index");
-            if (indexSpan) {
-              indexSpan.textContent = "0";
-            }
-          }
-
-          await this.slotManager.saveToStorage();
-        });
-
-        if (favoritesSelect) {
-          favoritesSelect.addEventListener("change", async (e) => {
-            slot.favoriteDictionaryId = e.target.value;
-
-            if (slot.mode === "sequential") {
-              slot.sequentialIndex = 0;
-              const indexSpan = card.querySelector(".sequential-index");
-              if (indexSpan) {
-                indexSpan.textContent = "0";
-              }
-            }
-
-            await this.slotManager.saveToStorage();
-          });
-        }
-      }
-
-      toggleDataSourceUI(card, dataSource) {
-        const headerCells = card.querySelectorAll(".slot-header-cell.category");
-        const dataCells = card.querySelectorAll(".slot-data-cell.category");
-
-        if (dataSource === "favorites") {
-          headerCells.forEach((cell, index) => {
-            if (index < 2) {
-              // 大項目・中項目のヘッダー
-              cell.classList.add("hidden");
-            } else {
-              // お気に入りのヘッダー
-              cell.classList.remove("hidden");
-            }
-          });
-          dataCells.forEach((cell, index) => {
-            if (index < 2) {
-              // 大項目・中項目のデータ
-              cell.classList.add("hidden");
-            } else {
-              // お気に入りのデータ
-              cell.classList.remove("hidden");
-            }
-          });
-        } else {
-          headerCells.forEach((cell, index) => {
-            if (index < 2) {
-              // 大項目・中項目のヘッダー
-              cell.classList.remove("hidden");
-            } else {
-              // お気に入りのヘッダー
-              cell.classList.add("hidden");
-            }
-          });
-          dataCells.forEach((cell, index) => {
-            if (index < 2) {
-              // 大項目・中項目のデータ
-              cell.classList.remove("hidden");
-            } else {
-              // お気に入りのデータ
-              cell.classList.add("hidden");
-            }
-          });
-        }
       }
 
       getCurrentDefaultWeight() {
@@ -786,446 +353,6 @@
           default:
             return `プロンプト重み (無効)
 現在の設定では重み機能は使用されません`;
-        }
-      }
-
-      populateFavoritesOptions(favoritesSelect) {
-        if (!favoritesSelect) return;
-
-        const allDictionaries = AppState.data.promptDictionaries || {};
-        const dictionaryIds = Object.keys(allDictionaries);
-
-        const firstDictionaryId = dictionaryIds.length > 0 ? dictionaryIds[0] : "";
-
-        favoritesSelect.innerHTML = "";
-
-        dictionaryIds.forEach((dictId) => {
-          const dict = allDictionaries[dictId];
-          if (dict && dict.name) {
-            const option = UIFactory.createOption({
-              value: dictId,
-              text: dict.name,
-            });
-            favoritesSelect.appendChild(option);
-          }
-        });
-
-        if (firstDictionaryId) {
-          favoritesSelect.value = firstDictionaryId;
-
-          const slotId = parseInt(favoritesSelect.dataset.slotId);
-          const slot = this.slotManager.slots.find((s) => s.id === slotId);
-          if (slot && !slot.favoriteDictionaryId) {
-            slot.favoriteDictionaryId = firstDictionaryId;
-          }
-        }
-      }
-
-      setupCategorySelectors(card, slot) {
-        const bigSelect = card.querySelector(".category-big-select");
-        const middleSelect = card.querySelector(".category-middle-select");
-
-        if (!bigSelect) return;
-
-        bigSelect.innerHTML = '<option value="">すべて</option>';
-        const bigCategories = this.getCategoryOptions("big");
-
-        bigCategories.forEach((cat) => {
-          const option = UIFactory.createOption({
-            value: cat,
-            text: cat,
-          });
-          bigSelect.appendChild(option);
-        });
-
-        requestAnimationFrame(() => {
-          if (slot.category && slot.category.big) {
-            bigSelect.value = slot.category.big;
-            this.updateCategoryTooltip(bigSelect); // ツールチップ更新
-            this.updateMiddleCategories(middleSelect, slot.category.big);
-            middleSelect.disabled = false;
-
-            if (slot.category.middle) {
-              requestAnimationFrame(() => {
-                middleSelect.value = slot.category.middle;
-                this.updateCategoryTooltip(middleSelect); // ツールチップ更新
-              });
-            }
-          }
-          this.updateCategoryTooltip(bigSelect);
-          this.updateCategoryTooltip(middleSelect);
-        });
-
-        bigSelect.addEventListener("change", async (e) => {
-          if (!slot.category) {
-            slot.category = {};
-          }
-          slot.category.big = e.target.value;
-          slot.category.middle = ""; // 中項目をリセット
-
-          if (e.target.value) {
-            this.updateMiddleCategories(middleSelect, e.target.value);
-            middleSelect.disabled = false;
-
-            setTimeout(() => {
-              if (middleSelect && !middleSelect.disabled) {
-                middleSelect.focus();
-
-                try {
-                  if (typeof middleSelect.showPicker === "function") {
-                    middleSelect.showPicker();
-                  } else {
-                    const spaceEvent = new KeyboardEvent("keydown", {
-                      key: " ",
-                      code: "Space",
-                      keyCode: 32,
-                      which: 32,
-                      bubbles: true,
-                    });
-                    middleSelect.dispatchEvent(spaceEvent);
-                  }
-                } catch (error) {
-                  middleSelect.style.boxShadow = "0 0 10px var(--accent-primary)";
-                  middleSelect.style.borderColor = "var(--accent-primary)";
-
-                  setTimeout(() => {
-                    middleSelect.style.boxShadow = "";
-                    middleSelect.style.borderColor = "";
-                  }, 1000);
-                }
-              }
-            }, 150);
-          } else {
-            middleSelect.innerHTML = '<option value="">すべて</option>';
-            middleSelect.disabled = true;
-          }
-
-          this.updateCategoryTooltip(bigSelect);
-          this.updateCategoryTooltip(middleSelect);
-
-          if (slot.mode === "sequential") {
-            slot.sequentialIndex = 0;
-            const indexSpan = card.querySelector(".sequential-index");
-            if (indexSpan) {
-              indexSpan.textContent = "0";
-            }
-          }
-
-          await this.slotManager.saveToStorage();
-        });
-
-        middleSelect.addEventListener("change", async (e) => {
-          if (!slot.category) {
-            slot.category = {};
-          }
-          slot.category.middle = e.target.value;
-
-          this.updateCategoryTooltip(middleSelect);
-
-          if (slot.mode === "sequential") {
-            slot.sequentialIndex = 0;
-            const indexSpan = card.querySelector(".sequential-index");
-            if (indexSpan) {
-              indexSpan.textContent = "0";
-            }
-          }
-
-          await this.slotManager.saveToStorage();
-        });
-      }
-
-      updateCategoryTooltip(selectElement) {
-        if (!selectElement) return;
-
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        if (selectedOption && selectedOption.value) {
-          selectElement.title = selectedOption.text;
-        } else {
-          selectElement.title = "カテゴリーが選択されていません";
-        }
-      }
-
-      getCategoryOptions(type) {
-        if (type === "big") {
-          return this.categoryUIManager.getCategoriesByLevel(0, null);
-        }
-        return [];
-      }
-
-      updateMiddleCategories(select, bigCategory) {
-        this.categoryUIManager.populateSelectElement(select, 1, bigCategory, "すべて");
-      }
-
-      startGroupNameEdit(displayElement, editElement) {
-        this.isGroupEditing = true;
-
-        displayElement.style.display = "none";
-        editElement.style.display = "inline-block";
-        setTimeout(() => {
-          editElement.focus();
-          editElement.select();
-        }, 10);
-      }
-
-      startGroupDescriptionEdit(displayElement, editElement) {
-        this.isGroupEditing = true;
-
-        displayElement.style.display = "none";
-        editElement.style.display = "inline-block";
-        setTimeout(() => {
-          editElement.focus();
-          editElement.select();
-        }, 10);
-      }
-
-      async finishGroupNameEdit(groupId, displayElement, editElement) {
-        const newName = editElement.value.trim();
-
-        if (!newName) {
-          ErrorHandler.notify("グループ名を入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          editElement.focus();
-          return;
-        }
-
-        const groups = this.groupManager.getAllGroups();
-        const existingGroup = groups.find((g) => g.id !== groupId && g.name === newName);
-
-        if (existingGroup) {
-          ErrorHandler.notify("同じ名前のグループが既に存在します", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          editElement.focus();
-          return;
-        }
-
-        try {
-          await this.groupManager.updateGroup(groupId, { name: newName });
-
-          displayElement.textContent = newName;
-          displayElement.style.display = "block";
-          editElement.style.display = "none";
-
-          this.isGroupEditing = false;
-
-          this.updateGroupDisplay();
-
-          ErrorHandler.notify("グループ名を更新しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループ名の更新に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          this.cancelGroupEdit(displayElement, editElement, displayElement.textContent);
-        }
-      }
-
-      async finishGroupDescriptionEdit(groupId, displayElement, editElement) {
-        const newDescription = editElement.value.trim();
-
-        try {
-          await this.groupManager.updateGroup(groupId, { description: newDescription });
-
-          displayElement.textContent = newDescription || "説明なし";
-          displayElement.style.display = "block";
-          editElement.style.display = "none";
-
-          this.isGroupEditing = false;
-
-          this.updateGroupDisplay();
-
-          ErrorHandler.notify("グループ説明を更新しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループ説明の更新に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          this.cancelGroupEdit(displayElement, editElement, displayElement.textContent);
-        }
-      }
-
-      cancelGroupEdit(displayElement, editElement, originalValue) {
-        editElement.value = originalValue;
-        displayElement.style.display = "block";
-        editElement.style.display = "none";
-
-        this.isGroupEditing = false;
-      }
-
-      addSlotImportExportButtons() {
-        const currentGroup = this.groupManager.getCurrentGroup();
-        if (!currentGroup) return;
-
-        const existingContainer = document.getElementById("slot-import-export-container");
-        if (existingContainer) {
-          existingContainer.remove();
-        }
-
-        // スロット情報バーの後に配置するため、その要素を取得
-        const slotInfoBar = document.querySelector(".slot-info-bar");
-        if (!slotInfoBar) return;
-
-        const buttonContainer = document.createElement("div");
-        buttonContainer.id = "slot-import-export-container";
-        buttonContainer.className = "slot-import-export-container";
-        buttonContainer.style.cssText = "margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #eee;";
-
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.accept = ".json";
-        fileInput.style.display = "none";
-        fileInput.id = "slot-group-import-file";
-
-        const exportBtn = document.createElement("button");
-        exportBtn.className = "action-btn";
-        exportBtn.textContent = "エクスポート";
-        exportBtn.style.marginRight = "8px";
-        exportBtn.id = "slot-group-export-btn";
-        exportBtn.title = "現在のスロットグループをJSON形式でエクスポート（設定・スロット内容を含む）";
-
-        const importBtn = document.createElement("button");
-        importBtn.className = "action-btn";
-        importBtn.textContent = "インポート";
-        importBtn.id = "slot-group-import-btn";
-        importBtn.title = "JSONファイルからスロットグループをインポート（現在のグループに追加）";
-
-        buttonContainer.appendChild(fileInput);
-        buttonContainer.appendChild(exportBtn);
-        buttonContainer.appendChild(importBtn);
-
-        slotInfoBar.parentNode.insertBefore(buttonContainer, slotInfoBar.nextSibling);
-
-        this.setupSlotImportExportEvents(exportBtn, importBtn, fileInput);
-      }
-
-      setupSlotImportExportEvents(exportBtn, importBtn, fileInput) {
-        exportBtn.addEventListener("click", () => {
-          this.handleCurrentGroupExport();
-        });
-
-        importBtn.addEventListener("click", () => {
-          fileInput.click();
-        });
-
-        fileInput.addEventListener("change", async (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            await this.handleCurrentGroupImport(file);
-            event.target.value = ""; // ファイル選択をリセット
-          }
-        });
-      }
-
-      async handleCurrentGroupExport() {
-        try {
-          const currentGroup = this.groupManager.getCurrentGroup();
-          if (!currentGroup) {
-            ErrorHandler.notify("エクスポートするグループが見つかりません", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-            return;
-          }
-
-          await this.groupManager.saveCurrentGroupSlots();
-
-          const exportData = {
-            type: "singleSlotGroup",
-            version: "1.0",
-            exportDate: new Date().toISOString(),
-            group: {
-              id: currentGroup.id,
-              name: currentGroup.name,
-              description: currentGroup.description,
-            },
-            slots: currentGroup.slots.filter((slot) => slot.isUsed),
-          };
-
-          const filename = FileUtilities.generateTimestampedFilename(
-            `${EXPORT_FILE_NAMES.SLOT_GROUP_PREFIX}_${currentGroup.name}`,
-            "json"
-          );
-
-          await FileUtilities.downloadJSON(exportData, filename);
-
-          ErrorHandler.notify(`グループ「${currentGroup.name}」をエクスポートしました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループのエクスポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleCurrentGroupImport(file) {
-        try {
-          const currentGroup = this.groupManager.getCurrentGroup();
-          if (!currentGroup) {
-            ErrorHandler.notify("インポート先のグループが見つかりません", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-            return;
-          }
-
-          const data = await FileUtilities.readJSONFile(file);
-
-          if (!data || data.type !== "singleSlotGroup" || !data.slots) {
-            throw new Error("Invalid import data format");
-          }
-
-          const importedSlotData = {
-            version: "1.0",
-            slots: data.slots.map((slot, index) => ({
-              ...slot,
-              id: index, // IDを再割り当て
-            })),
-          };
-
-          await this.slotManager.importSlots(importedSlotData);
-
-          if (data.group.name && data.group.description) {
-            currentGroup.name = data.group.name;
-            currentGroup.description = data.group.description;
-            await this.groupManager.saveToStorage();
-          }
-
-          this.updateDisplay();
-          this.updateGroupDisplay();
-
-          ErrorHandler.notify(`グループ「${currentGroup.name}」にインポートしました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループのインポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
         }
       }
 
@@ -1344,11 +471,7 @@
         const usedSlots = this.slotManager.getUsedSlots();
 
         if (usedSlots.length === 0) {
-          ErrorHandler.notify("使用中のスロットがありません", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: 2000,
-          });
+          UIHelpers.notifyWarning("使用中のスロットがありません", 2000);
           return;
         }
 
@@ -1411,7 +534,8 @@
           charCountElement.textContent = combined.length;
         }
 
-        targetModal.style.display = "flex";
+        targetModal.classList.remove("hidden");
+        targetModal.classList.add("show-flex");
 
         const oldModal = targetModal.cloneNode(true);
         targetModal.parentNode.replaceChild(oldModal, targetModal);
@@ -1420,27 +544,26 @@
 
         newModal.addEventListener("click", (e) => {
           if (e.target === newModal) {
-            newModal.style.display = "none";
+            newModal.classList.remove("show-flex");
+            newModal.classList.add("hidden");
           }
         });
 
         document.getElementById(DOM_IDS.PANELS.CLOSE_PREVIEW).addEventListener("click", () => {
-          newModal.style.display = "none";
+          newModal.classList.remove("show-flex");
+          newModal.classList.add("hidden");
         });
 
         document.getElementById(DOM_IDS.BUTTONS.COPY_COMBINED).addEventListener("click", () => {
           navigator.clipboard.writeText(combined).then(() => {
-            ErrorHandler.notify("結合プロンプトをコピーしました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-              duration: 2000,
-            });
+            UIHelpers.notifySuccess("結合プロンプトをコピーしました", 2000);
           });
         });
 
         const handleEsc = (e) => {
           if (e.key === "Escape") {
-            newModal.style.display = "none";
+            newModal.classList.remove("show-flex");
+            newModal.classList.add("hidden");
             document.removeEventListener("keydown", handleEsc);
           }
         };
@@ -1448,9 +571,7 @@
       }
 
       async handleClearAll() {
-        const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
-
-        if (!shouldConfirm || confirm("すべてのスロットをクリアしますか？")) {
+        if (UIHelpers.confirmDelete("すべてのスロットをクリアしますか？")) {
           await this.slotManager.clearAllSlots();
           this.updateDisplay();
 
@@ -1476,9 +597,8 @@
           return;
         } else if (target.classList.contains("slot-clear-btn")) {
           const slotId = parseInt(target.dataset.slotId);
-          const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
 
-          if (!shouldConfirm || confirm("このスロットの内容をクリアしますか？")) {
+          if (UIHelpers.confirmDelete("このスロットの内容をクリアしますか？")) {
             await this.slotManager.clearSlot(slotId);
             this.updateDisplay();
 
@@ -1492,9 +612,8 @@
           }
         } else if (target.classList.contains("slot-delete-btn")) {
           const slotId = parseInt(target.dataset.slotId);
-          const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
 
-          if (!shouldConfirm || confirm("このスロットを削除しますか？")) {
+          if (UIHelpers.confirmDelete("このスロットを削除しますか？")) {
             await this.slotManager.deleteSlot(slotId);
             this.updateDisplay();
           }
@@ -1538,11 +657,7 @@
       async saveWeightEdit(slotId, newWeight) {
         try {
           if (isNaN(newWeight)) {
-            window.ErrorHandler?.notify("無効な重み値です", {
-              type: window.ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: 3000,
-            });
+            UIHelpers.notifyError("無効な重み値です", 3000);
             return;
           }
 
@@ -1561,11 +676,7 @@
 
           this.updateWeightDisplay(slotId, newWeight);
         } catch (error) {
-          window.ErrorHandler?.notify("重みの保存に失敗しました", {
-            type: window.ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: 3000,
-          });
+          UIHelpers.notifyError("重みの保存に失敗しました", 3000);
         }
       }
 
@@ -1609,7 +720,7 @@
               const slotIndex = this.slotManager.slots.findIndex((s) => s.id === slotId);
               updatedInfo.displayNumber = slotIndex + 1;
 
-              const newCard = this.createSlotCard(updatedInfo);
+              const newCard = this.cardBuilder.createSlotCard(updatedInfo);
               card.replaceWith(newCard);
             }
           }
@@ -1640,11 +751,7 @@
 
           this.updateDisplay();
         } catch (error) {
-          window.ErrorHandler?.notify("プロンプトの保存に失敗しました", {
-            type: window.ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: 3000,
-          });
+          UIHelpers.notifyError("プロンプトの保存に失敗しました", 3000);
         }
       }
 
@@ -1660,7 +767,8 @@
           indicator = this.createUpdateIndicator(slotCard);
         }
 
-        indicator.style.display = "inline-block";
+        indicator.classList.remove("hidden");
+        indicator.classList.add("show-inline-block");
 
         const extractionDisplay = slotCard.querySelector(".current-extraction-display");
         if (extractionDisplay) {
@@ -1692,7 +800,8 @@
         }
 
         setTimeout(() => {
-          indicator.style.display = "none";
+          indicator.classList.remove("show-inline-block");
+          indicator.classList.add("hidden");
         }, 500);
       }
 
@@ -1907,7 +1016,7 @@
 
         if (this.elements.groupManageBtn) {
           this.addEventListener(this.elements.groupManageBtn, "click", () => {
-            this.showGroupManagementModal();
+            this.slotTabGroupManager.showGroupManagementModal();
           });
         }
 
@@ -1915,75 +1024,71 @@
         const closeBtnFooter = document.getElementById("close-slot-group-management-footer");
         if (closeBtn) {
           this.addEventListener(closeBtn, "click", () => {
-            this.hideGroupManagementModal();
+            this.slotTabGroupManager.hideGroupManagementModal();
           });
         }
         if (closeBtnFooter) {
           this.addEventListener(closeBtnFooter, "click", () => {
-            this.hideGroupManagementModal();
+            this.slotTabGroupManager.hideGroupManagementModal();
           });
         }
 
         if (this.elements.groupModal) {
           this.addEventListener(this.elements.groupModal, "click", (e) => {
             if (e.target === this.elements.groupModal) {
-              this.hideGroupManagementModal();
+              this.slotTabGroupManager.hideGroupManagementModal();
             }
           });
         }
 
         if (this.elements.groupCreateBtn) {
           this.addEventListener(this.elements.groupCreateBtn, "click", async () => {
-            await this.handleCreateGroup();
+            await this.slotTabGroupManager.handleCreateGroup();
           });
         }
 
         if (this.elements.groupCopyBtn) {
           this.addEventListener(this.elements.groupCopyBtn, "click", async () => {
-            await this.handleCopyGroup();
+            await this.slotTabGroupManager.handleCopyGroup();
           });
         }
 
         if (this.elements.groupDeleteBtn) {
           this.addEventListener(this.elements.groupDeleteBtn, "click", async () => {
-            await this.handleDeleteGroup();
+            await this.slotTabGroupManager.handleDeleteGroup();
           });
         }
 
         if (this.elements.exportGroupBtn) {
           this.addEventListener(this.elements.exportGroupBtn, "click", async () => {
-            await this.handleExportGroup();
+            await this.slotTabGroupManager.handleExportGroup();
           });
         }
 
         if (this.elements.importGroupBtn) {
           this.addEventListener(this.elements.importGroupBtn, "click", async () => {
-            await this.handleImportGroup();
+            await this.slotTabGroupManager.handleImportGroup();
           });
         }
 
         const importAllBtn = document.getElementById("slot-group-import-all-btn");
         if (importAllBtn) {
           this.addEventListener(importAllBtn, "click", async () => {
-            await this.handleImportAll();
+            await this.slotTabGroupManager.handleImportAll();
           });
         }
 
         const exportAllBtn = document.getElementById("slot-group-export-all-btn");
         if (exportAllBtn) {
           this.addEventListener(exportAllBtn, "click", async () => {
-            await this.handleExportAll();
+            await this.slotTabGroupManager.handleExportAll();
           });
         }
 
         window.addEventListener("slotGroupChanged", (event) => {
           this.updateGroupDisplay();
 
-          ErrorHandler.notify(`グループ「${event.detail.groupName}」に切り替えました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
+          UIHelpers.notifySuccess(`グループ「${event.detail.groupName}」に切り替えました`);
         });
       }
 
@@ -2014,7 +1119,7 @@
         if (currentGroup) {
           description.textContent = currentGroup.description || "";
 
-          this.updateModalCurrentGroupInfo(currentGroup);
+          this.slotTabGroupManager.updateModalCurrentGroupInfo(currentGroup);
 
           if (this.elements.groupDeleteBtn) {
             this.elements.groupDeleteBtn.disabled = currentGroup.isDefault;
@@ -2022,608 +1127,6 @@
         }
       }
 
-      initModal() {
-        this.groupManagementModal = BaseModal.create(
-          "slot-group-management-modal",
-          "📁 スロットグループ管理",
-          `
-          <div class="current-group-info">
-            <h4>現在のグループ</h4>
-            <div class="current-group-details">
-              <strong id="current-group-name">-</strong>
-              <p id="current-group-description">-</p>
-            </div>
-          </div>
-          <div class="group-actions">
-            <button id="slot-group-create-btn" title="新しいスロットグループを作成（最大20グループまで）">➕ 新しいグループを作成</button>
-            <button id="slot-group-import-all-btn" title="JSONファイルから全グループデータをインポート（現在のデータは上書きされます）">📂 全体インポート</button>
-            <button id="slot-group-export-all-btn" title="全グループのスロットデータをJSON形式でエクスポート（バックアップ・共有用）">📤 全体エクスポート</button>
-          </div>
-          <div class="all-groups-section">
-            <h4>全グループ一覧</h4>
-            <div id="all-groups-list" class="all-groups-container"></div>
-          </div>
-        `,
-          {
-            closeOnBackdrop: true,
-            closeOnEsc: true,
-            showCloseButton: true,
-            showHeader: true,
-            showFooter: false, // フッターを非表示にし統一感を保つ
-            headerActions: [],
-            // footerActionsを削除（コンテンツ部分に存在するため）
-          }
-        );
-
-        this.groupManagementModal.onShow(() => {
-          this.updateModalCurrentGroupInfo();
-          this.updateAllGroupsList();
-        });
-      }
-
-      showGroupManagementModal() {
-        this.groupManagementModal.show();
-      }
-
-      hideGroupManagementModal() {
-        this.groupManagementModal.hide();
-      }
-
-      updateModalCurrentGroupInfo(group = null) {
-        const currentGroup = group || this.groupManager.getCurrentGroup();
-        if (!currentGroup) return;
-
-        const nameElement = document.getElementById("current-group-name");
-        const descriptionElement = document.getElementById("current-group-description");
-
-        if (nameElement) {
-          nameElement.textContent = currentGroup.name;
-        }
-        if (descriptionElement) {
-          descriptionElement.textContent = currentGroup.description || "説明なし";
-        }
-      }
-
-      updateAllGroupsList() {
-        if (this.isGroupEditing) {
-          return;
-        }
-
-        const listContainer = document.getElementById("all-groups-list");
-        if (!listContainer) return;
-
-        listContainer.innerHTML = "";
-        const groups = this.groupManager.getAllGroups();
-        const currentGroup = this.groupManager.getCurrentGroup();
-
-        groups.forEach((group) => {
-          const item = document.createElement("div");
-          item.className = `group-list-item ${group.id === currentGroup?.id ? "current" : ""}`;
-
-          item.innerHTML = `
-            <div class="group-item-info">
-              <div class="group-item-name-container">
-                <div class="group-item-name" data-group-id="${group.id}" title="ダブルクリックで名前を編集">${group.name}</div>
-                <input class="group-item-name-edit" data-group-id="${group.id}" value="${group.name}" style="display: none;">
-              </div>
-              <div class="group-item-description-container">
-                <div class="group-item-description" data-group-id="${group.id}" title="ダブルクリックで説明を編集">${group.description || "説明なし"}</div>
-                <input class="group-item-description-edit" data-group-id="${group.id}" value="${group.description || ""}" style="display: none;">
-              </div>
-            </div>
-            <div class="group-item-actions">
-              <button class="action-btn small-btn copy-btn" data-group-id="${group.id}" title="このグループをコピー">
-                📋
-              </button>
-              <button class="action-btn small-btn delete-btn" data-group-id="${group.id}" title="このグループを削除">
-                🗑️
-              </button>
-            </div>
-          `;
-
-          item.addEventListener("click", (e) => {
-            if (
-              e.target.closest(".group-item-actions") ||
-              e.target.classList.contains("group-item-name-edit") ||
-              e.target.classList.contains("group-item-description-edit")
-            ) {
-              return;
-            }
-
-            e.preventDefault();
-            e.stopPropagation();
-            const groupId = group.id;
-            this.switchToGroup(groupId);
-          });
-
-          const copyButton = item.querySelector(".copy-btn");
-          copyButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const groupId = e.target.dataset.groupId;
-            this.handleCopyGroup(groupId);
-          });
-
-          const deleteButton = item.querySelector(".delete-btn");
-          deleteButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const groupId = e.target.dataset.groupId;
-            this.handleDeleteGroup(groupId);
-          });
-
-          const nameDisplay = item.querySelector(".group-item-name");
-          const nameEdit = item.querySelector(".group-item-name-edit");
-
-          nameDisplay.addEventListener("dblclick", (e) => {
-            e.stopPropagation();
-            this.startGroupNameEdit(nameDisplay, nameEdit);
-          });
-
-          nameEdit.addEventListener("blur", async (e) => {
-            await this.finishGroupNameEdit(group.id, nameDisplay, nameEdit);
-          });
-
-          nameEdit.addEventListener("keydown", async (e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              await this.finishGroupNameEdit(group.id, nameDisplay, nameEdit);
-            } else if (e.key === "Escape") {
-              this.cancelGroupEdit(nameDisplay, nameEdit, group.name);
-            }
-          });
-
-          const descDisplay = item.querySelector(".group-item-description");
-          const descEdit = item.querySelector(".group-item-description-edit");
-
-          descDisplay.addEventListener("dblclick", (e) => {
-            e.stopPropagation();
-            this.startGroupDescriptionEdit(descDisplay, descEdit);
-          });
-
-          descEdit.addEventListener("blur", async () => {
-            await this.finishGroupDescriptionEdit(group.id, descDisplay, descEdit);
-          });
-
-          descEdit.addEventListener("keydown", async (e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              await this.finishGroupDescriptionEdit(group.id, descDisplay, descEdit);
-            } else if (e.key === "Escape") {
-              this.cancelGroupEdit(descDisplay, descEdit, group.description || "");
-            }
-          });
-
-          listContainer.appendChild(item);
-        });
-      }
-
-      async switchToGroup(groupId) {
-        if (this.isGroupEditing) {
-          return;
-        }
-
-        await this.groupManager.switchToGroup(groupId);
-        this.updateDisplay();
-        this.updateGroupDisplay();
-        this.updateAllGroupsList();
-      }
-
-      async handleCreateGroup() {
-        const name = prompt("新しいグループの名前を入力してください:");
-        if (!name || name.trim() === "") return;
-
-        const description = prompt("グループの説明を入力してください（省略可能）:") || "";
-
-        try {
-          const groupId = await this.groupManager.createGroup(name.trim(), description.trim());
-          this.updateGroupDisplay();
-
-          ErrorHandler.notify(`グループ「${name}」を作成しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループの作成に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleCopyGroup(groupId = null) {
-        const sourceGroup = groupId ? this.groupManager.getGroup(groupId) : this.groupManager.getCurrentGroup();
-        if (!sourceGroup) return;
-
-        const name = prompt(`「${sourceGroup.name}」のコピー名を入力してください:`, `${sourceGroup.name}のコピー`);
-        if (!name || name.trim() === "") return;
-
-        try {
-          const newGroupId = await this.groupManager.copyGroup(sourceGroup.id, name.trim());
-          this.updateGroupDisplay();
-          this.updateAllGroupsList();
-
-          ErrorHandler.notify(`グループ「${name}」をコピーしました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループのコピーに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleEditGroup(groupId = null) {
-        const targetGroup = groupId ? this.groupManager.getGroup(groupId) : this.groupManager.getCurrentGroup();
-        if (!targetGroup) return;
-
-        const name = prompt("グループ名を編集してください:", targetGroup.name);
-        if (!name || name.trim() === "") return;
-
-        const description = prompt("グループの説明を編集してください:", targetGroup.description || "");
-
-        try {
-          await this.groupManager.updateGroup(targetGroup.id, {
-            name: name.trim(),
-            description: description?.trim() || "",
-          });
-
-          this.updateGroupDisplay();
-          this.updateAllGroupsList();
-
-          ErrorHandler.notify(`グループ「${name}」を更新しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループの編集に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleDeleteGroup(groupId = null) {
-        const targetGroup = groupId ? this.groupManager.getGroup(groupId) : this.groupManager.getCurrentGroup();
-        if (!targetGroup) return;
-
-        if (targetGroup.isDefault) {
-          ErrorHandler.notify("デフォルトグループは削除できません", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          return;
-        }
-
-        const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
-        if (!shouldConfirm || confirm(`グループ「${targetGroup.name}」を削除しますか？`)) {
-          try {
-            await this.groupManager.deleteGroup(targetGroup.id);
-            this.updateDisplay();
-            this.updateGroupDisplay();
-            this.updateAllGroupsList();
-
-            ErrorHandler.notify(`グループ「${targetGroup.name}」を削除しました`, {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-              duration: NOTIFICATION_DURATION.SHORT,
-            });
-          } catch (error) {
-            ErrorHandler.notify("グループの削除に失敗しました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-          }
-        }
-      }
-
-      async handleExportGroup() {
-        const currentGroup = this.groupManager.getCurrentGroup();
-        if (!currentGroup) return;
-
-        try {
-          const exportData = this.groupManager.exportGroup(currentGroup.id);
-          const filename = FileUtilities.generateTimestampedFilename(
-            `${EXPORT_FILE_NAMES.SLOT_GROUP_PREFIX}_${currentGroup.name}`,
-            "json"
-          );
-
-          await FileUtilities.downloadJSON(exportData, filename);
-
-          ErrorHandler.notify(`グループ「${currentGroup.name}」をエクスポートしました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループのエクスポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleImportGroup() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = ".json";
-
-        input.addEventListener("change", async (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-
-          try {
-            const text = await file.text();
-            const data = JSON.parse(text);
-
-            const groupName = prompt(
-              "インポートするグループの名前を入力してください:",
-              data.group?.name || "インポートしたグループ"
-            );
-            if (!groupName || groupName.trim() === "") return;
-
-            await this.groupManager.importGroup(data, groupName.trim());
-            this.updateGroupDisplay();
-
-            ErrorHandler.notify(`グループ「${groupName}」をインポートしました`, {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-              duration: NOTIFICATION_DURATION.SHORT,
-            });
-          } catch (error) {
-            ErrorHandler.notify("グループのインポートに失敗しました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-          }
-        });
-
-        input.click();
-      }
-
-      async handleImportToGroup(groupId) {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = ".json";
-
-        input.addEventListener("change", async (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-
-          try {
-            const text = await file.text();
-            const data = JSON.parse(text);
-
-            const targetGroup = this.groupManager.getGroup(groupId);
-            if (!targetGroup) {
-              ErrorHandler.notify("指定されたグループが見つかりません", {
-                type: ErrorHandler.NotificationType.TOAST,
-                messageType: "error",
-                duration: NOTIFICATION_DURATION.MEDIUM,
-              });
-              return;
-            }
-
-            const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
-            if (
-              shouldConfirm &&
-              !confirm(`グループ「${targetGroup.name}」にインポートしますか？\n現在のスロットデータは上書きされます。`)
-            ) {
-              return;
-            }
-
-            if (data.type === "singleSlotGroup" && data.group && data.slots) {
-              await this.groupManager.switchToGroup(groupId);
-
-              await this.slotManager.clearAllSlots();
-
-              for (const slot of data.slots) {
-                await this.slotManager.setSlot(slot.id, slot.prompt, slot.elements);
-              }
-
-              if (data.group.name && data.group.description) {
-                const group = this.groupManager.groups.find((g) => g.id === groupId);
-                if (group) {
-                  group.name = data.group.name;
-                  group.description = data.group.description;
-                  await this.groupManager.saveToStorage();
-                }
-              }
-            } else {
-              throw new Error("Invalid import data format");
-            }
-            this.updateDisplay();
-            this.updateGroupDisplay();
-            this.updateAllGroupsList();
-
-            ErrorHandler.notify(`グループ「${targetGroup.name}」にインポートしました`, {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-              duration: NOTIFICATION_DURATION.SHORT,
-            });
-          } catch (error) {
-            ErrorHandler.notify("グループのインポートに失敗しました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-          }
-        });
-
-        input.click();
-      }
-
-      async handleExportSpecificGroup(groupId) {
-        const targetGroup = this.groupManager.getGroup(groupId);
-        if (!targetGroup) {
-          ErrorHandler.notify("指定されたグループが見つかりません", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-          return;
-        }
-
-        try {
-          const groupSlots = targetGroup.slots || [];
-
-          const exportData = {
-            type: "singleSlotGroup",
-            version: "1.0",
-            exportDate: new Date().toISOString(),
-            group: {
-              id: targetGroup.id,
-              name: targetGroup.name,
-              description: targetGroup.description,
-            },
-            slots: groupSlots.filter((slot) => slot.isUsed),
-          };
-          const filename = FileUtilities.generateTimestampedFilename(
-            `${EXPORT_FILE_NAMES.SLOT_GROUP_PREFIX}_${targetGroup.name}`,
-            "json"
-          );
-
-          await FileUtilities.downloadJSON(exportData, filename);
-
-          ErrorHandler.notify(`グループ「${targetGroup.name}」をエクスポートしました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("グループのエクスポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
-
-      async handleImportAll() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = ".json";
-
-        input.addEventListener("change", async (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-
-          try {
-            const text = await file.text();
-            const data = JSON.parse(text);
-
-            if (!data || data.type !== "allSlotGroups") {
-              throw new Error("無効なファイル形式です。全体エクスポートファイルを選択してください。");
-            }
-
-            const shouldConfirm = AppState.userSettings.optionData?.isDeleteCheck !== false;
-            if (
-              shouldConfirm &&
-              !confirm("全グループをインポートしますか？\n現在のすべてのスロットデータは上書きされます。")
-            ) {
-              return;
-            }
-
-            if (data.type === "allSlotGroups" && data.groups) {
-              if (!(this.groupManager.groups instanceof Map)) {
-                throw new Error("グループマネージャーが正しく初期化されていません");
-              }
-
-              const defaultGroup = Array.from(this.groupManager.groups.values()).find((g) => g.isDefault);
-              const newGroups = new Map();
-              if (defaultGroup) {
-                newGroups.set(defaultGroup.id, defaultGroup);
-              }
-
-              if (!Array.isArray(data.groups)) {
-                throw new Error("グループデータは配列形式である必要があります");
-              }
-
-              for (const group of data.groups) {
-                if (!group.isDefault && group.id) {
-                  newGroups.set(group.id, group);
-                } else if (group.isDefault) {
-                  if (defaultGroup) {
-                    defaultGroup.slots = group.slots;
-                    defaultGroup.name = group.name;
-                    defaultGroup.description = group.description;
-                  }
-                }
-              }
-
-              this.groupManager.groups = newGroups;
-
-              if (data.currentGroupId) {
-                this.groupManager.currentGroupId = data.currentGroupId;
-              }
-
-              await this.groupManager.saveToStorage();
-
-              await this.groupManager.loadGroupSlots(this.groupManager.currentGroupId);
-            } else {
-              throw new Error("Invalid import data format");
-            }
-            this.updateDisplay();
-            this.updateGroupDisplay();
-            this.updateAllGroupsList();
-
-            ErrorHandler.notify("全グループをインポートしました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-              duration: NOTIFICATION_DURATION.SHORT,
-            });
-
-            this.hideGroupManagementModal();
-          } catch (error) {
-            ErrorHandler.notify(error.message || "全体インポートに失敗しました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "error",
-              duration: NOTIFICATION_DURATION.MEDIUM,
-            });
-          }
-        });
-
-        input.click();
-      }
-
-      async handleExportAll() {
-        try {
-          const exportData = {
-            type: "allSlotGroups",
-            version: "1.0",
-            exportDate: new Date().toISOString(),
-            groups: Array.from(this.groupManager.groups.values()), // MapをArrayに変換
-            currentGroupId: this.groupManager.currentGroupId,
-          };
-          const filename = FileUtilities.generateTimestampedFilename(EXPORT_FILE_NAMES.ALL_SLOT_GROUPS, "json");
-
-          await FileUtilities.downloadJSON(exportData, filename);
-
-          ErrorHandler.notify("全グループをエクスポートしました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: NOTIFICATION_DURATION.SHORT,
-          });
-        } catch (error) {
-          ErrorHandler.notify("全体エクスポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-            duration: NOTIFICATION_DURATION.MEDIUM,
-          });
-        }
-      }
 
       adjustContainerHeight() {
         const container = this.elements.container;

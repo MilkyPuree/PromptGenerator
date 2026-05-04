@@ -1,4 +1,17 @@
 const Storage = {
+  _handleCallback(resolve, reject, result, allowContextInvalidated = true) {
+    if (chrome.runtime.lastError) {
+      const error = chrome.runtime.lastError;
+      if (allowContextInvalidated && error.message?.includes("context invalidated")) {
+        resolve(result);
+      } else {
+        reject(new Error(error.message));
+      }
+    } else {
+      resolve(result);
+    }
+  },
+
   isContextValid() {
     try {
       return chrome.runtime && chrome.runtime.id;
@@ -15,11 +28,7 @@ const Storage = {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.get(keys, (result) => {
-          if (chrome.runtime.lastError) {
-            reject(new Error(chrome.runtime.lastError.message));
-          } else {
-            resolve(result);
-          }
+          Storage._handleCallback(resolve, reject, result, false);
         });
       } catch (error) {
         resolve({});
@@ -35,16 +44,7 @@ const Storage = {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.set(items, () => {
-          if (chrome.runtime.lastError) {
-            const error = chrome.runtime.lastError;
-            if (error.message.includes("context invalidated")) {
-              resolve(); // エラーではなく正常終了として扱う
-            } else {
-              reject(new Error(error.message));
-            }
-          } else {
-            resolve();
-          }
+          Storage._handleCallback(resolve, reject, undefined);
         });
       } catch (error) {
         resolve(); // エラーではなく正常終了として扱う
@@ -60,16 +60,7 @@ const Storage = {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.remove(keys, () => {
-          if (chrome.runtime.lastError) {
-            const error = chrome.runtime.lastError;
-            if (error.message.includes("context invalidated")) {
-              resolve();
-            } else {
-              reject(new Error(error.message));
-            }
-          } else {
-            resolve();
-          }
+          Storage._handleCallback(resolve, reject, undefined);
         });
       } catch (error) {
         resolve();
@@ -85,16 +76,7 @@ const Storage = {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.clear(() => {
-          if (chrome.runtime.lastError) {
-            const error = chrome.runtime.lastError;
-            if (error.message.includes("context invalidated")) {
-              resolve();
-            } else {
-              reject(new Error(error.message));
-            }
-          } else {
-            resolve();
-          }
+          Storage._handleCallback(resolve, reject, undefined);
         });
       } catch (error) {
         resolve();
@@ -119,16 +101,7 @@ const Storage = {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.getBytesInUse(keys, (bytesInUse) => {
-          if (chrome.runtime.lastError) {
-            const error = chrome.runtime.lastError;
-            if (error.message.includes("context invalidated")) {
-              resolve({ bytesInUse: 0 });
-            } else {
-              reject(new Error(error.message));
-            }
-          } else {
-            resolve({ bytesInUse });
-          }
+          Storage._handleCallback(resolve, reject, { bytesInUse: bytesInUse || 0 });
         });
       } catch (error) {
         resolve({ bytesInUse: 0 });

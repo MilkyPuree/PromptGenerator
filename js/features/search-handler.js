@@ -209,7 +209,7 @@ class SearchHandler {
           safeTranslatedText = String(translatedText || "");
         }
 
-        const isAlphanumeric = /^[a-zA-Z0-9\s:]+$/.test(safeKeyword);
+        const isAlphanumeric = !/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]/.test(safeKeyword);
 
         // data配列の各要素も文字列であることを保証
         const ensureString = (value) => {

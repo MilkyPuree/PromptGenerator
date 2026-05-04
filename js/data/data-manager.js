@@ -205,11 +205,13 @@ function validateAndActivateGenerateButton() {
     const isSDMode = (optionData && optionData.shaping === "SD") || currentURL === "http://127.0.0.1:7860/";
 
     if (hasSelectors || isSDMode) {
-      generateButton.style.display = "block";
+      generateButton.classList.remove("hidden");
+      generateButton.classList.add("show-block");
       generateButton.style.opacity = "1";
       generateButton.title = "";
     } else {
-      generateButton.style.display = "block";
+      generateButton.classList.remove("hidden");
+      generateButton.classList.add("show-block");
       generateButton.style.opacity = "1";
       generateButton.title =
         "セレクター設定を確認してください。その他タブでプロンプト入力欄とGenerateボタンのセレクターを設定する必要があります。";

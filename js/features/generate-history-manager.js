@@ -92,13 +92,7 @@ class GenerateHistoryManager {
         window.autoGenerateHandler.isInfiniteMode = newCount === 0;
         window.autoGenerateHandler.saveSettings();
 
-        if (window.ErrorHandler) {
-          window.ErrorHandler.notify(`生成回数を${newCount === 0 ? "無限" : newCount + "回"}に設定しました`, {
-            type: window.ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: 2000,
-          });
-        }
+        UIHelpers.notifySuccess(`生成回数を${newCount === 0 ? "無限" : newCount + "回"}に設定しました`, 2000);
       }
     } catch (error) {}
   }
@@ -119,13 +113,7 @@ class GenerateHistoryManager {
         window.autoGenerateHandler.generateInterval = newInterval * 1000;
         window.autoGenerateHandler.saveSettings();
 
-        if (window.ErrorHandler) {
-          window.ErrorHandler.notify(`生成間隔を${newInterval}秒に設定しました`, {
-            type: window.ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: 2000,
-          });
-        }
+        UIHelpers.notifySuccess(`生成間隔を${newInterval}秒に設定しました`, 2000);
       }
     } catch (error) {}
   }
@@ -370,13 +358,21 @@ class GenerateHistoryManager {
     }
 
     if (this.history.length === 0) {
-      if (emptyMessage) emptyMessage.style.display = "flex";
-      historyList.style.display = "none";
+      if (emptyMessage) {
+        emptyMessage.classList.remove("hidden");
+        emptyMessage.classList.add("show-flex");
+      }
+      historyList.classList.add("hidden");
+      historyList.classList.remove("show-block");
       return;
     }
 
-    if (emptyMessage) emptyMessage.style.display = "none";
-    historyList.style.display = "block";
+    if (emptyMessage) {
+      emptyMessage.classList.remove("show-flex");
+      emptyMessage.classList.add("hidden");
+    }
+    historyList.classList.remove("hidden");
+    historyList.classList.add("show-block");
 
     historyList.innerHTML = this.history.map((item) => this.createHistoryItemHTML(item)).join("");
   }
@@ -461,24 +457,12 @@ class GenerateHistoryManager {
 
     this.executeDirectGenerate(item.prompt);
 
-    if (window.ErrorHandler) {
-      window.ErrorHandler.notify("履歴プロンプトを再実行しました", {
-        type: window.ErrorHandler.NotificationType.TOAST,
-        messageType: "success",
-        duration: 2000,
-      });
-    }
+    UIHelpers.notifySuccess("履歴プロンプトを再実行しました", 2000);
   }
 
   autoRerunGenerate(item) {
     if (!window.autoGenerateHandler) {
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("自動Generate機能が利用できません", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "error",
-          duration: 3000,
-        });
-      }
+      UIHelpers.notifyError("自動Generate機能が利用できません", 3000);
       return;
     }
 
@@ -501,13 +485,7 @@ class GenerateHistoryManager {
       window.autoGenerateHandler.start();
     }
 
-    if (window.ErrorHandler) {
-      window.ErrorHandler.notify("履歴プロンプトで自動生成を開始しました", {
-        type: window.ErrorHandler.NotificationType.TOAST,
-        messageType: "success",
-        duration: 2000,
-      });
-    }
+    UIHelpers.notifySuccess("履歴プロンプトで自動生成を開始しました", 2000);
   }
 
   executeDirectGenerate(prompt) {
@@ -541,21 +519,9 @@ class GenerateHistoryManager {
     try {
       await navigator.clipboard.writeText(item.prompt);
 
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("プロンプトをコピーしました", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "success",
-          duration: 2000,
-        });
-      }
+      UIHelpers.notifySuccess("プロンプトをコピーしました", 2000);
     } catch (error) {
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("コピーに失敗しました", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "error",
-          duration: 2000,
-        });
-      }
+      UIHelpers.notifyError("コピーに失敗しました", 2000);
     }
   }
 
@@ -576,7 +542,6 @@ class GenerateHistoryManager {
       currentSlot.lastModified = Date.now();
       currentSlot.mode = "normal"; // 通常モードに設定
 
-      // TODO: PromptEditor削除済み - スロットに直接設定
       const generatePrompt = document.getElementById("GeneratePrompt");
       if (generatePrompt) {
         generatePrompt.value = item.prompt;
@@ -612,22 +577,10 @@ class GenerateHistoryManager {
         });
       }
 
-      if (window.ErrorHandler) {
-        const slotNumber = window.promptSlotManager.currentSlot + 1;
-        window.ErrorHandler.notify(`スロット${slotNumber}に保存しました`, {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "success",
-          duration: 2000,
-        });
-      }
+      const slotNumber = window.promptSlotManager.currentSlot + 1;
+      UIHelpers.notifySuccess(`スロット${slotNumber}に保存しました`, 2000);
     } catch (error) {
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("スロット保存に失敗しました", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "error",
-          duration: 2000,
-        });
-      }
+      UIHelpers.notifyError("スロット保存に失敗しました", 2000);
     }
   }
 
@@ -639,25 +592,13 @@ class GenerateHistoryManager {
       await this.saveToStorage();
       this.updateHistoryDisplay();
 
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("履歴をクリアしました", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "success",
-          duration: 2000,
-        });
-      }
+      UIHelpers.notifySuccess("履歴をクリアしました", 2000);
     }
   }
 
   async exportHistory() {
     if (this.history.length === 0) {
-      if (window.ErrorHandler) {
-        window.ErrorHandler.notify("エクスポートする履歴がありません", {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "warning",
-          duration: 2000,
-        });
-      }
+      UIHelpers.notifyWarning("エクスポートする履歴がありません", 2000);
       return;
     }
 

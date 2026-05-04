@@ -27,6 +27,22 @@ button.resist {
   display: none !important;
 }
 
+.show-flex {
+  display: flex !important;
+}
+
+.show-block {
+  display: block !important;
+}
+
+.show-inline {
+  display: inline !important;
+}
+
+.show-inline-block {
+  display: inline-block !important;
+}
+
 .text-center {
   text-align: center !important;
 }
@@ -463,7 +479,84 @@ summary:hover {
   }
 }
 
+/* ErrorHandler: トースト関連 */
+.toast-no-outline {
+  outline: none;
+}
+
+.toast-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.toast-message {
+  flex: 1;
+}
+
+/* ErrorHandler: インラインエラーメッセージ */
+.inline-error-message {
+  color: var(--accent-danger);
+  font-size: 12px;
+  margin-top: var(--spacing-xs);
+  animation: errorFadeIn 0.3s ease-in;
+}
+
+.inline-error-message.fade-out {
+  animation: errorFadeOut 0.3s ease-out;
+}
+
+/* ErrorHandler: エラー強調ボーダー */
+.error-highlight-border {
+  border-color: var(--accent-danger) !important;
+}
+
+/* ErrorHandler: ローディングオーバーレイ */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.loading-overlay.visible {
+  opacity: 1;
+}
+
+.loading-spinner-box {
+  color: #fff;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px 30px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
 /* アニメーション */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -476,6 +569,24 @@ summary:hover {
 }
 
 @keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes errorFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes errorFadeOut {
   from {
     opacity: 1;
   }

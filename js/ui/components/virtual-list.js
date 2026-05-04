@@ -432,7 +432,7 @@ class VirtualList {
 
     inputs.forEach((input) => {
       if (input.customDropdown) {
-        input.customDropdown.destroy();
+        UIUtilities.destroyDropdown(input);
         destroyedDropdowns++;
       }
 

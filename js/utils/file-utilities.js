@@ -59,7 +59,7 @@ class FileUtilities {
           document.body.removeChild(anchor);
 
           const fileType = filename.split(".").pop()?.toUpperCase() || "ファイル";
-          ErrorHandler.showToast(`${fileType}ファイルをダウンロードしました`, UI_DELAYS.LONG, "success");
+          UIHelpers.notifySuccess(`${fileType}ファイルをダウンロードしました`, UI_DELAYS.LONG);
         } finally {
           // メモリリークを防ぐために必ずURLを解放
           URL.revokeObjectURL(url);

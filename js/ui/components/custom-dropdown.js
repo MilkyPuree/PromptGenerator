@@ -79,8 +79,8 @@ class CustomDropdown {
   init() {
     dropdownManager.init();
 
-    if (this.inputElement.customDropdown && this.inputElement.customDropdown !== this) {
-      this.inputElement.customDropdown.destroy();
+    if (this.inputElement.customDropdown !== this) {
+      UIUtilities.destroyDropdown(this.inputElement);
     }
 
     this.inputElement.setAttribute("autocomplete", "off");

@@ -13,26 +13,6 @@ class EditHandler {
     this.translationCache = new Map();
   }
 
-  /**
-   * 現在のスロットを取得
-   */
-  getCurrentSlot() {
-    return window.promptSlotManager?.slots?.[window.promptSlotManager?.currentSlot] || null;
-  }
-
-  /**
-   * スロットのelementsをソートして取得
-   */
-  getSortedElements() {
-    const currentSlot = this.getCurrentSlot();
-    if (!currentSlot || !currentSlot.elements) {
-      return [];
-    }
-    return currentSlot.elements
-      .filter((el) => el != null)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
-  }
-
   handleUITypeChange(event) {
     const selectedValue = event.target.value;
     AppState.userSettings.optionData.shaping = selectedValue;
@@ -55,20 +35,15 @@ class EditHandler {
   }
 
   initializeEditMode() {
-    if (typeof promptSlotManager !== "undefined" && promptSlotManager.slots) {
-      const currentSlot = promptSlotManager.slots[promptSlotManager.currentSlot];
-      if (currentSlot && (currentSlot.mode === "random" || currentSlot.mode === "sequential")) {
-        return;
-      }
+    const currentSlot = SlotUtils.getCurrentSlot();
+    if (currentSlot && (currentSlot.mode === "random" || currentSlot.mode === "sequential")) {
+      return;
     }
 
     let currentPrompt = "";
 
-    if (window.promptSlotManager && window.promptSlotManager.slots) {
-      const currentSlot = window.promptSlotManager.slots[window.promptSlotManager.currentSlot];
-      if (currentSlot && currentSlot.prompt) {
-        currentPrompt = currentSlot.prompt;
-      }
+    if (currentSlot && currentSlot.prompt) {
+      currentPrompt = currentSlot.prompt;
     }
 
     // スロットが空の場合のみGeneratePromptフィールドを参照（後方互換性）
@@ -142,7 +117,7 @@ class EditHandler {
           await window.categoryDataSync.syncAllSources(elementId, currentCategoryData, {
             caller: "edit-handler-existing-data",
           });
-          return; // 処理完了
+          return;
         }
       }
     }
@@ -153,15 +128,12 @@ class EditHandler {
     if (window.CategoryUIManager) {
       const categoryUIManager = new CategoryUIManager();
 
-      // まず日本語小項目で検索（英語プロンプトを取得するため）
       const jpResult = categoryUIManager.findByJapaneseSmallCategory(promptValue);
 
       if (jpResult) {
-        // 日本語入力でマッチした場合
         category = jpResult.data;
         englishPrompt = jpResult.prompt;
       } else {
-        // 日本語で見つからない場合、英語プロンプトで検索
         category = categoryUIManager.findCategoryByPrompt(promptValue);
       }
     }
@@ -172,7 +144,7 @@ class EditHandler {
         element.Value = englishPrompt;
 
         // スロットの要素も更新
-        const currentSlot = this.getCurrentSlot();
+        const currentSlot = SlotUtils.getCurrentSlot();
         const slotElement = currentSlot?.elements?.find((el) => el.id === elementId);
         if (slotElement) {
           slotElement.Value = englishPrompt;
@@ -184,29 +156,11 @@ class EditHandler {
             DOM_SELECTORS.BY_ID.EDIT_LIST,
             elementId,
             { prompt: englishPrompt },
-            { preserveFocus: true, preventEvents: true }
+            { preserveFocus: true, preventEvents: true, searchMode: "id" }
           );
         }
 
-        // スロットのpromptを再生成して保存
-        if (currentSlot) {
-          const sortedElements = (currentSlot.elements || [])
-            .filter((el) => el != null)
-            .sort((a, b) => (a.sort || 0) - (b.sort || 0));
-          currentSlot.prompt = sortedElements
-            .map((el) => el.Value || "")
-            .filter((v) => v)
-            .join(",");
-
-          // GeneratePromptフィールドも更新
-          const generatePromptField = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-          if (generatePromptField) {
-            generatePromptField.value = currentSlot.prompt;
-          }
-
-          currentSlot.lastModified = Date.now();
-          await window.promptSlotManager?.saveToStorage();
-        }
+        await SlotUtils.regenerateAndSaveSlot();
       }
 
       if (elementId !== undefined && window.categoryDataSync) {
@@ -232,7 +186,7 @@ class EditHandler {
 
       if (this.translationCache.has(prompt)) {
         const cachedResult = this.translationCache.get(prompt);
-        const isAlphanumeric = /^[a-zA-Z0-9\s:]+$/.test(prompt);
+        const isAlphanumeric = !/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]/.test(prompt);
         if (isAlphanumeric) {
           element.data = [TRANSLATION_STATES.COMPLETED, TRANSLATION_STATES.SOURCES.GOOGLE, cachedResult];
         } else {
@@ -248,13 +202,12 @@ class EditHandler {
         const isTyping = isInitialization ? false : this.isUserCurrentlyTyping();
 
         if (!isTyping) {
-          const elements = this.getSortedElements();
-          const currentSlot = this.getCurrentSlot();
+          const elements = SlotUtils.getSortedElements();
+          const currentSlot = SlotUtils.getCurrentSlot();
           if (elements.length > 0 && currentSlot) {
             elements.forEach((el) => {
               const elPromptValue = (el.Value || "").toLowerCase().trim();
               if (elPromptValue === prompt) {
-                // スロットの要素を直接更新
                 const slotElement = currentSlot.elements?.find((sEl) => sEl.id === el.id);
                 if (slotElement) {
                   slotElement.data = [...TRANSLATION_STATES.IN_PROGRESS];
@@ -296,8 +249,8 @@ class EditHandler {
           this.translationCache.set(prompt, translatedText);
 
           const matchingElements = [];
-          const elements = this.getSortedElements();
-          const currentSlot = this.getCurrentSlot();
+          const elements = SlotUtils.getSortedElements();
+          const currentSlot = SlotUtils.getCurrentSlot();
           if (elements.length > 0) {
             elements.forEach((el, index) => {
               const elPromptValue = (el.Value || "").toLowerCase().trim();
@@ -308,7 +261,7 @@ class EditHandler {
           }
 
           if (matchingElements.length > 0 && window.editElementManager) {
-            const isAlphanumeric = /^[a-zA-Z0-9\s:]+$/.test(prompt);
+            const isAlphanumeric = !/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]/.test(prompt);
             const translationResultData = {
               isAlphanumeric,
               translatedText,
@@ -345,7 +298,7 @@ class EditHandler {
             element.data = ["翻訳失敗", "エラー", ""];
 
             // スロットの要素を直接更新
-            const currentSlot = this.getCurrentSlot();
+            const currentSlot = SlotUtils.getCurrentSlot();
             const slotElement = currentSlot?.elements?.find((el) => el.id === element.id);
             if (slotElement) {
               slotElement.data = element.data;
@@ -365,7 +318,7 @@ class EditHandler {
         element.data = ["翻訳エラー", "システムエラー", ""];
 
         // スロットの要素を直接更新
-        const currentSlot = this.getCurrentSlot();
+        const currentSlot = SlotUtils.getCurrentSlot();
         const slotElement = currentSlot?.elements?.find((el) => el.id === element.id);
         if (slotElement) {
           slotElement.data = element.data;

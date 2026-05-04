@@ -1,48 +1,26 @@
-class AutoGenerateHandler {
+class AutoGenerateHandler extends GenerateHandlerBase {
   constructor() {
-    this.isRunning = false;
+    super({ toggleButtonId: DOM_IDS.OTHER.AUTO_GENERATE });
     this.currentCount = 0;
     this.targetCount = AUTO_GENERATE.DEFAULT_COUNT;
-    this.checkInterval = null;
-    this.generateInterval = AUTO_GENERATE.DEFAULT_INTERVAL; // 生成間隔（ミリ秒）
-    this.lastGenerateTime = null;
-    this.waitingForComplete = false;
     this.isInfiniteMode = false;
-    this.isInternalClick = false; // 内部クリックフラグ
-    this.historyPrompt = null; // 履歴プロンプト（連続実行用）
-
-    this.progressInterval = null;
-    this.waitStartTime = null;
-    this.waitDuration = 0;
-
-    // デバウンス処理用（根本修正により不要だが、安全のため残す）
-    this.lastClickTime = 0;
-    this.clickDebounceDelay = 200; // 200msに短縮（誤クリック防止のみ）
+    this.historyPrompt = null;
   }
 
   async init() {
     const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-
-    if (!generateButton) {
-      return;
-    }
+    if (!generateButton) return;
 
     await this.loadSettings();
-
     this.setupProgressUI();
-
     this.attachEventListeners();
   }
 
   setupProgressUI() {
-    if (document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS)) {
-      return;
-    }
+    if (document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS)) return;
 
     const generateHistoryButton = document.getElementById("show-generate-history");
-    if (!generateHistoryButton) {
-      return;
-    }
+    if (!generateHistoryButton) return;
 
     const progress = document.createElement("span");
     progress.id = "autoGenerateProgress";
@@ -59,392 +37,96 @@ class AutoGenerateHandler {
   }
 
   attachEventListeners() {
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle) {
-      if (this.boundClickHandler) {
-        autoGenerateToggle.removeEventListener("click", this.boundClickHandler);
+    const toggle = document.getElementById(this.toggleButtonId);
+    if (!toggle) return;
+
+    if (this.boundClickHandler) {
+      toggle.removeEventListener("click", this.boundClickHandler);
+    }
+
+    this.boundClickHandler = async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      const currentTime = Date.now();
+      if (currentTime - this.lastClickTime < this.clickDebounceDelay) return;
+      this.lastClickTime = currentTime;
+
+      const isActive = toggle.classList.contains("active");
+
+      if (isActive) {
+        this.stop();
+      } else {
+        try {
+          await this.start();
+          this.updateToggleButtonState(true);
+        } catch (error) {
+          this.updateToggleButtonState(false);
+        }
       }
 
-      this.boundClickHandler = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
+      setTimeout(() => {
+        if (!this.isRunning) return;
 
-        const currentTime = Date.now();
-        if (currentTime - this.lastClickTime < this.clickDebounceDelay) {
-          return;
+        const finalButtonState = toggle.classList.contains("active");
+        if (finalButtonState !== this.isRunning && this.isRunning) {
+          this.updateToggleButtonState(this.isRunning);
         }
-        this.lastClickTime = currentTime;
+      }, 100);
+    };
 
-        const isActive = autoGenerateToggle.classList.contains("active");
-
-        if (isActive) {
-          this.stop();
-        } else {
-          try {
-            await this.start();
-            this.updateToggleButtonState(true);
-          } catch (error) {
-            this.updateToggleButtonState(false);
-          }
-        }
-
-        setTimeout(() => {
-          if (!this.isRunning) {
-            return;
-          }
-
-          const finalButtonState = autoGenerateToggle.classList.contains("active");
-          const finalRunningState = this.isRunning;
-
-          if (finalButtonState !== finalRunningState && finalRunningState) {
-            this.updateToggleButtonState(finalRunningState);
-          }
-        }, 100);
-      };
-
-      autoGenerateToggle.addEventListener("click", this.boundClickHandler);
-    }
+    toggle.addEventListener("click", this.boundClickHandler);
   }
 
-  async start() {
-    if (this.isRunning) {
-      return;
-    }
+  resetCounter() { this.currentCount = 0; }
+  incrementCounter() { this.currentCount++; }
 
-    const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-    if (!generateButton) {
-      ErrorHandler.notify("Generateボタンが見つかりません。", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-        duration: NOTIFICATION_DURATION.LONG,
-      });
-      throw new Error("Generate button not found");
-    }
-
-    await this.loadSettings();
-
-    generateButton.classList.add("auto-generating");
-
-    this.isRunning = true;
-    this.currentCount = 0;
-    this.waitingForComplete = false;
-
-    // Generate設定モーダル経由で操作するため、DOM要素は参照しない
-    this.showProgress();
-    this.updateProgress();
-
-    await this.generate();
-
-    this.checkInterval = setInterval(() => {
-      this.checkGenerateStatus();
-    }, AUTO_GENERATE.CHECK_INTERVAL);
+  isGenerationComplete() {
+    return !this.isInfiniteMode && this.currentCount >= this.targetCount;
   }
 
-  stop() {
-    if (!this.isRunning) {
-      return;
-    }
-
-    this.isRunning = false;
-    this.waitingForComplete = false;
-
-    if (this.checkInterval) {
-      clearInterval(this.checkInterval);
-      this.checkInterval = null;
-    }
-
-    this.historyPrompt = null;
-
-    this.stopWaitProgress();
-
-    this.hideProgress();
-    this.updateToggleButtonState(false);
-
-    const message = this.isInfiniteMode
-      ? `自動生成を停止しました（${this.currentCount}回生成）`
-      : `自動生成を停止しました（${this.currentCount}/${this.targetCount}回完了）`;
-
-    ErrorHandler.notify(message, {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "info",
-      duration: NOTIFICATION_DURATION.MEDIUM,
-    });
-
-    const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-    if (generateButton) {
-      generateButton.classList.remove("auto-generating");
-    }
+  getDefaultProgressText() {
+    return this.isInfiniteMode
+      ? `自動生成中: ${this.currentCount}回`
+      : `自動生成中: ${this.currentCount}/${this.targetCount}`;
   }
 
-  async generate() {
-    const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-
+  getGenerateStatusText() {
     const displayCount = this.isInfiniteMode
       ? `${this.currentCount + 1}回目`
       : `${this.currentCount + 1}/${this.targetCount}`;
-
-    this.updateProgress(`生成中... ${displayCount}`);
-
-    this.stopWaitProgress();
-
-    try {
-      await this.executePromptInput();
-
-      const delay = this.getCurrentSiteDelay();
-      if (delay > 0) {
-        this.updateProgress(`プロンプト入力後待機中... (${delay}ms)`);
-        await new Promise((resolve) => setTimeout(resolve, delay));
-      }
-
-      if (generateButton) {
-        this.lastGenerateTime = Date.now();
-        this.waitingForComplete = true;
-
-        this.isInternalClick = true;
-        generateButton.click();
-        this.isInternalClick = false;
-
-        return true;
-      } else {
-        this.stop();
-        return false;
-      }
-    } catch (error) {
-      this.stop();
-      return false;
-    }
+    return `生成中... ${displayCount}`;
   }
 
-  async executePromptInput() {
-    const positiveSelector = AppState.selector.positiveSelector;
-    if (!positiveSelector) {
-      return;
-    }
-
-    try {
-      const [tab] = await chrome.tabs.query({
-        active: true,
-        currentWindow: true,
-      });
-      if (!tab) throw new Error("No active tab found");
-
-      try {
-        await chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          files: ["js/content.js"],
-        });
-      } catch (injectError) {}
-
-      const currentPrompt =
-        this.historyPrompt ||
-        window.app?.generateInput?.val?.() ||
-        document.getElementById(DOM_IDS.PROMPT.GENERATE)?.value ||
-        "";
-
-      if (currentPrompt) {
-        await chrome.tabs.sendMessage(tab.id, {
-          action: "inputPrompt",
-          selector: positiveSelector,
-          prompt: currentPrompt,
-        });
-      }
-    } catch (error) {}
+  getWaitDelayText(delay) {
+    return `プロンプト入力後待機中... (${delay}ms)`;
   }
 
-  getCurrentSiteDelay() {
-    const serviceSelect = document.getElementById(DOM_IDS.OTHER.SELECTOR_SERVICE);
-    if (serviceSelect && serviceSelect.value) {
-      const serviceKey = serviceSelect.value;
-
-      const builtInSite = AppState.selector.serviceSets[serviceKey];
-      if (builtInSite && builtInSite.inputDelay !== undefined) {
-        return builtInSite.inputDelay;
-      }
-
-      const customSite = AppState.selector.customSites[serviceKey];
-      if (customSite && customSite.inputDelay !== undefined) {
-        return customSite.inputDelay;
-      }
-    }
-
-    return 0;
-  }
-
-  checkGenerateStatus() {
-    if (!this.isRunning || !this.waitingForComplete) {
-      return;
-    }
-
-    const elapsed = Date.now() - this.lastGenerateTime;
-
-    if (elapsed > AUTO_GENERATE.TIMEOUT) {
-      this.updateProgress("タイムアウト - 次の生成を開始します");
-      this.onGenerateComplete();
-      return;
-    }
-
-    if (elapsed > AUTO_GENERATE.COMPLETION_TIMEOUT) {
-      this.onGenerateComplete();
-    }
-  }
-
-  onGenerateComplete() {
-    if (!this.waitingForComplete) return;
-
-    this.waitingForComplete = false;
-    this.currentCount++;
-
-    if (!this.isInfiniteMode && this.currentCount >= this.targetCount) {
-      this.complete();
-      return;
-    }
-
+  getNextWaitText() {
     const nextCount = this.isInfiniteMode
       ? `${this.currentCount + 1}回目`
       : `${this.currentCount + 1}/${this.targetCount}`;
-
-    this.updateProgress(`待機中... (次: ${nextCount})`);
-
-    this.startWaitProgress();
-
-    setTimeout(() => {
-      if (this.isRunning) {
-        this.stopWaitProgress();
-        this.generate();
-      }
-    }, this.generateInterval);
+    return `待機中... (次: ${nextCount})`;
   }
 
-  startWaitProgress() {
-    this.waitStartTime = Date.now();
-    this.waitDuration = this.generateInterval;
-
-    this.progressInterval = setInterval(() => {
-      this.updateWaitProgress();
-    }, 100);
-
-    this.updateWaitProgress();
+  getStopMessage() {
+    return this.isInfiniteMode
+      ? `自動生成を停止しました（${this.currentCount}回生成）`
+      : `自動生成を停止しました（${this.currentCount}/${this.targetCount}回完了）`;
   }
 
-  stopWaitProgress() {
-    if (this.progressInterval) {
-      clearInterval(this.progressInterval);
-      this.progressInterval = null;
-    }
+  getCompleteText() { return "完了しました！"; }
+  getCompleteMessage() { return `自動生成が完了しました（${this.currentCount}回）`; }
 
-    this.setGenerateButtonProgress(0);
+  getCurrentPromptValue() {
+    return this.historyPrompt ||
+      document.getElementById(DOM_IDS.PROMPT.GENERATE)?.value ||
+      "";
   }
 
-  updateWaitProgress() {
-    if (!this.waitStartTime) return;
-
-    const elapsed = Date.now() - this.waitStartTime;
-    const progress = Math.min(elapsed / this.waitDuration, 1);
-
-    this.setGenerateButtonProgress(progress);
-  }
-
-  setGenerateButtonProgress(progress) {
-    const progressBar = document.getElementById("generate-progress-bar");
-    const progressFill = progressBar ? progressBar.querySelector(".progress-fill") : null;
-
-    if (progressBar && progressFill) {
-      const progressPercent = `${progress * 100}%`;
-      progressFill.style.width = progressPercent;
-
-      if (progress > 0) {
-        progressBar.classList.add("active");
-      } else {
-        progressBar.classList.remove("active");
-      }
-    }
-  }
-
-  updateProgress(status = null) {
-    const progressElement = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS);
-    if (!progressElement) return;
-
-    let text = "";
-    if (this.isInfiniteMode) {
-      text = `自動生成中: ${this.currentCount}回`;
-    } else {
-      text = `自動生成中: ${this.currentCount}/${this.targetCount}`;
-    }
-
-    if (status) {
-      text = status;
-    }
-
-    progressElement.textContent = text;
-  }
-
-  showProgress() {
-    const progressElement = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS);
-    if (progressElement) {
-      progressElement.style.display = "inline";
-    }
-  }
-
-  hideProgress() {
-    const progressElement = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE_PROGRESS);
-    if (progressElement) {
-      progressElement.style.display = "none";
-    }
-  }
-
-  complete() {
-    this.isRunning = false;
-    this.waitingForComplete = false;
-    if (this.checkInterval) {
-      clearInterval(this.checkInterval);
-      this.checkInterval = null;
-    }
-
-    this.historyPrompt = null;
-
-    this.stopWaitProgress();
-
-    this.updateToggleButtonState(false);
-    this.updateProgress("完了しました！");
-
-    setTimeout(() => {
-      this.hideProgress();
-    }, NOTIFICATION_DURATION.STANDARD);
-
-    ErrorHandler.notify(`自動生成が完了しました（${this.currentCount}回）`, {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "success",
-      duration: NOTIFICATION_DURATION.LONG,
-    });
-
-    this.playCompletionSound();
-
-    const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
-    if (generateButton) {
-      generateButton.classList.remove("auto-generating");
-    }
-  }
-
-  playCompletionSound() {
-    try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.frequency.value = 800;
-      oscillator.type = "sine";
-
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.5);
-    } catch (error) {}
-  }
+  onStopCleanup() { this.historyPrompt = null; }
+  onCompleteCleanup() { this.historyPrompt = null; }
 
   async saveSettings() {
     try {
@@ -473,29 +155,6 @@ class AutoGenerateHandler {
         this.generateInterval = (settings.generateInterval || AUTO_GENERATE.DEFAULT_INTERVAL / 1000) * 1000;
       }
     } catch (error) {}
-  }
-
-  updateToggleButtonState(isActive) {
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle) {
-      if (isActive) {
-        autoGenerateToggle.classList.add("active");
-        autoGenerateToggle.querySelector(".toggle-status").textContent = "ON";
-      } else {
-        autoGenerateToggle.classList.remove("active");
-        autoGenerateToggle.querySelector(".toggle-status").textContent = "OFF";
-      }
-    }
-  }
-
-  cleanup() {
-    this.stop();
-
-    const autoGenerateToggle = document.getElementById(DOM_IDS.OTHER.AUTO_GENERATE);
-    if (autoGenerateToggle && this.boundClickHandler) {
-      autoGenerateToggle.removeEventListener("click", this.boundClickHandler);
-      this.boundClickHandler = null;
-    }
   }
 }
 

@@ -146,11 +146,6 @@ const ErrorHandler = {
     }
 
     const toast = document.createElement("div");
-    toast.className = `${CSS_CLASSES.ERROR.TOAST} ${CSS_CLASSES.TOAST[type.toUpperCase()]}`;
-
-    // フォーカス競合を防ぐためtabindex=-1を設定
-    toast.setAttribute("tabindex", "-1");
-    toast.style.outline = "none";
 
     const icons = {
       success: "✓",
@@ -159,18 +154,14 @@ const ErrorHandler = {
       warning: "⚠",
     };
 
-    const colors = {
-      success: "#4CAF50",
-      error: "#f44336",
-      info: "#2196F3",
-      warning: "#FF9800",
-    };
+    toast.className = `error-toast toast-${type} toast-no-outline`;
 
-    toast.className = `error-toast toast-${type}`;
+    // フォーカス競合を防ぐためtabindex=-1を設定
+    toast.setAttribute("tabindex", "-1");
 
     toast.innerHTML = `
-      <span style="font-size: 20px; margin-right: 10px;">${icons[type] || icons.error}</span>
-      <span style="flex: 1;">${this.escapeHtml(message)}</span>
+      <span class="toast-icon">${icons[type] || icons.error}</span>
+      <span class="toast-message">${this.escapeHtml(message)}</span>
     `;
 
     toast.addEventListener("click", (e) => {
@@ -182,7 +173,7 @@ const ErrorHandler = {
     this.toastContainer.appendChild(toast);
 
     requestAnimationFrame(() => {
-      toast.style.transform = "translateX(0)";
+      toast.classList.add("show");
     });
 
     const timer = setTimeout(() => {
@@ -202,7 +193,7 @@ const ErrorHandler = {
   },
 
   dismissToast(toast) {
-    toast.style.transform = "translateX(400px)";
+    toast.classList.remove("show");
     setTimeout(() => {
       if (toast.parentNode) {
         toast.parentNode.removeChild(toast);
@@ -224,19 +215,13 @@ const ErrorHandler = {
     }
 
     const errorDiv = document.createElement("div");
-    errorDiv.className = "error-message";
+    errorDiv.className = "error-message inline-error-message";
     errorDiv.textContent = message;
-    errorDiv.style.cssText = `
-      color: #f44336;
-      font-size: 12px;
-      margin-top: 4px;
-      animation: fadeIn 0.3s ease-in;
-    `;
 
     element.parentNode.insertBefore(errorDiv, element.nextSibling);
 
     setTimeout(() => {
-      errorDiv.style.animation = "fadeOut 0.3s ease-out";
+      errorDiv.classList.add("fade-out");
       setTimeout(() => errorDiv.remove(), 300);
     }, 5000);
   },
@@ -314,66 +299,21 @@ const ErrorHandler = {
       if (!overlay) {
         overlay = document.createElement("div");
         overlay.id = "loading-overlay";
-        overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 9999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.3s ease-in-out;
-        `;
+        overlay.className = "loading-overlay";
 
         const spinner = document.createElement("div");
-        spinner.style.cssText = `
-          color: #fff;
-          font-size: 18px;
-          background: rgba(0, 0, 0, 0.8);
-          padding: 20px 30px;
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-        `;
+        spinner.className = "loading-spinner-box";
 
         spinner.innerHTML = `
-          <div class="spinner" style="
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-          "></div>
+          <div class="loading-spinner"></div>
           <span>${this.escapeHtml(message)}</span>
         `;
 
         overlay.appendChild(spinner);
         document.body.appendChild(overlay);
 
-        const style = document.createElement("style");
-        style.textContent = `
-          @keyframes spin {
-            to { transform: rotate(360deg); }
-          }
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-          }
-        `;
-        document.head.appendChild(style);
-
         requestAnimationFrame(() => {
-          overlay.style.opacity = "1";
+          overlay.classList.add("visible");
         });
       }
 
@@ -381,7 +321,7 @@ const ErrorHandler = {
     } else {
       const overlay = existingElement || document.getElementById(DOM_IDS.COMMON.LOADING_OVERLAY);
       if (overlay) {
-        overlay.style.opacity = "0";
+        overlay.classList.remove("visible");
         setTimeout(() => {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);
@@ -396,7 +336,7 @@ const ErrorHandler = {
     document.querySelectorAll(".error-message").forEach((el) => el.remove());
     document.querySelectorAll(".error-highlight").forEach((el) => {
       el.classList.remove("error-highlight");
-      el.style.borderColor = "";
+      el.classList.remove("error-highlight-border");
     });
 
     if (!validationResult.isValid) {
@@ -406,7 +346,7 @@ const ErrorHandler = {
           const element = document.querySelector(elementId);
           if (element) {
             element.classList.add("error-highlight");
-            element.style.borderColor = "#f44336";
+            element.classList.add("error-highlight-border");
             this.showInlineError(elementId, error.message);
           }
         }

@@ -52,11 +52,7 @@ const ElementRegistration = {
         return true;
       } else {
         // 登録失敗
-        ErrorHandler.notify("要素の追加に失敗しました", {
-          type: ErrorHandler.NotificationType.TOAST,
-          messageType: "error",
-          duration: 2000,
-        });
+        UIHelpers.notifyError("要素の追加に失敗しました", 2000);
 
         // エラー時のコールバック
         if (opts.onError) {
@@ -67,11 +63,7 @@ const ElementRegistration = {
       }
     } catch (error) {
       // エラー通知
-      ErrorHandler.notify("要素の追加中にエラーが発生しました", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("要素の追加中にエラーが発生しました", 2000);
 
       // エラー時のコールバック
       if (opts.onError) {

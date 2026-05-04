@@ -544,6 +544,8 @@ class PromptListManager {
       }
     }
 
+    finalConfig._allItems = data;
+
     for (let i = 0; i < data.length; i++) {
       const itemId = data[i]?.id !== undefined ? data[i].id : i;
       const $li = UIFactory.createListItem({
@@ -967,6 +969,14 @@ class PromptListManager {
     if (needsIdGeneration) {
       if (!config._idCounter) {
         config._idCounter = idOffset;
+        if (config._allItems) {
+          for (const existingItem of config._allItems) {
+            const eid = existingItem?.id;
+            if (typeof eid === "number" && eid >= idOffset && eid < idOffset + 10000 && eid >= config._idCounter) {
+              config._idCounter = eid;
+            }
+          }
+        }
       }
 
       item.id = ++config._idCounter;
@@ -1186,11 +1196,18 @@ class PromptListManager {
     const isEditMode = config.listType === "edit";
 
     if (field.type === "weight" && isEditMode) {
+      const currentWeight = this.getFieldValue(item, field);
+      if (String(newValue) === String(currentWeight)) return;
       this.handleFieldChange(item, index, field, newValue, config, "blur");
       return;
     }
 
     if (field.type === "prompt" || field.key === "data.2") {
+      const currentValue = this.getFieldValue(item, field);
+      if (newValue === currentValue) {
+        return;
+      }
+
       if (isEditMode && item?.id !== undefined && window.categoryDataSync) {
         const latestData = window.categoryDataSync.getCurrentDOMValues(item.id);
         if (latestData) {
@@ -1318,7 +1335,7 @@ class PromptListManager {
         // Addボタン: 現在のスロットの末尾に要素を追加
         return UIFactory.createButton({
           ...baseConfig,
-          onClick: () => {
+          onClick: async () => {
             const value = buttonDef.getValue ? buttonDef.getValue(item) : "";
             if (config.onAdd) {
               config.onAdd(value, item, index);
@@ -1327,7 +1344,6 @@ class PromptListManager {
               if (window.promptSlotManager) {
                 const currentSlot = window.promptSlotManager.slots[window.promptSlotManager.currentSlot];
                 if (currentSlot) {
-                  // elementsに要素を追加
                   if (!currentSlot.elements) {
                     currentSlot.elements = [];
                   }
@@ -1339,20 +1355,7 @@ class PromptListManager {
                   };
                   currentSlot.elements.push(newElement);
 
-                  // promptも更新（elements から再構築）
-                  currentSlot.prompt = currentSlot.elements
-                    .map((el) => el.Value || "")
-                    .filter((v) => v)
-                    .join(",");
-
-                  // UIを更新
-                  const input = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-                  if (input) {
-                    input.value = currentSlot.prompt;
-                  }
-
-                  // 保存
-                  window.promptSlotManager.saveCurrentSlot();
+                  await SlotUtils.regenerateAndSaveSlot();
                 }
               }
             }
@@ -1367,7 +1370,6 @@ class PromptListManager {
             if (config.onCopy) {
               config.onCopy(value, item, index);
             } else {
-              // TODO: PromptEditor削除済み - 値をそのままコピー
               navigator.clipboard.writeText(value);
             }
           },
@@ -1441,7 +1443,6 @@ class PromptListManager {
             if (config.onLoad) {
               config.onLoad(value, item, index);
             } else {
-              // TODO: PromptEditor削除済み - スロットに直接設定
               const input = document.getElementById(DOM_IDS.PROMPT.GENERATE);
               if (input) {
                 input.value = value;
@@ -1474,17 +1475,9 @@ class PromptListManager {
             } else {
               try {
                 await this.addToFavoriteList(favoriteData);
-                ErrorHandler.notify("お気に入りに追加しました", {
-                  type: ErrorHandler.NotificationType.TOAST,
-                  messageType: "success",
-                  duration: NOTIFICATION_DURATION.SHORT,
-                });
+                UIHelpers.notifySuccess("お気に入りに追加しました", NOTIFICATION_DURATION.SHORT);
               } catch (error) {
-                ErrorHandler.notify("お気に入りの追加に失敗しました", {
-                  type: ErrorHandler.NotificationType.TOAST,
-                  messageType: "error",
-                  duration: NOTIFICATION_DURATION.STANDARD,
-                });
+                UIHelpers.notifyError("お気に入りの追加に失敗しました", NOTIFICATION_DURATION.STANDARD);
               }
             }
           },
@@ -1500,11 +1493,7 @@ class PromptListManager {
             } else {
               await this.executeDirectGenerateWithMaxWeight(prompt);
 
-              ErrorHandler.notify("重み最大でテスト生成を実行しました", {
-                type: ErrorHandler.NotificationType.TOAST,
-                messageType: "success",
-                duration: 1500,
-              });
+              UIHelpers.notifySuccess("重み最大でテスト生成を実行しました", 1500);
             }
           },
         });
@@ -1655,9 +1644,7 @@ class PromptListManager {
       bigInput.removeAttribute("list");
       bigInput.setAttribute("data-dropdown-enabled", "true");
 
-      if (bigInput.customDropdown) {
-        bigInput.customDropdown.destroy();
-      }
+      UIUtilities.destroyDropdown(bigInput);
 
       let originalBigValue = bigInput.value;
 
@@ -1714,9 +1701,7 @@ class PromptListManager {
       middleInput.removeAttribute("list");
       middleInput.setAttribute("data-dropdown-enabled", "true");
 
-      if (middleInput.customDropdown) {
-        middleInput.customDropdown.destroy();
-      }
+      UIUtilities.destroyDropdown(middleInput);
 
       let originalMiddleValue = middleInput.value;
 
@@ -1772,9 +1757,7 @@ class PromptListManager {
       smallInput.removeAttribute("list");
       smallInput.setAttribute("data-dropdown-enabled", "true");
 
-      if (smallInput.customDropdown) {
-        smallInput.customDropdown.destroy();
-      }
+      UIUtilities.destroyDropdown(smallInput);
 
       let originalSmallValue = smallInput.value;
 
@@ -1804,10 +1787,7 @@ class PromptListManager {
       smallInput.removeAttribute("data-dropdown-enabled");
       smallInput.removeAttribute("list");
 
-      if (smallInput.customDropdown) {
-        smallInput.customDropdown.destroy();
-        smallInput.customDropdown = null;
-      }
+      UIUtilities.destroyDropdown(smallInput);
     }
   }
 
@@ -1966,27 +1946,15 @@ class PromptListManager {
 
   validateGenerateEnvironment(prompt) {
     if (!prompt || !prompt.trim()) {
-      ErrorHandler.notify("プロンプトが空です", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("プロンプトが空です", 2000);
       return false;
     }
     if (typeof sendBackground !== "function") {
-      ErrorHandler.notify("Generate機能が利用できません", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("Generate機能が利用できません", 2000);
       return false;
     }
     if (!window.AppState || !AppState.selector) {
-      ErrorHandler.notify("セレクター設定が見つかりません", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("セレクター設定が見つかりません", 2000);
       return false;
     }
     return true;
@@ -2005,11 +1973,7 @@ class PromptListManager {
     try {
       this.executeGenerateSendBackground(prompt.trim());
     } catch (error) {
-      ErrorHandler.notify("生成実行中にエラーが発生しました", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("生成実行中にエラーが発生しました", 2000);
     }
   }
 
@@ -2027,11 +1991,7 @@ class PromptListManager {
       const weightedPrompt = WeightConverter.applyWeightToPrompt(uiType, prompt.trim(), 10);
       this.executeGenerateSendBackground(weightedPrompt);
     } catch (error) {
-      ErrorHandler.notify("重み最大生成実行中にエラーが発生しました", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "error",
-        duration: 2000,
-      });
+      UIHelpers.notifyError("重み最大生成実行中にエラーが発生しました", 2000);
     }
   }
 
@@ -2053,7 +2013,6 @@ class PromptListManager {
         const elementId = listItem.getAttribute("data-element-id");
 
         if (listConfig.listType === "edit") {
-          // TODO: PromptEditor削除済み - スロットのelementsを使用
           const currentSlot = window.promptSlotManager?.slots?.[window.promptSlotManager?.currentSlot];
           const elements = currentSlot?.elements || [];
           const element = elements.find((el) => el.id?.toString() === elementId);

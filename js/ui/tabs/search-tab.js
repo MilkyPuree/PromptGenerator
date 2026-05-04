@@ -387,11 +387,7 @@
         const success = register(data.big, data.middle, data.small, item.prompt);
 
         if (success) {
-          ErrorHandler.notify("ローカル辞書に登録しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-            duration: 1500,
-          });
+          UIHelpers.notifySuccess("ローカル辞書に登録しました", 1500);
           this.app.refreshAddList();
         }
       }
@@ -471,11 +467,7 @@
           immediateCategoryUpdate(); // 辞書タブと同じ処理
         }
 
-        ErrorHandler.notify("ローカル辞書を更新しました", {
-          type: ErrorHandler.NotificationType.TOAST,
-          messageType: "success",
-          duration: 1500,
-        });
+        UIHelpers.notifySuccess("ローカル辞書を更新しました", 1500);
       }
 
       setupKeyboardShortcuts() {}

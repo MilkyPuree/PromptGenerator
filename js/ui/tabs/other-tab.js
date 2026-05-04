@@ -321,8 +321,6 @@
           button.classList.remove("active");
         } else {
           button.classList.add("active");
-          button.style.background = "#dc3545";
-          button.style.color = "white";
           this.startVisualSelection(targetId);
         }
       }
@@ -356,15 +354,9 @@
             action: "startVisualSelection",
           });
 
-          ErrorHandler.notify("要素をクリックして選択してください（ESCで終了）", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess("要素をクリックして選択してください（ESCで終了）");
         } catch (error) {
-          ErrorHandler.notify("ビジュアルセレクターの開始に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("ビジュアルセレクターの開始に失敗しました");
           this.endVisualSelection();
         }
       }
@@ -407,8 +399,6 @@
 
         document.querySelectorAll(".visual-select-btn").forEach((btn) => {
           btn.classList.remove("active");
-          btn.style.background = "";
-          btn.style.color = "";
         });
 
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -450,16 +440,19 @@
           if (response && response.valid) {
             statusElement.textContent = `✓ 要素が見つかりました (${response.count}個)`;
             statusElement.className = "selector-status valid";
-            statusElement.style.display = "block";
+            statusElement.classList.remove("hidden");
+            statusElement.classList.add("show-block");
           } else {
             statusElement.textContent = "✗ 要素が見つかりません";
             statusElement.className = "selector-status invalid";
-            statusElement.style.display = "block";
+            statusElement.classList.remove("hidden");
+            statusElement.classList.add("show-block");
           }
         } catch (error) {
           statusElement.textContent = "✗ 検証できません（ページを開いてください）";
           statusElement.className = "selector-status invalid";
-          statusElement.style.display = "block";
+          statusElement.classList.remove("hidden");
+          statusElement.classList.add("show-block");
         }
       }
 
@@ -470,11 +463,23 @@
           const hasSelectors = AppState.selector.positiveSelector && AppState.selector.generateSelector;
           const showButton = hasSelectors;
 
-          genBtn.style.display = showButton ? "block" : "none";
+          if (showButton) {
+            genBtn.classList.remove("hidden");
+            genBtn.classList.add("show-block");
+          } else {
+            genBtn.classList.remove("show-block");
+            genBtn.classList.add("hidden");
+          }
 
           const autoGenerateOption = this.getElement("#autoGenerateOption");
           if (autoGenerateOption) {
-            autoGenerateOption.style.display = showButton ? "block" : "none";
+            if (showButton) {
+              autoGenerateOption.classList.remove("hidden");
+              autoGenerateOption.classList.add("show-block");
+            } else {
+              autoGenerateOption.classList.remove("show-block");
+              autoGenerateOption.classList.add("hidden");
+            }
           }
         }
       }
@@ -500,7 +505,8 @@
 
         if (preview) {
           preview.src = "";
-          preview.style.display = "none";
+          preview.classList.add("hidden");
+          preview.classList.remove("show-block", "show-flex");
         }
 
         if (pngInfo) {
@@ -590,20 +596,14 @@
         const generateSelector = this.getElement(`#${DOM_IDS.OTHER.ADD_SITE_GENERATE}`)?.value?.trim();
 
         if (!name || !url || !positiveSelector || !generateSelector) {
-          ErrorHandler.notify("すべての項目を入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("すべての項目を入力してください");
           return;
         }
 
         try {
           new URL(url);
         } catch {
-          ErrorHandler.notify("正しいURL形式で入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("正しいURL形式で入力してください");
           return;
         }
 
@@ -627,15 +627,9 @@
 
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${name}」を追加しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${name}」を追加しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの追加に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの追加に失敗しました");
         }
       }
 
@@ -650,15 +644,9 @@
           this.refreshSiteList();
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${site.name}」を削除しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${site.name}」を削除しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの削除に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの削除に失敗しました");
         }
       }
 
@@ -680,7 +668,8 @@
           addBtn.innerHTML = "<span>✏️</span> サイトを更新";
         }
         if (cancelBtn) {
-          cancelBtn.style.display = "flex";
+          cancelBtn.classList.remove("hidden");
+          cancelBtn.classList.add("show-flex");
         }
 
         const addSiteForm = document.querySelector(".add-site-form");
@@ -688,10 +677,7 @@
           addSiteForm.scrollIntoView({ behavior: "smooth" });
         }
 
-        ErrorHandler.notify(`サイト「${site.name}」を編集モードにしました`, {
-          type: ErrorHandler.NotificationType.TOAST,
-          messageType: "info",
-        });
+        UIHelpers.notifyInfo(`サイト「${site.name}」を編集モードにしました`);
       }
 
       async updateSite() {
@@ -704,20 +690,14 @@
         const inputDelay = parseInt(this.getElement(`#${DOM_IDS.OTHER.ADD_SITE_DELAY}`)?.value) || 0;
 
         if (!name || !url || !positiveSelector || !generateSelector) {
-          ErrorHandler.notify("すべての項目を入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("すべての項目を入力してください");
           return;
         }
 
         try {
           new URL(url);
         } catch {
-          ErrorHandler.notify("正しいURL形式で入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("正しいURL形式で入力してください");
           return;
         }
 
@@ -736,15 +716,9 @@
           this.refreshSiteList();
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${name}」を更新しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${name}」を更新しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの更新に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの更新に失敗しました");
         }
       }
 
@@ -763,7 +737,8 @@
           addBtn.innerHTML = "<span>➕</span> サイトを追加";
         }
         if (cancelBtn) {
-          cancelBtn.style.display = "none";
+          cancelBtn.classList.remove("show-flex");
+          cancelBtn.classList.add("hidden");
         }
       }
 
@@ -991,20 +966,14 @@
         const inputDelay = parseInt(document.getElementById("modal-add-site-delay")?.value) || 0;
 
         if (!name || !url || !positiveSelector || !generateSelector) {
-          ErrorHandler.notify("すべての項目を入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("すべての項目を入力してください");
           return;
         }
 
         try {
           new URL(url);
         } catch {
-          ErrorHandler.notify("正しいURL形式で入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("正しいURL形式で入力してください");
           return;
         }
 
@@ -1028,15 +997,9 @@
           this.refreshSiteList(); // 元のリストも更新
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${name}」を追加しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${name}」を追加しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの追加に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの追加に失敗しました");
         }
       }
 
@@ -1058,13 +1021,11 @@
           addBtn.innerHTML = "<span>✏️</span> サイトを更新";
         }
         if (cancelBtn) {
-          cancelBtn.style.display = "flex";
+          cancelBtn.classList.remove("hidden");
+          cancelBtn.classList.add("show-flex");
         }
 
-        ErrorHandler.notify(`サイト「${site.name}」を編集モードにしました`, {
-          type: ErrorHandler.NotificationType.TOAST,
-          messageType: "info",
-        });
+        UIHelpers.notifyInfo(`サイト「${site.name}」を編集モードにしました`);
       }
 
       async updateModalSite() {
@@ -1077,10 +1038,7 @@
         const inputDelay = parseInt(document.getElementById("modal-add-site-delay")?.value) || 0;
 
         if (!name || !url || !positiveSelector || !generateSelector) {
-          ErrorHandler.notify("すべての項目を入力してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("すべての項目を入力してください");
           return;
         }
 
@@ -1100,15 +1058,9 @@
           this.refreshSiteList(); // 元のリストも更新
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${name}」を更新しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${name}」を更新しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの更新に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの更新に失敗しました");
         }
       }
 
@@ -1124,15 +1076,9 @@
           this.refreshSiteList(); // 元のリストも更新
           this.updateServiceSelector();
 
-          ErrorHandler.notify(`サイト「${site.name}」を削除しました`, {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess(`サイト「${site.name}」を削除しました`);
         } catch (error) {
-          ErrorHandler.notify("サイトの削除に失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("サイトの削除に失敗しました");
         }
       }
 
@@ -1151,7 +1097,8 @@
           addBtn.innerHTML = "<span>➕</span> サイトを追加";
         }
         if (cancelBtn) {
-          cancelBtn.style.display = "none";
+          cancelBtn.classList.remove("show-flex");
+          cancelBtn.classList.add("hidden");
         }
       }
 
@@ -1519,18 +1466,12 @@
         try {
           if (window.settingsManager) {
             await window.settingsManager.downloadExport();
-            ErrorHandler.notify("設定をエクスポートしました", {
-              type: ErrorHandler.NotificationType.TOAST,
-              messageType: "success",
-            });
+            UIHelpers.notifySuccess("設定をエクスポートしました");
           } else {
             throw new Error("SettingsManager が見つかりません");
           }
         } catch (error) {
-          ErrorHandler.notify("エクスポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("エクスポートに失敗しました");
         }
       }
 
@@ -1549,10 +1490,7 @@
             throw new Error("SettingsManager が見つかりません");
           }
         } catch (error) {
-          ErrorHandler.notify("インポートに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("インポートに失敗しました");
         }
       }
 
@@ -1607,19 +1545,13 @@
             await this.adjustSlotWeightsAfterReset();
           }
 
-          ErrorHandler.notify("設定をリセットしました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "success",
-          });
+          UIHelpers.notifySuccess("設定をリセットしました");
 
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         } catch (error) {
-          ErrorHandler.notify("リセットに失敗しました", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "error",
-          });
+          UIHelpers.notifyError("リセットに失敗しました");
         }
       }
 

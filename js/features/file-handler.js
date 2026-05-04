@@ -59,7 +59,8 @@ class FileHandler {
       const imageUrl = URL.createObjectURL(file);
       if (preview) {
         preview.src = imageUrl;
-        preview.style.display = "block";
+        preview.classList.remove("hidden");
+        preview.classList.add("show-block");
         preview.onload = () => URL.revokeObjectURL(imageUrl);
       }
 

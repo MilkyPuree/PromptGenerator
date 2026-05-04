@@ -38,10 +38,7 @@ class PromptSlotManager {
 
   addNewSlot() {
     if (this.slots.length >= this.maxSlots) {
-      ErrorHandler.notify(`スロットは最大${this.maxSlots}個までです`, {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-      });
+      UIHelpers.notifyWarning(`スロットは最大${this.maxSlots}個までです`);
       return null;
     }
 
@@ -71,30 +68,20 @@ class PromptSlotManager {
     this.updateUI();
     this.saveToStorage();
 
-    ErrorHandler.notify(`スロット${this.slots.length}を追加しました`, {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "success",
-      duration: NOTIFICATION_DURATION.SHORT,
-    });
+    UIHelpers.notifySuccess(`スロット${this.slots.length}を追加しました`, NOTIFICATION_DURATION.SHORT);
 
     return newSlot;
   }
 
   deleteSlot(slotId) {
     if (this.slots.length <= this.minSlots) {
-      ErrorHandler.notify(`スロットは最低${this.minSlots}個必要です`, {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-      });
+      UIHelpers.notifyWarning(`スロットは最低${this.minSlots}個必要です`);
       return false;
     }
 
     const slotIndex = this.slots.findIndex((slot) => slot.id === slotId);
     if (slotIndex === this.currentSlot) {
-      ErrorHandler.notify("選択中のスロットは削除できません", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-      });
+      UIHelpers.notifyWarning("選択中のスロットは削除できません");
       return false;
     }
 
@@ -111,11 +98,7 @@ class PromptSlotManager {
     this.updateUI();
     this.saveToStorage();
 
-    ErrorHandler.notify("スロットを削除しました", {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "success",
-      duration: NOTIFICATION_DURATION.SHORT,
-    });
+    UIHelpers.notifySuccess("スロットを削除しました", NOTIFICATION_DURATION.SHORT);
 
     return true;
   }
@@ -237,11 +220,7 @@ class PromptSlotManager {
       }
 
       if (window.ErrorHandler) {
-        window.ErrorHandler.notify(errorMessage, {
-          type: window.ErrorHandler.NotificationType.TOAST,
-          messageType: "warning",
-          duration: 3000,
-        });
+        UIHelpers.notifyWarning(errorMessage, 3000);
       }
 
       slot.currentExtraction = null;
@@ -302,13 +281,7 @@ class PromptSlotManager {
       errorMessage = `選択されたお気に入りリストが見つかりません。お気に入りリストを確認してください。`;
     }
 
-    if (window.ErrorHandler) {
-      window.ErrorHandler.notify(errorMessage, {
-        type: window.ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-        duration: 4000,
-      });
-    }
+    UIHelpers.notifyWarning(errorMessage, 4000);
 
     this.updateUIAfterDictionaryChange();
   }
@@ -823,11 +796,7 @@ class PromptSlotManager {
     );
 
     const action = slot.muted ? "ミュート" : "ミュート解除";
-    ErrorHandler.notify(`スロット${slotId}を${action}しました`, {
-      type: ErrorHandler.NotificationType.TOAST,
-      messageType: "success",
-      duration: NOTIFICATION_DURATION.SHORT,
-    });
+    UIHelpers.notifySuccess(`スロット${slotId}を${action}しました`, NOTIFICATION_DURATION.SHORT);
 
     return slot.muted;
   }

@@ -259,9 +259,7 @@ const ListBuilder = {
     allElements.forEach((element) => {
       const inputs = element.querySelectorAll("input");
       inputs.forEach((input) => {
-        if (input.customDropdown) {
-          input.customDropdown.destroy();
-        }
+        UIUtilities.destroyDropdown(input);
       });
 
       const clone = element.cloneNode(false);
@@ -340,10 +338,14 @@ const ListBuilder = {
               categoryIndex = index; // createHeaders内のforEachのindex
             }
 
+            const dataArray = typeof sortConfig.getDataArray === "function"
+              ? sortConfig.getDataArray()
+              : sortConfig.dataArray;
+
             sortConfig.listManager.handleHeaderClickSort(
               listId,
               columnType,
-              sortConfig.dataArray,
+              dataArray,
               sortConfig.refreshCallback,
               sortConfig.saveCallback,
               categoryIndex
@@ -389,9 +391,7 @@ const EventHandlers = {
       window.categoryUIManager = new CategoryUIManager();
     }
 
-    if (bigInput.customDropdown) {
-      bigInput.customDropdown.destroy();
-    }
+    UIUtilities.destroyDropdown(bigInput);
     bigInput.customDropdown = new CustomDropdown(bigInput, {
       categoryLevel: 0,
       onSubmit: (value) => {
@@ -409,9 +409,7 @@ const EventHandlers = {
     });
 
     if (middleInput) {
-      if (middleInput.customDropdown) {
-        middleInput.customDropdown.destroy();
-      }
+      UIUtilities.destroyDropdown(middleInput);
       middleInput.customDropdown = new CustomDropdown(middleInput, {
         categoryLevel: 1,
         onSubmit: (value) => {

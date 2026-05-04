@@ -219,13 +219,7 @@ const ListRefreshManager = {
 
     const message = messages[action] || "アクションが完了しました";
 
-    if (window.ErrorHandler) {
-      window.ErrorHandler.notify(message, {
-        type: window.ErrorHandler.NotificationType.TOAST,
-        messageType: "success",
-        duration: 1500,
-      });
-    }
+    UIHelpers.notifySuccess(message, 1500);
   },
 
   addActionDependency(action, dependentLists) {

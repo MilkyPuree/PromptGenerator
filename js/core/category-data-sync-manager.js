@@ -37,13 +37,7 @@ class CategoryDataSyncManager {
    * DOM上のカテゴリ入力フィールドの値を更新
    */
   syncDOMValues(elementId, categoryData) {
-    // FlexibleListが生成したIDで検索
-    let elementContainer = document.querySelector(`[data-element-id="${elementId}"]`);
-
-    // 見つからない場合、data-original-idで検索（スロット要素のIDとの対応）
-    if (!elementContainer) {
-      elementContainer = document.querySelector(`[data-original-id="${elementId}"]`);
-    }
+    const elementContainer = EditElementManager.findElementContainer(elementId);
 
     if (!elementContainer) {
       return false;
@@ -65,6 +59,13 @@ class CategoryDataSyncManager {
    * スロットの要素データを同期
    */
   syncEditPromptData(elementId, categoryData) {
+    const currentSlot = SlotUtils.getCurrentSlot();
+    if (!currentSlot?.elements) return false;
+
+    const element = currentSlot.elements.find((el) => el.id === elementId);
+    if (!element) return false;
+
+    element.data = [...categoryData];
     return true;
   }
 
@@ -72,8 +73,18 @@ class CategoryDataSyncManager {
    * ListManagerのitemデータを同期（必要な場合のみ）
    */
   syncListManagerData(elementId, categoryData) {
-    // ListManagerの内部itemデータは通常、DOM値から自動同期されるため
-    // 特別な処理は不要だが、将来の拡張性のためにメソッドを用意
+    if (!window.app?.listManager) return false;
+
+    window.app.listManager.updateSingleElement(
+      DOM_SELECTORS.BY_ID.EDIT_LIST,
+      elementId,
+      {
+        "data.0": categoryData[0] || "",
+        "data.1": categoryData[1] || "",
+        "data.2": categoryData[2] || "",
+      },
+      { preserveFocus: true, preventEvents: true, searchMode: "id" }
+    );
     return true;
   }
 
@@ -81,13 +92,7 @@ class CategoryDataSyncManager {
    * DOM上の最新値を取得
    */
   getCurrentDOMValues(elementId) {
-    // FlexibleListが生成したIDで検索
-    let elementContainer = document.querySelector(`[data-element-id="${elementId}"]`);
-
-    // 見つからない場合、data-original-idで検索（スロット要素のIDとの対応）
-    if (!elementContainer) {
-      elementContainer = document.querySelector(`[data-original-id="${elementId}"]`);
-    }
+    const elementContainer = EditElementManager.findElementContainer(elementId);
 
     if (!elementContainer) {
       return null;

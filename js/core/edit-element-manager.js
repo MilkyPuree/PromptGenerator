@@ -1,51 +1,14 @@
 class EditElementManager {
+  static findElementContainer(elementId, parent = document) {
+    return parent.querySelector(`[data-element-id="${elementId}"]`) ||
+           parent.querySelector(`[data-original-id="${elementId}"]`) ||
+           null;
+  }
+
   constructor(app) {
     this.app = app;
-    this.pendingUpdates = new Map(); // 遅延更新の管理
-    this.updateQueue = new Set(); // 更新キューの重複防止
-  }
-
-  /**
-   * 現在のスロットを取得
-   */
-  getCurrentSlot() {
-    return window.promptSlotManager?.slots?.[window.promptSlotManager?.currentSlot] || null;
-  }
-
-  /**
-   * スロットのelementsをソートして取得
-   */
-  getSortedElements() {
-    const currentSlot = this.getCurrentSlot();
-    if (!currentSlot || !currentSlot.elements) {
-      return [];
-    }
-    return currentSlot.elements
-      .filter((el) => el != null)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
-  }
-
-  /**
-   * スロットのpromptを再生成して保存
-   */
-  async regenerateAndSaveSlot() {
-    const currentSlot = this.getCurrentSlot();
-    if (!currentSlot) return;
-
-    const elements = this.getSortedElements();
-    currentSlot.prompt = elements
-      .map((el) => el.Value || "")
-      .filter((v) => v)
-      .join(",");
-
-    // GeneratePromptフィールドも更新
-    const generatePromptField = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-    if (generatePromptField) {
-      generatePromptField.value = currentSlot.prompt;
-    }
-
-    currentSlot.lastModified = Date.now();
-    await window.promptSlotManager?.saveToStorage();
+    this.pendingUpdates = new Map();
+    this.updateQueue = new Set();
   }
 
   async updateElement(elementId, updates, options = {}) {
@@ -91,7 +54,7 @@ class EditElementManager {
   }
 
   updateDataLayer(elementId, updates) {
-    const currentSlot = this.getCurrentSlot();
+    const currentSlot = SlotUtils.getCurrentSlot();
     if (!currentSlot || !currentSlot.elements) {
       return -1;
     }
@@ -207,11 +170,7 @@ class EditElementManager {
       try {
         const listContainer = document.querySelector(DOM_SELECTORS.BY_ID.EDIT_LIST);
         if (listContainer) {
-          // data-element-idまたはdata-original-idで検索
-          let elementContainer = listContainer.querySelector(`[data-element-id="${elementId}"]`);
-          if (!elementContainer) {
-            elementContainer = listContainer.querySelector(`[data-original-id="${elementId}"]`);
-          }
+          const elementContainer = EditElementManager.findElementContainer(elementId, listContainer);
           if (elementContainer) {
             const categoryFields = elementContainer.querySelectorAll('input[data-field^="data."]');
             categoryFields.forEach((field) => {
@@ -260,11 +219,7 @@ class EditElementManager {
       try {
         const listContainer = document.querySelector(DOM_SELECTORS.BY_ID.EDIT_LIST);
         if (listContainer) {
-          // data-element-idまたはdata-original-idで検索
-          let elementContainer = listContainer.querySelector(`[data-element-id="${elementId}"]`);
-          if (!elementContainer) {
-            elementContainer = listContainer.querySelector(`[data-original-id="${elementId}"]`);
-          }
+          const elementContainer = EditElementManager.findElementContainer(elementId, listContainer);
           if (elementContainer) {
             const categoryFields = elementContainer.querySelectorAll('input[data-field^="data."]');
             categoryFields.forEach((field) => {
@@ -313,7 +268,7 @@ class EditElementManager {
 
     setTimeout(() => {
       try {
-        const currentSlot = this.getCurrentSlot();
+        const currentSlot = SlotUtils.getCurrentSlot();
         if (!currentSlot || !currentSlot.elements) {
           return;
         }
@@ -328,11 +283,7 @@ class EditElementManager {
 
         const listContainer = document.querySelector(DOM_SELECTORS.BY_ID.EDIT_LIST);
         if (listContainer) {
-          // data-element-idまたはdata-original-idで検索
-          let elementContainer = listContainer.querySelector(`[data-element-id="${elementId}"]`);
-          if (!elementContainer) {
-            elementContainer = listContainer.querySelector(`[data-original-id="${elementId}"]`);
-          }
+          const elementContainer = EditElementManager.findElementContainer(elementId, listContainer);
           if (elementContainer) {
             const regButton = elementContainer.querySelector('button[data-action="register"]');
             if (regButton) {
@@ -496,7 +447,7 @@ class EditElementManager {
 
     // 翻訳でプロンプトが変わった場合はスロットを再生成
     if (!isAlphanumeric && this.app?.tabs?.edit?.isActive) {
-      await this.regenerateAndSaveSlot();
+      await SlotUtils.regenerateAndSaveSlot();
     }
 
     return result;
@@ -504,7 +455,7 @@ class EditElementManager {
 
   async addElement(position = "bottom", value = "", options = {}) {
     try {
-      const currentSlot = this.getCurrentSlot();
+      const currentSlot = SlotUtils.getCurrentSlot();
       if (!currentSlot) {
         throw new Error("現在のスロットが見つかりません");
       }
@@ -546,7 +497,7 @@ class EditElementManager {
         if (el) el.sort = idx;
       });
 
-      await this.regenerateAndSaveSlot();
+      await SlotUtils.regenerateAndSaveSlot();
 
       if (window.app && window.app.updatePromptDisplay) {
         window.app.updatePromptDisplay();
@@ -582,7 +533,7 @@ class EditElementManager {
         listContainer = ulElement;
       }
 
-      const currentSlot = this.getCurrentSlot();
+      const currentSlot = SlotUtils.getCurrentSlot();
       if (!currentSlot || !currentSlot.elements) {
         return;
       }
@@ -672,7 +623,7 @@ class EditElementManager {
 
       setTimeout(async () => {
         try {
-          const currentSlot = this.getCurrentSlot();
+          const currentSlot = SlotUtils.getCurrentSlot();
           if (currentSlot && currentSlot.elements) {
             const updatedElement = currentSlot.elements.find((el) => el.id === elementId);
             if (updatedElement) {
@@ -696,7 +647,7 @@ class EditElementManager {
 
   async removeElement(elementId, options = {}) {
     try {
-      const currentSlot = this.getCurrentSlot();
+      const currentSlot = SlotUtils.getCurrentSlot();
       if (!currentSlot || !currentSlot.elements) {
         return false;
       }
@@ -718,7 +669,7 @@ class EditElementManager {
         if (el) el.sort = idx;
       });
 
-      await this.regenerateAndSaveSlot();
+      await SlotUtils.regenerateAndSaveSlot();
 
       if (window.app && window.app.updatePromptDisplay) {
         window.app.updatePromptDisplay();

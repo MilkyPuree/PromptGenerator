@@ -7,10 +7,9 @@ class CSVHandler {
     try {
       if (!dataList || dataList.length === 0) {
         if (window.ErrorHandler) {
-          window.ErrorHandler.showToast(
+          UIHelpers.notifyInfo(
             `${format.toUpperCase()}ファイルをエクスポートしました（データが空のため、ヘッダーのみです）`,
-            3000,
-            "info"
+            3000
           );
         }
       }
@@ -25,23 +24,6 @@ class CSVHandler {
             [CSV_HEADERS.TITLE]: item.title || "",
             [CSV_HEADERS.PROMPT]: item.prompt || "",
           }));
-        }
-      } else if (dataType === "master") {
-        if (!dataList || dataList.length === 0) {
-          csvData = [];
-        } else {
-          csvData = dataList.map((item) => {
-            const data0 = item.data?.[0] || item.data?.["0"] || "";
-            const data1 = item.data?.[1] || item.data?.["1"] || "";
-            const data2 = item.data?.[2] || item.data?.["2"] || "";
-
-            return {
-              [CSV_HEADERS.BIG_CATEGORY]: data0,
-              [CSV_HEADERS.MIDDLE_CATEGORY]: data1,
-              [CSV_HEADERS.SMALL_CATEGORY]: data2,
-              [CSV_HEADERS.PROMPT]: item.prompt || "",
-            };
-          });
         }
       } else {
         if (!dataList || dataList.length === 0) {
@@ -89,11 +71,7 @@ class CSVHandler {
 
       const formatName = format === "tsv" ? "TSV" : "CSV";
       const dataTypeName = dataType === "prompts" ? "お気に入りリスト" : "ユーザー辞書";
-      ErrorHandler.notify(`${dataTypeName}を${formatName}でエクスポートしました`, {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "success",
-        duration: 2000,
-      });
+      UIHelpers.notifySuccess(`${dataTypeName}を${formatName}でエクスポートしました`, 2000);
     } catch (error) {
       ErrorHandler.handleFileError(error, "export", `${dataType}.${format}`);
     }

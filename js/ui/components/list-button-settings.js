@@ -240,7 +240,7 @@
             const headerColumn = headerColumns[buttonIndex];
             if (isVisible) {
               headerColumn.classList.remove("header-column-hidden");
-              headerColumn.style.display = "";
+              headerColumn.classList.remove("hidden");
             } else {
               headerColumn.classList.add("header-column-hidden");
             }

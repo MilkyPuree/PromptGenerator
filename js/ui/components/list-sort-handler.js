@@ -101,14 +101,11 @@
 
       this.performColumnSort(dataArray, columnType, newDirection, listId, categoryIndex);
 
-      // ソート後にsortプロパティを更新（永続化のため）
-      if (dataArray === AppState.data.localPromptList) {
+      if (dataArray && dataArray.length > 0) {
         dataArray.forEach((item, index) => {
-          item.sort = index;
-        });
-      } else if (dataArray && dataArray.length > 0 && dataArray[0].title !== undefined) {
-        dataArray.forEach((item, index) => {
-          item.sort = index;
+          if (item && item.sort !== undefined) {
+            item.sort = index;
+          }
         });
       }
 

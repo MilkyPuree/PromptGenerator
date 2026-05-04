@@ -24,35 +24,6 @@ if (typeof window !== "undefined") {
 
 class PromptGeneratorApp {
   constructor() {
-    this.generateInput = {
-      val: function (value) {
-        const element = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-        if (element) {
-          if (arguments.length === 0) {
-            return element.value;
-          } else {
-            element.value = value;
-            return this;
-          }
-        }
-        return arguments.length === 0 ? "" : this;
-      },
-      trigger: function (eventName) {
-        const element = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-        if (element) {
-          element.dispatchEvent(new Event(eventName));
-        }
-        return this;
-      },
-      focus: function () {
-        const element = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-        if (element) {
-          element.focus();
-        }
-        return this;
-      },
-    };
-
     this.listManager = new PromptListManager();
     this.fileHandler = new FileHandler();
     this.searchHandler = new SearchHandler(this);
@@ -125,12 +96,13 @@ class PromptGeneratorApp {
       const loaded = await promptSlotManager.loadFromStorage();
 
       if (loaded) {
-        const currentSlot = promptSlotManager.slots[promptSlotManager.currentSlot];
-        // TODO: PromptEditor削除済み - スロットから直接表示
+        const currentSlot = SlotUtils.getCurrentSlot();
         if (currentSlot && currentSlot.isUsed) {
-          this.generateInput.val(currentSlot.prompt);
+          const generatePromptEl = document.getElementById(DOM_IDS.PROMPT.GENERATE);
+          if (generatePromptEl) generatePromptEl.value = currentSlot.prompt;
         } else {
-          this.generateInput.val("");
+          const generatePromptEl = document.getElementById(DOM_IDS.PROMPT.GENERATE);
+          if (generatePromptEl) generatePromptEl.value = "";
         }
 
         if (currentSlot && (currentSlot.mode === "random" || currentSlot.mode === "sequential")) {
@@ -152,8 +124,8 @@ class PromptGeneratorApp {
           }
         }
       } else {
-        // TODO: PromptEditor削除済み - 初回起動時の処理
-        const currentPrompt = this.generateInput.val() || "";
+        const generatePromptEl = document.getElementById(DOM_IDS.PROMPT.GENERATE);
+        const currentPrompt = generatePromptEl ? generatePromptEl.value : "";
         if (currentPrompt) {
           promptSlotManager.slots[0].prompt = currentPrompt;
           promptSlotManager.slots[0].isUsed = true;
@@ -191,7 +163,8 @@ class PromptGeneratorApp {
           if (hasStoredSelectors) {
             const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
             if (generateButton) {
-              generateButton.style.display = "block";
+              generateButton.classList.remove("hidden");
+              generateButton.classList.add("show-block");
             }
           } else if (service && AppState.selector.serviceSets[service]) {
             const serviceSelectors = AppState.selector.serviceSets[service];
@@ -202,7 +175,8 @@ class PromptGeneratorApp {
 
               const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
               if (generateButton) {
-                generateButton.style.display = "block";
+                generateButton.classList.remove("hidden");
+                generateButton.classList.add("show-block");
               }
             }
           }
@@ -230,8 +204,7 @@ class PromptGeneratorApp {
             }
           }
 
-          // TODO: PromptEditor削除済み - スロットから直接プロンプト取得・設定
-          const currentPrompt = window.promptSlotManager?.slots?.[window.promptSlotManager?.currentSlot]?.prompt;
+          const currentPrompt = SlotUtils.getCurrentSlot()?.prompt;
           if (currentPrompt) {
             const oldShaping = AppState.userSettings?.optionData?.shaping || "SD";
             const newShaping = event.target.value;
@@ -244,8 +217,7 @@ class PromptGeneratorApp {
               );
 
               if (convertedPrompt !== currentPrompt) {
-                // スロットに直接設定
-                const currentSlot = window.promptSlotManager?.slots?.[window.promptSlotManager?.currentSlot];
+                const currentSlot = SlotUtils.getCurrentSlot();
                 if (currentSlot) {
                   currentSlot.prompt = convertedPrompt;
                   // UIも更新
@@ -459,7 +431,8 @@ class PromptGeneratorApp {
   closePopup() {
     const popup = document.getElementById(DOM_IDS.PANELS.POPUP);
     if (popup) {
-      popup.style.display = "none";
+      popup.classList.add("hidden");
+      popup.classList.remove("show-flex", "show-block");
     }
   }
 
@@ -468,15 +441,15 @@ class PromptGeneratorApp {
     let previousPromptValue = "";
 
     const handlePromptSave = async () => {
-      const value = this.generateInput.val();
+      const generatePromptEl = document.getElementById(DOM_IDS.PROMPT.GENERATE);
+      const value = generatePromptEl ? generatePromptEl.value : "";
 
-      // 変更がなければスキップ
       if (value === previousPromptValue) {
         return;
       }
 
       if (window.promptSlotManager) {
-        const currentSlot = window.promptSlotManager.slots[window.promptSlotManager.currentSlot];
+        const currentSlot = SlotUtils.getCurrentSlot();
         if (currentSlot) {
           // 抽出モードの場合は編集不可
           if (currentSlot.mode === "random" || currentSlot.mode === "sequential") {
@@ -590,7 +563,7 @@ class PromptGeneratorApp {
 
     window.addEventListener("slotExtractionComplete", (event) => {
       const { slotId, extraction } = event.detail;
-      const currentSlot = promptSlotManager.slots[promptSlotManager.currentSlot];
+      const currentSlot = SlotUtils.getCurrentSlot();
 
       if (currentSlot && currentSlot.id === slotId) {
         const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
@@ -605,8 +578,7 @@ class PromptGeneratorApp {
   }
 
   updatePromptDisplay() {
-    // TODO: PromptEditor削除 - スロットから直接プロンプトを取得
-    const currentSlot = promptSlotManager?.slots?.[promptSlotManager.currentSlot];
+    const currentSlot = SlotUtils.getCurrentSlot();
     const newPrompt = currentSlot?.prompt || "";
     const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
 
@@ -626,8 +598,6 @@ class PromptGeneratorApp {
 
       if (newPrompt !== currentValue) {
         generatePrompt.value = newPrompt;
-        // TODO: savePrompt()もスロット直接保存に変更予定
-        // savePrompt();
         promptSlotManager.saveCurrentSlot();
       }
     }
@@ -727,22 +697,16 @@ class PromptGeneratorApp {
   }
 
   copyPrompt() {
-    // TODO: PromptEditor削除済み - 入力フィールドから直接取得
     const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
     const prompt = generatePrompt ? generatePrompt.value : "";
     navigator.clipboard.writeText(prompt);
 
-    ErrorHandler.notify("プロンプトをコピーしました", {
-      type: ErrorHandler.NotificationType.TOAST,
-      duration: 1500,
-      messageType: "success",
-    });
+    UIHelpers.notifySuccess("プロンプトをコピーしました", 1500);
   }
 
   async clearPrompt() {
-    // TODO: PromptEditor削除済み - スロットを直接クリア
     if (window.promptSlotManager) {
-      const currentSlot = window.promptSlotManager.slots[window.promptSlotManager.currentSlot];
+      const currentSlot = SlotUtils.getCurrentSlot();
       if (currentSlot) {
         currentSlot.prompt = "";
         currentSlot.elements = [];
@@ -755,7 +719,6 @@ class PromptGeneratorApp {
     }
     savePrompt();
 
-    // TODO: PromptEditor削除済み - promptSlotManagerのみチェック
     if (window.promptSlotManager) {
       await promptSlotManager.saveCurrentSlot();
     }
@@ -843,11 +806,7 @@ class PromptGeneratorApp {
       chrome.runtime.sendMessage({ type: CHROME_MESSAGES.UPDATE_PROMPT_LIST }, (response) => {});
     }, 200);
 
-    ErrorHandler.notify("プロンプトを辞書に追加しました", {
-      type: ErrorHandler.NotificationType.TOAST,
-      duration: 1500,
-      messageType: "success",
-    });
+    UIHelpers.notifySuccess("プロンプトを辞書に追加しました", 1500);
   }
 
   async generatePrompt() {
@@ -858,13 +817,9 @@ class PromptGeneratorApp {
       const hasSelectors = AppState.selector.positiveSelector && AppState.selector.generateSelector;
 
       if (!hasSelectors) {
-        ErrorHandler.notify(
+        UIHelpers.notifyWarning(
           "セレクターが正しく設定されていない可能性があります。その他タブの「セレクター設定」でプロンプト入力欄とGenerateボタンのセレクターが有効かどうか確認してみてください。",
-          {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: NOTIFICATION_DURATION.LONG,
-          }
+          NOTIFICATION_DURATION.LONG
         );
         return;
       }
@@ -899,13 +854,9 @@ class PromptGeneratorApp {
           }
 
           if (!positiveResponse?.valid || !generateResponse?.valid) {
-            ErrorHandler.notify(
+            UIHelpers.notifyWarning(
               "セレクターが正しく設定されていない可能性があります。その他タブの「セレクター設定」でプロンプト入力欄とGenerateボタンのセレクターが有効かどうか確認してみてください。",
-              {
-                type: ErrorHandler.NotificationType.TOAST,
-                messageType: "warning",
-                duration: NOTIFICATION_DURATION.LONG,
-              }
+              NOTIFICATION_DURATION.LONG
             );
             return;
           }
@@ -915,13 +866,9 @@ class PromptGeneratorApp {
           this.tabs.other.validateSelector("selector-positive", AppState.selector.positiveSelector);
           this.tabs.other.validateSelector("selector-generate", AppState.selector.generateSelector);
         }
-        ErrorHandler.notify(
+        UIHelpers.notifyWarning(
           "セレクターが正しく設定されていない可能性があります。その他タブの「セレクター設定」でプロンプト入力欄とGenerateボタンのセレクターが有効かどうか確認してみてください。",
-          {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: NOTIFICATION_DURATION.LONG,
-          }
+          NOTIFICATION_DURATION.LONG
         );
         return;
       }
@@ -962,10 +909,7 @@ class PromptGeneratorApp {
     }
 
     if (!targetPrompt) {
-      ErrorHandler.notify("使用中のプロンプトがありません", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "warning",
-      });
+      UIHelpers.notifyWarning("使用中のプロンプトがありません");
       return;
     }
 
@@ -980,17 +924,9 @@ class PromptGeneratorApp {
     if (window.loraGenerateHandler && window.loraGenerateHandler.isRunning && window.loraGenerateHandler.currentPrompt) {
       // LoRA生成中は通知不要（LoraGenerateHandler側で表示済み）
     } else if (window.autoGenerateHandler && window.autoGenerateHandler.historyPrompt) {
-      ErrorHandler.notify("履歴プロンプトで生成します", {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "info",
-        duration: 2000,
-      });
+      UIHelpers.notifyInfo("履歴プロンプトで生成します", 2000);
     } else {
-      ErrorHandler.notify(`${usedSlots.length}個のスロットを結合して生成します`, {
-        type: ErrorHandler.NotificationType.TOAST,
-        messageType: "info",
-        duration: 2000,
-      });
+      UIHelpers.notifyInfo(`${usedSlots.length}個のスロットを結合して生成します`, 2000);
     }
 
     if (AppState.ui.currentTab === CONSTANTS.TABS.SLOT && this.tabs.slot) {
@@ -1031,11 +967,7 @@ class PromptGeneratorApp {
         const maxSize = parseInt(e.target.value);
 
         if (isNaN(maxSize) || maxSize < 10 || maxSize > 200) {
-          ErrorHandler.notify("最大保持件数は10-200件の範囲で設定してください", {
-            type: ErrorHandler.NotificationType.TOAST,
-            messageType: "warning",
-            duration: 3000,
-          });
+          UIHelpers.notifyWarning("最大保持件数は10-200件の範囲で設定してください", 3000);
 
           e.target.value = AppState.userSettings.optionData.historyMaxSize || 50;
           return;
@@ -1048,11 +980,7 @@ class PromptGeneratorApp {
           this.historyManager.updateMaxSize(maxSize);
         }
 
-        ErrorHandler.notify(`履歴の最大保持件数を${maxSize}件に設定しました`, {
-          type: ErrorHandler.NotificationType.TOAST,
-          messageType: "success",
-          duration: 2000,
-        });
+        UIHelpers.notifySuccess(`履歴の最大保持件数を${maxSize}件に設定しました`, 2000);
       });
     }
 
@@ -1091,7 +1019,8 @@ class PromptGeneratorApp {
     if (AppState.selector.positiveSelector != null && AppState.selector.generateSelector != null) {
       const generateButton = document.getElementById(DOM_IDS.BUTTONS.GENERATE);
       if (generateButton) {
-        generateButton.style.display = "block";
+        generateButton.classList.remove("hidden");
+        generateButton.classList.add("show-block");
       }
     }
   }
@@ -1118,7 +1047,7 @@ class PromptGeneratorApp {
         return "";
       }
 
-      const currentSlot = window.promptSlotManager.slots[window.promptSlotManager.currentSlot];
+      const currentSlot = SlotUtils.getCurrentSlot();
       if (!currentSlot) {
         return "";
       }
@@ -1187,7 +1116,6 @@ class PromptGeneratorApp {
   }
 
   setupCloseHandlers() {
-    // TODO: PromptEditor削除済み - promptSlotManagerのみチェック
     window.addEventListener("beforeunload", async () => {
       if (window.promptSlotManager) {
         await promptSlotManager.saveCurrentSlot();
