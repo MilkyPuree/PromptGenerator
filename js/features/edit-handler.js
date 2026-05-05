@@ -138,6 +138,46 @@ class EditHandler {
       }
     }
 
+    // 辞書ヒットしなかった場合のみ重み記法を剥がす（辞書に重み付きで登録されている要素を尊重する）
+    if (!category && typeof WeightConverter !== "undefined") {
+      const weightInfo = WeightConverter.parseFirstWeight(promptValue);
+      if (weightInfo) {
+        const bareText = weightInfo.bareText;
+        const currentShaping = AppState.userSettings?.optionData?.shaping || "None";
+
+        const updates = { prompt: bareText };
+        if (currentShaping === "SD" || currentShaping === "NAI") {
+          updates.weight =
+            currentShaping === weightInfo.format
+              ? weightInfo.weight
+              : WeightConverter.convertWeight(weightInfo.weight, weightInfo.format, currentShaping);
+        }
+
+        element.Value = bareText;
+
+        if (window.editElementManager && elementId !== undefined) {
+          await window.editElementManager.updateElement(elementId, updates, {
+            updatePromptDisplay: false,
+            updateFieldStates: false,
+            preserveFocus: false,
+          });
+        }
+
+        promptValue = bareText;
+
+        if (window.CategoryUIManager) {
+          const categoryUIManager = new CategoryUIManager();
+          const retryJpResult = categoryUIManager.findByJapaneseSmallCategory(promptValue);
+          if (retryJpResult) {
+            category = retryJpResult.data;
+            englishPrompt = retryJpResult.prompt;
+          } else {
+            category = categoryUIManager.findCategoryByPrompt(promptValue);
+          }
+        }
+      }
+    }
+
     if (category) {
       // 日本語入力で見つかった場合、プロンプトを英語に置き換え
       if (englishPrompt) {

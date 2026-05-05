@@ -201,6 +201,43 @@ class WeightConverter {
   }
 
   /**
+   * 単一の重み付きトークン（例: {{girls}} / [[bad]] / (girls:1.5)）を分解する。
+   * 部分一致は受け付けず、トリム後に文字列全体が記法に一致した時だけ結果を返す。
+   * @param {string} text - 解析対象の文字列
+   * @returns {{bareText: string, weight: number, format: 'NAI' | 'SD'} | null}
+   */
+  static parseFirstWeight(text) {
+    if (!text || typeof text !== "string") return null;
+    const trimmed = text.trim();
+    if (!trimmed) return null;
+
+    const buildResult = (rawText, weight, format) => {
+      const bareText = rawText.trim();
+      if (!bareText) return null;
+      return { bareText, weight, format };
+    };
+
+    const naiPositive = trimmed.match(/^(\{+)([^{}]+)(\}+)$/);
+    if (naiPositive) {
+      const weight = Math.min(naiPositive[1].length, naiPositive[3].length);
+      return buildResult(naiPositive[2], weight, "NAI");
+    }
+
+    const naiNegative = trimmed.match(/^(\[+)([^\[\]]+)(\]+)$/);
+    if (naiNegative) {
+      const weight = -Math.min(naiNegative[1].length, naiNegative[3].length);
+      return buildResult(naiNegative[2], weight, "NAI");
+    }
+
+    const sdMatch = trimmed.match(/^\(([^:()]+):(-?[0-9]+(?:\.[0-9]+)?)\)$/);
+    if (sdMatch) {
+      return buildResult(sdMatch[1], parseFloat(sdMatch[2]), "SD");
+    }
+
+    return null;
+  }
+
+  /**
    * プロンプト文字列から重み記法を除去
    * @param {string} prompt - プロンプト文字列
    * @param {string} format - 記法形式 ('SD' | 'NAI')
