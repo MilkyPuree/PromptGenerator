@@ -367,7 +367,12 @@ class PromptSlotManager {
 
     const shaping = this.getCurrentShaping();
 
-    if ((shaping === "SD" && weight === 1.0) || (shaping === "NAI" && weight === 0) || shaping === "None") {
+    if (
+      (shaping === "SD" && weight === 1.0) ||
+      (shaping === "NAI" && weight === 0) ||
+      (shaping === "NAIv45" && weight === 1.0) ||
+      shaping === "None"
+    ) {
       return prompt;
     }
 
@@ -392,6 +397,7 @@ class PromptSlotManager {
     if (shaping === "NAI") {
       slot.weight = WeightConverter.convertSDToNAI(slot.absoluteWeight);
     } else {
+      // SD / NAIv45 / None はどれも「直接乗算」値（absoluteWeightをそのまま）
       slot.weight = slot.absoluteWeight;
     }
   }
@@ -401,12 +407,14 @@ class PromptSlotManager {
 
     switch (shaping) {
       case "SD":
-        return 1.0; // SD形式では1.0が無効化される値
+        return 1.0;
       case "NAI":
-        return 0.0; // NAI形式では0.0が無効化される値
+        return 0.0;
+      case "NAIv45":
+        return 1.0; // V4.5 では 1.0 が無効化される値
       case "None":
       default:
-        return 1.0; // None形式では重みは使用されないが、1.0をデフォルトとする
+        return 1.0;
     }
   }
 

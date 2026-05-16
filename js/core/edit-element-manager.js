@@ -482,6 +482,7 @@ class EditElementManager {
         data: ["", "", ""],
         SD: { weight: 0 },
         NAI: { weight: 0 },
+        NAIv45: { weight: 1 },
         None: { weight: 0 },
       };
 

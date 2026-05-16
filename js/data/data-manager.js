@@ -466,7 +466,6 @@ async function loadOptionData() {
 
 async function updateUIBasedOnCurrentTab() {
   return new Promise((resolve) => {
-    const uiTypeButtons = document.querySelectorAll('[name="UIType"]');
     const editTypeSelect = document.querySelector(DOM_SELECTORS.BY_ATTRIBUTE.EDIT_TYPE_SELECT);
 
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -475,21 +474,16 @@ async function updateUIBasedOnCurrentTab() {
       if (currentUrl === "http://127.0.0.1:7860/") {
         AppState.userSettings.optionData.shaping = "SD";
       } else if (currentUrl === "https://novelai.net/image") {
-        AppState.userSettings.optionData.shaping = "NAI";
+        AppState.userSettings.optionData.shaping = "NAIv45";
       }
 
       UpdateGenaretePrompt();
 
-      switch (AppState.userSettings.optionData.shaping) {
-        case "SD":
-          if (uiTypeButtons[0]) uiTypeButtons[0].checked = true;
-          break;
-        case "NAI":
-          if (uiTypeButtons[1]) uiTypeButtons[1].checked = true;
-          break;
-        case "None":
-          if (uiTypeButtons[2]) uiTypeButtons[2].checked = true;
-          break;
+      const targetButton = document.querySelector(
+        `[name="UIType"][value="${AppState.userSettings.optionData.shaping}"]`
+      );
+      if (targetButton) {
+        targetButton.checked = true;
       }
 
       if (editTypeSelect) {
