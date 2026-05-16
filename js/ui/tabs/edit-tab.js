@@ -195,6 +195,8 @@
             return 1.0;
           case "NAI":
             return 0.0;
+          case "NAIv45":
+            return 1.0;
           case "None":
           default:
             return 1.0;

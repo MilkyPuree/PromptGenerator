@@ -325,6 +325,7 @@
           case "NAI":
             return 0.0;
           case "SD":
+          case "NAIv45":
           default:
             return 1.0;
         }
@@ -347,6 +348,14 @@
 ・1.0: 重みなし（デフォルト）
 ・1.1以上: 強調 (プロンプト:値)
 ・0.9以下: 弱調 (プロンプト:値)
+・範囲: ${weightConfig.min}～${weightConfig.max}
+・ホイール/矢印キーで調整可能`;
+          case "NAIv45":
+            return `プロンプト重み (NAI V4.5 数値強調形式)
+・1.0: 重みなし（デフォルト）
+・1.1以上: 強調 値::プロンプト::
+・0.9以下: 弱調 値::プロンプト::
+・マイナス値: 反転強調（-1::monochrome:: で色彩を促す等）
 ・範囲: ${weightConfig.min}～${weightConfig.max}
 ・ホイール/矢印キーで調整可能`;
           case "None":
@@ -899,80 +908,219 @@
         }
       }
 
-      updateSlotWeightsForNewShaping(oldShaping, newShaping) {
-        const currentFormat = newShaping || "SD";
-        let updatedCount = 0;
-        let promptUpdatedCount = 0;
+      convertElementsForNewShaping(elements, oldShaping, newShaping) {
+        if (!Array.isArray(elements) || typeof WeightConverter === "undefined") return;
 
-        this.slotManager.slots.forEach((slot, index) => {
-          const oldPrompt = slot.prompt;
+        // [v1.1.x旧データ対応マイグレーション] 無重みデフォルト値
+        // NAI は加算系 (0=無重み)、SD/NAIv45 は乗算系 (1.0=無重み)、None は重み無し
+        const getDefaultWeight = (shaping) => {
+          if (shaping === "NAI") return 0;
+          if (shaping === "SD" || shaping === "NAIv45") return 1.0;
+          return 0;
+        };
 
-          if (oldPrompt && oldShaping !== newShaping) {
-            const convertedPrompt = WeightConverter.convertPromptNotation(oldPrompt, oldShaping, newShaping);
+        // shaping のフォールバック探索順序
+        // [v1.1.x旧データ対応マイグレーション] 旧データは shaping フィールドが部分的にしか存在しない場合がある
+        const FALLBACK_SHAPINGS = ["SD", "NAIv45", "NAI", "None"];
 
-            if (convertedPrompt !== oldPrompt) {
-              slot.prompt = convertedPrompt;
-              promptUpdatedCount++;
+        const isValidWeight = (w) => w !== undefined && w !== null && Number.isFinite(w);
+
+        elements.forEach((el) => {
+          if (!el) return;
+
+          // Step 1: Value に記法が埋め込まれていれば剥がして bareText + 重みに分解
+          let parsedWeight = null;
+          let parsedFormat = null;
+          if (el.Value) {
+            const info = WeightConverter.parseFirstWeight(el.Value);
+            if (info) {
+              el.Value = info.bareText;
+              parsedWeight = info.weight;
+              parsedFormat = info.format;
             }
           }
 
-          // absoluteWeightが0の場合、それは間違った初期値の可能性があるため修正
-          if (slot.absoluteWeight === 0 && oldShaping === "NAI" && newShaping === "SD") {
-            slot.absoluteWeight = 1.0;
-          } else if (slot.absoluteWeight === 1.0 && oldShaping === "SD" && newShaping === "NAI") {
-            slot.absoluteWeight = 0.0;
+          let resolvedWeight;
+          let resolvedSource = null;
+
+          // Step 1: Value から抽出できた場合は最優先
+          if (parsedWeight !== null && isValidWeight(parsedWeight)) {
+            resolvedWeight =
+              parsedFormat === newShaping
+                ? parsedWeight
+                : WeightConverter.convertWeight(parsedWeight, parsedFormat, newShaping);
+            resolvedSource = `Value記法(${parsedFormat})`;
           }
 
-          const absoluteWeight = slot.absoluteWeight;
-          const oldWeight = slot.weight;
-
-          if (currentFormat === "NAI") {
-            slot.weight = WeightConverter.convertSDToNAI(absoluteWeight);
-          } else if (currentFormat === "SD") {
-            slot.weight = absoluteWeight; // SD形式なら絶対値そのまま
-          } else {
-            slot.weight = 1.0; // None形式のデフォルト
+          // Step 2: el[oldShaping]?.weight を参照
+          if (!isValidWeight(resolvedWeight) && oldShaping && el[oldShaping]) {
+            const oldWeight = el[oldShaping].weight;
+            if (isValidWeight(oldWeight)) {
+              resolvedWeight =
+                oldShaping === newShaping ? oldWeight : WeightConverter.convertWeight(oldWeight, oldShaping, newShaping);
+              resolvedSource = `oldShaping(${oldShaping})`;
+            }
           }
 
-          // 範囲制限
-          const weightConfig = WeightConverter.getWeightConfig(this.getCurrentShaping());
-          slot.weight = Math.max(weightConfig.min, Math.min(weightConfig.max, slot.weight));
+          // Step 3: [v1.1.x旧データ対応マイグレーション] 他の shaping フィールドから探索
+          // 旧データは部分的なフィールドしか持たない可能性があるため、見つかったものを変換して使う
+          if (!isValidWeight(resolvedWeight)) {
+            for (const candidate of FALLBACK_SHAPINGS) {
+              if (candidate === oldShaping) continue; // Step 2 で確認済み
+              if (!el[candidate]) continue;
+              const candidateWeight = el[candidate].weight;
+              if (isValidWeight(candidateWeight)) {
+                resolvedWeight =
+                  candidate === newShaping
+                    ? candidateWeight
+                    : WeightConverter.convertWeight(candidateWeight, candidate, newShaping);
+                resolvedSource = `フォールバック(${candidate})`;
+                break;
+              }
+            }
+          }
 
-          if (oldWeight !== slot.weight) {
-            updatedCount++;
+          // Step 4: [v1.1.x旧データ対応マイグレーション] どこにも重み情報がなければデフォルト値
+          // [CLAUDE.md違反対応] フォールバックではあるが旧データ救済のため必要。黙らず警告を出す
+          if (!isValidWeight(resolvedWeight)) {
+            resolvedWeight = getDefaultWeight(newShaping);
+            console.warn(
+              `[ShapingConvert] 要素 "${el.Value}" の重み情報が見つからず、デフォルト値 ${resolvedWeight} (${newShaping}) を適用しました`,
+              el
+            );
+            resolvedSource = "デフォルト値";
+          }
+
+          // 新 shaping に書き戻し（既存オブジェクトがあれば weight だけ更新）
+          if (!el[newShaping]) el[newShaping] = { weight: getDefaultWeight(newShaping) };
+          el[newShaping].weight = resolvedWeight;
+
+          if (AppState?.config?.debugMode) {
+            console.log(`[ShapingConvert] 要素 "${el.Value}" を ${oldShaping}→${newShaping} 変換:`, {
+              resolvedWeight,
+              source: resolvedSource,
+            });
           }
         });
+      }
 
-        if (oldShaping !== newShaping) {
-          const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-          const currentEditorPrompt = generatePrompt?.value || "";
+      regenerateSlotPromptFromElements(slot, shaping) {
+        if (!slot.elements || !Array.isArray(slot.elements)) return slot.prompt || "";
 
-          if (currentEditorPrompt) {
-            const convertedEditorPrompt = WeightConverter.convertPromptNotation(
-              currentEditorPrompt,
-              oldShaping,
-              newShaping
-            );
-
-            if (convertedEditorPrompt !== currentEditorPrompt && generatePrompt) {
-              generatePrompt.value = convertedEditorPrompt;
-
-              // 現在のスロットにも反映
-              const currentSlot = this.slotManager.slots[this.slotManager.currentSlot];
-              if (currentSlot) {
-                currentSlot.prompt = convertedEditorPrompt;
-              }
-
-              if (window.app && typeof window.app.updatePromptDisplay === "function") {
-                window.app.updatePromptDisplay();
-              }
+        return slot.elements
+          .filter((el) => el && el.Value)
+          .slice()
+          .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+          .map((el) => {
+            const weight = el[shaping]?.weight;
+            if (weight !== undefined && weight !== null) {
+              return WeightConverter.applyWeightToPrompt(shaping, el.Value, weight);
             }
+            return el.Value;
+          })
+          .filter((v) => v)
+          .join(",");
+      }
+
+      convertSingleSlotForNewShaping(slot, oldShaping, newShaping) {
+        let weightChanged = false;
+        let promptChanged = false;
+
+        if (slot.elements && Array.isArray(slot.elements) && oldShaping !== newShaping) {
+          this.convertElementsForNewShaping(slot.elements, oldShaping, newShaping);
+        }
+
+        const oldPrompt = slot.prompt;
+        if (oldPrompt && oldShaping !== newShaping) {
+          const hasElements = slot.elements && slot.elements.length > 0;
+          const convertedPrompt = hasElements
+            ? this.regenerateSlotPromptFromElements(slot, newShaping)
+            : WeightConverter.convertPromptNotation(oldPrompt, oldShaping, newShaping);
+
+          if (convertedPrompt !== oldPrompt) {
+            slot.prompt = convertedPrompt;
+            promptChanged = true;
           }
         }
 
-        this.updateWeightDisplayValues();
+        // absoluteWeight の補正（NAI=0 と SD/NAIv45=1.0 が「重みなし」状態）
+        const isMultiplierFormat = (f) => f === "SD" || f === "NAIv45";
+        if (slot.absoluteWeight === 0 && oldShaping === "NAI" && isMultiplierFormat(newShaping)) {
+          slot.absoluteWeight = 1.0;
+        } else if (slot.absoluteWeight === 1.0 && isMultiplierFormat(oldShaping) && newShaping === "NAI") {
+          slot.absoluteWeight = 0.0;
+        }
 
+        const oldWeight = slot.weight;
+        if (newShaping === "NAI") {
+          slot.weight = WeightConverter.convertSDToNAI(slot.absoluteWeight);
+        } else if (isMultiplierFormat(newShaping)) {
+          slot.weight = slot.absoluteWeight;
+        } else {
+          slot.weight = 1.0;
+        }
+
+        const weightConfig = WeightConverter.getWeightConfig(this.getCurrentShaping());
+        slot.weight = Math.max(weightConfig.min, Math.min(weightConfig.max, slot.weight));
+
+        if (oldWeight !== slot.weight) {
+          weightChanged = true;
+        }
+
+        return { weightChanged, promptChanged };
+      }
+
+      syncCurrentSlotPromptToTextarea(oldShaping, newShaping) {
+        const generatePrompt = document.getElementById(DOM_IDS.PROMPT.GENERATE);
+        if (!generatePrompt) return;
+
+        const currentSlot = this.slotManager.slots[this.slotManager.currentSlot];
+
+        if (currentSlot) {
+          // currentSlot.prompt は convertSingleSlotForNewShaping で再生成・変換済み
+          const desired = currentSlot.prompt || "";
+          if (generatePrompt.value !== desired) {
+            generatePrompt.value = desired;
+          }
+          if (window.app && typeof window.app.updatePromptDisplay === "function") {
+            window.app.updatePromptDisplay();
+          }
+          return;
+        }
+
+        // フォールバック: スロットが取得できない場合は textarea を直接変換
+        const editorPrompt = generatePrompt.value || "";
+        if (editorPrompt) {
+          const converted = WeightConverter.convertPromptNotation(editorPrompt, oldShaping, newShaping);
+          if (converted !== editorPrompt) {
+            generatePrompt.value = converted;
+          }
+        }
+      }
+
+      refreshEditTabIfActive() {
+        if (window.app?.tabs?.edit?.isActive && typeof window.app.tabs.edit.refreshEditList === "function") {
+          window.app.tabs.edit.refreshEditList();
+        }
+      }
+
+      updateSlotWeightsForNewShaping(oldShaping, newShaping) {
+        let updatedCount = 0;
+        let promptUpdatedCount = 0;
+
+        this.slotManager.slots.forEach((slot) => {
+          const result = this.convertSingleSlotForNewShaping(slot, oldShaping, newShaping);
+          if (result.weightChanged) updatedCount++;
+          if (result.promptChanged) promptUpdatedCount++;
+        });
+
+        if (oldShaping !== newShaping) {
+          this.syncCurrentSlotPromptToTextarea(oldShaping, newShaping);
+        }
+
+        this.updateWeightDisplayValues();
         this.updateDisplay();
+        this.refreshEditTabIfActive();
 
         if (updatedCount > 0 || promptUpdatedCount > 0) {
           this.slotManager.saveToStorage();

@@ -43,19 +43,29 @@ class WeightConverter {
 
   /**
    * 重み値を指定された形式に変換
+   * SD と NAIv45 はどちらも「直接乗算」の数値なので 1:1 マッピング。
+   * NAI(旧括弧) ↔ NAIv45 は SD ↔ NAI と同じ式（1.05^n / log_1.05）。
    * @param {number} weight - 元の重み値
-   * @param {string} fromFormat - 元の形式 ('SD' | 'NAI')
-   * @param {string} toFormat - 変換先の形式 ('SD' | 'NAI')
-   * @param {boolean} truncate - NAI→SD変換時に小数第2位で切り捨てするか
+   * @param {string} fromFormat - 元の形式 ('SD' | 'NAI' | 'NAIv45')
+   * @param {string} toFormat - 変換先の形式 ('SD' | 'NAI' | 'NAIv45')
+   * @param {boolean} truncate - 小数第2位で切り捨てするか（NAI → 乗算系のみ）
    * @returns {number} 変換後の重み値
    */
   static convertWeight(weight, fromFormat, toFormat, truncate = false) {
     if (fromFormat === toFormat) return weight;
 
-    if (fromFormat === "SD" && toFormat === "NAI") {
-      return this.convertSDToNAI(weight);
-    } else if (fromFormat === "NAI" && toFormat === "SD") {
+    const isMultiplier = (f) => f === "SD" || f === "NAIv45";
+
+    if (isMultiplier(fromFormat) && isMultiplier(toFormat)) {
+      return weight;
+    }
+
+    if (fromFormat === "NAI" && isMultiplier(toFormat)) {
       return this.convertNAIToSD(weight, truncate);
+    }
+
+    if (isMultiplier(fromFormat) && toFormat === "NAI") {
+      return this.convertSDToNAI(weight);
     }
 
     return weight;
@@ -63,7 +73,7 @@ class WeightConverter {
 
   /**
    * 重み設定を取得
-   * @param {string} shaping - shaping設定 ('SD' | 'NAI' | 'None')
+   * @param {string} shaping - shaping設定 ('SD' | 'NAI' | 'NAIv45' | 'None')
    * @returns {Object} { delta, min, max }
    */
   static getWeightConfig(shaping) {
@@ -82,6 +92,8 @@ class WeightConverter {
       return { delta: 0.1, min: 0.1, max: 10 };
     } else if (shaping === "NAI") {
       return { delta: 1, min: -10, max: 10 };
+    } else if (shaping === "NAIv45") {
+      return { delta: 0.1, min: -10, max: 10 };
     } else {
       return { delta: 0, min: -10, max: 10 };
     }
@@ -89,7 +101,7 @@ class WeightConverter {
 
   /**
    * プロンプトに重み記法を適用
-   * @param {string} type - shaping形式 ('SD' | 'NAI' | 'None')
+   * @param {string} type - shaping形式 ('SD' | 'NAI' | 'NAIv45' | 'None')
    * @param {string} str - プロンプト文字列
    * @param {number} weight - 重み値
    * @returns {string} 重み記法が適用されたプロンプト
@@ -104,6 +116,10 @@ class WeightConverter {
         const brackets = weight > 0 ? "{}" : "[]";
         const absWeight = Math.min(Math.abs(weight), 10); // 最大10に制限
         return brackets[0].repeat(absWeight) + str + brackets[1].repeat(absWeight);
+      case "NAIv45":
+        // V4.5 数値強調: 1.0 は記法不要、その他は `WEIGHT::TEXT::`
+        if (weight === 1 || !isFinite(weight)) return str;
+        return `${weight}::${str}::`;
       case "None":
         return str;
       default:
@@ -114,34 +130,98 @@ class WeightConverter {
   /**
    * プロンプト文字列内の記法を変換
    * @param {string} prompt - 変換元のプロンプト文字列
-   * @param {string} fromFormat - 元の記法形式 ('SD' | 'NAI' | 'None')
-   * @param {string} toFormat - 変換先の記法形式 ('SD' | 'NAI' | 'None')
+   * @param {string} fromFormat - 元の記法形式 ('SD' | 'NAI' | 'NAIv45' | 'None')
+   * @param {string} toFormat - 変換先の記法形式 ('SD' | 'NAI' | 'NAIv45' | 'None')
    * @returns {string} 変換後のプロンプト文字列
    */
   static convertPromptNotation(prompt, fromFormat, toFormat) {
     if (!prompt || fromFormat === toFormat) return prompt;
 
-    // None形式への変換は記法を除去
     if (toFormat === "None") {
       return this.removeWeightNotation(prompt, fromFormat);
     }
 
-    // None形式からの変換は記法が存在しないので元のプロンプトをそのまま返す
     if (fromFormat === "None") {
       return prompt;
     }
 
-    // SD → NAI変換
-    if (fromFormat === "SD" && toFormat === "NAI") {
-      return this.convertSDToNAINotation(prompt);
-    }
+    if (fromFormat === "SD" && toFormat === "NAI") return this.convertSDToNAINotation(prompt);
+    if (fromFormat === "NAI" && toFormat === "SD") return this.convertNAIToSDNotation(prompt);
 
-    // NAI → SD変換
-    if (fromFormat === "NAI" && toFormat === "SD") {
-      return this.convertNAIToSDNotation(prompt);
-    }
+    if (fromFormat === "SD" && toFormat === "NAIv45") return this.convertSDToNAIv45Notation(prompt);
+    if (fromFormat === "NAIv45" && toFormat === "SD") return this.convertNAIv45ToSDNotation(prompt);
+
+    if (fromFormat === "NAI" && toFormat === "NAIv45") return this.convertNAIToNAIv45Notation(prompt);
+    if (fromFormat === "NAIv45" && toFormat === "NAI") return this.convertNAIv45ToNAINotation(prompt);
 
     return prompt;
+  }
+
+  /**
+   * SD記法を NAIv45 数値強調記法に変換（SD と NAIv45 は同じ「直接乗算」なので値はそのまま）
+   * @param {string} prompt
+   * @returns {string}
+   */
+  static convertSDToNAIv45Notation(prompt) {
+    return prompt.replace(/\(([^:()]+):(-?[0-9.]+)\)/g, (match, text, weight) => {
+      const w = parseFloat(weight);
+      if (w === 1) return text;
+      return `${w}::${text}::`;
+    });
+  }
+
+  /**
+   * NAIv45 数値強調記法を SD記法に変換
+   * @param {string} prompt
+   * @returns {string}
+   */
+  static convertNAIv45ToSDNotation(prompt) {
+    return prompt.replace(/(-?\d+(?:\.\d+)?)::([\s\S]+?)::/g, (match, weight, text) => {
+      const w = parseFloat(weight);
+      if (w === 1) return text;
+      return `(${text.trim()}:${w})`;
+    });
+  }
+
+  /**
+   * NAI(旧括弧)記法を NAIv45 数値強調記法に変換（1.05^n 変換でマルチプライヤ化）
+   * @param {string} prompt
+   * @returns {string}
+   */
+  static convertNAIToNAIv45Notation(prompt) {
+    let result = prompt;
+
+    result = result.replace(/(\{+)([^{}]+)(\}+)/g, (match, opens, text, closes) => {
+      const naiWeight = Math.min(opens.length, closes.length);
+      const multiplier = this.convertNAIToSD(naiWeight);
+      if (multiplier === 1) return text;
+      return `${multiplier}::${text}::`;
+    });
+
+    result = result.replace(/(\[+)([^\[\]]+)(\]+)/g, (match, opens, text, closes) => {
+      const naiWeight = -Math.min(opens.length, closes.length);
+      const multiplier = this.convertNAIToSD(naiWeight);
+      if (multiplier === 1) return text;
+      return `${multiplier}::${text}::`;
+    });
+
+    return result;
+  }
+
+  /**
+   * NAIv45 数値強調記法を NAI(旧括弧)記法に変換（log_1.05 変換）
+   * @param {string} prompt
+   * @returns {string}
+   */
+  static convertNAIv45ToNAINotation(prompt) {
+    return prompt.replace(/(-?\d+(?:\.\d+)?)::([\s\S]+?)::/g, (match, weight, text) => {
+      const trimmedText = text.trim();
+      const naiWeight = this.convertSDToNAI(parseFloat(weight));
+      if (naiWeight === 0) return trimmedText;
+      const brackets = naiWeight > 0 ? "{}" : "[]";
+      const absWeight = Math.min(Math.abs(naiWeight), 10);
+      return brackets[0].repeat(absWeight) + trimmedText + brackets[1].repeat(absWeight);
+    });
   }
 
   /**
@@ -201,10 +281,40 @@ class WeightConverter {
   }
 
   /**
-   * 単一の重み付きトークン（例: {{girls}} / [[bad]] / (girls:1.5)）を分解する。
+   * プロンプト文字列内の混在記法を、指定 shaping に統一する。
+   * - SD記法 `(text:N)`、NAI括弧 `{text}`/`[text]`、NAIv45 `N::text::` を検出
+   * - target と異なる記法は convertPromptNotation で target に変換
+   * - target が `None` の場合や記法が無い場合は元の文字列を返す
+   * @param {string} prompt - 入力プロンプト
+   * @param {string} targetShaping - 'SD' | 'NAI' | 'NAIv45' | 'None'
+   * @returns {string} 正規化済みプロンプト
+   */
+  static normalizePromptToShaping(prompt, targetShaping) {
+    if (!prompt || typeof prompt !== "string") return prompt;
+    if (!targetShaping || targetShaping === "None") return prompt;
+
+    let result = prompt;
+
+    if (targetShaping !== "SD" && /\([^():]+:(-?[0-9.]+)\)/.test(result)) {
+      result = this.convertPromptNotation(result, "SD", targetShaping);
+    }
+
+    if (targetShaping !== "NAI" && (/\{[^{}]+\}/.test(result) || /\[[^\[\]]+\]/.test(result))) {
+      result = this.convertPromptNotation(result, "NAI", targetShaping);
+    }
+
+    if (targetShaping !== "NAIv45" && /-?\d+(?:\.\d+)?::[^:]+?::/.test(result)) {
+      result = this.convertPromptNotation(result, "NAIv45", targetShaping);
+    }
+
+    return result;
+  }
+
+  /**
+   * 単一の重み付きトークン（例: {{girls}} / [[bad]] / (girls:1.5) / 1.5::girls::）を分解する。
    * 部分一致は受け付けず、トリム後に文字列全体が記法に一致した時だけ結果を返す。
    * @param {string} text - 解析対象の文字列
-   * @returns {{bareText: string, weight: number, format: 'NAI' | 'SD'} | null}
+   * @returns {{bareText: string, weight: number, format: 'NAI' | 'SD' | 'NAIv45'} | null}
    */
   static parseFirstWeight(text) {
     if (!text || typeof text !== "string") return null;
@@ -216,6 +326,12 @@ class WeightConverter {
       if (!bareText) return null;
       return { bareText, weight, format };
     };
+
+    // V4.5 数値強調 `WEIGHT::TEXT::` は NAI括弧との衝突がないので先に判定
+    const naiv45Match = trimmed.match(/^(-?\d+(?:\.\d+)?)::([\s\S]+?)::$/);
+    if (naiv45Match) {
+      return buildResult(naiv45Match[2], parseFloat(naiv45Match[1]), "NAIv45");
+    }
 
     const naiPositive = trimmed.match(/^(\{+)([^{}]+)(\}+)$/);
     if (naiPositive) {
@@ -240,19 +356,19 @@ class WeightConverter {
   /**
    * プロンプト文字列から重み記法を除去
    * @param {string} prompt - プロンプト文字列
-   * @param {string} format - 記法形式 ('SD' | 'NAI')
+   * @param {string} format - 記法形式 ('SD' | 'NAI' | 'NAIv45')
    * @returns {string} 重み記法が除去されたプロンプト
    */
   static removeWeightNotation(prompt, format) {
     let result = prompt;
 
     if (format === "SD") {
-      // SD記法を除去: (text:weight) → text
-      result = result.replace(/\(([^:()]+):([0-9.]+)\)/g, "$1");
+      result = result.replace(/\(([^:()]+):(-?[0-9.]+)\)/g, "$1");
     } else if (format === "NAI") {
-      // NAI記法を除去: {{{text}}} → text, [[[text]]] → text
       result = result.replace(/(\{+)([^{}]+)(\}+)/g, "$2");
       result = result.replace(/(\[+)([^\[\]]+)(\]+)/g, "$2");
+    } else if (format === "NAIv45") {
+      result = result.replace(/(-?\d+(?:\.\d+)?)::([\s\S]+?)::/g, (match, weight, text) => text.trim());
     }
 
     return result;

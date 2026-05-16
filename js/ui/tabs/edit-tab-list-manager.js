@@ -74,6 +74,7 @@
           sort: element.sort !== undefined ? element.sort : index,
           SD: element.SD,
           NAI: element.NAI,
+          NAIv45: element.NAIv45,
           None: element.None,
           Value: element.Value,
           Weight: element.Weight,
@@ -155,7 +156,19 @@
         key: (item) => {
           const shaping = AppState.userSettings.optionData.shaping;
           const weight = item[shaping]?.weight;
-          return weight !== undefined && weight !== null ? weight : 0;
+          if (weight !== undefined && weight !== null) return weight;
+
+          // [マイグレーション] 旧データで shaping フィールド未定義時のデフォルト
+          // SD/NAIv45 は乗算系で 1.0 が無重み、NAI は加算系で 0 が無重み
+          switch (shaping) {
+            case "NAIv45": return 1;
+            case "SD": return 1;
+            case "NAI": return 0;
+            case "None": return 0;
+            default:
+              console.warn(`[EditTabListManager] Unknown shaping format: ${shaping}`);
+              return 0;
+          }
         },
         label: "重み",
       };
@@ -689,6 +702,7 @@
           data: ["", "", ""],
           SD: { weight: 0 },
           NAI: { weight: 0 },
+          NAIv45: { weight: 1 },
           None: { weight: 0 },
         };
 

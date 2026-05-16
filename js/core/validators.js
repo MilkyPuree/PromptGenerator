@@ -238,7 +238,8 @@ const Validators = {
 
   validateWeight(weight, mode = "SD") {
     if (!weight) {
-      return { isValid: true, numericValue: mode === "SD" ? 1 : 0 };
+      const defaultByMode = mode === "NAI" ? 0 : 1;
+      return { isValid: true, numericValue: defaultByMode };
     }
 
     const numWeight = parseFloat(weight);
@@ -253,6 +254,7 @@ const Validators = {
     const ranges = {
       SD: { min: 0.1, max: 10 },
       NAI: { min: -10, max: 10 },
+      NAIv45: { min: -10, max: 10 },
     };
 
     const range = ranges[mode] || ranges.SD;
