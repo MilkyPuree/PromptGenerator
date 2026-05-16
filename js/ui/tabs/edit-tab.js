@@ -90,7 +90,128 @@
 
         await this.setupEventListeners();
 
+        this.setupGroupSelector();
+
+        this.setupSlotSelector();
+
         this.updateCurrentModes();
+      }
+
+      setupGroupSelector() {
+        const selector = this.getElement("#edit-tab-group-select");
+        if (!selector) return;
+
+        this.addEventListener(selector, "change", async (e) => {
+          const groupId = e.target.value;
+          if (!window.slotGroupManager) return;
+
+          const currentGroup = window.slotGroupManager.getCurrentGroup();
+          if (currentGroup && currentGroup.id === groupId) return;
+
+          try {
+            await window.slotGroupManager.switchToGroup(groupId);
+            await this.refreshEditList();
+            this.updateSlotSelector();
+            this.updateSlotIntegrationPanel();
+            this.updateSlotMuteButton();
+          } catch (error) {
+            console.error("[EditTab] グループ切り替えに失敗:", error);
+            this.updateGroupSelector();
+          }
+        });
+
+        window.addEventListener("slotGroupChanged", () => {
+          this.updateGroupSelector();
+          this.updateSlotSelector();
+          if (this.isCurrentTab && this.isCurrentTab()) {
+            this.refreshEditList();
+          }
+        });
+      }
+
+      updateGroupSelector() {
+        const selector = this.getElement("#edit-tab-group-select");
+        if (!selector || !window.slotGroupManager) return;
+
+        const groups = window.slotGroupManager.getAllGroups();
+        if (!groups || groups.length === 0) return;
+
+        selector.innerHTML = "";
+        groups.forEach((group) => {
+          const option = document.createElement("option");
+          option.value = group.id;
+          option.textContent = group.name;
+          option.selected = group.isCurrent;
+          selector.appendChild(option);
+        });
+      }
+
+      setupSlotSelector() {
+        const selector = this.getElement("#edit-tab-slot-select");
+        if (!selector) return;
+
+        this.addEventListener(selector, "change", async (e) => {
+          const slotId = parseInt(e.target.value, 10);
+          if (!window.promptSlotManager || Number.isNaN(slotId)) return;
+
+          try {
+            const switched = await window.promptSlotManager.switchSlot(slotId);
+            if (!switched) {
+              this.updateSlotSelector();
+              return;
+            }
+
+            const headerSelector = document.getElementById("prompt-slot-selector");
+            if (headerSelector && headerSelector.value !== String(slotId)) {
+              headerSelector.value = String(slotId);
+            }
+
+            window.dispatchEvent(
+              new CustomEvent("slotChanged", {
+                detail: { slotId: slotId },
+              })
+            );
+
+            await this.refreshEditList();
+            this.updateSlotIntegrationPanel();
+            this.updateSlotMuteButton();
+          } catch (error) {
+            console.error("[EditTab] スロット切り替えに失敗:", error);
+            this.updateSlotSelector();
+          }
+        });
+
+        window.addEventListener("slotChanged", () => {
+          this.updateSlotSelector();
+        });
+      }
+
+      updateSlotSelector() {
+        const selector = this.getElement("#edit-tab-slot-select");
+        if (!selector || !window.promptSlotManager) return;
+
+        const slots = window.promptSlotManager.slots;
+        if (!Array.isArray(slots) || slots.length === 0) return;
+
+        const slotInfos = window.promptSlotManager.getAllSlotInfo();
+        selector.innerHTML = "";
+        slotInfos.forEach((info) => {
+          if (!info) return;
+          const option = document.createElement("option");
+          option.value = info.id;
+          option.textContent = info.isUsed
+            ? `${info.displayNumber}: ${info.name || info.preview}`
+            : `${info.displayNumber}: (空)`;
+          if (info.isCurrent) {
+            option.selected = true;
+          }
+          selector.appendChild(option);
+        });
+
+        const currentSlotId = slots[window.promptSlotManager.currentSlot]?.id;
+        if (currentSlotId !== undefined) {
+          selector.value = String(currentSlotId);
+        }
       }
 
       findElementIndex(elementId) {
@@ -103,6 +224,10 @@
         if (isFirstShow) {
           this.hasBeenShown = true;
         }
+
+        this.updateGroupSelector();
+
+        this.updateSlotSelector();
 
         this.checkExtractionMode();
 

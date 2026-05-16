@@ -424,15 +424,59 @@ class CategoryUIManager {
     const localResult = findCategory(AppState.data.localPromptList || []);
     const masterResult = localResult || findCategory(getMasterPrompts() || []);
 
-    // 英語プロンプトで見つからない場合、日本語の小項目（data[2]）で検索
-    if (!masterResult) {
-      const jpResult = this.findByJapaneseSmallCategory(promptValue);
-      if (jpResult) {
-        return jpResult.data;
-      }
+    if (masterResult) {
+      return masterResult;
     }
 
-    return masterResult;
+    // 英語プロンプトで見つからない場合、日本語の小項目（data[2]）で検索
+    const jpResult = this.findByJapaneseSmallCategory(promptValue);
+    if (jpResult) {
+      return jpResult.data;
+    }
+
+    // 既存処理で見つからなかった場合、TagMatchingで複合タグエントリへのマッチを試行
+    // 例: 辞書に "best quality, very aesthetic" がある時、"best quality" 単独でも該当エントリのカテゴリを返す
+    return CategoryUIManager._findCategoryByTagMatching(promptValue);
+  }
+
+  /**
+   * TagMatchingを使った複合タグマッチングのフォールバック。
+   * 辞書のdictIndexはローカル+マスター辞書のlength変化でキャッシュ無効化する。
+   * @param {string} promptValue
+   * @returns {[string, string, string] | null}
+   */
+  static _findCategoryByTagMatching(promptValue) {
+    if (!window.TagMatching || typeof window.TagMatching.buildDictIndex !== "function") {
+      return null;
+    }
+
+    try {
+      const localList = AppState.data.localPromptList || [];
+      const masterList = (typeof getMasterPrompts === "function" ? getMasterPrompts() : []) || [];
+
+      const cacheKey = `${localList.length}|${masterList.length}`;
+      if (!CategoryUIManager._dictIndexCache || CategoryUIManager._dictIndexCache.key !== cacheKey) {
+        CategoryUIManager._dictIndexCache = {
+          key: cacheKey,
+          index: window.TagMatching.buildDictIndex([...localList, ...masterList]),
+        };
+      }
+
+      const translated = window.TagMatching.translatePromptWithDict(
+        promptValue,
+        CategoryUIManager._dictIndexCache.index
+      );
+
+      const hit = translated.find((t) => Array.isArray(t.category) && t.category.some((c) => c));
+      if (hit) {
+        const [c0, c1, c2] = hit.category;
+        return [c0 || "", c1 || "", c2 || ""];
+      }
+    } catch (e) {
+      // TagMatching失敗時は既存処理通りnullを返す
+    }
+
+    return null;
   }
 
   /**

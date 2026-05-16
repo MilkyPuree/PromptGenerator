@@ -350,6 +350,16 @@
 
         <!-- 編集タブ -->
         <div class="panel" id="editTabBody">
+          <!-- グループセレクター + スロットセレクター -->
+          <div class="edit-tab-group-selector">
+            <label for="edit-tab-group-select">グループ:</label>
+            <select id="edit-tab-group-select" title="編集対象のグループを切り替え（作成・削除はスロットタブから）">
+              <option value="default">デフォルトグループ</option>
+            </select>
+            <label for="edit-tab-slot-select">スロット:</label>
+            <select id="edit-tab-slot-select" title="編集対象のスロットを切り替え（追加・削除はスロットタブから）"></select>
+          </div>
+
           <!-- 編集モード選択と要素追加ボタン -->
           <div class="edit-mode-selection">
             <!-- スロット統合パネル -->
@@ -774,6 +784,9 @@
     <script src="js/core/edit-element-manager.js"></script>
     <script src="js/core/flexible-element-manager.js"></script>
     <script src="js/utils/weight-converter.js"></script>
+    <script src="js/utils/tag-matching.js"></script>
+    <script src="js/utils/element-sync.js"></script>
+    <script src="js/utils/prompt-migration.js"></script>
     <script src="js/utils/list-refresh-manager.js"></script>
     <script src="js/utils/element-registration.js"></script>
     <script src="js/utils/file-utilities.js"></script>

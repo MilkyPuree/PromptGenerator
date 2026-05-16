@@ -95,6 +95,10 @@ class PromptGeneratorApp {
 
       const loaded = await promptSlotManager.loadFromStorage();
 
+      this.autoRepairSlotElements();
+
+      this.migrationDryRun();
+
       if (loaded) {
         const currentSlot = SlotUtils.getCurrentSlot();
         if (currentSlot && currentSlot.isUsed) {
@@ -444,7 +448,17 @@ class PromptGeneratorApp {
       return format === shaping ? weight : WeightConverter.convertWeight(weight, format, shaping);
     };
 
-    const buildElementFromPrompt = (rawPrompt, index, existingMap, shaping) => {
+    const lookupDataForValue = (value, promptMap) => {
+      if (!value || !promptMap) return ["", "", ""];
+      try {
+        if (window.ElementSync && typeof window.ElementSync.lookupData === "function") {
+          return window.ElementSync.lookupData(value, promptMap);
+        }
+      } catch (e) {}
+      return ["", "", ""];
+    };
+
+    const buildElementFromPrompt = (rawPrompt, index, existingMap, shaping, promptMap) => {
       let bareValue = rawPrompt;
       let extractedWeight = null;
       let extractedFormat = null;
@@ -466,6 +480,11 @@ class PromptGeneratorApp {
         if (resolvedWeight !== null) {
           merged[shaping] = { ...(merged[shaping] || { weight: 0 }), weight: resolvedWeight };
         }
+        const hasDataAlready = Array.isArray(merged.data) && (merged.data[0] || merged.data[1] || merged.data[2]);
+        if (!hasDataAlready && promptMap) {
+          const looked = lookupDataForValue(bareValue, promptMap);
+          if (looked[0] || looked[1] || looked[2]) merged.data = looked;
+        }
         return merged;
       }
 
@@ -473,7 +492,7 @@ class PromptGeneratorApp {
         id: Date.now() + Math.random() + index,
         sort: index,
         Value: bareValue,
-        data: ["", "", ""],
+        data: lookupDataForValue(bareValue, promptMap),
         SD: { weight: 0 },
         NAI: { weight: 0 },
         NAIv45: { weight: 1 },
@@ -514,7 +533,15 @@ class PromptGeneratorApp {
       }
 
       const shaping = AppState.userSettings?.optionData?.shaping || "SD";
-      slot.elements = newPrompts.map((p, i) => buildElementFromPrompt(p, i, existingMap, shaping));
+
+      let promptMap = null;
+      try {
+        if (window.ElementSync && typeof window.ElementSync.buildPromptMap === "function") {
+          promptMap = window.ElementSync.buildPromptMap(this.buildAllDictionaryEntries());
+        }
+      } catch (e) {}
+
+      slot.elements = newPrompts.map((p, i) => buildElementFromPrompt(p, i, existingMap, shaping, promptMap));
 
       const regenerated = regeneratePromptFromElements(slot.elements, shaping);
       if (regenerated !== null && regenerated !== text) {
@@ -1158,6 +1185,108 @@ class PromptGeneratorApp {
         }
       }
     } catch (error) {}
+  }
+
+  buildAllDictionaryEntries() {
+    const allPrompts = [];
+    try {
+      if (Array.isArray(AppState.data.localPromptList)) {
+        allPrompts.push(...AppState.data.localPromptList);
+      }
+      if (typeof getMasterPrompts === "function") {
+        const master = getMasterPrompts();
+        if (Array.isArray(master)) allPrompts.push(...master);
+      }
+      const favoriteDicts = AppState.data.promptDictionaries || {};
+      Object.values(favoriteDicts).forEach((dict) => {
+        if (!dict?.prompts) return;
+        dict.prompts.forEach((item) => {
+          if (!item?.prompt) return;
+          allPrompts.push({
+            prompt: item.prompt,
+            data: [dict.name || "お気に入り", item.title || "", ""],
+          });
+        });
+      });
+    } catch (error) {
+      ErrorHandler.log("buildAllDictionaryEntries failed", error);
+    }
+    return allPrompts;
+  }
+
+  autoRepairSlotElements() {
+    try {
+      if (!window.ElementSync || typeof window.ElementSync.autoRepairElements !== "function") return;
+      if (!window.promptSlotManager?.slots?.length) return;
+
+      const allPrompts = this.buildAllDictionaryEntries();
+
+      let totalRepaired = 0;
+      window.promptSlotManager.slots.forEach((slot) => {
+        if (!slot || !Array.isArray(slot.elements) || slot.elements.length === 0) return;
+        if (slot.mode && slot.mode !== "normal") return;
+
+        const { repaired, hasChanges } = window.ElementSync.autoRepairElements(slot.elements, allPrompts);
+        if (hasChanges) {
+          const before = slot.elements.filter((el) => el && !el.Value && el.data?.some((d) => d)).length;
+          const after = repaired.filter((el) => el && !el.Value && el.data?.some((d) => d)).length;
+          totalRepaired += Math.max(0, before - after);
+          slot.elements = repaired;
+        }
+      });
+
+      if (totalRepaired > 0) {
+        console.log(`[AutoRepair] ${totalRepaired} orphan element(s) restored from dictionary`);
+        promptSlotManager.saveToStorage().catch(() => {});
+      }
+    } catch (error) {
+      ErrorHandler.log("autoRepairSlotElements failed", error);
+    }
+  }
+
+  migrationDryRun() {
+    try {
+      if (!window.PromptMigration || typeof window.PromptMigration.detectSchemaVersion !== "function") return;
+      if (!window.slotGroupManager?.groups || typeof window.slotGroupManager.groups.values !== "function") return;
+
+      const groups = Array.from(window.slotGroupManager.groups.values());
+      if (groups.length === 0) return;
+
+      const lines = [];
+      let v1Count = 0;
+      let v2Count = 0;
+
+      groups.forEach((group) => {
+        const name = group?.name || group?.id || "(unnamed)";
+        try {
+          const version = window.PromptMigration.detectSchemaVersion(group);
+          if (version === 2) {
+            v2Count += 1;
+            const elementCount = Array.isArray(group.elements) ? group.elements.length : 0;
+            const validation = window.PromptMigration.validateMigratedData([group]);
+            const status = validation.valid ? "✓ valid" : `⚠ invalid (${validation.errors.length} error(s))`;
+            lines.push(`  - "${name}" (v2): already migrated, ${elementCount} elements ${status}`);
+            if (!validation.valid) validation.errors.forEach((e) => lines.push(`      - ${e}`));
+          } else {
+            v1Count += 1;
+            const slotCount = Array.isArray(group.slots) ? group.slots.length : 0;
+            const migrated = window.PromptMigration.migrateSlotGroup(group);
+            const validation = window.PromptMigration.validateMigratedData([migrated]);
+            const status = validation.valid ? "✓ valid" : `⚠ validation failed`;
+            lines.push(`  - "${name}" (v1): ${slotCount} slots → ${migrated.elements.length} elements ${status}`);
+            if (!validation.valid) validation.errors.forEach((e) => lines.push(`      - ${e}`));
+          }
+        } catch (innerError) {
+          lines.push(`  - "${name}": dry-run error: ${innerError?.message || innerError}`);
+        }
+      });
+
+      console.log(
+        `[Migration Dry-Run] Detected ${groups.length} groups (v1: ${v1Count}, v2: ${v2Count})\n${lines.join("\n")}`
+      );
+    } catch (error) {
+      ErrorHandler.log("migrationDryRun failed", error);
+    }
   }
 
   setupCloseHandlers() {
