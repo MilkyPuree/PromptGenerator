@@ -74,7 +74,6 @@
           sort: element.sort !== undefined ? element.sort : index,
           SD: element.SD,
           NAI: element.NAI,
-          NAIv45: element.NAIv45,
           None: element.None,
           Value: element.Value,
           Weight: element.Weight,
@@ -156,9 +155,7 @@
         key: (item) => {
           const shaping = AppState.userSettings.optionData.shaping;
           const weight = item[shaping]?.weight;
-          if (weight !== undefined && weight !== null) return weight;
-          // NAIv45 は重みなし状態が 1.0（1.0::text::は省略される）
-          return shaping === "NAIv45" ? 1 : 0;
+          return weight !== undefined && weight !== null ? weight : 0;
         },
         label: "重み",
       };
@@ -692,7 +689,6 @@
           data: ["", "", ""],
           SD: { weight: 0 },
           NAI: { weight: 0 },
-          NAIv45: { weight: 1 },
           None: { weight: 0 },
         };
 

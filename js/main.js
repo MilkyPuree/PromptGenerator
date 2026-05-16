@@ -437,112 +437,74 @@ class PromptGeneratorApp {
   }
 
   setupPromptInputHandlers() {
+    // 変更前の値を保持
     let previousPromptValue = "";
-
-    const resolveWeightForShaping = (weight, format, shaping) => {
-      if (weight === null || shaping === "None" || typeof WeightConverter === "undefined") return null;
-      return format === shaping ? weight : WeightConverter.convertWeight(weight, format, shaping);
-    };
-
-    const buildElementFromPrompt = (rawPrompt, index, existingMap, shaping) => {
-      let bareValue = rawPrompt;
-      let extractedWeight = null;
-      let extractedFormat = null;
-
-      if (typeof WeightConverter !== "undefined") {
-        const info = WeightConverter.parseFirstWeight(rawPrompt);
-        if (info) {
-          bareValue = info.bareText;
-          extractedWeight = info.weight;
-          extractedFormat = info.format;
-        }
-      }
-
-      const resolvedWeight = resolveWeightForShaping(extractedWeight, extractedFormat, shaping);
-      const existing = existingMap.get(bareValue.toLowerCase().trim());
-
-      if (existing) {
-        const merged = { ...existing, Value: bareValue, sort: index };
-        if (resolvedWeight !== null) {
-          merged[shaping] = { ...(merged[shaping] || { weight: 0 }), weight: resolvedWeight };
-        }
-        return merged;
-      }
-
-      const newEl = {
-        id: Date.now() + Math.random() + index,
-        sort: index,
-        Value: bareValue,
-        data: ["", "", ""],
-        SD: { weight: 0 },
-        NAI: { weight: 0 },
-        NAIv45: { weight: 1 },
-        None: { weight: 0 },
-      };
-      if (resolvedWeight !== null) {
-        newEl[shaping] = { weight: resolvedWeight };
-      }
-      return newEl;
-    };
-
-    const regeneratePromptFromElements = (elements, shaping) => {
-      if (typeof WeightConverter === "undefined") return null;
-      return elements
-        .slice()
-        .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-        .map((el) => {
-          const w = el[shaping]?.weight;
-          if (w !== undefined && w !== null) {
-            return WeightConverter.applyWeightToPrompt(shaping, el.Value, w);
-          }
-          return el.Value;
-        })
-        .filter((v) => v)
-        .join(",");
-    };
-
-    const rebuildSlotFromPromptText = (slot, text) => {
-      slot.prompt = text;
-
-      const newPrompts = text.split(",").map((p) => p.trim()).filter((p) => p);
-
-      const existingMap = new Map();
-      if (slot.elements) {
-        slot.elements.forEach((el) => {
-          if (el && el.Value) existingMap.set(el.Value.toLowerCase().trim(), el);
-        });
-      }
-
-      const shaping = AppState.userSettings?.optionData?.shaping || "SD";
-      slot.elements = newPrompts.map((p, i) => buildElementFromPrompt(p, i, existingMap, shaping));
-
-      const regenerated = regeneratePromptFromElements(slot.elements, shaping);
-      if (regenerated !== null && regenerated !== text) {
-        slot.prompt = regenerated;
-      }
-
-      slot.lastModified = Date.now();
-      return slot.prompt;
-    };
 
     const handlePromptSave = async () => {
       const generatePromptEl = document.getElementById(DOM_IDS.PROMPT.GENERATE);
-      const rawValue = generatePromptEl ? generatePromptEl.value : "";
+      const value = generatePromptEl ? generatePromptEl.value : "";
 
-      if (rawValue === previousPromptValue) return;
-
-      let finalValue = rawValue;
+      if (value === previousPromptValue) {
+        return;
+      }
 
       if (window.promptSlotManager) {
         const currentSlot = SlotUtils.getCurrentSlot();
         if (currentSlot) {
-          if (currentSlot.mode === "random" || currentSlot.mode === "sequential") return;
-
-          finalValue = rebuildSlotFromPromptText(currentSlot, rawValue);
-          if (generatePromptEl && generatePromptEl.value !== finalValue) {
-            generatePromptEl.value = finalValue;
+          // 抽出モードの場合は編集不可
+          if (currentSlot.mode === "random" || currentSlot.mode === "sequential") {
+            return;
           }
-          previousPromptValue = finalValue;
+
+          currentSlot.prompt = value;
+
+          // カンマで分割してelementsを再構築
+          const newPrompts = value
+            .split(",")
+            .map((p) => p.trim())
+            .filter((p) => p);
+
+          // 既存のelementsからプロンプト→要素のマップを作成
+          const existingElementsMap = new Map();
+          if (currentSlot.elements) {
+            currentSlot.elements.forEach((el) => {
+              if (el && el.Value) {
+                existingElementsMap.set(el.Value.toLowerCase().trim(), el);
+              }
+            });
+          }
+
+          // 新しいelements配列を構築
+          const newElements = newPrompts.map((prompt, index) => {
+            const normalizedPrompt = prompt.toLowerCase().trim();
+            const existingElement = existingElementsMap.get(normalizedPrompt);
+
+            if (existingElement) {
+              // 既存の要素があれば情報を維持
+              return {
+                ...existingElement,
+                Value: prompt,
+                sort: index,
+              };
+            } else {
+              // 新規要素を作成
+              return {
+                id: Date.now() + Math.random() + index,
+                sort: index,
+                Value: prompt,
+                data: ["", "", ""],
+                SD: { weight: 0 },
+                NAI: { weight: 0 },
+                None: { weight: 0 },
+              };
+            }
+          });
+
+          currentSlot.elements = newElements;
+          currentSlot.lastModified = Date.now();
+
+          // 前の値を更新
+          previousPromptValue = value;
         }
       }
 
@@ -556,11 +518,15 @@ class PromptGeneratorApp {
 
       try {
         await ListRefreshManager.executeAction(ListRefreshManager.ACTIONS.PROMPT_CHANGE, {
-          context: { newPrompt: finalValue, source: "manual_input" },
-          delay: 0,
+          context: {
+            newPrompt: value,
+            source: "manual_input",
+          },
+          delay: 0, // 即座実行
         });
       } catch (error) {}
 
+      // 編集タブがアクティブなら更新
       if (this.tabs && this.tabs.edit && this.tabs.edit.isActive) {
         await this.tabs.edit.refreshEditList();
       }
@@ -568,27 +534,16 @@ class PromptGeneratorApp {
 
     const promptInput = document.getElementById(DOM_IDS.PROMPT.GENERATE);
     if (promptInput) {
+      // 初期値を保持
       previousPromptValue = promptInput.value || "";
 
       promptInput.addEventListener(DOM_EVENTS.KEY_DOWN, (e) => {
-        if (e.key === "Enter") handlePromptSave();
+        if (e.key === "Enter") {
+          handlePromptSave();
+        }
       });
 
       promptInput.addEventListener(DOM_EVENTS.BLUR, handlePromptSave);
-
-      // 異なる shaping の記法を含むペーストを即時に現 shaping 表記へ正規化
-      promptInput.addEventListener("paste", () => {
-        setTimeout(() => {
-          if (typeof WeightConverter === "undefined") return;
-          const value = promptInput.value || "";
-          if (!value) return;
-          const targetShaping = AppState.userSettings?.optionData?.shaping || "SD";
-          const normalized = WeightConverter.normalizePromptToShaping(value, targetShaping);
-          if (normalized !== value) {
-            promptInput.value = normalized;
-          }
-        }, 0);
-      });
     }
   }
   setupPromptSlotHandlers() {

@@ -1,6 +1,6 @@
 const AppState = {
   config: {
-    toolVersion: 14,
+    toolVersion: 13,
     debugMode: false, // デバッグモード：trueの場合のみデバッグログを出力
   },
 
